@@ -41,6 +41,7 @@
               );
               this.loaded = true;
             }
+            this._loadDistance();
           });
         },
         _loadPeaks: function (longitude, latitude) {
@@ -60,22 +61,29 @@
           });
           this.el.appendChild(entity);
         },
+        _loadDistance: function () {
+          let distanceMsg = document
+            .querySelector("[gps-entity-place]")
+            .getAttribute("distanceMsg");
+          if (distanceMsg) {
+            alert(distanceMsg);
+          }
+        },
       });
       AFRAME.registerComponent("boxentity", {
         init: function () {
           alert("box component initialising!");
           window.addEventListener("gps-entity-place-added", (e) => {
             alert("gps-entity-place-added");
-            this._loadPosition(e.detail);
+            this._loadBox(e.detail);
           });
           window.addEventListener("gps-entity-place-loaded", (e) => {
-            alert("gps-entity-place-loaded", e.detail.component.attributes);
+            alert("gps-entity-place-loaded");
+            console.log(e.detail.component);
           });
           window.addEventListener("gps-entity-place-update-position", (e) => {
-            alert(
-              "gps-entity-place-update-position",
-              e.detail.component.detail,
-            );
+            alert("gps-entity-place-update-position");
+            console.log(e.detail.distance);
           });
         },
         _loadBox: function (detail) {
