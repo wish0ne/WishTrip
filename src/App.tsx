@@ -1,7 +1,8 @@
 import "./App.css";
+import Ar from "./Ar";
 
 function App() {
-  return <div></div>;
+  return <Ar />;
 }
 
 export default App;
