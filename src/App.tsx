@@ -1,4 +1,6 @@
 import "./App.css";
+import Register from "./pages/Register";
+import Login from "./pages/Login";
 import Ar from "./Ar";
 
 function App() {
@@ -6,14 +8,17 @@ function App() {
     <>
       <div>React Project</div>
       <button
-        id="arButton"
         onClick={() => {
           console.log("click");
         }}
       >
-        start ar
+        Start AR
       </button>
-      <Ar />
+      <hr />
+      <Register />
+      <hr />
+      <Login />
+      {/* <Ar /> */}
     </>
   );
 }
