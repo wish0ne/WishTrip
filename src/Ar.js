@@ -11,8 +11,56 @@ function Ar() {
   );
 
   const [loading, setLoading] = useState(false);
+  // const location = useGeolocation();
+  // const [coords, setCoords] = useState([]);
+
+  // useEffect(() => {
+  //   console.log(location);
+  //   const newCoords = [];
+  //   for (let i = 0; i < 4; i++) {
+  //     newCoords.push([
+  //       location.coordinates.lat + 0.0004 * i,
+  //       location.coordinates.lng + 0.0004 * i,
+  //     ]);
+  //   }
+  //   setCoords(newCoords);
+  //   console.dir(newCoords);
+  // }, [location]);
 
   const initialising = () => {
+    AFRAME.registerComponent("boxsentity", {
+      init: function () {
+        this.loaded = false;
+        window.addEventListener("gps-camera-update-position", (e) => {
+          if (this.loaded === false) {
+            this._loadBoxs(
+              e.detail.position.longitude,
+              e.detail.position.latitude,
+            );
+            this.loaded = true;
+          }
+        });
+      },
+      _loadBoxs: function (longitude, latitude) {
+        alert("load boxs");
+        const scale = 10;
+        for (let i = 1; i < 5; i++) {
+          const entity = document.createElement("a-box");
+          entity.setAttribute("scale", {
+            x: scale,
+            y: scale,
+            z: scale,
+          });
+          entity.setAttribute("gps-entity-place", {
+            latitude: latitude + 0.0004 * i,
+            longitude: longitude + 0.0004 * i,
+          });
+
+          entity.setAttribute("material", "color:orange");
+          this.el.appendChild(entity);
+        }
+      },
+    });
     AFRAME.registerComponent("textentity", {
       init: function () {
         alert("Peakfinder component initialising!");
@@ -57,18 +105,18 @@ function Ar() {
     AFRAME.registerComponent("boxentity", {
       init: function () {
         alert("box component initialising!");
-        window.addEventListener("gps-entity-place-added", (e) => {
-          alert("gps-entity-place-added");
-          this._loadBox(e.detail);
-        });
-        window.addEventListener("gps-entity-place-loaded", (e) => {
-          alert("gps-entity-place-loaded");
-          console.log(e.detail.component);
-        });
-        window.addEventListener("gps-entity-place-update-position", (e) => {
-          alert("gps-entity-place-update-position");
-          console.log(e.detail.distance);
-        });
+        // window.addEventListener("gps-entity-place-added", (e) => {
+        //   alert("gps-entity-place-added");
+        //   this._loadBox(e.detail);
+        // });
+        // window.addEventListener("gps-entity-place-loaded", (e) => {
+        //   alert("gps-entity-place-loaded");
+        //   console.log(e.detail.component);
+        // });
+        // window.addEventListener("gps-entity-place-update-position", (e) => {
+        //   alert("gps-entity-place-update-position");
+        //   console.log(e.detail.distance);
+        // });
       },
       _loadBox: function (detail) {
         alert(detail.component.getAttribute("[gps-entity-place]"));
@@ -106,6 +154,7 @@ function Ar() {
             boxentity
           ></a-box>
           <a-entity textentity></a-entity>
+          <a-entity boxsentity></a-entity>
         </a-scene>
       )}
     </>
