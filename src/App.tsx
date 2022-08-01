@@ -1,19 +1,15 @@
+import { Routes, Route } from "react-router-dom";
 import "./App.css";
-import Ar from "./Ar";
+import Home from "./pages/Home";
+import Ar from "./pages/Ar";
 
 function App() {
   return (
     <>
-      <div>React Project</div>
-      <button
-        id="arButton"
-        onClick={() => {
-          console.log("click");
-        }}
-      >
-        start ar
-      </button>
-      <Ar />
+      <Routes>
+        <Route path="/WishTrip" element={<Home />} />
+        <Route path="/WishTrip/AR" element={<Ar />} />
+      </Routes>
     </>
   );
 }
