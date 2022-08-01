@@ -34,7 +34,7 @@ function Start() {
   };
   return (
     <StyledStart>
-      <h1>내 친구에게 여행 추천받기</h1>
+      <h1>위시트립</h1>
       <button onClick={() => handleClick("register")}>이메일로 가입하기</button>
       <button onClick={() => handleClick("login")}>이메일로 시작하기</button>
     </StyledStart>
