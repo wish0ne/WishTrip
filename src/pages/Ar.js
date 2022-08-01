@@ -1,6 +1,6 @@
 import * as AFRAME from "aframe";
 import React, { useEffect, useState } from "react";
-import useScript from "./useScript";
+import useScript from "../modules/useScript.ts";
 
 function Ar() {
   const arjsStatus = useScript(
@@ -147,6 +147,12 @@ function Ar() {
           renderer="antialias: true; alpha: true"
         >
           <a-camera gps-camera="" rotation-reader=""></a-camera>
+          <a-box
+            position="0 0.5 -3"
+            rotation="0 45 0"
+            color="#4CC3D9"
+            id="close"
+          ></a-box>
           <a-box
             gps-entity-place="latitude: 37.243225; longitude: 127.077449"
             material="color: turquoise"

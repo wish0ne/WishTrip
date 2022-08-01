@@ -1,24 +1,15 @@
+import { Routes, Route } from "react-router-dom";
 import "./App.css";
-import Register from "./pages/Register";
-import Login from "./pages/Login";
-import Ar from "./Ar";
+import Home from "./pages/Home";
+import Ar from "./pages/Ar";
 
 function App() {
   return (
     <>
-      <div>React Project</div>
-      <button
-        onClick={() => {
-          console.log("click");
-        }}
-      >
-        Start AR
-      </button>
-      <hr />
-      <Register />
-      <hr />
-      <Login />
-      {/* <Ar /> */}
+      <Routes>
+        <Route path="/WishTrip" element={<Home />} />
+        <Route path="/WishTrip/AR" element={<Ar />} />
+      </Routes>
     </>
   );
 }
