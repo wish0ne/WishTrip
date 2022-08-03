@@ -23,6 +23,7 @@ instance.interceptors.response.use(
   (response) => {
     //응답 성공 직전 호출
     //.then()으로 이어짐
+    console.log(response);
     return response.data;
   },
   (error) => {

@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 
 // Hook
-function useScript(src: string, type: string | null) {
+function useScript(src: string) {
   // Keep track of script status ("idle", "loading", "ready", "error")
   const [status, setStatus] = useState(src ? "loading" : "idle");
   useEffect(
@@ -20,7 +20,6 @@ function useScript(src: string, type: string | null) {
         script = document.createElement("script");
         script.src = src;
         script.async = true;
-        if (type) script.type = "text/javascript";
         script.setAttribute("data-status", "loading");
         // Add script to document body
         document.body.appendChild(script);
