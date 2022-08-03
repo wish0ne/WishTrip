@@ -1,16 +1,16 @@
 {
   "files": {
     "main.css": "/WishTrip/static/css/main.ca97ff60.css",
-    "main.js": "/WishTrip/static/js/main.450f610e.js",
+    "main.js": "/WishTrip/static/js/main.651e6ded.js",
     "static/js/787.7852e65b.chunk.js": "/WishTrip/static/js/787.7852e65b.chunk.js",
     "service-worker.js": "/WishTrip/service-worker.js",
     "index.html": "/WishTrip/index.html",
     "main.ca97ff60.css.map": "/WishTrip/static/css/main.ca97ff60.css.map",
-    "main.450f610e.js.map": "/WishTrip/static/js/main.450f610e.js.map",
+    "main.651e6ded.js.map": "/WishTrip/static/js/main.651e6ded.js.map",
     "787.7852e65b.chunk.js.map": "/WishTrip/static/js/787.7852e65b.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.ca97ff60.css",
-    "static/js/main.450f610e.js"
+    "static/js/main.651e6ded.js"
   ]
 }
