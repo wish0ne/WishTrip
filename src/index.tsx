@@ -11,11 +11,12 @@ const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement,
 );
 
-const queryClient = new QueryClient();
+const queryClient = new QueryClient(); //Create a client
 
 root.render(
   // <React.StrictMode>
   <BrowserRouter>
+    {/* Provide the client to app */}
     <QueryClientProvider client={queryClient}>
       <App />
     </QueryClientProvider>

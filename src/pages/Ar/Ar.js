@@ -87,7 +87,9 @@ function Ar() {
             arjs="sourceType: webcam; videoTexture: true; debugUIEnabled: false;"
             renderer="antialias: true; alpha: true"
           >
-            <a-camera gps-camera="" rotation-reader=""></a-camera>
+            <a-camera gps-camera="" rotation-reader="">
+              <a-cursor></a-cursor>
+            </a-camera>
             <a-box position="1 3 1" material="color:purple" testbox />
             {entities.map((entity) => {
               return (

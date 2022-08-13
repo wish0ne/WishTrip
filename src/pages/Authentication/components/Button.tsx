@@ -25,6 +25,7 @@ function Button(props: ButtonPropsType) {
   const { type, setType } = props;
   const navigate = useNavigate();
 
+  //Mutations
   const mutation = useMutation((url: string) => {
     if (url === "login")
       return instance.post(`/login`, { username: "test", password: "test" });
