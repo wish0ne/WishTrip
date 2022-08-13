@@ -134,6 +134,7 @@ function Ar() {
     }
     console.log(loading);
     console.groupEnd();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
