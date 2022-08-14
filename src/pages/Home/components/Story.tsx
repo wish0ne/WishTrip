@@ -1,6 +1,45 @@
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
+import { useState, useEffect } from "react";
 import img1 from "../../../assets/images/여행사진1.jpg";
 import img2 from "../../../assets/images/여행사진2.jpg";
+import img3 from "../../../assets/images/여행사진3.jpg";
+import img4 from "../../../assets/images/여행사진4.jpg";
+import useInterval from "../../../modules/useInterval";
+
+const stories = [
+  {
+    id: 1,
+    tag: "로맨틱한",
+    image: img1,
+    user: img2,
+    name: "부끄러운 프로도",
+    location: "제주 애월읍",
+  },
+  {
+    id: 2,
+    tag: "부드러운",
+    image: img2,
+    user: img3,
+    name: "부끄러운 라이언",
+    location: "서울 강남구",
+  },
+  {
+    id: 3,
+    tag: "시원한",
+    image: img3,
+    user: img4,
+    name: "눈물 흘리는 프로도",
+    location: "서울 강동구",
+  },
+  {
+    id: 4,
+    tag: "요즘핫한",
+    image: img4,
+    user: img2,
+    name: "떨고있는 어피치",
+    location: "서울 마포구",
+  },
+];
 
 const StyledStory = styled.div`
   height: 47.2rem;
@@ -41,36 +80,87 @@ const User = styled.img`
   border-radius: 4rem;
   margin-right: 1rem;
 `;
-const Name = styled.span`
-  font-family: "ExtraBold";
-  color: #ffffff;
-  font-size: 1.4rem;
-`;
-const Location = styled.span`
-  font-family: "Medium";
-  color: #ffffff;
-  font-size: 1.3rem;
-`;
 const Info = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+
+  & span {
+    font-family: "ExtraBold";
+    color: #ffffff;
+    font-size: 1.4rem;
+  }
+
+  & span + span {
+    font-family: "Medium";
+    color: #ffffff;
+    font-size: 1.3rem;
+  }
+`;
+const progress = keyframes`
+  from{
+    width:0;
+  }
+  to{
+    width:100%;
+  }
+`;
+
+const Pagination = styled.div`
+  position: absolute;
+  bottom: 1.2rem;
+  padding: 0 1.2rem;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: space-between;
+  & div {
+    height: 0.3rem;
+    background-color: rgba(255, 255, 255, 0.7);
+    width: 23%;
+    border-radius: 0.2rem;
+  }
+
+  & div div.current {
+    height: 100%;
+    width: 0;
+    background-color: rgba(255, 255, 255, 1);
+    animation: ${progress} 5s linear;
+  }
 `;
 
 function Story() {
+  const [index, setIndex] = useState<number>(0);
+
+  useInterval(() => setIndex((index) => (index === 3 ? 0 : index + 1)), 5000);
+
   return (
     <StyledStory>
-      <Image src={img2} />
+      <Image src={stories[index].image} />
       <Title>
-        <Tag>로맨틱한</Tag> 곳<br /> 어때요?
+        <Tag>{stories[index].tag}</Tag> 곳<br /> 어때요?
       </Title>
       <Bottom>
-        <User src={img1} />
+        <User src={stories[index].user} />
         <Info>
-          <Name>부끄러운 프로도</Name>
-          <Location>@제주 애월읍</Location>
+          <span>{stories[index].name}</span>
+          <span>{stories[index].location}</span>
         </Info>
       </Bottom>
+      <Pagination>
+        <div>
+          <div className={index === 0 ? "current" : ""} />
+        </div>
+        <div>
+          <div className={index === 1 ? "current" : ""} />
+        </div>
+        <div>
+          <div className={index === 2 ? "current" : ""} />
+        </div>
+        <div>
+          <div className={index === 3 ? "current" : ""} />
+        </div>
+      </Pagination>
     </StyledStory>
   );
 }

@@ -105,7 +105,7 @@ function Recommend() {
       </Title>
       <PostContainer>
         {posts.map((post) => (
-          <Post>
+          <Post key={post.id}>
             <img src={post.image} alt="추천 포스트 이미지" />
             <h3>{post.title}</h3>
             <Info>
