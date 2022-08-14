@@ -1,33 +1,20 @@
 import styled from "styled-components";
-import { Link } from "react-router-dom";
+import Header from "./components/Header";
+import Story from "./components/Story";
+import Menu from "./components/Menu";
+import Event from "./components/Event";
+import Recommend from "./components/Recommend";
 
-const StyledHome = styled.div`
-  display: flex;
-  padding: 2.4rem;
-  height: 100%;
-  width: 100%;
-  box-sizing: border-box;
-  justify-content: space-around;
-`;
-
-const StyledButton = styled(Link)`
-  height: 8rem;
-  background-color: rgb(14, 182, 254);
-  width: 8rem;
-  display: block;
-  color: white;
-  font-size: 3rem;
-  text-decoration: none;
-  text-align: center;
-  line-height: 7.5rem;
-  border-radius: 2rem;
-`;
+const StyledHome = styled.div``;
 
 function Home() {
   return (
     <StyledHome>
-      <StyledButton to="Home">POST</StyledButton>
-      <StyledButton to="/AR">AR</StyledButton>
+      <Header />
+      <Story />
+      <Menu />
+      <Event />
+      <Recommend />
     </StyledHome>
   );
 }
