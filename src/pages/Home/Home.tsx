@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import Header from "./components/Header";
+import Story from "./components/Story";
 
 const StyledHome = styled.div``;
 
@@ -21,7 +22,7 @@ function Home() {
   return (
     <StyledHome>
       <Header />
-      <StyledButton to="Home">POST</StyledButton>
+      <Story />
       <StyledButton to="/AR">AR</StyledButton>
     </StyledHome>
   );
