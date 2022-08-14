@@ -1,7 +1,6 @@
 import { Routes, Route } from "react-router-dom";
 import { RecoilRoot } from "recoil";
 import { ThemeProvider } from "styled-components";
-import "./App.css";
 import Authentication from "./pages/Authentication/Authentication";
 import Home from "./pages/Home/Home";
 import Ar from "./pages/Ar/Ar";

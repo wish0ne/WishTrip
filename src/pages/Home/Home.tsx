@@ -1,13 +1,10 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
+import Header from "./components/Header";
 
 const StyledHome = styled.div`
-  display: flex;
-  padding: 2.4rem;
-  height: 100%;
   width: 100%;
-  box-sizing: border-box;
-  justify-content: space-around;
+  height: 100%;
 `;
 
 const StyledButton = styled(Link)`
@@ -26,6 +23,7 @@ const StyledButton = styled(Link)`
 function Home() {
   return (
     <StyledHome>
+      <Header />
       <StyledButton to="Home">POST</StyledButton>
       <StyledButton to="/AR">AR</StyledButton>
     </StyledHome>
