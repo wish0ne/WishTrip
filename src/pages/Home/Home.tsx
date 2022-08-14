@@ -2,10 +2,7 @@ import styled from "styled-components";
 import { Link } from "react-router-dom";
 import Header from "./components/Header";
 
-const StyledHome = styled.div`
-  width: 100%;
-  height: 100%;
-`;
+const StyledHome = styled.div``;
 
 const StyledButton = styled(Link)`
   height: 8rem;
