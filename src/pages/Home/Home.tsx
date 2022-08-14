@@ -12,7 +12,7 @@ const StyledHome = styled.div`
 
 const StyledButton = styled(Link)`
   height: 8rem;
-  background-color: rgb(14, 182, 254);
+  background-color: ${(props) => props.theme.palette.red};
   width: 8rem;
   display: block;
   color: white;
