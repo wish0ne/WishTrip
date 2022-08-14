@@ -5,8 +5,8 @@ const titles = ["AR여행", "기록하기", "검색하기", "마이페이지"];
 
 const StyledMenu = styled.div`
   display: flex;
-  justify-content: space-around;
-  margin: 3.2rem 0;
+  justify-content: space-between;
+  margin: 3.2rem 3rem;
 `;
 
 const Button = styled(Link)`
