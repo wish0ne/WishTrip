@@ -60,12 +60,12 @@ const Info = styled.div`
 function Story() {
   return (
     <StyledStory>
-      <Image src={img1} />
+      <Image src={img2} />
       <Title>
         <Tag>로맨틱한</Tag> 곳<br /> 어때요?
       </Title>
       <Bottom>
-        <User src={img2} />
+        <User src={img1} />
         <Info>
           <Name>부끄러운 프로도</Name>
           <Location>@제주 애월읍</Location>
