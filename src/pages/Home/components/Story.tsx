@@ -145,7 +145,7 @@ function Story() {
         <User src={stories[index].user} />
         <Info>
           <span>{stories[index].name}</span>
-          <span>{stories[index].location}</span>
+          <span>@{stories[index].location}</span>
         </Info>
       </Bottom>
       <Pagination>

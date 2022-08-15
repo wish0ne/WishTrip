@@ -1,6 +1,13 @@
 import styled from "styled-components";
+import CreateHeader from "./components/CreateHeader";
+
+const StyledCreate = styled.div``;
 
 function ARCreate() {
-  return <div>작성 페이지</div>;
+  return (
+    <StyledCreate>
+      <CreateHeader />
+    </StyledCreate>
+  );
 }
 export default ARCreate;
