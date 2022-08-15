@@ -1,5 +1,5 @@
 import styled, { keyframes } from "styled-components";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import img1 from "../../../assets/images/여행사진1.jpg";
 import img2 from "../../../assets/images/여행사진2.jpg";
 import img3 from "../../../assets/images/여행사진3.jpg";
