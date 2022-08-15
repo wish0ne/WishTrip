@@ -1,7 +1,12 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 
-const titles = ["AR여행", "기록하기", "검색하기", "마이페이지"];
+const titles = [
+  { title: "AR여행", route: "ARTrip" },
+  { title: "기록하기", route: "ARTrip" },
+  { title: "검색하기", route: "ARTrip" },
+  { title: "마이페이지", route: "ARTrip" },
+];
 
 const StyledMenu = styled.div`
   display: flex;
@@ -35,13 +40,12 @@ function Menu() {
   return (
     <StyledMenu>
       {titles.map((title) => (
-        <Button to="/Authentication" key={title}>
+        <Button to={`/${title.route}`} key={title.title}>
           <img
-            key={title}
-            src={require(`../../../assets/images/${title}/${title}@2x.jpg`)}
-            alt={title}
+            src={require(`../../../assets/images/${title.title}/${title.title}@2x.jpg`)}
+            alt={title.title}
           />
-          <span>{title}</span>
+          <span>{title.title}</span>
         </Button>
       ))}
     </StyledMenu>

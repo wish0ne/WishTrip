@@ -99,7 +99,7 @@ const Info = styled.div`
 `;
 const progress = keyframes`
   from{
-    width:0;
+    width:0%;
   }
   to{
     width:100%;
@@ -114,7 +114,7 @@ const Pagination = styled.div`
   right: 0;
   display: flex;
   justify-content: space-between;
-  & div {
+  & > div {
     height: 0.3rem;
     background-color: rgba(255, 255, 255, 0.7);
     width: 23%;
@@ -125,6 +125,7 @@ const Pagination = styled.div`
     height: 100%;
     width: 0;
     background-color: rgba(255, 255, 255, 1);
+    border-radius: 0.2rem;
     animation: ${progress} 5s linear;
   }
 `;

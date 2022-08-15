@@ -39,6 +39,7 @@ const Title = styled.div`
 const PostContainer = styled.div`
   display: flex;
   overflow-x: auto;
+  overflow-y: hidden;
   -ms-overflow-style: none; /* IE and Edge */
   scrollbar-width: none; /* Firefox */
 
