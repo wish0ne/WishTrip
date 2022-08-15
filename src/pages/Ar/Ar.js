@@ -1,7 +1,10 @@
 import * as AFRAME from "aframe";
 import styled from "styled-components";
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import useScript from "../../modules/useScript.ts";
+import { ReactComponent as Back } from "../../assets/images/uil_arrow-left.svg";
+import { ReactComponent as Camera } from "../../assets/images/uil_camera-plus.svg";
 
 const entities = [
   { id: 1, latitude: 34.891004, longitude: 128.639782, color: "red" },
@@ -10,8 +13,21 @@ const entities = [
 ];
 
 const ARContainer = styled.div`
-  width: 100%;
   height: 100%;
+`;
+
+const BackButton = styled(Link)`
+  width: 3.2rem;
+  height: 3.2rem;
+  border-radius: 2.4rem;
+  background-color: rgba(255, 255, 255, 0.75);
+  position: fixed;
+  top: 6rem;
+  left: 1.6rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 2;
 `;
 
 const Center = styled.div`
@@ -28,6 +44,7 @@ const Center = styled.div`
   text-align: center;
   line-height: 10rem;
   font-size: 1.2rem;
+  z-index: 2;
 `;
 
 function Ar() {
@@ -60,7 +77,7 @@ function Ar() {
 
   useEffect(() => {
     if (!loading) {
-      initialising();
+      //initialising();
       setLoading(true);
     }
     // window.addEventListener("gps-camera-update-position", (e) => {
@@ -77,19 +94,17 @@ function Ar() {
 
   return (
     <>
-      <div>{arjsStatus}</div>
-      <div>{loading}</div>
+      {/* <div>{arjsStatus}</div>
+      <div>{loading}</div> */}
       {loading && arjsStatus === "ready" && lookatStatus === "ready" && (
         <ARContainer>
           <a-scene
             embedded
             vr-mode-ui="enabled: false"
-            arjs="sourceType: webcam; videoTexture: true; debugUIEnabled: false;"
-            renderer="antialias: true; alpha: true"
+            arjs="sourceType: webcam; debugUIEnabled: false; videoTexture:true; "
+            //renderer="antialias: true; alpha: true"
           >
-            <a-camera gps-camera="" rotation-reader="">
-              <a-cursor></a-cursor>
-            </a-camera>
+            <a-camera gps-camera="" rotation-reader=""></a-camera>
             <a-box position="1 3 1" material="color:purple" testbox />
             {entities.map((entity) => {
               return (
@@ -102,21 +117,10 @@ function Ar() {
                 ></a-box>
               );
             })}
-            <a-entity
-              position="0 0 0"
-              scale="0.05 0.05 0.05"
-              gltf-model="https://arjs-cors-proxy.herokuapp.com/https://raw.githack.com/AR-js-org/AR.js/master/aframe/examples/image-tracking/nft/trex/scene.gltf"
-            ></a-entity>
-            {/* <a-box material="color:turquoise" position="1 2 1" /> */}
-            {/* <a-box
-            gps-entity-place="latitude: 37.243225; longitude: 127.077449"
-            material="color: turquoise"
-            scale="10 10 10"
-            boxentity
-          ></a-box>
-          <a-entity textentity></a-entity>
-          <a-entity boxsentity></a-entity> */}
           </a-scene>
+          <BackButton to="/WishTrip">
+            <Back width="3.2rem" height="3.2rem" />
+          </BackButton>
           <Center onClick={() => alert("overlay click")}>overlay test</Center>
         </ARContainer>
       )}

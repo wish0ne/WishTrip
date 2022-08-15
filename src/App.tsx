@@ -31,7 +31,7 @@ function App() {
         <Routes>
           <Route path="WishTrip" element={<Home />} />
           <Route path="Authentication" element={<Authentication />} />
-          <Route path="AR" element={<Ar />} />
+          <Route path="ARTrip" element={<Ar />} />
         </Routes>
       </ThemeProvider>
     </RecoilRoot>
