@@ -30,21 +30,27 @@ const BackButton = styled(Link)`
   z-index: 2;
 `;
 
-const Center = styled.div`
-  height: 10rem;
-  background-color: white;
+const Add = styled(Link)`
+  height: 5.2rem;
+  background-color: rgba(255, 255, 255, 0.75);
   position: fixed;
-  bottom: 2%;
-  flex-direction: row;
-  width: 20rem;
-  border-radius: 1rem;
-  margin: 0px auto;
+  bottom: 5.8rem;
+  width: 15.4rem;
+  border-radius: 3.2rem;
   left: 0;
   right: 0;
-  text-align: center;
-  line-height: 10rem;
-  font-size: 1.2rem;
+  margin: 0 auto;
   z-index: 2;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-decoration: none;
+  & span {
+    font-family: "SemiBold";
+    font-size: 1.6rem;
+    color: ${(props) => props.theme.palette.primary3};
+    margin-left: 0.92rem;
+  }
 `;
 
 function Ar() {
@@ -94,15 +100,12 @@ function Ar() {
 
   return (
     <>
-      {/* <div>{arjsStatus}</div>
-      <div>{loading}</div> */}
       {loading && arjsStatus === "ready" && lookatStatus === "ready" && (
         <ARContainer>
           <a-scene
             embedded
             vr-mode-ui="enabled: false"
             arjs="sourceType: webcam; debugUIEnabled: false; videoTexture:true; "
-            //renderer="antialias: true; alpha: true"
           >
             <a-camera gps-camera="" rotation-reader=""></a-camera>
             <a-box position="1 3 1" material="color:purple" testbox />
@@ -121,7 +124,10 @@ function Ar() {
           <BackButton to="/WishTrip">
             <Back width="3.2rem" height="3.2rem" />
           </BackButton>
-          <Center onClick={() => alert("overlay click")}>overlay test</Center>
+          <Add to="Create">
+            <Camera />
+            <span>포스트 남기기</span>
+          </Add>
         </ARContainer>
       )}
     </>

@@ -4,6 +4,7 @@ import { ThemeProvider } from "styled-components";
 import Authentication from "./pages/Authentication/Authentication";
 import Home from "./pages/Home/Home";
 import Ar from "./pages/Ar/Ar";
+import ARCreate from "./pages/Ar/Create";
 
 const theme = {
   palette: {
@@ -32,6 +33,7 @@ function App() {
           <Route path="WishTrip" element={<Home />} />
           <Route path="Authentication" element={<Authentication />} />
           <Route path="ARTrip" element={<Ar />} />
+          <Route path="ARTrip/Create" element={<ARCreate />} />
         </Routes>
       </ThemeProvider>
     </RecoilRoot>
