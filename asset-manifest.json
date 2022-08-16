@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/WishTrip/static/css/main.2ebbf9f7.css",
-    "main.js": "/WishTrip/static/js/main.811669e5.js",
+    "main.js": "/WishTrip/static/js/main.f3901bcf.js",
     "static/js/787.7852e65b.chunk.js": "/WishTrip/static/js/787.7852e65b.chunk.js",
     "static/media/AppleSDGothicNeoB.ttf": "/WishTrip/static/media/AppleSDGothicNeoB.4175a777557557f7d294.ttf",
     "static/media/AppleSDGothicNeoM.ttf": "/WishTrip/static/media/AppleSDGothicNeoM.88c00162a2084f97069c.ttf",
@@ -12,17 +12,21 @@
     "static/media/여행사진3.jpg": "/WishTrip/static/media/여행사진3.37aca45701b6e3f6f583.jpg",
     "service-worker.js": "/WishTrip/service-worker.js",
     "static/media/Logo.svg": "/WishTrip/static/media/Logo.040f350de13c5e311d77ad0e538b9d5b.svg",
-    "static/media/uil_camera-plus.svg": "/WishTrip/static/media/uil_camera-plus.a38ae5d8e092677cf7fa3e046793b3ed.svg",
+    "static/media/uil_camera-plus.svg": "/WishTrip/static/media/uil_camera-plus.fd13d0e3c9748d7593874a67d89bbfcf.svg",
     "index.html": "/WishTrip/index.html",
     "static/media/uil_location-point.svg": "/WishTrip/static/media/uil_location-point.0c7b1e1314c2dd1b9a879580ae4edd93.svg",
+    "static/media/uil_message.svg": "/WishTrip/static/media/uil_message.10d106748b9c1adcb499a9c2ba9ad424.svg",
     "static/media/uil_bell.svg": "/WishTrip/static/media/uil_bell.23da6fa46d09090e4e1b1b6ae4e8bd09.svg",
-    "static/media/uil_arrow-left.svg": "/WishTrip/static/media/uil_arrow-left.79b950f63c38e50ab563123f42b2b21a.svg",
+    "static/media/uil_arrow-left.svg": "/WishTrip/static/media/uil_arrow-left.dc53e5f5177584d78476bd1d33745003.svg",
+    "static/media/uil_multiply.svg": "/WishTrip/static/media/uil_multiply.ffd345302fb51337b36b6c296429e665.svg",
+    "static/media/uil_bars.svg": "/WishTrip/static/media/uil_bars.a5e4ed023c47ca396d1a5dca6240f51e.svg",
+    "static/media/tabler_arrow-left.svg": "/WishTrip/static/media/tabler_arrow-left.5dd22104c350b9916f235edb089215d7.svg",
     "main.2ebbf9f7.css.map": "/WishTrip/static/css/main.2ebbf9f7.css.map",
-    "main.811669e5.js.map": "/WishTrip/static/js/main.811669e5.js.map",
+    "main.f3901bcf.js.map": "/WishTrip/static/js/main.f3901bcf.js.map",
     "787.7852e65b.chunk.js.map": "/WishTrip/static/js/787.7852e65b.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.2ebbf9f7.css",
-    "static/js/main.811669e5.js"
+    "static/js/main.f3901bcf.js"
   ]
 }
