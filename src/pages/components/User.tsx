@@ -1,16 +1,16 @@
 import styled from "styled-components";
 
-const StyledUser = styled.div`
+export const StyledUser = styled.div`
   display: flex;
 `;
 
-const Icon = styled.img`
+export const Icon = styled.img`
   width: 4rem;
   height: 4rem;
   border-radius: 4rem;
   margin-right: 1rem;
 `;
-const Info = styled.div`
+export const Info = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -28,7 +28,7 @@ const Info = styled.div`
   }
 `;
 
-interface UserPropsType {
+export interface UserPropsType {
   icon: string;
   name: string;
   location: string;
