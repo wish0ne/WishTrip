@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 import { ReactComponent as Arrow } from "../../../assets/images/tabler_arrow-left.svg";
 import { ReactComponent as Submit } from "../../../assets/images/uil_message.svg";
 
@@ -16,10 +17,14 @@ const StyledHeader = styled.div`
   }
 `;
 
+const BackBtn = styled(Link)``;
+
 function CreateHeader() {
   return (
     <StyledHeader>
-      <Arrow />
+      <BackBtn to="/ARTrip">
+        <Arrow />
+      </BackBtn>
       <h1>새 포스트</h1>
       <Submit />
     </StyledHeader>
