@@ -5,6 +5,7 @@ import img2 from "../../../assets/images/여행사진2.jpg";
 import img3 from "../../../assets/images/여행사진3.jpg";
 import img4 from "../../../assets/images/여행사진4.jpg";
 import useInterval from "../../../modules/useInterval";
+import User from "../../components/User";
 
 const stories = [
   {
@@ -74,29 +75,6 @@ const Bottom = styled.div`
   bottom: 2.9rem;
   display: flex;
 `;
-const User = styled.img`
-  width: 4rem;
-  height: 4rem;
-  border-radius: 4rem;
-  margin-right: 1rem;
-`;
-const Info = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-
-  & span {
-    font-family: "ExtraBold";
-    color: #ffffff;
-    font-size: 1.4rem;
-  }
-
-  & span + span {
-    font-family: "Medium";
-    color: #ffffff;
-    font-size: 1.3rem;
-  }
-`;
 const progress = keyframes`
   from{
     width:0%;
@@ -137,16 +115,16 @@ function Story() {
 
   return (
     <StyledStory>
-      <Image src={stories[index].image} />
+      <Image src={stories[index].image} alt="홈화면 상단 이미지" />
       <Title>
         <Tag>{stories[index].tag}</Tag> 곳<br /> 어때요?
       </Title>
       <Bottom>
-        <User src={stories[index].user} />
-        <Info>
-          <span>{stories[index].name}</span>
-          <span>@{stories[index].location}</span>
-        </Info>
+        <User
+          icon={stories[index].user}
+          name={stories[index].name}
+          location={stories[index].location}
+        />
       </Bottom>
       <Pagination>
         <div>

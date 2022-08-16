@@ -5,7 +5,7 @@ const titles = [
   { title: "AR여행", route: "ARTrip" },
   { title: "기록하기", route: "ARTrip" },
   { title: "검색하기", route: "ARTrip" },
-  { title: "마이페이지", route: "ARTrip" },
+  { title: "마이페이지", route: "Mypage" },
 ];
 
 const StyledMenu = styled.div`
