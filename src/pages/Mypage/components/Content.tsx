@@ -2,6 +2,7 @@ import styled from "styled-components";
 
 const StyledContent = styled.div`
   position: relative;
+  flex-grow: 1;
   img {
     width: 15.2rem;
     height: 15.2rem;
@@ -35,7 +36,7 @@ interface ContentPropsType {
 function Content({ image, title, user }: ContentPropsType) {
   return (
     <StyledContent>
-      <img src={image} />
+      <img src={image} alt="마이페이지 컨텐츠 미리보기" />
       <div>
         <span>{title}</span>
         <span>{user}</span>

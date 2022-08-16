@@ -65,6 +65,7 @@ const Post = styled.div`
     left: 1.6rem;
     position: absolute;
     font-size: 1.6rem;
+    margin: 0;
   }
 
   & + & {

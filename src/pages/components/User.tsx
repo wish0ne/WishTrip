@@ -37,7 +37,7 @@ export interface UserPropsType {
 function User({ icon, name, location }: UserPropsType) {
   return (
     <StyledUser>
-      <Icon src={icon} />
+      <Icon src={icon} alt="유저 아이콘" />
       <Info>
         <span>{name}</span>
         <span>@{location}</span>

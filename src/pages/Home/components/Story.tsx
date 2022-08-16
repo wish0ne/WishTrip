@@ -115,7 +115,7 @@ function Story() {
 
   return (
     <StyledStory>
-      <Image src={stories[index].image} />
+      <Image src={stories[index].image} alt="홈화면 상단 이미지" />
       <Title>
         <Tag>{stories[index].tag}</Tag> 곳<br /> 어때요?
       </Title>
