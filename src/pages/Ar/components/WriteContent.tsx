@@ -9,6 +9,9 @@ const StyledWriteContent = styled.div`
   & textarea {
     border: none;
     width: 100%;
+    height: 1.8rem;
+    box-sizing: border-box;
+    padding: 0;
     font-family: "Medium";
     font-size: 1.4rem;
     color: ${(props) => props.theme.palette.default2};
@@ -28,7 +31,7 @@ function WriteContent() {
 
   const handleResize = () => {
     if (textareaRef.current) {
-      textareaRef.current.style.height = "auto";
+      textareaRef.current.style.height = "1.8rem";
       let height = textareaRef.current.scrollHeight;
       textareaRef.current.style.height = `${height * 0.1}rem`;
     }

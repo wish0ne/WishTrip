@@ -4,14 +4,13 @@ import { ReactComponent as Delete } from "../../../assets/images/uil_multiply.sv
 
 const StyledWriteTag = styled.div`
   padding: 2rem 2.4rem;
-
   & input {
     border: none;
     font-family: "Medium";
     font-size: 1.4rem;
     width: 100%;
+    padding: 0;
     color: ${(props) => props.theme.palette.primary3};
-    margin-top: 2rem;
   }
   & input:focus {
     outline: none;
@@ -38,8 +37,10 @@ const Tag = styled.div`
       letter-spacing: -0.024rem;
     }
   }
+  & br {
+    height: 2rem;
+  }
 `;
-
 const DeleteBtn = styled.button`
   background: none;
   border: none;
@@ -82,6 +83,7 @@ function WriteTag() {
           </div>
         ))}
       </Tag>
+      {tags.length > 0 && <br />}
       <input
         type="text"
         placeholder="태그 추가..."
