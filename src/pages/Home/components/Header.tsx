@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 import { ReactComponent as Logo } from "../../../assets/images/Logo.svg";
 import { ReactComponent as Bell } from "../../../assets/images/uil_bell.svg";
 
@@ -11,7 +12,7 @@ const StyledHeader = styled.div`
   justify-content: space-between;
 `;
 
-const UserIcon = styled.div`
+const UserIcon = styled(Link)`
   width: 3.2rem;
   height: 3.2rem;
   border-radius: 50%;
@@ -30,7 +31,7 @@ function Header() {
       <Logo width="7.2rem" height="2rem" />
       <StyledDiv>
         <Bell />
-        <UserIcon />
+        <UserIcon to="/Authentication/Start" />
       </StyledDiv>
     </StyledHeader>
   );
