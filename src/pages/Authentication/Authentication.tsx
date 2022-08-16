@@ -1,20 +1,15 @@
 import styled from "styled-components";
-import { useLocation } from "react-router-dom";
 import { useState } from "react";
 import Header from "./components/Header";
 import Input from "./components/Input";
 import Button from "./components/Button";
 
 const StyledContainer = styled.div`
-  padding: 2.4rem;
-  height: 100%;
-  width: 100%;
-  box-sizing: border-box;
+  padding: 5.8rem 2.4rem;
 `;
 
 function Authentication() {
-  const { type } = useLocation().state as { type: string };
-  const [types, setTypes] = useState<string>(type);
+  const [types, setTypes] = useState<string>("register");
   return (
     <StyledContainer>
       <Header type={types} />
@@ -26,7 +21,7 @@ function Authentication() {
           <Input title="이름" type="text" />
         </>
       )}
-      {types === "login" && <Input title="이메일" type="email" />}
+      {types === "email" && <Input title="이메일" type="email" />}
       {types === "password" && <Input title="비밀번호" type="password" />}
       <Button type={types} setType={setTypes} />
     </StyledContainer>

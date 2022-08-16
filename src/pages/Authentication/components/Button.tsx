@@ -3,17 +3,33 @@ import { useMutation } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
 import instance from "../../../modules/api";
 
-const StyledButton = styled.button`
-  height: 5.6rem;
-  background-color: rgb(14 182 254);
+const StyledButton = styled.div`
   position: absolute;
-  border: none;
   left: 0;
   right: 0;
   bottom: 0;
+`;
+const LostBtn = styled.button`
+  font-family: "SemiBold";
+  font-size: 1.4rem;
+  color: ${(props) => props.theme.palette.primary3};
+  display: block;
+  width: 100%;
+  margin-bottom: 3.2rem;
+  background: none;
+  border: none;
+  padding: 0;
+`;
+const BottomButton = styled.button`
+  height: 5.6rem;
+  background-color: rgb(14 182 254);
+  border: none;
   color: white;
   font-size: 1.6rem;
   font-weight: bold;
+  display: block;
+  font-family: "ExtraBold";
+  width: 100%;
 `;
 
 interface ButtonPropsType {
@@ -21,8 +37,7 @@ interface ButtonPropsType {
   setType: React.Dispatch<React.SetStateAction<string>>;
 }
 
-function Button(props: ButtonPropsType) {
-  const { type, setType } = props;
+function Button({ type, setType }: ButtonPropsType) {
   const navigate = useNavigate();
 
   //Mutations
@@ -33,19 +48,28 @@ function Button(props: ButtonPropsType) {
   });
 
   const handleClick = () => {
-    if (type === "login") {
+    if (type === "email") {
       setType("password");
     } else if (type === "password") {
       mutation.mutate("login");
-      navigate("../Home");
+      navigate("../WishTrip");
     } else {
       mutation.mutate("register");
-      navigate("../Home");
+      navigate("../WishTrip");
     }
   };
 
   if (mutation.isLoading) return <div>Loading...</div>;
-  return <StyledButton onClick={handleClick}>다음</StyledButton>;
+  return (
+    <StyledButton>
+      {type === "password" && <LostBtn>비밀번호를 잊으셨나요?</LostBtn>}
+      <BottomButton onClick={handleClick}>
+        {type === "email" && "다음"}
+        {type === "password" && "로그인"}
+        {type === "register" && "가입하기"}
+      </BottomButton>
+    </StyledButton>
+  );
 }
 
 export default Button;
