@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/WishTrip/static/css/main.2ebbf9f7.css",
-    "main.js": "/WishTrip/static/js/main.84282f35.js",
+    "main.js": "/WishTrip/static/js/main.af16ffc6.js",
     "static/js/787.7852e65b.chunk.js": "/WishTrip/static/js/787.7852e65b.chunk.js",
     "static/media/AppleSDGothicNeoB.ttf": "/WishTrip/static/media/AppleSDGothicNeoB.4175a777557557f7d294.ttf",
     "static/media/AppleSDGothicNeoM.ttf": "/WishTrip/static/media/AppleSDGothicNeoM.88c00162a2084f97069c.ttf",
@@ -22,11 +22,11 @@
     "static/media/uil_bars.svg": "/WishTrip/static/media/uil_bars.3e9b31de89e9074dd1f34eae9dab2d60.svg",
     "static/media/tabler_arrow-left.svg": "/WishTrip/static/media/tabler_arrow-left.5dd22104c350b9916f235edb089215d7.svg",
     "main.2ebbf9f7.css.map": "/WishTrip/static/css/main.2ebbf9f7.css.map",
-    "main.84282f35.js.map": "/WishTrip/static/js/main.84282f35.js.map",
+    "main.af16ffc6.js.map": "/WishTrip/static/js/main.af16ffc6.js.map",
     "787.7852e65b.chunk.js.map": "/WishTrip/static/js/787.7852e65b.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.2ebbf9f7.css",
-    "static/js/main.84282f35.js"
+    "static/js/main.af16ffc6.js"
   ]
 }
