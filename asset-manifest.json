@@ -1,11 +1,12 @@
 {
   "files": {
     "main.css": "/WishTrip/static/css/main.2ebbf9f7.css",
-    "main.js": "/WishTrip/static/js/main.60b9424b.js",
+    "main.js": "/WishTrip/static/js/main.df0df310.js",
     "static/js/787.7852e65b.chunk.js": "/WishTrip/static/js/787.7852e65b.chunk.js",
     "static/media/AppleSDGothicNeoB.ttf": "/WishTrip/static/media/AppleSDGothicNeoB.4175a777557557f7d294.ttf",
     "static/media/AppleSDGothicNeoM.ttf": "/WishTrip/static/media/AppleSDGothicNeoM.88c00162a2084f97069c.ttf",
     "static/media/AppleSDGothicNeoEB.ttf": "/WishTrip/static/media/AppleSDGothicNeoEB.ea6bd07739f11db86707.ttf",
+    "static/media/AR포스트.png": "/WishTrip/static/media/AR포스트.f035e8a66056bfcec399.png",
     "static/media/여행사진4.jpg": "/WishTrip/static/media/여행사진4.c8771c977cd15470f10c.jpg",
     "static/media/여행사진1.jpg": "/WishTrip/static/media/여행사진1.655cc16d075a8bd69ba6.jpg",
     "static/media/여행사진2.jpg": "/WishTrip/static/media/여행사진2.93386aea62f26d94d0b6.jpg",
@@ -22,11 +23,11 @@
     "static/media/uil_bars.svg": "/WishTrip/static/media/uil_bars.3e9b31de89e9074dd1f34eae9dab2d60.svg",
     "static/media/tabler_arrow-left.svg": "/WishTrip/static/media/tabler_arrow-left.5dd22104c350b9916f235edb089215d7.svg",
     "main.2ebbf9f7.css.map": "/WishTrip/static/css/main.2ebbf9f7.css.map",
-    "main.60b9424b.js.map": "/WishTrip/static/js/main.60b9424b.js.map",
+    "main.df0df310.js.map": "/WishTrip/static/js/main.df0df310.js.map",
     "787.7852e65b.chunk.js.map": "/WishTrip/static/js/787.7852e65b.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.2ebbf9f7.css",
-    "static/js/main.60b9424b.js"
+    "static/js/main.df0df310.js"
   ]
 }
