@@ -19,8 +19,8 @@ const entities = [
   },
   {
     id: 2,
-    latitude: 34.891469,
-    longitude: 128.638849,
+    latitude: 37.250832,
+    longitude: 127.0975808,
     image: img2,
   },
   {
@@ -39,8 +39,9 @@ const entities = [
 
 const ARContainer = styled.div`
   height: 100%;
-  a-image {
-    border: solid 0.1rem white;
+  a-scene {
+    height: 100%;
+    width: 100%;
   }
 `;
 
@@ -107,7 +108,7 @@ function Ar() {
   };
 
   useEffect(() => {
-    alert("테스트 8");
+    alert("테스트 10");
     if (navigator.geolocation) {
       console.log("GPS 사용 가능");
       navigator.geolocation.getCurrentPosition(
@@ -125,7 +126,7 @@ function Ar() {
     }
 
     if (!loading) {
-      initialising();
+      // initialising();
       setLoading(true);
     }
 
@@ -133,8 +134,8 @@ function Ar() {
       let html = document.querySelector("html");
       let body = document.querySelector("body");
       let video = document.querySelector("video");
-      body.removeChild(video);
-      body.style = "";
+      if (video) body.removeChild(video);
+      // body.style = "";
       html.classList.remove("a-fullscreen");
     };
   }, []);
@@ -148,8 +149,8 @@ function Ar() {
             cursor="rayOrigin: mouse;"
             raycaster="objects: .raycastable"
             vr-mode-ui="enabled: false"
-            //embedded
-            arjs="sourceType: webcam; sourceWidth:1080; sourceHeight:764; displayWidth: 1080; displayHeight: 764; debugUIEnabled: false;"
+            // embedded
+            arjs="sourceType: webcam; sourceWidth:1080; sourceHeight:764; displayWidth: 1080; displayHeight: 764; debugUIEnabled: false; videoTexture:true;"
             //vr-mode-ui="enabled: false"
             //arjs="sourceType: webcam; debugUIEnabled: false;"
             //videoTexture:true;
@@ -196,12 +197,7 @@ function Ar() {
 
             {entities.map((entity) => (
               <a-image
-                //id="karigurashiButton"
-                // position={`${0 + 0.1 * idx} ${0 + 0.1 * idx} ${
-                //   0 + 0.1 * idx
-                // }`}
                 gps-entity-place={`latitude: ${entity.latitude}; longitude: ${entity.longitude}`}
-                //mixin="frame"
                 class="raycastable"
                 clickhandler={entity.id}
                 key={entity.id}

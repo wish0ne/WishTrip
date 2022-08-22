@@ -1,4 +1,5 @@
 import React from "react";
+import * as AFRAME from "aframe";
 import ReactDOM from "react-dom/client";
 import { BrowserRouter } from "react-router-dom";
 import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
@@ -12,6 +13,16 @@ const root = ReactDOM.createRoot(
 );
 
 const queryClient = new QueryClient(); //Create a client
+
+AFRAME.registerComponent("clickhandler", {
+  init: function () {
+    let data = this.data;
+    let el = this.el;
+    el.addEventListener("click", () => {
+      alert(data);
+    });
+  },
+});
 
 root.render(
   // <React.StrictMode>
