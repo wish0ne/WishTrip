@@ -6,36 +6,34 @@ import useScript from "../../modules/useScript.ts";
 import img1 from "../../assets/images/여행사진1.jpg";
 import img2 from "../../assets/images/여행사진2.jpg";
 import img3 from "../../assets/images/여행사진3.jpg";
+import post from "../../assets/images/AR포스트.png";
 import { ReactComponent as Back } from "../../assets/images/uil_arrow-left.svg";
 import { ReactComponent as Camera } from "../../assets/images/uil_camera-plus.svg";
 
 const entities = [
   {
     id: 1,
-    latitude: 34.891004,
-    longitude: 128.639782,
+    latitude: 37.240832,
+    longitude: 127.0775808,
     image: img1,
-    tags: ["부산", "해운대", "부산에서제일맛있는곳"],
-    emotions: [
-      { type: "heart", value: 4324 },
-      { type: "cry", value: 32 },
-    ],
   },
   {
     id: 2,
     latitude: 34.891469,
     longitude: 128.638849,
     image: img2,
-    tags: ["부산", "해운대"],
-    emotions: [{ type: "good", value: 4324 }],
   },
   {
     id: 3,
     latitude: 34.890422,
     longitude: 128.638861,
     image: img3,
-    tags: ["부산"],
-    emotions: [{ type: "cry", value: 32 }],
+  },
+  {
+    id: 4,
+    latitude: 34.892422,
+    longitude: 128.640861,
+    image: post,
   },
 ];
 
@@ -94,17 +92,22 @@ function Ar() {
   const [loading, setLoading] = useState(false);
 
   const initialising = () => {
-    AFRAME.registerComponent("image", {
+    AFRAME.registerComponent("clickhandler", {
       init: function () {
+        let data = this.data;
         let el = this.el;
         el.addEventListener("click", () => {
-          el.setAttribute("color", "red");
+          alert(data);
         });
+        // el.addEventListener("fusing", () => {
+        //   alert("fusing");
+        // });
       },
     });
   };
 
   useEffect(() => {
+    alert("테스트 8");
     if (navigator.geolocation) {
       console.log("GPS 사용 가능");
       navigator.geolocation.getCurrentPosition(
@@ -125,10 +128,6 @@ function Ar() {
       initialising();
       setLoading(true);
     }
-    // window.addEventListener("gps-camera-update-position", (e) => {
-    //   alert("camera position update");
-    //   console.log(e);
-    // });
 
     return () => {
       let html = document.querySelector("html");
@@ -146,21 +145,15 @@ function Ar() {
         <ARContainer>
           <a-scene
             debug
-            cursor="rayOrigin: mouse; fuse: true;"
+            cursor="rayOrigin: mouse;"
             raycaster="objects: .raycastable"
             vr-mode-ui="enabled: false"
             //embedded
             arjs="sourceType: webcam; sourceWidth:1080; sourceHeight:764; displayWidth: 1080; displayHeight: 764; debugUIEnabled: false;"
-            //embedded
             //vr-mode-ui="enabled: false"
             //arjs="sourceType: webcam; debugUIEnabled: false;"
-            //debug
             //videoTexture:true;
           >
-            <a-camera gps-camera="" rotation-reader=""></a-camera>
-            <a-box position="2 -4 2" color="#ffffff" image />
-            <a-image position="0 0 0" src={img1} scale="10 10 10" image />
-
             {/* {entities.map((entity) => {
               return (
                 <a-box
@@ -174,43 +167,22 @@ function Ar() {
             })} */}
             <a-assets>
               {entities.map((entity) => (
-                <img id={entity.id} src={entity.image} alt="ar post" />
+                <img
+                  id={entity.id}
+                  src={entity.image}
+                  alt="ar post"
+                  key={entity.id}
+                />
               ))}
-              <a-mixin
-                id="frame"
-                geometry="primitive: plane; width: 0.5; height: 0.5"
-                material="color: white; shader: flat"
-                animation__scale="property: scale; to: 1.2 1.2 1.2; dur: 200; startEvents: click"
-                animation__scale_reverse="property: scale; to: 1 1 1; dur: 200; startEvents: mouseleave"
-              ></a-mixin>
-              <a-mixin
-                id="poster"
-                geometry="primitive: plane; width: 0.47; height: 0.47"
-                material="color: white; shader: flat"
-                position="0 0 0.015"
-              ></a-mixin>
-              <a-mixin
-                id="movieImage"
-                geometry="primitive: plane; width: 1.5; height: 0.81"
-                material="src: #ponyo; shader: flat; transparent: true"
-                position="0 0.495 0.002"
-              ></a-mixin>
             </a-assets>
+            <a-camera gps-camera="" rotation-reader=""></a-camera>
+            {/* <a-box
+              gps-entity-place={`latitude: 34.8821077; longitude: 128.6418929`}
+              material={"color: blue"}
+              scale="10 10 10"
+            ></a-box> */}
 
-            <a-entity
-              position="0 1.6 0"
-              camera
-              look-controls="magicWindowTrackingEnabled: false; touchEnabled: false; mouseEnabled: false"
-            >
-              <a-entity
-                id="fadeBackground"
-                geometry="primitive: sphere; radius: 2.5"
-                material="color: black; side: back; shader: flat; transparent: true; opacity: 0.6"
-                visible="false"
-              ></a-entity>
-            </a-entity>
-
-            <a-entity
+            {/* <a-entity
               id="leftHand"
               laser-controls="hand: left"
               raycaster="objects: .raycastable"
@@ -220,53 +192,30 @@ function Ar() {
               laser-controls="hand: right"
               raycaster="objects: .raycastable"
               line="color: #118A7E"
-            ></a-entity>
-            <a-entity id="ui" position="0 1.6 -2.5">
-              <a-entity id="menu" highlight>
-                <a-entity
-                  id="karigurashiButton"
-                  position="-0.8 0 0"
-                  mixin="frame"
-                  class="raycastable menu-button"
-                >
-                  <a-entity material="src: #1;" mixin="poster"></a-entity>
-                </a-entity>
+            ></a-entity> */}
 
-                <a-entity
-                  id="kazetachinuButton"
-                  position="0 0 0"
-                  mixin="frame"
-                  class="raycastable menu-button"
-                >
-                  <a-entity material="src: #2" mixin="poster"></a-entity>
-                </a-entity>
-
-                <a-entity
-                  id="ponyoButton"
-                  position="0.8 0 0"
-                  mixin="frame"
-                  class="raycastable menu-button"
-                >
-                  <a-entity material="src: #3" mixin="poster">
-                    <a-entity
-                      id="infoPanel"
-                      position="0.15 0 0.2"
-                      scale="0.1 0.05 1"
-                      geometry="primitive: plane; width: 1.5; height: 1.8"
-                      material="color: #0086e7; shader: flat; transparent: false;"
-                      radius="0.01"
-                      class="raycastable"
-                    >
-                      <a-entity
-                        id="tag"
-                        position="-0.5 0 0"
-                        text="shader: msdf; anchor: left; width: 5; color: white; value: #summer"
-                      ></a-entity>
-                    </a-entity>
-                  </a-entity>
-                </a-entity>
-              </a-entity>
-            </a-entity>
+            {entities.map((entity) => (
+              <a-image
+                //id="karigurashiButton"
+                // position={`${0 + 0.1 * idx} ${0 + 0.1 * idx} ${
+                //   0 + 0.1 * idx
+                // }`}
+                gps-entity-place={`latitude: ${entity.latitude}; longitude: ${entity.longitude}`}
+                //mixin="frame"
+                class="raycastable"
+                clickhandler={entity.id}
+                key={entity.id}
+                src={`#${entity.id}`}
+                look-at="[gps-camera]"
+              ></a-image>
+            ))}
+            <a-image
+              position="-1 0.5 -3"
+              src="#4"
+              class="raycastable"
+              clickhandler={10}
+              look-at="[gps-camera]"
+            ></a-image>
           </a-scene>
           <BackButton to="/WishTrip">
             <Back width="3.2rem" height="3.2rem" />
