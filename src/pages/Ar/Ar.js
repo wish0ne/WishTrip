@@ -113,7 +113,6 @@ function Ar() {
       let body = document.querySelector("body");
       let video = document.querySelector("video");
       if (video) body.removeChild(video);
-      // body.style = "";
       html.classList.remove("a-fullscreen");
     };
   }, []);
@@ -122,15 +121,13 @@ function Ar() {
     <>
       {arjsStatus === "ready" && lookatStatus === "ready" && (
         <ARContainer>
-          {/* <a-scene
+          <a-scene
             debug
             cursor="rayOrigin: mouse;"
             raycaster="objects: .raycastable"
             vr-mode-ui="enabled: false"
             // embedded
-            arjs="sourceType: webcam; sourceWidth:1080; sourceHeight:764; displayWidth: 1080; displayHeight: 764; debugUIEnabled: false; "
-
-            //vr-mode-ui="enabled: false"
+            arjs="sourceType: webcam; sourceWidth:1080; sourceHeight:764; displayWidth: 1080; displayHeight: 764; debugUIEnabled: false; videoTexture:true;"
             //arjs="sourceType: webcam; debugUIEnabled: false;"
             //videoTexture:true;
           >
@@ -153,17 +150,17 @@ function Ar() {
                 key={entity.id}
                 src={`#${entity.id}`}
                 look-at="[gps-camera]"
-                scale="10 10 10"
+                scale="20 20 20"
               ></a-image>
             ))}
-            <a-image
+            {/* <a-image
               position="0 2 -3"
               src="#4"
               class="raycastable"
               clickhandler={10}
               look-at="[gps-camera]"
-            ></a-image>
-          </a-scene> */}
+            ></a-image> */}
+          </a-scene>
           <BackButton to="/WishTrip">
             <Back width="3.2rem" height="3.2rem" />
           </BackButton>

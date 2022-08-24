@@ -229,13 +229,13 @@ function Modal() {
     const modal = document.querySelector(".modal");
 
     //위로 슬라이드
-    if (distanceY > 50) {
+    if (distanceY > 200) {
       modal.classList.remove("half");
       modal.classList.add("full");
     }
 
     //아래로 슬라이드
-    else if (distanceY < -50) {
+    else if (distanceY < -200) {
       if (modal.classList.contains("half")) {
         modal.classList.remove("half");
       } else {
