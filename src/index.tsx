@@ -1,6 +1,7 @@
 import React from "react";
 import * as AFRAME from "aframe";
 import ReactDOM from "react-dom/client";
+import { RecoilRoot } from "recoil";
 import { BrowserRouter } from "react-router-dom";
 import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
 import "./index.css";
@@ -20,18 +21,22 @@ AFRAME.registerComponent("clickhandler", {
     let el = this.el;
     el.addEventListener("click", () => {
       alert(data);
+      const modal = document.querySelector(".modal");
+      modal.classList.add("half");
     });
   },
 });
 
 root.render(
   // <React.StrictMode>
-  <BrowserRouter>
-    {/* Provide the client to app */}
-    <QueryClientProvider client={queryClient}>
-      <App />
-    </QueryClientProvider>
-  </BrowserRouter>,
+  <RecoilRoot>
+    <BrowserRouter>
+      {/* Provide the client to app */}
+      <QueryClientProvider client={queryClient}>
+        <App />
+      </QueryClientProvider>
+    </BrowserRouter>
+  </RecoilRoot>,
   // </React.StrictMode>,
 );
 

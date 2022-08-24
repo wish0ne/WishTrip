@@ -1,4 +1,3 @@
-import * as AFRAME from "aframe";
 import styled from "styled-components";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
@@ -15,7 +14,7 @@ const entities = [
     id: 1,
     latitude: 37.240832,
     longitude: 127.0775808,
-    image: img1,
+    image: post,
   },
   {
     id: 2,
@@ -33,7 +32,46 @@ const entities = [
     id: 4,
     latitude: 34.892422,
     longitude: 128.640861,
-    image: post,
+    image: img1,
+  },
+];
+
+const posts = [
+  {
+    id: 1,
+    image: img1,
+    body: "아직 휴가 못 가신 분~~!\n진짜 휴가는 지금부터~! 신나는 페스티벌이 기다리고 있어요 🎷\n라인업만 봐도 심장이 두근대는데요..\n마지막 여름 휴가 계획 중이시던 분들,\n이번 기회에 전주 여행도 함께 묶어서 JUMF 즐기고 오는 건 어떠신지요!\n티켓 무료 증정 이벤트도 진행 중이라니까 참여해보세요!\n❗️이벤트는 이 게시글이 아닌 JUMF 계정 @2022_jumf 팔로워 이벤트 게시물에서 참여하셔야 정상 접수 됩니다! (해당 계정에 이벤트 참여 게시글 고정되어 있어요)",
+    emotions: [{ surprise: 312, heart: 12, funny: 1 }],
+    tags: ["부산", "치킨", "햄버거", "도미노피자"],
+    user_img: img3,
+    user_nickname: "부끄러운 프로도",
+    date: "2022.08.02",
+    comments: [
+      {
+        user_img: img1,
+        nickname: "신난 어피치",
+        date: "2022.08.02",
+        body: "여기 진짜 좋아요",
+      },
+    ],
+  },
+  {
+    id: 2,
+    image: img2,
+    body: "여기는 꼭 다시 와야지~",
+    emotions: [{ sad: 21, good: 12, funny: 1 }],
+    tags: ["부산", "치킨", "햄버거", "도미노피자"],
+    user_img: img1,
+    user_nickname: "부끄러운 라이언",
+    date: "2022.07.02",
+    comments: [
+      {
+        user_img: img1,
+        nickname: "신난 어피치",
+        date: "2022.07.22",
+        body: "저도 가보고 싶어요!",
+      },
+    ],
   },
 ];
 
@@ -82,6 +120,20 @@ const Add = styled(Link)`
   }
 `;
 
+const Modal = styled.div`
+  background-color: white;
+  height: 0;
+  position: fixed;
+  bottom: 0;
+  border-radius: 3.2rem 3.2rem 0 0;
+  left: 0;
+  right: 0;
+  z-index: 3;
+  &.half {
+    height: 50%;
+  }
+`;
+
 function Ar() {
   const arjsStatus = useScript(
     "https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar-nft.js",
@@ -90,25 +142,8 @@ function Ar() {
     "https://unpkg.com/aframe-look-at-component@0.8.0/dist/aframe-look-at-component.min.js",
   );
 
-  const [loading, setLoading] = useState(false);
-
-  const initialising = () => {
-    AFRAME.registerComponent("clickhandler", {
-      init: function () {
-        let data = this.data;
-        let el = this.el;
-        el.addEventListener("click", () => {
-          alert(data);
-        });
-        // el.addEventListener("fusing", () => {
-        //   alert("fusing");
-        // });
-      },
-    });
-  };
-
   useEffect(() => {
-    alert("테스트 10");
+    alert("테스트 14");
     if (navigator.geolocation) {
       console.log("GPS 사용 가능");
       navigator.geolocation.getCurrentPosition(
@@ -123,11 +158,6 @@ function Ar() {
       );
     } else {
       alert("GPS를 지원하지 않습니다.");
-    }
-
-    if (!loading) {
-      // initialising();
-      setLoading(true);
     }
 
     return () => {
@@ -150,22 +180,11 @@ function Ar() {
             raycaster="objects: .raycastable"
             vr-mode-ui="enabled: false"
             // embedded
-            arjs="sourceType: webcam; sourceWidth:1080; sourceHeight:764; displayWidth: 1080; displayHeight: 764; debugUIEnabled: false; videoTexture:true;"
+            arjs="sourceType: webcam; sourceWidth:1080; sourceHeight:764; displayWidth: 1080; displayHeight: 764; debugUIEnabled: false; "
             //vr-mode-ui="enabled: false"
             //arjs="sourceType: webcam; debugUIEnabled: false;"
             //videoTexture:true;
           >
-            {/* {entities.map((entity) => {
-              return (
-                <a-box
-                  gps-entity-place={`latitude: ${entity.latitude}; longitude: ${entity.longitude}`}
-                  material={"color: blue"}
-                  scale="10 10 10"
-                  key={entity.id}
-                  eventbox
-                ></a-box>
-              );
-            })} */}
             <a-assets>
               {entities.map((entity) => (
                 <img
@@ -177,36 +196,19 @@ function Ar() {
               ))}
             </a-assets>
             <a-camera gps-camera="" rotation-reader=""></a-camera>
-            {/* <a-box
-              gps-entity-place={`latitude: 34.8821077; longitude: 128.6418929`}
-              material={"color: blue"}
-              scale="10 10 10"
-            ></a-box> */}
-
-            {/* <a-entity
-              id="leftHand"
-              laser-controls="hand: left"
-              raycaster="objects: .raycastable"
-            ></a-entity>
-            <a-entity
-              id="rightHand"
-              laser-controls="hand: right"
-              raycaster="objects: .raycastable"
-              line="color: #118A7E"
-            ></a-entity> */}
-
             {entities.map((entity) => (
               <a-image
-                gps-entity-place={`latitude: ${entity.latitude}; longitude: ${entity.longitude}`}
+                gps-entity-place={`latitude: ${entity.latitude}; longitude: ${entity.longitude};`}
                 class="raycastable"
                 clickhandler={entity.id}
                 key={entity.id}
                 src={`#${entity.id}`}
                 look-at="[gps-camera]"
+                scale="10 10 10"
               ></a-image>
             ))}
             <a-image
-              position="-1 0.5 -3"
+              position="0 2 -3"
               src="#4"
               class="raycastable"
               clickhandler={10}
@@ -220,6 +222,9 @@ function Ar() {
             <Camera />
             <span>포스트 남기기</span>
           </Add>
+          <Modal className="modal">
+            <img src={posts[0].image} alt="AR 포스트 사진" />
+          </Modal>
         </ARContainer>
       )}
     </>
