@@ -7,7 +7,6 @@ import Home from "./pages/Home/Home";
 import Ar from "./pages/Ar/Ar";
 import ARCreate from "./pages/Ar/Create";
 import Mypage from "./pages/Mypage/Mypage";
-import { modalState } from "./recoil/arpost";
 
 const theme = {
   palette: {

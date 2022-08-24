@@ -8,6 +8,7 @@ import img3 from "../../assets/images/여행사진3.jpg";
 import post from "../../assets/images/AR포스트.png";
 import { ReactComponent as Back } from "../../assets/images/uil_arrow-left.svg";
 import { ReactComponent as Camera } from "../../assets/images/uil_camera-plus.svg";
+import { ReactComponent as Close } from "../../assets/images/uil_multiply.svg";
 
 const entities = [
   {
@@ -121,7 +122,7 @@ const Add = styled(Link)`
 `;
 
 const Modal = styled.div`
-  background-color: white;
+  background-color: purple;
   height: 0;
   position: fixed;
   bottom: 0;
@@ -131,6 +132,9 @@ const Modal = styled.div`
   z-index: 3;
   &.half {
     height: 50%;
+  }
+  &.full {
+    height: 100%;
   }
 `;
 
@@ -143,7 +147,7 @@ function Ar() {
   );
 
   useEffect(() => {
-    alert("테스트 14");
+    //alert("테스트 14");
     if (navigator.geolocation) {
       console.log("GPS 사용 가능");
       navigator.geolocation.getCurrentPosition(
@@ -170,17 +174,57 @@ function Ar() {
     };
   }, []);
 
+  const [touchPosition, setTouchPosition] = useState({ x: 0, y: 0 });
+
+  const handleTouchStart = (e) => {
+    setTouchPosition({
+      x: e.changedTouches[0].pageX,
+      y: e.changedTouches[0].pageY,
+    });
+  };
+
+  const handleTouchEnd = (e) => {
+    //const distanceX = e.changedTouches[0].pageX - touchPosition.x;
+    const distanceY = touchPosition.y - e.changedTouches[0].pageY;
+    console.log(distanceY);
+    const modal = document.querySelector(".modal");
+
+    //위로 슬라이드
+    if (distanceY > 50) {
+      modal.classList.remove("half");
+      modal.classList.add("full");
+    }
+
+    //아래로 슬라이드
+    else if (distanceY < 50) {
+      if (modal.classList.contains("half")) {
+        modal.classList.remove("half");
+      } else {
+        modal.classList.remove("full");
+        modal.classList.add("half");
+      }
+    }
+  };
+
+  const handleClose = () => {
+    console.log("close");
+    const modal = document.querySelector(".modal");
+    modal.classList.remove("half");
+    modal.classList.remove("full");
+  };
+
   return (
     <>
       {arjsStatus === "ready" && lookatStatus === "ready" && (
         <ARContainer>
-          <a-scene
+          {/* <a-scene
             debug
             cursor="rayOrigin: mouse;"
             raycaster="objects: .raycastable"
             vr-mode-ui="enabled: false"
             // embedded
             arjs="sourceType: webcam; sourceWidth:1080; sourceHeight:764; displayWidth: 1080; displayHeight: 764; debugUIEnabled: false; "
+
             //vr-mode-ui="enabled: false"
             //arjs="sourceType: webcam; debugUIEnabled: false;"
             //videoTexture:true;
@@ -214,7 +258,7 @@ function Ar() {
               clickhandler={10}
               look-at="[gps-camera]"
             ></a-image>
-          </a-scene>
+          </a-scene> */}
           <BackButton to="/WishTrip">
             <Back width="3.2rem" height="3.2rem" />
           </BackButton>
@@ -222,8 +266,13 @@ function Ar() {
             <Camera />
             <span>포스트 남기기</span>
           </Add>
-          <Modal className="modal">
-            <img src={posts[0].image} alt="AR 포스트 사진" />
+          <Modal
+            className="modal half"
+            onTouchStart={handleTouchStart}
+            onTouchEnd={handleTouchEnd}
+          >
+            <Close width="2.4rem" height="2.4rem" onClick={handleClose} />
+            {/* <img src={posts[0].image} alt="AR 포스트 사진" /> */}
           </Modal>
         </ARContainer>
       )}
