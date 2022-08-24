@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import useScript from "../../modules/useScript.ts";
@@ -130,11 +130,14 @@ const Modal = styled.div`
   left: 0;
   right: 0;
   z-index: 3;
+  transition: height 1s;
   &.half {
     height: 50%;
+    transition: height 1s;
   }
   &.full {
     height: 100%;
+    transition: height 1s;
   }
 `;
 
