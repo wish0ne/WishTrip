@@ -5,7 +5,6 @@ const StyledInput = styled.div`
   padding: 0.8rem 1.6rem;
   width: 100%;
   background-color: rgb(250 250 250);
-  height: 5.6rem;
   display: flex;
   flex-direction: column-reverse;
   box-sizing: border-box;

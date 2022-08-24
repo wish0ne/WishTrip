@@ -1,5 +1,5 @@
 import { Routes, Route } from "react-router-dom";
-import { RecoilRoot } from "recoil";
+import { useRecoilState } from "recoil";
 import { ThemeProvider } from "styled-components";
 import Authentication from "./pages/Authentication/Authentication";
 import Start from "./pages/Authentication/Start";
@@ -7,6 +7,7 @@ import Home from "./pages/Home/Home";
 import Ar from "./pages/Ar/Ar";
 import ARCreate from "./pages/Ar/Create";
 import Mypage from "./pages/Mypage/Mypage";
+import { modalState } from "./recoil/arpost";
 
 const theme = {
   palette: {
@@ -29,18 +30,16 @@ const theme = {
 
 function App() {
   return (
-    <RecoilRoot>
-      <ThemeProvider theme={theme}>
-        <Routes>
-          <Route path="WishTrip" element={<Home />} />
-          <Route path="Authentication" element={<Authentication />} />
-          <Route path="Authentication/Start" element={<Start />} />
-          <Route path="ARTrip" element={<Ar />} />
-          <Route path="ARTrip/Create" element={<ARCreate />} />
-          <Route path="Mypage" element={<Mypage />} />
-        </Routes>
-      </ThemeProvider>
-    </RecoilRoot>
+    <ThemeProvider theme={theme}>
+      <Routes>
+        <Route path="WishTrip" element={<Home />} />
+        <Route path="Authentication" element={<Authentication />} />
+        <Route path="Authentication/Start" element={<Start />} />
+        <Route path="ARTrip" element={<Ar />} />
+        <Route path="ARTrip/Create" element={<ARCreate />} />
+        <Route path="Mypage" element={<Mypage />} />
+      </Routes>
+    </ThemeProvider>
   );
 }
 

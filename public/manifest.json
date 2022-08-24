@@ -1,5 +1,5 @@
 {
-  "short_name": "위시트립",
+  "short_name": "WishTrip",
   "name": "Wishtrip",
   "icons": [
     {
@@ -8,12 +8,12 @@
       "type": "image/x-icon"
     },
     {
-      "src": "splash.png",
+      "src": "logo192.png",
       "type": "image/png",
       "sizes": "192x192"
     },
     {
-      "src": "splash.png",
+      "src": "logo512.png",
       "type": "image/png",
       "sizes": "512x512"
     }
