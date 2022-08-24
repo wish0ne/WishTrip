@@ -1,5 +1,4 @@
 import { Routes, Route } from "react-router-dom";
-import { useRecoilState } from "recoil";
 import { ThemeProvider } from "styled-components";
 import Authentication from "./pages/Authentication/Authentication";
 import Start from "./pages/Authentication/Start";
