@@ -1,5 +1,4 @@
 import { Routes, Route } from "react-router-dom";
-import { useRecoilState } from "recoil";
 import { ThemeProvider } from "styled-components";
 import Authentication from "./pages/Authentication/Authentication";
 import Start from "./pages/Authentication/Start";
@@ -7,7 +6,6 @@ import Home from "./pages/Home/Home";
 import Ar from "./pages/Ar/Ar";
 import ARCreate from "./pages/Ar/Create";
 import Mypage from "./pages/Mypage/Mypage";
-import { modalState } from "./recoil/arpost";
 
 const theme = {
   palette: {
