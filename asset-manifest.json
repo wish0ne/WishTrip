@@ -1,11 +1,12 @@
 {
   "files": {
     "main.css": "/WishTrip/static/css/main.9dc6cf16.css",
-    "main.js": "/WishTrip/static/js/main.d9fa592e.js",
+    "main.js": "/WishTrip/static/js/main.cd18c31d.js",
     "static/js/787.7852e65b.chunk.js": "/WishTrip/static/js/787.7852e65b.chunk.js",
     "static/media/AppleSDGothicNeoB.ttf": "/WishTrip/static/media/AppleSDGothicNeoB.4175a777557557f7d294.ttf",
     "static/media/AppleSDGothicNeoM.ttf": "/WishTrip/static/media/AppleSDGothicNeoM.88c00162a2084f97069c.ttf",
     "static/media/AppleSDGothicNeoEB.ttf": "/WishTrip/static/media/AppleSDGothicNeoEB.ea6bd07739f11db86707.ttf",
+    "static/media/경희대2.jpg": "/WishTrip/static/media/경희대2.743b5053b0258aed350c.jpg",
     "static/media/splash.png": "/WishTrip/static/media/splash.ecaa92a1a4cb41e26b51.png",
     "static/media/경희대1.jpg": "/WishTrip/static/media/경희대1.9b238b6b0f2daed1d39a.jpg",
     "static/media/여행사진7.jpg": "/WishTrip/static/media/여행사진7.959c3e76bcfdbae98ab4.jpg",
@@ -37,11 +38,11 @@
     "static/media/uil_bars.svg": "/WishTrip/static/media/uil_bars.3e9b31de89e9074dd1f34eae9dab2d60.svg",
     "static/media/tabler_arrow-left.svg": "/WishTrip/static/media/tabler_arrow-left.5dd22104c350b9916f235edb089215d7.svg",
     "main.9dc6cf16.css.map": "/WishTrip/static/css/main.9dc6cf16.css.map",
-    "main.d9fa592e.js.map": "/WishTrip/static/js/main.d9fa592e.js.map",
+    "main.cd18c31d.js.map": "/WishTrip/static/js/main.cd18c31d.js.map",
     "787.7852e65b.chunk.js.map": "/WishTrip/static/js/787.7852e65b.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.9dc6cf16.css",
-    "static/js/main.d9fa592e.js"
+    "static/js/main.cd18c31d.js"
   ]
 }
