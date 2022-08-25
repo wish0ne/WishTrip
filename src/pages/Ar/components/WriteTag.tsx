@@ -1,6 +1,8 @@
 import styled from "styled-components";
+import { useRecoilState } from "recoil";
 import { useState } from "react";
 import { ReactComponent as Delete } from "../../../assets/images/uil_multiply.svg";
+import { arCreateTags } from "../../../recoil/ar";
 
 const StyledWriteTag = styled.div`
   padding: 2rem 2.4rem;
@@ -50,7 +52,7 @@ const DeleteBtn = styled.button`
 `;
 
 function WriteTag() {
-  const [tags, setTags] = useState<string[]>([]);
+  const [tags, setTags] = useRecoilState<string[]>(arCreateTags);
   const [tag, setTag] = useState<string>("");
 
   const handleEnter = (e: React.KeyboardEvent<HTMLInputElement>) => {
@@ -78,7 +80,7 @@ function WriteTag() {
           <div key={tag}>
             <span>#{tag}</span>
             <DeleteBtn onClick={handleDelete} data-tag={tag}>
-              <Delete width="1.6rem" height="1.6rem" />
+              <Delete width="1.6rem" height="1.6rem" fill="white" />
             </DeleteBtn>
           </div>
         ))}
