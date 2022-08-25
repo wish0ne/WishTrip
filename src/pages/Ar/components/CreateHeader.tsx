@@ -1,8 +1,11 @@
 import styled from "styled-components";
-import { Link } from "react-router-dom";
+import { useRecoilState } from "recoil";
+import { Link, useNavigate } from "react-router-dom";
 import html2canvas from "html2canvas";
 import { ReactComponent as Arrow } from "../../../assets/images/tabler_arrow-left.svg";
 import { ReactComponent as Submit } from "../../../assets/images/uil_message.svg";
+import { arPosts } from "../../../recoil/ar";
+import post from "../../../assets/images/image-download2.png";
 
 const StyledHeader = styled.div`
   display: flex;
@@ -21,12 +24,26 @@ const StyledHeader = styled.div`
 const BackBtn = styled(Link)``;
 
 function CreateHeader() {
+  const [posts, setPosts] = useRecoilState(arPosts);
+  const navigate = useNavigate();
+
   const handleSubmit = () => {
+    if (posts.length === 1) {
+      setPosts(
+        posts.concat({
+          id: 2,
+          latitude: 37.247136,
+          longitude: 127.078262,
+          image: post,
+        }),
+      );
+    }
+
     html2canvas(document.querySelector(".arCreatePost"), {
       backgroundColor: null,
     }).then((canvas) => {
       let img = canvas.toDataURL("image/png");
-      img = img.replace("data:image/png;base64,", "");
+      //img = img.replace("data:image/png;base64,", "");
 
       // let link = document.createElement("a");
       // document.body.appendChild(link);
@@ -35,6 +52,7 @@ function CreateHeader() {
       // link.click();
       // document.body.removeChild(link);
     });
+    navigate("/ARTrip");
   };
   return (
     <StyledHeader>

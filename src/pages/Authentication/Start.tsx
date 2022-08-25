@@ -7,6 +7,7 @@ import User from "../components/User";
 
 const StyledStart = styled.div`
   height: 100vh;
+  height: calc(var(--vh, 1vh) * 100);
 `;
 
 const Bottom = styled.div`
@@ -51,6 +52,8 @@ const StyledBtn = styled(Link)`
 `;
 
 function Start() {
+  let vh = window.innerHeight * 0.01;
+  document.documentElement.style.setProperty("--vh", `${vh}px`);
   return (
     <StyledStart>
       <Landing>

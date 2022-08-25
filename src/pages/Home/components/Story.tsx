@@ -66,11 +66,12 @@ const Title = styled.span`
   position: absolute;
   font-family: "ExtraBold";
   font-size: 2.4rem;
-  color: ${(props) => props.theme.palette.primary3};
+  color: white;
   top: 2.4rem;
   left: 2.4rem;
   white-space: pre-line;
   line-height: 3.7rem;
+  text-shadow: 0 0.2rem 0.6rem rgba(0, 0, 0, 0.4);
 `;
 
 const Bottom = styled.div`

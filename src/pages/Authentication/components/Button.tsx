@@ -56,7 +56,7 @@ function Button({ type, setType }: ButtonPropsType) {
       setType("password");
     } else if (type === "password") {
       mutate("login");
-      //navigate("../Home");
+      navigate("../Home");
     } else {
       mutate("register");
       navigate("../Home");

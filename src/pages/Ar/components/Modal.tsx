@@ -1,8 +1,9 @@
 import styled from "styled-components";
 import { useState } from "react";
-import img1 from "../../../assets/images/여행사진1.jpg";
+import img1 from "../../../assets/images/경희대1.jpg";
 import img2 from "../../../assets/images/여행사진2.jpg";
 import img3 from "../../../assets/images/여행사진3.jpg";
+import img9 from "../../../assets/images/여행사진9.jpg";
 import { ReactComponent as Close } from "../../../assets/images/uil_multiply.svg";
 import { ReactComponent as Empty } from "../../../assets/images/emoji_empty.svg";
 import { ReactComponent as Shock } from "../../../assets/images/emoji_shock.svg";
@@ -15,9 +16,9 @@ const posts = [
   {
     id: 1,
     image: img1,
-    body: "아직 휴가 못 가신 분~~!\n진짜 휴가는 지금부터~! 신나는 페스티벌이 기다리고 있어요 🎷\n라인업만 봐도 심장이 두근대는데요..\n마지막 여름 휴가 계획 중이시던 분들,\n이번 기회에 전주 여행도 함께 묶어서 JUMF 즐기고 오는 건 어떠신지요!\n티켓 무료 증정 이벤트도 진행 중이라니까 참여해보세요!\n❗️이벤트는 이 게시글이 아닌 JUMF 계정 @2022_jumf 팔로워 이벤트 게시물에서 참여하셔야 정상 접수 됩니다! (해당 계정에 이벤트 참여 게시글 고정되어 있어요)",
+    body: "오늘은 경희대학교에 방문했어요! 정문이 너무 예뻐서 한 컷 찍어서 올립니다 😊 \n\n 혹시 경희대학교에 방문하신다면 제 포스트를 찾아보세요~",
     emotions: { shock: 312, heart: 12, laugh: 1 },
-    tags: ["부산", "치킨", "햄버거", "도미노피자"],
+    tags: ["경희대학교", "학교투어"],
     user_img: img3,
     user_nickname: "부끄러운 프로도",
     date: "2022.08.02",
@@ -27,7 +28,7 @@ const posts = [
         user_img: img2,
         nickname: "신난 어피치",
         date: "2022.08.02",
-        body: "여기 진짜 좋아요",
+        body: "사진이 너무 예뻐요",
       },
       {
         id: 2,
@@ -41,21 +42,13 @@ const posts = [
   {
     id: 2,
     image: img2,
-    body: "여기는 꼭 다시 와야지~",
+    body: "저도 정문에서 한컷!",
     emotions: { crying: 21, thumb: 12, laugh: 1 },
-    tags: ["부산", "치킨", "햄버거", "도미노피자"],
-    user_img: img1,
-    user_nickname: "부끄러운 라이언",
-    date: "2022.07.02",
-    comments: [
-      {
-        id: 1,
-        user_img: img1,
-        nickname: "신난 어피치",
-        date: "2022.07.22",
-        body: "저도 가보고 싶어요!",
-      },
-    ],
+    tags: ["경희대", "정문"],
+    user_img: img9,
+    user_nickname: "소마",
+    date: "2022.08.25",
+    comments: [],
   },
 ];
 
@@ -253,7 +246,7 @@ function Modal() {
   };
   return (
     <StyledModal
-      className="modal half"
+      className="modal"
       onTouchStart={handleTouchStart}
       onTouchEnd={handleTouchEnd}
     >
@@ -262,7 +255,7 @@ function Modal() {
         <Close
           width="2.4rem"
           height="2.4rem"
-          fill="black"
+          fill="rgb(0 134 231)"
           onClick={handleClose}
         />
       </ModalImage>
@@ -312,7 +305,7 @@ function Modal() {
         <article>{posts[0].body}</article>
         <span>#{posts[0].tags.join(" #")}</span>
         <CommentInput>
-          <img src={img1} alt="유저 아이콘" />
+          <img src={img9} alt="유저 아이콘" />
           <input placeholder="댓글 달기.." type="text" />
         </CommentInput>
         <Comments>

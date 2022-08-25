@@ -20,7 +20,6 @@ AFRAME.registerComponent("clickhandler", {
     let data = this.data;
     let el = this.el;
     el.addEventListener("click", () => {
-      alert(data);
       const modal = document.querySelector(".modal");
       modal.classList.add("half");
     });
