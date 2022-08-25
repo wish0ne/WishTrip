@@ -18,7 +18,7 @@ const StyledHeader = styled.div`
 function Header() {
   return (
     <StyledHeader>
-      <Link to="/WishTrip">
+      <Link to="/Home">
         <Arrow width="2.4rem" height="2.4rem" fill="#000000" />
       </Link>
       <h1>마이페이지</h1>

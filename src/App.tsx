@@ -38,7 +38,7 @@ function App() {
     return () => {
       clearTimeout(timer);
     };
-  });
+  }, []);
   return (
     <ThemeProvider theme={theme}>
       <Routes>

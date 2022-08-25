@@ -161,7 +161,7 @@ function Ar() {
               look-at="[gps-camera]"
             ></a-image> */}
           </a-scene>
-          <BackButton to="/WishTrip">
+          <BackButton to="/Home">
             <Back width="3.2rem" height="3.2rem" />
           </BackButton>
           <Add to="Create">

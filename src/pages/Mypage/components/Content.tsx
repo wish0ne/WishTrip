@@ -2,10 +2,13 @@ import styled from "styled-components";
 
 const StyledContent = styled.div`
   position: relative;
+  flex-basis: 15rem;
   flex-grow: 1;
+  width: 15rem;
+  height: 15rem;
   img {
-    width: 15.2rem;
-    height: 15.2rem;
+    width: 100%;
+    height: 100%;
     object-fit: cover;
     border-radius: 0.8rem;
   }
