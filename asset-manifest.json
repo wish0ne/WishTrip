@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/WishTrip/static/css/main.9dc6cf16.css",
-    "main.js": "/WishTrip/static/js/main.bd320086.js",
+    "main.js": "/WishTrip/static/js/main.25fdf5a8.js",
     "static/js/787.7852e65b.chunk.js": "/WishTrip/static/js/787.7852e65b.chunk.js",
     "static/media/AppleSDGothicNeoB.ttf": "/WishTrip/static/media/AppleSDGothicNeoB.4175a777557557f7d294.ttf",
     "static/media/AppleSDGothicNeoM.ttf": "/WishTrip/static/media/AppleSDGothicNeoM.88c00162a2084f97069c.ttf",
@@ -9,7 +9,6 @@
     "static/media/splash.png": "/WishTrip/static/media/splash.ecaa92a1a4cb41e26b51.png",
     "static/media/경희대1.jpg": "/WishTrip/static/media/경희대1.9b238b6b0f2daed1d39a.jpg",
     "static/media/여행사진7.jpg": "/WishTrip/static/media/여행사진7.959c3e76bcfdbae98ab4.jpg",
-    "static/media/AR포스트.png": "/WishTrip/static/media/AR포스트.f035e8a66056bfcec399.png",
     "static/media/여행사진1.jpg": "/WishTrip/static/media/여행사진1.655cc16d075a8bd69ba6.jpg",
     "static/media/여행사진8.jpg": "/WishTrip/static/media/여행사진8.9c9a0a5708376e6b5bb1.jpg",
     "static/media/image-download.png": "/WishTrip/static/media/image-download.106f0b35e429d36f2431.png",
@@ -17,6 +16,7 @@
     "static/media/여행사진2.jpg": "/WishTrip/static/media/여행사진2.93386aea62f26d94d0b6.jpg",
     "static/media/여행사진9.jpg": "/WishTrip/static/media/여행사진9.c724cae968a11d124649.jpg",
     "static/media/여행사진3.jpg": "/WishTrip/static/media/여행사진3.37aca45701b6e3f6f583.jpg",
+    "static/media/image-download2.png": "/WishTrip/static/media/image-download2.299beec6cc7b58db8cac.png",
     "static/media/여행사진6.jpg": "/WishTrip/static/media/여행사진6.8777f42cc9f7ef37f5c1.jpg",
     "service-worker.js": "/WishTrip/service-worker.js",
     "static/media/emoji_thumb.svg": "/WishTrip/static/media/emoji_thumb.94178c477aa0fcc6cdf99387f4cfd762.svg",
@@ -37,11 +37,11 @@
     "static/media/uil_bars.svg": "/WishTrip/static/media/uil_bars.3e9b31de89e9074dd1f34eae9dab2d60.svg",
     "static/media/tabler_arrow-left.svg": "/WishTrip/static/media/tabler_arrow-left.5dd22104c350b9916f235edb089215d7.svg",
     "main.9dc6cf16.css.map": "/WishTrip/static/css/main.9dc6cf16.css.map",
-    "main.bd320086.js.map": "/WishTrip/static/js/main.bd320086.js.map",
+    "main.25fdf5a8.js.map": "/WishTrip/static/js/main.25fdf5a8.js.map",
     "787.7852e65b.chunk.js.map": "/WishTrip/static/js/787.7852e65b.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.9dc6cf16.css",
-    "static/js/main.bd320086.js"
+    "static/js/main.25fdf5a8.js"
   ]
 }
