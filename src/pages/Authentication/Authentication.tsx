@@ -9,7 +9,7 @@ const StyledContainer = styled.div`
 `;
 
 function Authentication() {
-  const [types, setTypes] = useState<string>("register");
+  const [types, setTypes] = useState<string>("email");
   return (
     <StyledContainer>
       <Header type={types} />

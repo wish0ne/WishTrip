@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 import { useState } from "react";
 import img2 from "../../../assets/images/여행사진2.jpg";
 import { ReactComponent as Right } from "../../../assets/images/uil_angle-right.svg";
@@ -53,7 +54,7 @@ const Icon = styled.div`
 
 function User() {
   const [token, setToken] = useState(localStorage.getItem("accessToken"));
-  const handleToLogin = () => {};
+
   return (
     <StyledUser>
       <Icon>
@@ -67,7 +68,9 @@ function User() {
       ) : (
         <div>
           <span>로그인 & 가입하기</span>
-          <Right width="2.4rem" height="2.4rem" onClick={handleToLogin} />
+          <Link to="/Authentication/Start">
+            <Right width="2.4rem" height="2.4rem" />
+          </Link>
         </div>
       )}
     </StyledUser>

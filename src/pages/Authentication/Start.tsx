@@ -10,8 +10,9 @@ const StyledStart = styled.div`
 `;
 
 const Bottom = styled.div`
+  height: 34%;
+  box-sizing: border-box;
   padding: 2.4rem;
-
   h1 {
     font-family: "ExtraBold";
     font-size: 2.4rem;
