@@ -1,5 +1,8 @@
 import { Routes, Route } from "react-router-dom";
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { ThemeProvider } from "styled-components";
+import Splash from "./pages/Splash/Splash";
 import Authentication from "./pages/Authentication/Authentication";
 import Start from "./pages/Authentication/Start";
 import Home from "./pages/Home/Home";
@@ -27,10 +30,20 @@ const theme = {
 };
 
 function App() {
+  const navigate = useNavigate();
+  useEffect(() => {
+    let timer = setTimeout(() => {
+      navigate("/Home");
+    }, 2000);
+    return () => {
+      clearTimeout(timer);
+    };
+  });
   return (
     <ThemeProvider theme={theme}>
       <Routes>
-        <Route path="WishTrip" element={<Home />} />
+        <Route path="WishTrip" element={<Splash />} />
+        <Route path="Home" element={<Home />} />
         <Route path="Authentication" element={<Authentication />} />
         <Route path="Authentication/Start" element={<Start />} />
         <Route path="ARTrip" element={<Ar />} />
