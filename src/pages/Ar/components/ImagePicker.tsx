@@ -1,21 +1,23 @@
 import styled from "styled-components";
+import { useRecoilValue } from "recoil";
 import { useState } from "react";
 import { ReactComponent as Camera } from "../../../assets/images/uil_camera-plus.svg";
+import { arCreateTags } from "../../../recoil/ar";
 
 const StyledPicker = styled.div`
   height: 17.2rem;
   display: flex;
   align-items: center;
   justify-content: center;
+  background-color: #eeeeee;
 `;
 const AddImage = styled.div`
   position: relative;
-
-  & div {
+  & > div {
     width: 8rem;
     height: 8rem;
     border-radius: 50%;
-    background-color: #eaeaea;
+    background-color: white;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -31,12 +33,52 @@ const AddImage = styled.div`
     width: 100%;
     z-index: 10;
   }
+`;
 
-  & img {
-    height: 14.4rem;
-    width: 10.8rem;
-    border-radius: 0.64rem;
-    object-fit: cover;
+const ARContent = styled.figure`
+  background-color: transparent;
+  padding: 1.2rem;
+  margin: 0;
+  & > div {
+    height: 14rem;
+    width: 10.5rem;
+    border-radius: 1rem 1rem 0 0;
+    border: solid 0.3rem white;
+    position: relative;
+    img {
+      width: 100%;
+      height: 100%;
+      border-radius: 1rem 1rem 0 0;
+      object-fit: cover;
+    }
+    > div {
+      position: absolute;
+      bottom: -1.2rem;
+      right: -1.2rem;
+      display: flex;
+      flex-direction: column-reverse;
+      align-items: flex-end;
+      gap: 0.4rem 0;
+      span {
+        display: inline-block;
+        background: linear-gradient(
+          to top,
+          rgba(0, 134, 231, 1),
+          rgba(0, 134, 231, 0.4)
+        );
+        box-shadow: 0 0.4rem 0.8rem rgba(0, 146, 252, 0.25),
+          0.2rem 0.4rem 0.8rem rgba(33, 255, 202, 0.4) inset;
+        font-family: "SemiBold";
+        font-size: 1.1rem;
+        color: white;
+        padding: 0.4rem 0.8rem;
+        border-radius: 1.2rem;
+        max-width: 9rem;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+    }
   }
 `;
 
@@ -55,11 +97,27 @@ function ImagePicker() {
   const handleImage = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) setPost({ ...post, image: e.target.files[0] });
   };
+
+  const tags = useRecoilValue(arCreateTags);
   return (
     <StyledPicker>
       <AddImage>
         {post.image ? (
-          <img src={URL.createObjectURL(post.image)} alt="AR post" />
+          <ARContent className="arCreatePost">
+            <div>
+              <img src={URL.createObjectURL(post.image)} alt="AR post" />
+              <div>
+                {tags.map(
+                  (tag, idx) =>
+                    idx < 3 && (
+                      <div key={tag}>
+                        <span>#{tag}</span>
+                      </div>
+                    ),
+                )}
+              </div>
+            </div>
+          </ARContent>
         ) : (
           <div>
             <Camera />

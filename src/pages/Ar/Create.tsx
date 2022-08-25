@@ -11,8 +11,8 @@ function ARCreate() {
     <StyledCreate>
       <CreateHeader />
       <ImagePicker />
-      <WriteContent />
       <WriteTag />
+      <WriteContent />
     </StyledCreate>
   );
 }
