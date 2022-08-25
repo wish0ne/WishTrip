@@ -33,15 +33,21 @@ const AddImage = styled.div`
     width: 100%;
     z-index: 10;
   }
-  & figure {
+`;
+
+const ARContent = styled.figure`
+  background-color: transparent;
+  padding: 1.2rem;
+  margin: 0;
+  & > div {
     height: 14rem;
     width: 10.5rem;
     border-radius: 1rem 1rem 0 0;
     border: solid 0.3rem white;
     position: relative;
     img {
-      height: 14rem;
-      width: 10.5rem;
+      width: 100%;
+      height: 100%;
       border-radius: 1rem 1rem 0 0;
       object-fit: cover;
     }
@@ -60,8 +66,8 @@ const AddImage = styled.div`
           rgba(0, 134, 231, 1),
           rgba(0, 134, 231, 0.4)
         );
-        box-shadow: 0.2rem 0.4rem 0.8rem rgba(33, 255, 202, 0.4) inset,
-          0 0.4rem 0.8rem rgba(0, 146, 252, 0.25);
+        box-shadow: 0 0.4rem 0.8rem rgba(0, 146, 252, 0.25),
+          0.2rem 0.4rem 0.8rem rgba(33, 255, 202, 0.4) inset;
         font-family: "SemiBold";
         font-size: 1.1rem;
         color: white;
@@ -97,19 +103,21 @@ function ImagePicker() {
     <StyledPicker>
       <AddImage>
         {post.image ? (
-          <figure>
-            <img src={URL.createObjectURL(post.image)} alt="AR post" />
+          <ARContent className="arCreatePost">
             <div>
-              {tags.map(
-                (tag, idx) =>
-                  idx < 3 && (
-                    <div key={tag}>
-                      <span>#{tag}</span>
-                    </div>
-                  ),
-              )}
+              <img src={URL.createObjectURL(post.image)} alt="AR post" />
+              <div>
+                {tags.map(
+                  (tag, idx) =>
+                    idx < 3 && (
+                      <div key={tag}>
+                        <span>#{tag}</span>
+                      </div>
+                    ),
+                )}
+              </div>
             </div>
-          </figure>
+          </ARContent>
         ) : (
           <div>
             <Camera />
