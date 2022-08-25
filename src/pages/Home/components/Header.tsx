@@ -1,7 +1,9 @@
 import styled from "styled-components";
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import { ReactComponent as Logo } from "../../../assets/images/Logo.svg";
 import { ReactComponent as Bell } from "../../../assets/images/uil_bell.svg";
+import img9 from "../../../assets/images/여행사진9.jpg";
 
 const StyledHeader = styled.div`
   height: 5.6rem;
@@ -18,6 +20,11 @@ const UserIcon = styled(Link)`
   border-radius: 50%;
   background-color: ${(props) => props.theme.palette.inversed3};
   margin-left: 2rem;
+  & > img {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+  }
 `;
 
 const StyledDiv = styled.div`
@@ -26,12 +33,15 @@ const StyledDiv = styled.div`
 `;
 
 function Header() {
+  const [token, setToken] = useState(localStorage.getItem("accessToken"));
   return (
     <StyledHeader>
       <Logo width="7.2rem" height="2rem" />
       <StyledDiv>
         <Bell />
-        <UserIcon to="/Authentication/Start" />
+        <UserIcon to="/Authentication/Start">
+          {token && <img src={img9} alt="유저아이콘" />}
+        </UserIcon>
       </StyledDiv>
     </StyledHeader>
   );

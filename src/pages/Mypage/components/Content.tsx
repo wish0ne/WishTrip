@@ -16,12 +16,21 @@ const StyledContent = styled.div`
     position: absolute;
     display: flex;
     flex-direction: column;
-    bottom: 1.2rem;
-    left: 1.2rem;
+    padding: 1.2rem;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    box-sizing: border-box;
     span {
       font-family: "ExtraBold";
       color: white;
       font-size: 1.3rem;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      overflow: hidden;
+      display: block;
+      width: 100%;
+      box-sizing: border-box;
     }
     span + span {
       font-family: "Medium";

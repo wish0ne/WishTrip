@@ -1,6 +1,6 @@
 import styled from "styled-components";
-import img1 from "../../assets/images/여행사진1.jpg";
-import img3 from "../../assets/images/여행사진3.jpg";
+import img1 from "../../assets/images/여행사진5.jpg";
+import img5 from "../../assets/images/여행사진8.jpg";
 import { ReactComponent as Logo } from "../../assets/images/Logo.svg";
 import { Link } from "react-router-dom";
 import User from "../components/User";
@@ -55,7 +55,7 @@ function Start() {
     <StyledStart>
       <Landing>
         <img src={img1} alt="로그인 화면 여행 사진" />
-        <User icon={img3} name="부끄러운 프로도" location="제주 애월읍" />
+        <User icon={img5} name="gamsungcross" location="프랑스 파리" />
       </Landing>
       <Bottom>
         <Logo width="6.9rem" height="2.2rem" />

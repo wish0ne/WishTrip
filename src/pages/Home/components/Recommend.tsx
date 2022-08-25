@@ -1,23 +1,35 @@
 import styled from "styled-components";
-import img3 from "../../../assets/images/여행사진3.jpg";
-import img4 from "../../../assets/images/여행사진4.jpg";
+import img2 from "../../../assets/images/여행사진2.jpg";
+import img5 from "../../../assets/images/여행사진5.jpg";
+import img6 from "../../../assets/images/여행사진6.jpg";
+import img7 from "../../../assets/images/여행사진7.jpg";
+import img8 from "../../../assets/images/여행사진8.jpg";
+import img9 from "../../../assets/images/여행사진9.jpg";
 
 const posts = [
   {
     id: 1,
-    title: "여행의 제목입니다.",
-    image: img3,
-    user: img4,
-    name: "부끄러운 프로도",
-    location: "제주 애월읍",
+    title: "사소하지만 아름다운 풍경들",
+    image: img5,
+    user: img8,
+    name: "gamsungcross",
+    location: "프랑스 파리",
   },
   {
     id: 2,
-    title: "여행의 제목입니다.",
-    image: img4,
-    user: img3,
-    name: "부끄러운 프로도",
+    title: "걷다가 만난 일몰",
+    image: img9,
+    user: img6,
+    name: "샛별",
     location: "제주 애월읍",
+  },
+  {
+    id: 3,
+    title: "우당탕탕 일본 여행",
+    image: img2,
+    user: img7,
+    name: "행복한세상의족제비씨",
+    location: "일본 오사카",
   },
 ];
 
@@ -26,7 +38,7 @@ const StyledRecommend = styled.div`
 `;
 
 const Title = styled.div`
-  font-family: "ExtraBold";
+  font-family: "SemiBold";
   font-size: 2.1rem;
   color: ${(props) => props.theme.palette.default2};
   margin-bottom: 2rem;
@@ -57,15 +69,21 @@ const Post = styled.div`
     height: 25.6rem;
   }
   position: relative;
-
-  & h3 {
+  & > h3 {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 2rem 1.6rem;
     font-family: "ExtraBold";
     color: white;
-    top: 2rem;
-    left: 1.6rem;
+    top: 0;
+    left: 0;
     position: absolute;
     font-size: 1.6rem;
     margin: 0;
+    font-weight: normal;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
   }
 
   & + & {

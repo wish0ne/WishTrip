@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import { useState } from "react";
-import img2 from "../../../assets/images/여행사진2.jpg";
+import img9 from "../../../assets/images/여행사진9.jpg";
 import { ReactComponent as Right } from "../../../assets/images/uil_angle-right.svg";
 
 const StyledUser = styled.div`
@@ -58,12 +58,12 @@ function User() {
   return (
     <StyledUser>
       <Icon>
-        {token ? <img src={img2} alt="마이페이지 유저 프로필사진" /> : <div />}
+        {token ? <img src={img9} alt="마이페이지 유저 프로필사진" /> : <div />}
       </Icon>
       {token ? (
         <address>
-          <span>부끄러운 프로도</span>
-          <span>frodo@gmail.com</span>
+          <span>소마</span>
+          <span>soma@gmail.com</span>
         </address>
       ) : (
         <div>
