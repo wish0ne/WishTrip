@@ -3,42 +3,45 @@ import { useState } from "react";
 import img1 from "../../../assets/images/여행사진1.jpg";
 import img2 from "../../../assets/images/여행사진2.jpg";
 import img3 from "../../../assets/images/여행사진3.jpg";
-import img4 from "../../../assets/images/여행사진4.jpg";
+import img5 from "../../../assets/images/여행사진5.jpg";
+import img6 from "../../../assets/images/여행사진6.jpg";
+import img7 from "../../../assets/images/여행사진7.jpg";
+import img8 from "../../../assets/images/여행사진9.jpg";
 import useInterval from "../../../modules/useInterval";
 import User from "../../components/User";
 
 const stories = [
   {
-    id: 1,
-    tag: "로맨틱한",
-    image: img1,
-    user: img2,
-    name: "부끄러운 프로도",
-    location: "제주 애월읍",
-  },
-  {
     id: 2,
-    tag: "부드러운",
-    image: img2,
+    tag: "상쾌한",
+    image: img6,
     user: img3,
-    name: "부끄러운 라이언",
-    location: "서울 강남구",
+    name: "귀여운 라이언",
+    location: "뉴질랜드 푸카키호수",
   },
   {
     id: 3,
-    tag: "시원한",
-    image: img3,
-    user: img4,
-    name: "눈물 흘리는 프로도",
-    location: "서울 강동구",
+    tag: "이색적인",
+    image: img7,
+    user: img5,
+    name: "기타치는 튜브",
+    location: "미국 오리건주 라벤더밸리",
   },
   {
     id: 4,
     tag: "요즘핫한",
-    image: img4,
+    image: img8,
     user: img2,
-    name: "떨고있는 어피치",
-    location: "서울 마포구",
+    name: "멋쟁이 어피치",
+    location: "프랑스 니스",
+  },
+  {
+    id: 1,
+    tag: "분위기 있는",
+    image: img5,
+    user: img1,
+    name: "부끄러운 프로도",
+    location: "미국 뉴욕",
   },
 ];
 
@@ -52,6 +55,7 @@ const Image = styled.img`
   width: 100%;
   height: 100%;
   border-radius: 0.8rem;
+  object-fit: cover;
 `;
 
 const Tag = styled.span`
@@ -62,11 +66,12 @@ const Title = styled.span`
   position: absolute;
   font-family: "ExtraBold";
   font-size: 2.4rem;
-  color: ${(props) => props.theme.palette.primary3};
+  color: white;
   top: 2.4rem;
   left: 2.4rem;
   white-space: pre-line;
   line-height: 3.7rem;
+  text-shadow: 0 0.2rem 0.6rem rgba(0, 0, 0, 0.4);
 `;
 
 const Bottom = styled.div`

@@ -1,41 +1,12 @@
 import styled from "styled-components";
-import { useEffect } from "react";
+import { useRecoilValue } from "recoil";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import useScript from "../../modules/useScript.ts";
-import img1 from "../../assets/images/여행사진1.jpg";
-import img2 from "../../assets/images/여행사진2.jpg";
-import img3 from "../../assets/images/여행사진3.jpg";
-import post from "../../assets/images/AR포스트.png";
 import { ReactComponent as Back } from "../../assets/images/uil_arrow-left.svg";
 import { ReactComponent as Camera } from "../../assets/images/uil_camera-plus.svg";
 import Modal from "./components/Modal";
-
-const entities = [
-  {
-    id: 1,
-    latitude: 37.240832,
-    longitude: 127.0775808,
-    image: post,
-  },
-  {
-    id: 2,
-    latitude: 37.250832,
-    longitude: 127.0975808,
-    image: img2,
-  },
-  {
-    id: 3,
-    latitude: 34.890422,
-    longitude: 128.638861,
-    image: img3,
-  },
-  {
-    id: 4,
-    latitude: 34.892422,
-    longitude: 128.640861,
-    image: img1,
-  },
-];
+import { arPosts } from "../../recoil/ar";
 
 const ARContainer = styled.div`
   height: 100%;
@@ -83,7 +54,7 @@ const Add = styled(Link)`
 `;
 
 function Ar() {
-  const arjsStatus = useScript(
+  const nftStatus = useScript(
     "https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar-nft.js",
   );
   const lookatStatus = useScript(
@@ -91,7 +62,7 @@ function Ar() {
   );
 
   useEffect(() => {
-    //alert("테스트 14");
+    alert("테스트 16");
     if (navigator.geolocation) {
       console.log("GPS 사용 가능");
       navigator.geolocation.getCurrentPosition(
@@ -117,60 +88,74 @@ function Ar() {
     };
   }, []);
 
+  const [id, setId] = useState(0);
+  useEffect(() => {
+    window.addEventListener("storage", () => {
+      let id = localStorage.getItem("arId");
+      if (id === null) setId(0);
+      else setId(parseInt(id));
+    });
+  }, []);
+
+  const posts = useRecoilValue(arPosts);
+
   return (
     <>
-      {arjsStatus === "ready" && lookatStatus === "ready" && (
-        <ARContainer>
-          <a-scene
-            debug
-            cursor="rayOrigin: mouse;"
-            raycaster="objects: .raycastable"
-            vr-mode-ui="enabled: false"
-            // embedded
-            arjs="sourceType: webcam; sourceWidth:1080; sourceHeight:764; displayWidth: 1080; displayHeight: 764; debugUIEnabled: false; videoTexture:true;"
-            //arjs="sourceType: webcam; debugUIEnabled: false;"
-            //videoTexture:true;
-          >
-            <a-assets>
-              {entities.map((entity) => (
-                <img
-                  id={entity.id}
-                  src={entity.image}
-                  alt="ar post"
-                  key={entity.id}
-                />
-              ))}
-            </a-assets>
-            <a-camera gps-camera="" rotation-reader=""></a-camera>
-            {entities.map((entity) => (
-              <a-image
-                gps-entity-place={`latitude: ${entity.latitude}; longitude: ${entity.longitude};`}
-                class="raycastable"
-                clickhandler={entity.id}
-                key={entity.id}
-                src={`#${entity.id}`}
+      {
+        /* {arjsStatus === "ready" && */
+        lookatStatus === "ready" && nftStatus === "ready" && (
+          <ARContainer>
+            <a-scene
+              debug
+              cursor="rayOrigin: mouse;"
+              raycaster="objects: .raycastable"
+              vr-mode-ui="enabled: false"
+              //embedded
+              arjs="sourceType: webcam; sourceWidth:1080; sourceHeight:764; displayWidth: 1080; displayHeight: 764; debugUIEnabled: false; videoTexture:true;"
+              //arjs="sourceType: webcam; debugUIEnabled: false; videoTexture:true;"
+              //renderer="antialias: true; alpha: true"
+            >
+              <a-assets>
+                {posts.map((entity) => (
+                  <img
+                    id={entity.id}
+                    src={entity.image}
+                    alt="ar post"
+                    key={entity.id}
+                  />
+                ))}
+              </a-assets>
+              <a-camera gps-camera="" rotation-reader=""></a-camera>
+              <a-box
+                gps-entity-place="latitude:34.888089; longitude:128.646070;"
                 look-at="[gps-camera]"
                 scale="20 20 20"
-              ></a-image>
-            ))}
-            {/* <a-image
-              position="0 2 -3"
-              src="#4"
-              class="raycastable"
-              clickhandler={10}
-              look-at="[gps-camera]"
-            ></a-image> */}
-          </a-scene>
-          <BackButton to="/WishTrip">
-            <Back width="3.2rem" height="3.2rem" />
-          </BackButton>
-          <Add to="Create">
-            <Camera />
-            <span>포스트 남기기</span>
-          </Add>
-          <Modal />
-        </ARContainer>
-      )}
+                color="red"
+              ></a-box>
+              {posts.map((entity) => (
+                <a-image
+                  gps-entity-place={`latitude: ${entity.latitude}; longitude: ${entity.longitude};`}
+                  class="raycastable"
+                  clickhandler={entity.id}
+                  key={entity.id}
+                  src={`#${entity.id}`}
+                  look-at="[gps-camera]"
+                  scale="10 10 10"
+                  position={entity.position ? entity.position : "0 0 0"}
+                ></a-image>
+              ))}
+            </a-scene>
+            <BackButton to="/Home">
+              <Back width="3.2rem" height="3.2rem" />
+            </BackButton>
+            <Add to="Create">
+              <Camera />
+              <span>포스트 남기기</span>
+            </Add>
+            <Modal id={id} />
+          </ARContainer>
+        )
+      }
     </>
   );
 }

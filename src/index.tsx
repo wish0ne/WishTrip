@@ -20,9 +20,12 @@ AFRAME.registerComponent("clickhandler", {
     let data = this.data;
     let el = this.el;
     el.addEventListener("click", () => {
-      alert(data);
+      localStorage.setItem("arId", data);
       const modal = document.querySelector(".modal");
       modal.classList.add("half");
+    });
+    window.addEventListener("gps-camera-update-position", (e) => {
+      alert("camera position update");
     });
   },
 });

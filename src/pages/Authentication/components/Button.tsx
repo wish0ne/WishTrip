@@ -1,7 +1,9 @@
 import styled from "styled-components";
+import { useEffect } from "react";
 import { useMutation } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
 import instance from "../../../modules/api";
+import { AxiosError } from "axios";
 
 const StyledButton = styled.div`
   position: absolute;
@@ -41,25 +43,34 @@ function Button({ type, setType }: ButtonPropsType) {
   const navigate = useNavigate();
 
   //Mutations
-  const mutation = useMutation((url: string) => {
-    if (url === "login")
-      return instance.post(`/login`, { username: "test", password: "test" });
-    else return instance.post(`/register`, {});
-  });
+  const { data, mutate, isSuccess } = useMutation<any, AxiosError, string>(
+    (url: string) => {
+      if (url === "login")
+        return instance.post(`/login`, { username: "test", password: "test" });
+      else return instance.post(`/register`, {});
+    },
+  );
 
   const handleClick = () => {
     if (type === "email") {
       setType("password");
     } else if (type === "password") {
-      mutation.mutate("login");
-      navigate("../WishTrip");
+      localStorage.setItem("accessToken", "token");
+      //mutate("login");
+      navigate("../Home");
     } else {
-      mutation.mutate("register");
-      navigate("../WishTrip");
+      mutate("register");
+      navigate("../Home");
     }
   };
 
-  if (mutation.isLoading) return <div>Loading...</div>;
+  // useEffect(() => {
+  //   if (data) {
+  //     localStorage.setItem("accessToken", data.access_token);
+  //     navigate("../Home");
+  //   }
+  // }, [data, navigate]);
+
   return (
     <StyledButton>
       {type === "password" && <LostBtn>비밀번호를 잊으셨나요?</LostBtn>}

@@ -1,17 +1,19 @@
 import styled from "styled-components";
-import img1 from "../../assets/images/여행사진1.jpg";
-import img3 from "../../assets/images/여행사진3.jpg";
+import img1 from "../../assets/images/여행사진5.jpg";
+import img5 from "../../assets/images/여행사진8.jpg";
 import { ReactComponent as Logo } from "../../assets/images/Logo.svg";
 import { Link } from "react-router-dom";
 import User from "../components/User";
 
 const StyledStart = styled.div`
   height: 100vh;
+  height: calc(var(--vh, 1vh) * 100);
 `;
 
 const Bottom = styled.div`
+  height: 34%;
+  box-sizing: border-box;
   padding: 2.4rem;
-
   h1 {
     font-family: "ExtraBold";
     font-size: 2.4rem;
@@ -50,11 +52,13 @@ const StyledBtn = styled(Link)`
 `;
 
 function Start() {
+  let vh = window.innerHeight * 0.01;
+  document.documentElement.style.setProperty("--vh", `${vh}px`);
   return (
     <StyledStart>
       <Landing>
         <img src={img1} alt="로그인 화면 여행 사진" />
-        <User icon={img3} name="부끄러운 프로도" location="제주 애월읍" />
+        <User icon={img5} name="gamsungcross" location="프랑스 파리" />
       </Landing>
       <Bottom>
         <Logo width="6.9rem" height="2.2rem" />
