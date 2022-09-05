@@ -4,8 +4,10 @@ import { Link, useNavigate } from "react-router-dom";
 import html2canvas from "html2canvas";
 import { ReactComponent as Arrow } from "../../../assets/images/tabler_arrow-left.svg";
 import { ReactComponent as Submit } from "../../../assets/images/uil_message.svg";
-import { arPosts } from "../../../recoil/ar";
+import { arModal, arPosts } from "../../../recoil/ar";
 import post from "../../../assets/images/image-download2.png";
+import img2 from "../../../assets/images/경희대2.jpg";
+import img9 from "../../../assets/images/여행사진9.jpg";
 
 const StyledHeader = styled.div`
   display: flex;
@@ -25,6 +27,7 @@ const BackBtn = styled(Link)``;
 
 function CreateHeader() {
   const [posts, setPosts] = useRecoilState(arPosts);
+  const [modal, setModal] = useRecoilState(arModal);
   const navigate = useNavigate();
 
   const handleSubmit = () => {
@@ -38,6 +41,17 @@ function CreateHeader() {
         }),
       );
     }
+    setModal({
+      id: 1,
+      image: img2,
+      body: "저도 정문에서 한컷!",
+      emotions: {},
+      tags: ["경희대", "정문"],
+      user_img: img9,
+      user_nickname: "소마",
+      date: "2022.08.25",
+      comments: [],
+    });
 
     html2canvas(document.querySelector(".arCreatePost"), {
       backgroundColor: null,

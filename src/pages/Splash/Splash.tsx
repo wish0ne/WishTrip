@@ -6,6 +6,7 @@ const StyledSplash = styled.img`
   height: 100vh;
   height: calc(var(--vh, 1vh) * 100);
   object-fit: cover;
+  object-position: center bottom;
 `;
 
 function Splash() {

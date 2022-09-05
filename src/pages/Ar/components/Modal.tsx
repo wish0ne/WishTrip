@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { useState } from "react";
 import img1 from "../../../assets/images/경희대1.jpg";
-import img2 from "../../../assets/images/여행사진2.jpg";
+import img2 from "../../../assets/images/경희대2.jpg";
 import img3 from "../../../assets/images/여행사진3.jpg";
 import img9 from "../../../assets/images/여행사진9.jpg";
 import { ReactComponent as Close } from "../../../assets/images/uil_multiply.svg";
@@ -11,10 +11,12 @@ import { ReactComponent as Crying } from "../../../assets/images/emoji_crying.sv
 import { ReactComponent as Heart } from "../../../assets/images/emoji_heart.svg";
 import { ReactComponent as Thumb } from "../../../assets/images/emoji_thumb.svg";
 import { ReactComponent as Laugh } from "../../../assets/images/emoji_laugh.svg";
+import { useRecoilValue } from "recoil";
+import { arModal } from "../../../recoil/ar";
 
 const posts = [
   {
-    id: 1,
+    id: 0,
     image: img1,
     body: "오늘은 경희대학교에 방문했어요! 정문이 너무 예뻐서 한 컷 찍어서 올립니다 😊 \n\n 혹시 경희대학교에 방문하신다면 제 포스트를 찾아보세요~",
     emotions: { shock: 312, heart: 12, laugh: 1 },
@@ -24,14 +26,14 @@ const posts = [
     date: "2022.08.02",
     comments: [
       {
-        id: 1,
-        user_img: img2,
+        id: 0,
+        user_img: img9,
         nickname: "신난 어피치",
         date: "2022.08.02",
         body: "사진이 너무 예뻐요",
       },
       {
-        id: 2,
+        id: 1,
         user_img: img3,
         nickname: "호기심 많은 어피치",
         date: "2022.07.22",
@@ -40,10 +42,10 @@ const posts = [
     ],
   },
   {
-    id: 2,
+    id: 1,
     image: img2,
     body: "저도 정문에서 한컷!",
-    emotions: { crying: 21, thumb: 12, laugh: 1 },
+    emotions: { crying: 0, thumb: 0, laugh: 0 },
     tags: ["경희대", "정문"],
     user_img: img9,
     user_nickname: "소마",
@@ -207,6 +209,7 @@ const Comments = styled.div`
 
 function Modal() {
   const [touchPosition, setTouchPosition] = useState({ x: 0, y: 0 });
+  const posts = useRecoilValue(arModal);
 
   const handleTouchStart = (e: React.TouchEvent<HTMLDivElement>) => {
     setTouchPosition({
@@ -251,7 +254,7 @@ function Modal() {
       onTouchEnd={handleTouchEnd}
     >
       <ModalImage>
-        <img src={posts[0].image} alt="AR 포스트 사진" />
+        <img src={posts.image} alt="AR 포스트 사진" />
         <Close
           width="2.4rem"
           height="2.4rem"
@@ -262,54 +265,54 @@ function Modal() {
       <ModalContent>
         <address>
           <div>
-            <img src={posts[0].user_img} alt="유저 아이콘" />
+            <img src={posts.user_img} alt="유저 아이콘" />
             <div>
-              <h6>{posts[0].user_nickname}</h6>
-              <span>{posts[0].date}</span>
+              <h6>{posts.user_nickname}</h6>
+              <span>{posts.date}</span>
             </div>
           </div>
           <Empty />
         </address>
         <Emotion>
-          {posts[0].emotions.crying && (
+          {posts.emotions.crying && (
             <div>
               <Crying />
-              <span>{posts[0].emotions.crying}</span>
+              <span>{posts.emotions.crying}</span>
             </div>
           )}
-          {posts[0].emotions.shock && (
+          {posts.emotions.shock && (
             <div>
               <Shock />
-              <span>{posts[0].emotions.shock}</span>
+              <span>{posts.emotions.shock}</span>
             </div>
           )}
-          {posts[0].emotions.laugh && (
+          {posts.emotions.laugh && (
             <div>
               <Laugh />
-              <span>{posts[0].emotions.laugh}</span>
+              <span>{posts.emotions.laugh}</span>
             </div>
           )}
-          {posts[0].emotions.thumb && (
+          {posts.emotions.thumb && (
             <div>
               <Thumb />
-              <span>{posts[0].emotions.thumb}</span>
+              <span>{posts.emotions.thumb}</span>
             </div>
           )}
-          {posts[0].emotions.heart && (
+          {posts.emotions.heart && (
             <div>
               <Heart />
-              <span>{posts[0].emotions.heart}</span>
+              <span>{posts.emotions.heart}</span>
             </div>
           )}
         </Emotion>
-        <article>{posts[0].body}</article>
-        <span>#{posts[0].tags.join(" #")}</span>
+        <article>{posts.body}</article>
+        <span>#{posts.tags.join(" #")}</span>
         <CommentInput>
           <img src={img9} alt="유저 아이콘" />
           <input placeholder="댓글 달기.." type="text" />
         </CommentInput>
         <Comments>
-          {posts[0].comments.map((comment) => (
+          {posts.comments.map((comment) => (
             <div key={comment.id}>
               <img src={comment.user_img} alt="유저 아이콘" />
               <div>
@@ -320,6 +323,7 @@ function Modal() {
           ))}
         </Comments>
       </ModalContent>
+      )
     </StyledModal>
   );
 }

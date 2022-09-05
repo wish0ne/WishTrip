@@ -55,7 +55,8 @@ function Button({ type, setType }: ButtonPropsType) {
     if (type === "email") {
       setType("password");
     } else if (type === "password") {
-      mutate("login");
+      localStorage.setItem("accessToken", "token");
+      //mutate("login");
       navigate("../Home");
     } else {
       mutate("register");
@@ -63,12 +64,12 @@ function Button({ type, setType }: ButtonPropsType) {
     }
   };
 
-  useEffect(() => {
-    if (data) {
-      localStorage.setItem("accessToken", data.access_token);
-      navigate("../Home");
-    }
-  }, [data, navigate]);
+  // useEffect(() => {
+  //   if (data) {
+  //     localStorage.setItem("accessToken", data.access_token);
+  //     navigate("../Home");
+  //   }
+  // }, [data, navigate]);
 
   return (
     <StyledButton>
