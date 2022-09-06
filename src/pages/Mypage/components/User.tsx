@@ -11,10 +11,15 @@ const StyledUser = styled.div`
   div + div {
     display: flex;
     align-items: center;
+    height: 2.4rem;
     span {
       font-family: "ExtraBold";
       font-size: 1.6rem;
+      line-height: 2.4rem;
       color: ${(props) => props.theme.palette.default1};
+    }
+    > a {
+      height: 2.4rem;
     }
   }
   & > address {
@@ -52,15 +57,21 @@ const Icon = styled.div`
   }
 `;
 
-function User() {
-  const [token, setToken] = useState(localStorage.getItem("accessToken"));
+interface UserProps {
+  isLogin: boolean;
+}
 
+function User({ isLogin }: UserProps) {
   return (
     <StyledUser>
       <Icon>
-        {token ? <img src={img9} alt="마이페이지 유저 프로필사진" /> : <div />}
+        {isLogin ? (
+          <img src={img9} alt="마이페이지 유저 프로필사진" />
+        ) : (
+          <div />
+        )}
       </Icon>
-      {token ? (
+      {isLogin ? (
         <address>
           <span>소마</span>
           <span>soma@gmail.com</span>

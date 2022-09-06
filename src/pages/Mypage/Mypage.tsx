@@ -52,7 +52,7 @@ function Mypage() {
   return (
     <StyledMypage>
       <Header />
-      <User />
+      <User isLogin={token ? true : false} />
       <Tab />
       {token ? (
         <StyledContent>
