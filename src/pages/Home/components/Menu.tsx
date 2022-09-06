@@ -40,7 +40,7 @@ function Menu() {
   return (
     <StyledMenu>
       {titles.map((title) => (
-        <Button to={`/${title.route}`} key={title.title}>
+        <Button to={`../${title.route}`} key={title.title}>
           <img
             src={require(`../../../assets/images/${title.title}/${title.title}@2x.jpg`)}
             alt={title.title}

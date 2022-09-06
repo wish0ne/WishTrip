@@ -70,7 +70,7 @@ function Start() {
           <Logo width="6.9rem" height="2.2rem" />
           <h1>내 친구가 추천하는 여행</h1>
         </div>
-        <StyledBtn to="/Authentication">이메일로 시작하기</StyledBtn>
+        <StyledBtn to="../Authentication">이메일로 시작하기</StyledBtn>
       </Bottom>
     </StyledStart>
   );

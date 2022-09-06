@@ -15,7 +15,7 @@ function Splash() {
   const navigate = useNavigate();
   useEffect(() => {
     let timer = setTimeout(() => {
-      navigate("/Home");
+      navigate("./Home");
     }, 2000);
     return () => {
       clearTimeout(timer);

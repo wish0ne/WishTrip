@@ -79,7 +79,7 @@ function User({ isLogin }: UserProps) {
       ) : (
         <div>
           <span>로그인 & 가입하기</span>
-          <Link to="/Authentication/Start">
+          <Link to="../Authentication/Start">
             <Right width="2.4rem" height="2.4rem" />
           </Link>
         </div>

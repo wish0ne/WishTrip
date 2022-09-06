@@ -53,7 +53,8 @@ function Button({ type, setType }: ButtonPropsType) {
 
   const handleClick = () => {
     if (type === "email") {
-      setType("password");
+      instance.post("msw/login", { email: "test" });
+      //setType("password");
     } else if (type === "password") {
       localStorage.setItem("accessToken", "token");
       //mutate("login");
