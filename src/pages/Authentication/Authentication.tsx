@@ -13,16 +13,16 @@ function Authentication() {
   return (
     <StyledContainer>
       <Header type={types} />
+      {types !== "password" && <Input title="이메일" type="email" id="email" />}
+      {types !== "email" && (
+        <Input title="비밀번호" type="password" id="password" />
+      )}
       {types === "register" && (
         <>
-          <Input title="이메일" type="email" />
-          <Input title="비밀번호" type="password" />
-          <Input title="닉네임" type="text" />
-          <Input title="이름" type="text" />
+          <Input title="닉네임" type="text" id="nickname" />
+          <Input title="이름" type="text" id="name" />
         </>
       )}
-      {types === "email" && <Input title="이메일" type="email" />}
-      {types === "password" && <Input title="비밀번호" type="password" />}
       <Button type={types} setType={setTypes} />
     </StyledContainer>
   );
