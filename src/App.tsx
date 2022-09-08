@@ -1,14 +1,65 @@
 import { Routes, Route } from "react-router-dom";
-import { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
-import { ThemeProvider } from "styled-components";
+import { ThemeProvider, createGlobalStyle } from "styled-components";
+import reset from "styled-reset";
 import Splash from "./pages/Splash/Splash";
-import Authentication from "./pages/Authentication/Authentication";
 import Start from "./pages/Authentication/Start";
 import Home from "./pages/Home/Home";
 import Ar from "./pages/Ar/Ar";
 import ARCreate from "./pages/Ar/Create";
 import Mypage from "./pages/Mypage/Mypage";
+import Email from "./pages/Authentication/Email";
+import Password from "./pages/Authentication/Password";
+import Register from "./pages/Authentication/Register";
+
+const GlobalStyle = createGlobalStyle`
+  ${reset}
+  html {
+    font-size: 62.5%;
+    min-height: calc(100% + env(safe-area-inset-top));
+    padding: env(safe-area-inset-top) env(safe-area-inset-right)
+      env(safe-area-inset-bottom) env(safe-area-inset-left);
+  }
+  body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+      "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+      sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+  }
+  
+  body::-webkit-scrollbar {
+    display: none; /* Chrome , Safari , Opera */
+  }
+  
+  code {
+    font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+      monospace;
+  }
+  
+  video {
+    width: 100vw;
+    height: 100vh;
+    object-fit: cover;
+  }
+  @media screen and (max-width: 320px) {
+    html {
+      font-size: 50%;
+    }
+  }
+  @media screen and (min-width: 450px) {
+    html {
+      font-size: 80%;
+    }
+  }
+  @media screen and (min-width: 700px) {
+    html {
+      font-size: 90%;
+    }
+  }
+`;
 
 const theme = {
   palette: {
@@ -30,25 +81,23 @@ const theme = {
 };
 
 function App() {
-  const navigate = useNavigate();
-  useEffect(() => {
-    let timer = setTimeout(() => {
-      navigate("/Home");
-    }, 2000);
-    return () => {
-      clearTimeout(timer);
-    };
-  }, []);
   return (
     <ThemeProvider theme={theme}>
+      <GlobalStyle />
       <Routes>
-        <Route path="WishTrip" element={<Splash />} />
-        <Route path="Home" element={<Home />} />
-        <Route path="Authentication" element={<Authentication />} />
-        <Route path="Authentication/Start" element={<Start />} />
-        <Route path="ARTrip" element={<Ar />} />
-        <Route path="ARTrip/Create" element={<ARCreate />} />
-        <Route path="Mypage" element={<Mypage />} />
+        <Route path="WishTrip">
+          <Route path="" element={<Splash />} />
+          <Route path="Home" element={<Home />} />
+          <Route path="Authentication">
+            <Route path="Start" element={<Start />} />
+            <Route path="Email" element={<Email />} />
+            <Route path="Password" element={<Password />} />
+            <Route path="Register" element={<Register />} />
+          </Route>
+          <Route path="ARTrip" element={<Ar />} />
+          <Route path="ARTrip/Create" element={<ARCreate />} />
+          <Route path="Mypage" element={<Mypage />} />
+        </Route>
       </Routes>
     </ThemeProvider>
   );

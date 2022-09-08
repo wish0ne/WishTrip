@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const instance = axios.create({
-  baseURL: "http://pwnhyo.kr:9999/",
+  baseURL: "https://3.36.71.48/",
   timeout: 1000,
 });
 
@@ -24,7 +24,7 @@ instance.interceptors.response.use(
     //응답 성공 직전 호출
     //.then()으로 이어짐
     console.log(response);
-    return response.data;
+    return response;
   },
   (error) => {
     //응답 에러 직전 호출

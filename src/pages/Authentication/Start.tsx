@@ -15,9 +15,14 @@ const Bottom = styled.div`
   box-sizing: border-box;
   padding: 2.4rem;
   h1 {
+    margin-top: 1.2rem;
     font-family: "ExtraBold";
     font-size: 2.4rem;
     color: ${(props) => props.theme.palette.default2};
+  }
+  > div {
+    padding: 0 0.8rem;
+    margin-bottom: 4rem;
   }
 `;
 
@@ -61,9 +66,11 @@ function Start() {
         <User icon={img5} name="gamsungcross" location="프랑스 파리" />
       </Landing>
       <Bottom>
-        <Logo width="6.9rem" height="2.2rem" />
-        <h1>내 친구가 추천하는 여행</h1>
-        <StyledBtn to="/Authentication">이메일로 시작하기</StyledBtn>
+        <div>
+          <Logo width="6.9rem" height="2.2rem" />
+          <h1>내 친구가 추천하는 여행</h1>
+        </div>
+        <StyledBtn to="../Email">이메일로 시작하기</StyledBtn>
       </Bottom>
     </StyledStart>
   );

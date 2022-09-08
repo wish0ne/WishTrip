@@ -4,13 +4,9 @@ import Header from "./components/Header";
 import User from "./components/User";
 import Tab from "./components/Tab";
 import Content from "./components/Content";
-import img1 from "../../assets/images/여행사진1.jpg";
 import img2 from "../../assets/images/여행사진2.jpg";
-import img3 from "../../assets/images/여행사진3.jpg";
-import img4 from "../../assets/images/여행사진4.jpg";
 import img5 from "../../assets/images/여행사진5.jpg";
 import img6 from "../../assets/images/여행사진6.jpg";
-import img7 from "../../assets/images/여행사진7.jpg";
 import img9 from "../../assets/images/여행사진9.jpg";
 
 const contents = [
@@ -52,7 +48,7 @@ function Mypage() {
   return (
     <StyledMypage>
       <Header />
-      <User />
+      <User isLogin={token ? true : false} />
       <Tab />
       {token ? (
         <StyledContent>

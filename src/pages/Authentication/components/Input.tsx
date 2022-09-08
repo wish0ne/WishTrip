@@ -1,5 +1,6 @@
 import styled from "styled-components";
-import { useState } from "react";
+import { authState } from "../../../recoil/authentication";
+import { useRecoilState } from "recoil";
 
 const StyledInput = styled.div`
   padding: 0.8rem 1.6rem;
@@ -40,20 +41,13 @@ interface InputPropsType {
 }
 
 function Input({ title, type }: InputPropsType) {
-  const [input, setInput] = useState<string>("");
+  const [auth, setAuth] = useRecoilState(authState);
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setInput(e.target.value);
-  };
-  const handleFocus = (e: React.FocusEvent<HTMLInputElement, Element>) => {
-    console.log(e.target.id);
+    setAuth({ ...auth, [e.target.id]: e.target.value });
   };
   return (
     <StyledInput>
-      <input
-        id={title}
-        onChange={handleChange}
-        type={type === "password" ? "password" : "email"}
-      />
+      <input id={type} onChange={handleChange} type={type} />
       <label>{title}</label>
     </StyledInput>
   );

@@ -1,9 +1,8 @@
 import styled from "styled-components";
-import { useEffect } from "react";
-import { useMutation } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
 import instance from "../../../modules/api";
-import { AxiosError } from "axios";
+import { useRecoilValue } from "recoil";
+import { authState, IAuthTypes } from "../../../recoil/authentication";
 
 const StyledButton = styled.div`
   position: absolute;
@@ -32,44 +31,38 @@ const BottomButton = styled.button`
   display: block;
   font-family: "ExtraBold";
   width: 100%;
+  padding: 0;
 `;
 
 interface ButtonPropsType {
   type: string;
-  setType: React.Dispatch<React.SetStateAction<string>>;
 }
 
-function Button({ type, setType }: ButtonPropsType) {
+function Button({ type }: ButtonPropsType) {
   const navigate = useNavigate();
-
-  //Mutations
-  const { data, mutate, isSuccess } = useMutation<any, AxiosError, string>(
-    (url: string) => {
-      if (url === "login")
-        return instance.post(`/login`, { username: "test", password: "test" });
-      else return instance.post(`/register`, {});
-    },
-  );
+  const auth = useRecoilValue<IAuthTypes>(authState);
 
   const handleClick = () => {
     if (type === "email") {
-      setType("password");
+      const response = instance.post("msw/login", { email: auth.email });
+      response
+        .then((res) => {
+          if (res.status === 200) navigate("../Password");
+        })
+        .catch(() => {
+          navigate("../Register");
+        });
     } else if (type === "password") {
-      localStorage.setItem("accessToken", "token");
+      instance.post("/login", {
+        username: auth.email,
+        password: auth.password,
+      });
       //mutate("login");
-      navigate("../Home");
+      //navigate("../Home");
     } else {
-      mutate("register");
       navigate("../Home");
     }
   };
-
-  // useEffect(() => {
-  //   if (data) {
-  //     localStorage.setItem("accessToken", data.access_token);
-  //     navigate("../Home");
-  //   }
-  // }, [data, navigate]);
 
   return (
     <StyledButton>
