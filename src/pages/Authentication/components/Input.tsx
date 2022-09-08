@@ -38,21 +38,16 @@ const StyledInput = styled.div`
 interface InputPropsType {
   title: string;
   type: string;
-  id: string;
 }
 
-function Input({ title, type, id }: InputPropsType) {
+function Input({ title, type }: InputPropsType) {
   const [auth, setAuth] = useRecoilState(authState);
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setAuth({ ...auth, [e.target.id]: e.target.value });
   };
   return (
     <StyledInput>
-      <input
-        id={id}
-        onChange={handleChange}
-        type={type === "password" ? "password" : "email"}
-      />
+      <input id={type} onChange={handleChange} type={type} />
       <label>{title}</label>
     </StyledInput>
   );

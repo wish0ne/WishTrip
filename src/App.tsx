@@ -2,12 +2,14 @@ import { Routes, Route } from "react-router-dom";
 import { ThemeProvider, createGlobalStyle } from "styled-components";
 import reset from "styled-reset";
 import Splash from "./pages/Splash/Splash";
-import Authentication from "./pages/Authentication/Authentication";
 import Start from "./pages/Authentication/Start";
 import Home from "./pages/Home/Home";
 import Ar from "./pages/Ar/Ar";
 import ARCreate from "./pages/Ar/Create";
 import Mypage from "./pages/Mypage/Mypage";
+import Email from "./pages/Authentication/Email";
+import Password from "./pages/Authentication/Password";
+import Register from "./pages/Authentication/Register";
 
 const GlobalStyle = createGlobalStyle`
   ${reset}
@@ -86,8 +88,12 @@ function App() {
         <Route path="WishTrip">
           <Route path="" element={<Splash />} />
           <Route path="Home" element={<Home />} />
-          <Route path="Authentication" element={<Authentication />} />
-          <Route path="Authentication/Start" element={<Start />} />
+          <Route path="Authentication">
+            <Route path="Start" element={<Start />} />
+            <Route path="Email" element={<Email />} />
+            <Route path="Password" element={<Password />} />
+            <Route path="Register" element={<Register />} />
+          </Route>
           <Route path="ARTrip" element={<Ar />} />
           <Route path="ARTrip/Create" element={<ARCreate />} />
           <Route path="Mypage" element={<Mypage />} />

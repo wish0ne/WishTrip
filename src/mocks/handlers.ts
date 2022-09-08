@@ -10,7 +10,7 @@ interface PostValidUserReqBody {
 //ctx : context utilities specific to the current request handler
 export const handlers = [
   rest.post<PostValidUserReqBody>(
-    "http://3.36.71.48/msw/login",
+    "https://3.36.71.48/msw/login",
     (req, res, ctx) => {
       const { email } = req.body;
       if (email === "test") return res(ctx.status(200));

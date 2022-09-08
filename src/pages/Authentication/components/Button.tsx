@@ -36,10 +36,9 @@ const BottomButton = styled.button`
 
 interface ButtonPropsType {
   type: string;
-  setType: React.Dispatch<React.SetStateAction<string>>;
 }
 
-function Button({ type, setType }: ButtonPropsType) {
+function Button({ type }: ButtonPropsType) {
   const navigate = useNavigate();
   const auth = useRecoilValue<IAuthTypes>(authState);
 
@@ -48,10 +47,10 @@ function Button({ type, setType }: ButtonPropsType) {
       const response = instance.post("msw/login", { email: auth.email });
       response
         .then((res) => {
-          if (res.status === 200) setType("password");
+          if (res.status === 200) navigate("../Password");
         })
         .catch(() => {
-          setType("register");
+          navigate("../Register");
         });
     } else if (type === "password") {
       instance.post("/login", {
