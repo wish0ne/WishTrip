@@ -78,7 +78,8 @@ function Button({ type, title }: ButtonPropsType) {
         });
         res
           .then((r) => {
-            //로그인 성공 : 홈 화면 이동
+            //로그인 성공 : 토큰 저장, 홈 화면 이동
+            localStorage.setItem("accessToken", r.data.access_token);
             resetAuth();
             navigate("../../Home");
           })
