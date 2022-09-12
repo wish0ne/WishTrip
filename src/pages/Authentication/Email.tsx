@@ -10,14 +10,14 @@ const StyledContainer = styled.div`
 `;
 
 function Email() {
-  const { isMember } = useRecoilValue(authState);
+  const { alert } = useRecoilValue(authState);
   return (
     <StyledContainer>
       <Header type="email" />
       <Input title="이메일" type="email" id="email" />
       <Button
         type="email"
-        title={isMember === false ? "이메일로 가입하기" : "다음"}
+        title={alert.isMember === false ? "이메일로 가입하기" : "다음"}
       />
     </StyledContainer>
   );

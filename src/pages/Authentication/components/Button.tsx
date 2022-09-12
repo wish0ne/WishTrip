@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import instance from "../../../modules/api";
-import { useRecoilState, useRecoilValue } from "recoil";
+import { useRecoilState } from "recoil";
 import { authState, IAuthTypes } from "../../../recoil/authentication";
 
 const StyledButton = styled.div`
@@ -41,15 +41,18 @@ interface ButtonPropsType {
 
 function Button({ type, title }: ButtonPropsType) {
   const navigate = useNavigate();
-  const [auth, setAuth] = useRecoilState<IAuthTypes>(authState);
+  const [{ data, alert }, setAuth] = useRecoilState<IAuthTypes>(authState);
 
   const handleClick = () => {
+    //이메일로 시작하기
     if (type === "email") {
-      if (!auth.isMember) {
-        setAuth({ ...auth, isMember: true });
+      if (!alert.isMember) {
+        setAuth({ data, alert: { ...alert, isMember: true } });
         navigate("../Register");
       } else {
-        const response = instance.post("msw/login", { email: auth.data.email });
+        const response = instance.post("msw/isMember", {
+          email: data.email,
+        });
         response
           .then((res) => {
             //회원이면 비밀번호 입력으로 이동
@@ -57,17 +60,30 @@ function Button({ type, title }: ButtonPropsType) {
           })
           .catch(() => {
             //비회원이면 이메일로 가입하기로 유도
-            setAuth({ ...auth, isMember: false });
+            setAuth({ data, alert: { ...alert, isMember: false } });
           });
       }
-    } else if (type === "password") {
-      instance.post("/login", {
-        username: auth.data.email,
-        password: auth.data.password,
+    }
+    //비밀번호 입력
+    else if (type === "password") {
+      const res = instance.post("msw/login", {
+        email: data.email,
+        password: data.password,
       });
-      //mutate("login");
-      //navigate("../Home");
-    } else {
+      res
+        .then((r) => {
+          //로그인 성공 : 홈 화면 이동
+          navigate("../../Home");
+        })
+        .catch(
+          //실패 : 비밀번호 오류 알람 추가
+          () => {
+            setAuth({ data, alert: { ...alert, pwWrong: true } });
+          },
+        );
+    }
+    //회원가입
+    else {
       navigate("../Home");
     }
   };

@@ -8,7 +8,10 @@ export interface IAuthTypes {
     nickname: string;
     name: string;
   };
-  isMember: boolean;
+  alert: {
+    isMember: boolean;
+    pwWrong: boolean;
+  };
 }
 
 export const authState = atom<IAuthTypes>({
@@ -21,6 +24,9 @@ export const authState = atom<IAuthTypes>({
       nickname: "",
       name: "",
     },
-    isMember: true,
+    alert: {
+      isMember: true,
+      pwWrong: false,
+    },
   },
 });

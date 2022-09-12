@@ -58,7 +58,10 @@ function Input({ title, type, id }: InputPropsType) {
           ...auth.data,
           [key]: e.target.value,
         },
-        isMember: true,
+        alert: {
+          pwWrong: false,
+          isMember: true,
+        },
       });
     }
   };
@@ -68,7 +71,8 @@ function Input({ title, type, id }: InputPropsType) {
         <input data-auth={id} onChange={handleChange} type={type} />
         <label>{title}</label>
       </StyledInput>
-      {!auth.isMember && <Alert>등록되지 않은 이메일입니다.</Alert>}
+      {!auth.alert.isMember && <Alert>등록되지 않은 이메일입니다.</Alert>}
+      {auth.alert.pwWrong && <Alert>올바르지 않은 비밀번호입니다.</Alert>}
     </>
   );
 }
