@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import instance from "../../../modules/api";
-import { useRecoilValue } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 import { authState, IAuthTypes } from "../../../recoil/authentication";
 
 const StyledButton = styled.div`
@@ -36,26 +36,34 @@ const BottomButton = styled.button`
 
 interface ButtonPropsType {
   type: string;
+  title: string;
 }
 
-function Button({ type }: ButtonPropsType) {
+function Button({ type, title }: ButtonPropsType) {
   const navigate = useNavigate();
-  const auth = useRecoilValue<IAuthTypes>(authState);
+  const [auth, setAuth] = useRecoilState<IAuthTypes>(authState);
 
   const handleClick = () => {
     if (type === "email") {
-      const response = instance.post("msw/login", { email: auth.email });
-      response
-        .then((res) => {
-          if (res.status === 200) navigate("../Password");
-        })
-        .catch(() => {
-          navigate("../Register");
-        });
+      if (!auth.isMember) {
+        setAuth({ ...auth, isMember: true });
+        navigate("../Register");
+      } else {
+        const response = instance.post("msw/login", { email: auth.data.email });
+        response
+          .then((res) => {
+            //회원이면 비밀번호 입력으로 이동
+            if (res.status === 200) navigate("../Password");
+          })
+          .catch(() => {
+            //비회원이면 이메일로 가입하기로 유도
+            setAuth({ ...auth, isMember: false });
+          });
+      }
     } else if (type === "password") {
       instance.post("/login", {
-        username: auth.email,
-        password: auth.password,
+        username: auth.data.email,
+        password: auth.data.password,
       });
       //mutate("login");
       //navigate("../Home");
@@ -67,11 +75,7 @@ function Button({ type }: ButtonPropsType) {
   return (
     <StyledButton>
       {type === "password" && <LostBtn>비밀번호를 잊으셨나요?</LostBtn>}
-      <BottomButton onClick={handleClick}>
-        {type === "email" && "다음"}
-        {type === "password" && "로그인"}
-        {type === "register" && "가입하기"}
-      </BottomButton>
+      <BottomButton onClick={handleClick}>{title}</BottomButton>
     </StyledButton>
   );
 }

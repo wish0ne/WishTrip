@@ -2,6 +2,13 @@ import styled from "styled-components";
 import { authState } from "../../../recoil/authentication";
 import { useRecoilState } from "recoil";
 
+const Alert = styled.div`
+  padding: 0.8rem 0;
+  font-family: "Medium";
+  font-size: 1.2rem;
+  color: red;
+`;
+
 const StyledInput = styled.div`
   padding: 0.8rem 1.6rem;
   width: 100%;
@@ -38,18 +45,31 @@ const StyledInput = styled.div`
 interface InputPropsType {
   title: string;
   type: string;
+  id: string;
 }
 
-function Input({ title, type }: InputPropsType) {
+function Input({ title, type, id }: InputPropsType) {
   const [auth, setAuth] = useRecoilState(authState);
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setAuth({ ...auth, [e.target.id]: e.target.value });
+    let key: string | undefined = e.target.dataset["auth"];
+    if (key) {
+      setAuth({
+        data: {
+          ...auth.data,
+          [key]: e.target.value,
+        },
+        isMember: true,
+      });
+    }
   };
   return (
-    <StyledInput>
-      <input id={type} onChange={handleChange} type={type} />
-      <label>{title}</label>
-    </StyledInput>
+    <>
+      <StyledInput>
+        <input data-auth={id} onChange={handleChange} type={type} />
+        <label>{title}</label>
+      </StyledInput>
+      {!auth.isMember && <Alert>등록되지 않은 이메일입니다.</Alert>}
+    </>
   );
 }
 

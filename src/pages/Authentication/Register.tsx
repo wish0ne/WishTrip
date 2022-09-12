@@ -11,11 +11,11 @@ function Register() {
   return (
     <StyledContainer>
       <Header type="register" />
-      <Input title="비밀번호" type="password" />
-      <Input title="비밀번호 확인" type="password" />
-      <Input title="이름" type="text" />
-      <Input title="닉네임" type="text" />
-      <Button type="register" />
+      <Input title="비밀번호" type="password" id="password" />
+      <Input title="비밀번호 확인" type="password" id="password_check" />
+      <Input title="이름" type="text" id="name" />
+      <Input title="닉네임" type="text" id="nickname" />
+      <Button type="register" title="가입하기" />
     </StyledContainer>
   );
 }

@@ -11,8 +11,8 @@ function Password() {
   return (
     <StyledContainer>
       <Header type="password" />
-      <Input title="비밀번호" type="password" />
-      <Button type="password" />
+      <Input title="비밀번호" type="password" id="password" />
+      <Button type="password" title="로그인" />
     </StyledContainer>
   );
 }
