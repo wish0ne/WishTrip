@@ -3,6 +3,8 @@ import { rest } from "msw";
 interface PostValidUserReqBody {
   email: string;
   password?: string;
+  name?: string;
+  username?: string;
 }
 
 //method, path, function
@@ -32,6 +34,17 @@ export const handlers = [
           }),
         );
       else return res(ctx.status(401));
+    },
+  ),
+  rest.post<PostValidUserReqBody>(
+    "https://3.36.71.48/msw/register",
+    (req, res, ctx) => {
+      const { email, username } = req.body;
+      if (email === "test" || username === "admin") {
+        return res(ctx.status(401));
+      } else {
+        return res(ctx.status(200), ctx.json({ msg: "register success" }));
+      }
     },
   ),
 ];

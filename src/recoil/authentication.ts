@@ -5,12 +5,15 @@ export interface IAuthTypes {
     email: string;
     password: string;
     password_check: string;
-    nickname: string;
+    username: string;
     name: string;
   };
   alert: {
     isMember: boolean;
     pwWrong: boolean;
+    sameName: boolean;
+    empty: boolean;
+    pwEqual: boolean;
   };
 }
 
@@ -21,12 +24,15 @@ export const authState = atom<IAuthTypes>({
       email: "",
       password: "",
       password_check: "",
-      nickname: "",
+      username: "",
       name: "",
     },
     alert: {
       isMember: true,
       pwWrong: false,
+      sameName: false,
+      empty: false,
+      pwEqual: true,
     },
   },
 });

@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import instance from "../../../modules/api";
-import { useRecoilState } from "recoil";
+import { useRecoilState, useResetRecoilState } from "recoil";
 import { authState, IAuthTypes } from "../../../recoil/authentication";
 
 const StyledButton = styled.div`
@@ -42,12 +42,15 @@ interface ButtonPropsType {
 function Button({ type, title }: ButtonPropsType) {
   const navigate = useNavigate();
   const [{ data, alert }, setAuth] = useRecoilState<IAuthTypes>(authState);
+  const resetAuth = useResetRecoilState(authState);
 
   const handleClick = () => {
     //이메일로 시작하기
     if (type === "email") {
-      if (!alert.isMember) {
-        setAuth({ data, alert: { ...alert, isMember: true } });
+      if (data.email === "") {
+        setAuth({ data, alert: { ...alert, empty: true } });
+      } else if (!alert.isMember) {
+        resetAuth();
         navigate("../Register");
       } else {
         const response = instance.post("msw/isMember", {
@@ -66,25 +69,57 @@ function Button({ type, title }: ButtonPropsType) {
     }
     //비밀번호 입력
     else if (type === "password") {
-      const res = instance.post("msw/login", {
-        email: data.email,
-        password: data.password,
-      });
-      res
-        .then((r) => {
-          //로그인 성공 : 홈 화면 이동
-          navigate("../../Home");
-        })
-        .catch(
-          //실패 : 비밀번호 오류 알람 추가
-          () => {
-            setAuth({ data, alert: { ...alert, pwWrong: true } });
-          },
-        );
+      if (data.password === "") {
+        setAuth({ data, alert: { ...alert, empty: true } });
+      } else {
+        const res = instance.post("msw/login", {
+          email: data.email,
+          password: data.password,
+        });
+        res
+          .then((r) => {
+            //로그인 성공 : 홈 화면 이동
+            resetAuth();
+            navigate("../../Home");
+          })
+          .catch(
+            //실패 : 비밀번호 오류 알람 추가
+            () => {
+              setAuth({ data, alert: { ...alert, pwWrong: true } });
+            },
+          );
+      }
     }
     //회원가입
     else {
-      navigate("../Home");
+      if (
+        data.username === "" ||
+        data.name === "" ||
+        data.password === "" ||
+        data.password_check === ""
+      ) {
+        setAuth({ data, alert: { ...alert, empty: true } });
+      } else if (data.password !== data.password_check) {
+        setAuth({ data, alert: { ...alert, pwEqual: false } });
+      } else {
+        const res = instance.post("msw/register", {
+          username: data.username,
+          name: data.name,
+          email: data.email,
+          password: data.password,
+        });
+        res
+          .then((r) => {
+            //회원가입 성공 : 로그인 화면으로 이동
+            navigate("../Email");
+          })
+          .catch(
+            //실패 : 닉네임 중복
+            () => {
+              setAuth({ data, alert: { ...alert, sameName: true } });
+            },
+          );
+      }
     }
   };
 

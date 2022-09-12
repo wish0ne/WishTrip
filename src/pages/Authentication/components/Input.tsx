@@ -2,13 +2,6 @@ import styled from "styled-components";
 import { authState } from "../../../recoil/authentication";
 import { useRecoilState } from "recoil";
 
-const Alert = styled.div`
-  padding: 0.8rem 0;
-  font-family: "Medium";
-  font-size: 1.2rem;
-  color: red;
-`;
-
 const StyledInput = styled.div`
   padding: 0.8rem 1.6rem;
   width: 100%;
@@ -61,6 +54,9 @@ function Input({ title, type, id }: InputPropsType) {
         alert: {
           pwWrong: false,
           isMember: true,
+          sameName: false,
+          empty: false,
+          pwEqual: true,
         },
       });
     }
@@ -71,8 +67,6 @@ function Input({ title, type, id }: InputPropsType) {
         <input data-auth={id} onChange={handleChange} type={type} />
         <label>{title}</label>
       </StyledInput>
-      {!auth.alert.isMember && <Alert>등록되지 않은 이메일입니다.</Alert>}
-      {auth.alert.pwWrong && <Alert>올바르지 않은 비밀번호입니다.</Alert>}
     </>
   );
 }
