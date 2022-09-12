@@ -38,18 +38,36 @@ const StyledInput = styled.div`
 interface InputPropsType {
   title: string;
   type: string;
+  id: string;
 }
 
-function Input({ title, type }: InputPropsType) {
+function Input({ title, type, id }: InputPropsType) {
   const [auth, setAuth] = useRecoilState(authState);
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setAuth({ ...auth, [e.target.id]: e.target.value });
+    let key: string | undefined = e.target.dataset["auth"];
+    if (key) {
+      setAuth({
+        data: {
+          ...auth.data,
+          [key]: e.target.value,
+        },
+        alert: {
+          pwWrong: false,
+          isMember: true,
+          sameName: false,
+          empty: false,
+          pwEqual: true,
+        },
+      });
+    }
   };
   return (
-    <StyledInput>
-      <input id={type} onChange={handleChange} type={type} />
-      <label>{title}</label>
-    </StyledInput>
+    <>
+      <StyledInput>
+        <input data-auth={id} onChange={handleChange} type={type} />
+        <label>{title}</label>
+      </StyledInput>
+    </>
   );
 }
 
