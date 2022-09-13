@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { ReactComponent as Arrow } from "../../../assets/images/uil_arrow-left.svg";
 import { ReactComponent as Menu } from "../../../assets/images/uil_bars.svg";
 
@@ -16,11 +16,15 @@ const StyledHeader = styled.div`
 `;
 
 function Header() {
+  const navigate = useNavigate();
   return (
     <StyledHeader>
-      <Link to="/Home">
-        <Arrow width="2.4rem" height="2.4rem" fill="#000000" />
-      </Link>
+      <Arrow
+        width="2.4rem"
+        height="2.4rem"
+        fill="#000000"
+        onClick={() => navigate(-1)}
+      />
       <h1>마이페이지</h1>
       <Menu width="2.4rem" height="2.4rem" />
     </StyledHeader>

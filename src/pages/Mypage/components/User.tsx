@@ -1,8 +1,8 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
-import { useState } from "react";
-import img9 from "../../../assets/images/여행사진9.jpg";
 import { ReactComponent as Right } from "../../../assets/images/uil_angle-right.svg";
+import { useRecoilValue } from "recoil";
+import { mypageData } from "../../../recoil/mypage";
 
 const StyledUser = styled.div`
   display: flex;
@@ -35,6 +35,7 @@ const StyledUser = styled.div`
       font-family: "Medium";
       font-size: 1.3rem;
       color: ${(props) => props.theme.palette.default1};
+      margin-top: 0.4rem;
     }
   }
 `;
@@ -57,24 +58,22 @@ const Icon = styled.div`
   }
 `;
 
-interface UserProps {
-  isLogin: boolean;
-}
-
-function User({ isLogin }: UserProps) {
+function User() {
+  const { user } = useRecoilValue(mypageData);
   return (
     <StyledUser>
       <Icon>
-        {isLogin ? (
-          <img src={img9} alt="마이페이지 유저 프로필사진" />
+        {user.image ? (
+          <img src={user.image} alt="마이페이지 유저 프로필사진" />
         ) : (
+          //빈 프로필 사진
           <div />
         )}
       </Icon>
-      {isLogin ? (
+      {user.email !== "" ? (
         <address>
-          <span>소마</span>
-          <span>soma@gmail.com</span>
+          <span>{user.username}</span>
+          <span>{user.email}</span>
         </address>
       ) : (
         <div>

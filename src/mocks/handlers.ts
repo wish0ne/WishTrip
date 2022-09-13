@@ -1,4 +1,5 @@
 import { rest } from "msw";
+import img1 from "../assets/images/여행사진1.jpg";
 
 interface PostValidUserReqBody {
   email: string;
@@ -12,6 +13,7 @@ interface PostValidUserReqBody {
 //res : function to create the mocked response
 //ctx : context utilities specific to the current request handler
 export const handlers = [
+  //인증
   rest.post<PostValidUserReqBody>(
     "https://3.36.71.48/msw/isMember",
     (req, res, ctx) => {
@@ -47,4 +49,16 @@ export const handlers = [
       }
     },
   ),
+  //마이페이지
+  rest.post("https://3.36.71.48/msw/mypage", (req, res, ctx) => {
+    const token = req.headers.get("authorization")?.split(" ")[1];
+    if (token === "null") return res(ctx.status(401)); //비로그인
+    return res(
+      ctx.json({
+        image: img1,
+        username: "부끄러운 프로도",
+        email: "frodo@gmail.com",
+      }),
+    );
+  }),
 ];

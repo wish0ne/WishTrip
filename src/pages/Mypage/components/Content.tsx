@@ -35,6 +35,7 @@ const StyledContent = styled.div`
     span + span {
       font-family: "Medium";
       font-size: 1.2rem;
+      margin-top: 0.4rem;
     }
   }
 `;

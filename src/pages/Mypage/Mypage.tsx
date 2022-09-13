@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Header from "./components/Header";
 import User from "./components/User";
 import Tab from "./components/Tab";
@@ -8,6 +8,9 @@ import img2 from "../../assets/images/여행사진2.jpg";
 import img5 from "../../assets/images/여행사진5.jpg";
 import img6 from "../../assets/images/여행사진6.jpg";
 import img9 from "../../assets/images/여행사진9.jpg";
+import instance from "../../modules/api";
+import { useRecoilState, useSetRecoilState } from "recoil";
+import { mypageData } from "../../recoil/mypage";
 
 const contents = [
   { id: 1, image: img5, title: "사소하지만 아름다운 풍경들", user: "gamsung" },
@@ -44,13 +47,31 @@ const NotLogin = styled.div`
 `;
 
 function Mypage() {
-  const [token, setToken] = useState(localStorage.getItem("accessToken"));
+  const [mypage, setMypage] = useRecoilState(mypageData);
+  const [tab, seTab] = useState("scrap"); //scrap, recent, comment
+  useEffect(() => {
+    const res = instance.post("/msw/mypage");
+    res
+      .then((data) => {
+        setMypage({
+          ...mypage,
+          user: {
+            image: data.data.image,
+            email: data.data.email,
+            username: data.data.username,
+          },
+        });
+      })
+      .catch(() => {
+        //토큰 없는 경우
+      });
+  }, []);
   return (
     <StyledMypage>
       <Header />
-      <User isLogin={token ? true : false} />
+      <User />
       <Tab />
-      {token ? (
+      {mypage ? (
         <StyledContent>
           {contents.map((content) => (
             <Content
