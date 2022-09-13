@@ -10,6 +10,10 @@ instance.interceptors.request.use(
   (config) => {
     //요청 성공 직전 호출
     //axios 설정값 추가
+    if (config.headers)
+      config.headers.Authorization = `Bearer ${localStorage.getItem(
+        "accessToken",
+      )}`;
     return config;
   },
   (error) => {
