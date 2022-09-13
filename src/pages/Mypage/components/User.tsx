@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { Link } from "react-router-dom";
 import { ReactComponent as Right } from "../../../assets/images/uil_angle-right.svg";
 import { useRecoilValue } from "recoil";
-import { mypageData } from "../../../recoil/mypage";
+import { mypageUser } from "../../../recoil/mypage";
 
 const StyledUser = styled.div`
   display: flex;
@@ -59,21 +59,21 @@ const Icon = styled.div`
 `;
 
 function User() {
-  const { user } = useRecoilValue(mypageData);
+  const { image, email, username } = useRecoilValue(mypageUser);
   return (
     <StyledUser>
       <Icon>
-        {user.image ? (
-          <img src={user.image} alt="마이페이지 유저 프로필사진" />
+        {image ? (
+          <img src={image} alt="마이페이지 유저 프로필사진" />
         ) : (
           //빈 프로필 사진
           <div />
         )}
       </Icon>
-      {user.email !== "" ? (
+      {email !== "" ? (
         <address>
-          <span>{user.username}</span>
-          <span>{user.email}</span>
+          <span>{username}</span>
+          <span>{email}</span>
         </address>
       ) : (
         <div>

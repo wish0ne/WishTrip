@@ -1,38 +1,35 @@
 import { atom } from "recoil";
 
-export interface IMypageTypes {
-  user: {
-    image: string | null;
-    username: string;
-    email: string;
-  };
-  scrap: {
-    image: string;
-    title: string;
-    username: string;
-  }[];
-  recent: {
-    image: string;
-    title: string;
-    username: string;
-  }[];
-  comment: {
-    image: string;
-    title: string;
-    username: string;
-  }[];
+export interface IMypageUserType {
+  image: string | null;
+  username: string;
+  email: string;
 }
 
-export const mypageData = atom<IMypageTypes>({
-  key: "mypage/mypageData",
+interface IMypageContentsData {
+  image: string;
+  title: string;
+  username: string;
+  id: number;
+}
+
+export interface IMypageContentsType {
+  [index: string]: IMypageContentsData[];
+  scrap: IMypageContentsData[];
+  recent: IMypageContentsData[];
+  comment: IMypageContentsData[];
+}
+
+export const mypageUser = atom<IMypageUserType>({
+  key: "mypage/mypageData/user",
   default: {
-    user: {
-      image: null,
-      username: "",
-      email: "",
-    },
-    scrap: [],
-    recent: [],
-    comment: [],
+    image: null,
+    username: "",
+    email: "",
   },
+});
+
+export const mypageContents = atom<IMypageContentsType>({
+  key: "mypage/mypageData/contents",
+  default: { scrap: [], recent: [], comment: [] },
 });
