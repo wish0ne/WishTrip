@@ -7,13 +7,14 @@ import Recommend from "./components/Recommend";
 import instance from "../../modules/api";
 import { useEffect } from "react";
 import { useSetRecoilState } from "recoil";
-import { homeBanner, homeProfile } from "../../recoil/home";
+import { homeBanner, homeEvent, homeProfile } from "../../recoil/home";
 
 const StyledHome = styled.div``;
 
 function Home() {
   const setProfile = useSetRecoilState(homeProfile);
   const setBanner = useSetRecoilState(homeBanner);
+  const setEvent = useSetRecoilState(homeEvent);
   useEffect(() => {
     instance.post("/msw/home/profile").then(({ data }) => {
       setProfile(data.profile);
@@ -21,7 +22,10 @@ function Home() {
     instance.post("/msw/home/banner").then(({ data }) => {
       setBanner(data);
     });
-  }, [setProfile, setBanner]);
+    instance.post("/msw/home/event").then(({ data }) => {
+      setEvent(data);
+    });
+  }, [setProfile, setBanner, setEvent]);
   return (
     <StyledHome>
       <Header />

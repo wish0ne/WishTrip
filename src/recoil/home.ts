@@ -17,3 +17,14 @@ export const homeBanner = atom<IHomeBannerData[]>({
   key: "home/banner",
   default: [],
 });
+
+export interface IHomeEventData {
+  location: string;
+  type: string;
+  id: number;
+}
+
+export const homeEvent = atom<IHomeEventData[]>({
+  key: "home/event",
+  default: [],
+});

@@ -146,4 +146,25 @@ export const handlers = [
       ]),
     );
   }),
+  rest.post("https://3.36.71.48/msw/home/event", (req, res, ctx) => {
+    return res(
+      ctx.json([
+        {
+          location: "강남역",
+          type: "랜덤박스",
+          id: 1,
+        },
+        {
+          location: "선릉역",
+          type: "사진촬영",
+          id: 2,
+        },
+        {
+          location: "제주도",
+          type: "AR포스팅",
+          id: 3,
+        },
+      ]),
+    );
+  }),
 ];
