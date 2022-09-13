@@ -1,49 +1,9 @@
 import styled, { keyframes } from "styled-components";
 import { useState } from "react";
-import img1 from "../../../assets/images/여행사진1.jpg";
-import img2 from "../../../assets/images/여행사진2.jpg";
-import img3 from "../../../assets/images/여행사진3.jpg";
-import img5 from "../../../assets/images/여행사진5.jpg";
-import img6 from "../../../assets/images/여행사진6.jpg";
-import img7 from "../../../assets/images/여행사진7.jpg";
-import img8 from "../../../assets/images/여행사진9.jpg";
 import useInterval from "../../../modules/useInterval";
 import User from "../../components/User";
-
-const stories = [
-  {
-    id: 2,
-    tag: "상쾌한",
-    image: img6,
-    user: img3,
-    name: "귀여운 라이언",
-    location: "뉴질랜드 푸카키호수",
-  },
-  {
-    id: 3,
-    tag: "이색적인",
-    image: img7,
-    user: img5,
-    name: "기타치는 튜브",
-    location: "미국 오리건주 라벤더밸리",
-  },
-  {
-    id: 4,
-    tag: "요즘핫한",
-    image: img8,
-    user: img2,
-    name: "멋쟁이 어피치",
-    location: "프랑스 니스",
-  },
-  {
-    id: 1,
-    tag: "분위기 있는",
-    image: img5,
-    user: img1,
-    name: "부끄러운 프로도",
-    location: "미국 뉴욕",
-  },
-];
+import { useRecoilValue } from "recoil";
+import { homeBanner } from "../../../recoil/home";
 
 const StyledStory = styled.div`
   height: 47.2rem;
@@ -115,36 +75,41 @@ const Pagination = styled.div`
 
 function Story() {
   const [index, setIndex] = useState<number>(0);
+  const banner = useRecoilValue(homeBanner);
 
   useInterval(() => setIndex((index) => (index === 3 ? 0 : index + 1)), 5000);
 
   return (
     <StyledStory>
-      <Image src={stories[index].image} alt="홈화면 상단 이미지" />
-      <Title>
-        <Tag>{stories[index].tag}</Tag> 곳<br /> 어때요?
-      </Title>
-      <Bottom>
-        <User
-          icon={stories[index].user}
-          name={stories[index].name}
-          location={stories[index].location}
-        />
-      </Bottom>
-      <Pagination>
-        <div>
-          <div className={index === 0 ? "current" : ""} />
-        </div>
-        <div>
-          <div className={index === 1 ? "current" : ""} />
-        </div>
-        <div>
-          <div className={index === 2 ? "current" : ""} />
-        </div>
-        <div>
-          <div className={index === 3 ? "current" : ""} />
-        </div>
-      </Pagination>
+      {banner.length > 0 && (
+        <>
+          <Image src={banner[index].image} alt="홈화면 상단 이미지" />
+          <Title>
+            <Tag>{banner[index].comment}</Tag> 곳<br /> 어때요?
+          </Title>
+          <Bottom>
+            <User
+              icon={banner[index].profile}
+              name={banner[index].username}
+              location={banner[index].place}
+            />
+          </Bottom>
+          <Pagination>
+            <div>
+              <div className={index === 0 ? "current" : ""} />
+            </div>
+            <div>
+              <div className={index === 1 ? "current" : ""} />
+            </div>
+            <div>
+              <div className={index === 2 ? "current" : ""} />
+            </div>
+            <div>
+              <div className={index === 3 ? "current" : ""} />
+            </div>
+          </Pagination>
+        </>
+      )}
     </StyledStory>
   );
 }
