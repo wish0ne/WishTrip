@@ -28,3 +28,23 @@ export const homeEvent = atom<IHomeEventData[]>({
   key: "home/event",
   default: [],
 });
+
+export interface RecommendContentData {
+  image: string;
+  profile: string;
+  username: string;
+  location: string;
+  title: string;
+  id: number;
+}
+
+export interface IHomeRecommendData {
+  id: number;
+  tag: string;
+  contents: RecommendContentData[];
+}
+
+export const homeRecommend = atom<IHomeRecommendData[]>({
+  key: "home/recommend",
+  default: [],
+});

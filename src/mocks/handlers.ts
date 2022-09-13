@@ -167,4 +167,70 @@ export const handlers = [
       ]),
     );
   }),
+  rest.post("https://3.36.71.48/msw/home/recommend", (req, res, ctx) => {
+    return res(
+      ctx.json([
+        {
+          id: 1,
+          tag: "한적한",
+          contents: [
+            {
+              image: img2,
+              title: "사소하지만 아름다운 풍경들",
+              location: "프랑스 파리",
+              username: "gamsungcross",
+              profile: img1,
+              id: 1,
+            },
+            {
+              image: img3,
+              title: "걷다가 만난 일몰",
+              location: "제주 애월읍",
+              username: "샛별",
+              profile: img5,
+              id: 2,
+            },
+            {
+              image: img5,
+              title: "한적한 일본 구석구석 여행",
+              location: "일본 오사카",
+              username: "행복한족제비",
+              profile: img7,
+              id: 3,
+            },
+          ],
+        },
+        {
+          id: 2,
+          tag: "화려한",
+          contents: [
+            {
+              image: img8,
+              title: "양들과 함께 만난 일몰",
+              location: "프랑스 파리",
+              username: "gamsungcross",
+              profile: img1,
+              id: 1,
+            },
+            {
+              image: img2,
+              title: "걷다가 만난 일몰",
+              location: "제주 애월읍",
+              username: "샛별",
+              profile: img5,
+              id: 2,
+            },
+            {
+              image: img7,
+              title: "한적한 일본 구석구석 여행",
+              location: "일본 오사카",
+              username: "행복한족제비",
+              profile: img7,
+              id: 3,
+            },
+          ],
+        },
+      ]),
+    );
+  }),
 ];

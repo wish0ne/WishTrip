@@ -1,5 +1,5 @@
 import { useRecoilValue } from "recoil";
-import { Pagination, Navigation, Scrollbar, A11y } from "swiper";
+import { Pagination } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/pagination";
@@ -50,7 +50,7 @@ function Event() {
   return (
     <StyledContainer>
       <Swiper
-        modules={[Navigation, Pagination, Scrollbar]}
+        modules={[Pagination]}
         spaceBetween={50}
         slidesPerView={1}
         pagination={{ type: "bullets" }}

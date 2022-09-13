@@ -6,8 +6,13 @@ import Event from "./components/Event";
 import Recommend from "./components/Recommend";
 import instance from "../../modules/api";
 import { useEffect } from "react";
-import { useSetRecoilState } from "recoil";
-import { homeBanner, homeEvent, homeProfile } from "../../recoil/home";
+import { useRecoilState, useSetRecoilState } from "recoil";
+import {
+  homeBanner,
+  homeEvent,
+  homeProfile,
+  homeRecommend,
+} from "../../recoil/home";
 
 const StyledHome = styled.div``;
 
@@ -15,6 +20,7 @@ function Home() {
   const setProfile = useSetRecoilState(homeProfile);
   const setBanner = useSetRecoilState(homeBanner);
   const setEvent = useSetRecoilState(homeEvent);
+  const [recommend, setRecommend] = useRecoilState(homeRecommend);
   useEffect(() => {
     instance.post("/msw/home/profile").then(({ data }) => {
       setProfile(data.profile);
@@ -25,14 +31,19 @@ function Home() {
     instance.post("/msw/home/event").then(({ data }) => {
       setEvent(data);
     });
-  }, [setProfile, setBanner, setEvent]);
+    instance.post("/msw/home/recommend").then(({ data }) => {
+      setRecommend(data);
+    });
+  }, [setProfile, setBanner, setEvent, setRecommend]);
   return (
     <StyledHome>
       <Header />
       <Story />
       <Menu />
       <Event />
-      <Recommend />
+      {recommend.map(({ tag, contents, id }) => (
+        <Recommend tag={tag} contents={contents} key={id} />
+      ))}
     </StyledHome>
   );
 }
