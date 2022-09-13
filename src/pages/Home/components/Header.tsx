@@ -1,9 +1,9 @@
 import styled from "styled-components";
-import { useState } from "react";
 import { Link } from "react-router-dom";
 import { ReactComponent as Logo } from "../../../assets/images/Logo.svg";
 import { ReactComponent as Bell } from "../../../assets/images/uil_bell.svg";
-import img9 from "../../../assets/images/여행사진9.jpg";
+import { useRecoilValue } from "recoil";
+import { homeProfile } from "../../../recoil/home";
 
 const StyledHeader = styled.div`
   height: 5.6rem;
@@ -33,14 +33,14 @@ const StyledDiv = styled.div`
 `;
 
 function Header() {
-  const [token, setToken] = useState(localStorage.getItem("accessToken"));
+  const profile = useRecoilValue(homeProfile);
   return (
     <StyledHeader>
       <Logo width="7.2rem" height="2rem" />
       <StyledDiv>
         <Bell />
-        <UserIcon to="/Authentication/Start">
-          {token && <img src={img9} alt="유저아이콘" />}
+        <UserIcon to="/WishTrip/Mypage">
+          {profile && <img src={profile} alt="유저아이콘" />}
         </UserIcon>
       </StyledDiv>
     </StyledHeader>

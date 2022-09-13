@@ -1,37 +1,5 @@
 import styled from "styled-components";
-import img2 from "../../../assets/images/여행사진2.jpg";
-import img5 from "../../../assets/images/여행사진5.jpg";
-import img6 from "../../../assets/images/여행사진6.jpg";
-import img7 from "../../../assets/images/여행사진7.jpg";
-import img8 from "../../../assets/images/여행사진8.jpg";
-import img9 from "../../../assets/images/여행사진9.jpg";
-
-const posts = [
-  {
-    id: 1,
-    title: "사소하지만 아름다운 풍경들",
-    image: img5,
-    user: img8,
-    name: "gamsungcross",
-    location: "프랑스 파리",
-  },
-  {
-    id: 2,
-    title: "걷다가 만난 일몰",
-    image: img9,
-    user: img6,
-    name: "샛별",
-    location: "제주 애월읍",
-  },
-  {
-    id: 3,
-    title: "우당탕탕 일본 여행",
-    image: img2,
-    user: img7,
-    name: "행복한세상의족제비씨",
-    location: "일본 오사카",
-  },
-];
+import { RecommendContentData } from "../../../recoil/home";
 
 const StyledRecommend = styled.div`
   margin: 4.8rem 2.4rem;
@@ -109,30 +77,37 @@ const Info = styled.div`
     font-size: 1.3rem;
     display: flex;
     flex-direction: column;
+    justify-content: space-between;
   }
 
-  & div span {
+  & div > span {
     font-family: "Medium";
     font-size: 1.2rem;
+    margin-top: 0.2rem;
   }
 `;
 
-function Recommend() {
+interface RecommendProps {
+  tag: string;
+  contents: RecommendContentData[];
+}
+
+function Recommend({ tag, contents }: RecommendProps) {
   return (
     <StyledRecommend>
       <Title>
-        <span>한적한</span> 곳 어때요?
+        <span>{tag}</span> 곳 어때요?
       </Title>
       <PostContainer>
-        {posts.map((post) => (
-          <Post key={post.id}>
-            <img src={post.image} alt="추천 포스트 이미지" />
-            <h3>{post.title}</h3>
+        {contents.map((content) => (
+          <Post key={content.id}>
+            <img src={content.image} alt="추천 포스트 이미지" />
+            <h3>{content.title}</h3>
             <Info>
-              <img src={post.user} alt="추천 포스트 유저" />
+              <img src={content.profile} alt="추천 포스트 유저" />
               <div>
-                {post.name}
-                <span>@{post.location}</span>
+                {content.username}
+                <span>@{content.location}</span>
               </div>
             </Info>
           </Post>

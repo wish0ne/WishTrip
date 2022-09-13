@@ -14,6 +14,7 @@ export const Info = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  padding: 0.15rem 0;
 
   & span {
     font-family: "ExtraBold";
