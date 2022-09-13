@@ -100,4 +100,50 @@ export const handlers = [
       ]),
     );
   }),
+
+  //홈
+  rest.post("https://3.36.71.48/msw/home/profile", (req, res, ctx) => {
+    const token = req.headers.get("authorization")?.split(" ")[1];
+    if (token === "null") return res(ctx.status(401)); //비로그인
+    return res(
+      ctx.json({
+        profile: img1,
+      }),
+    );
+  }),
+  rest.post("https://3.36.71.48/msw/home/banner", (req, res, ctx) => {
+    return res(
+      ctx.status(200),
+      ctx.json([
+        {
+          image: img8,
+          username: "부끄러운 프로도",
+          place: "제주 애월읍",
+          comment: "로맨틱한",
+          profile: img2,
+        },
+        {
+          image: img5,
+          username: "부끄러운 프로도",
+          place: "제주 애월읍",
+          comment: "로맨틱한",
+          profile: img2,
+        },
+        {
+          image: img3,
+          username: "부끄러운 프로도",
+          place: "제주 애월읍",
+          comment: "로맨틱한",
+          profile: img2,
+        },
+        {
+          image: img7,
+          username: "부끄러운 프로도",
+          place: "제주 애월읍",
+          comment: "로맨틱한",
+          profile: img2,
+        },
+      ]),
+    );
+  }),
 ];
