@@ -2,7 +2,9 @@ import styled from "styled-components";
 import { useRecoilState } from "recoil";
 import { useState } from "react";
 import { ReactComponent as Delete } from "../../../assets/images/uil_multiply.svg";
-import { arCreateTags } from "../../../recoil/ar";
+import { arCreatePost } from "../../../recoil/ar";
+import instance from "../../../modules/api";
+import { hashTagsAuto } from "../../../recoil/common";
 
 const StyledWriteTag = styled.div`
   padding: 2rem 2.4rem;
@@ -52,31 +54,39 @@ const DeleteBtn = styled.button`
 `;
 
 function WriteTag() {
-  const [tags, setTags] = useRecoilState<string[]>(arCreateTags);
-  const [tag, setTag] = useState<string>("");
+  const [arCreate, setARCreate] = useRecoilState(arCreatePost);
+  const [hash, setHash] = useRecoilState(hashTagsAuto);
+  const [tag, setTag] = useState<string>(""); //작성중인 태그
 
   const handleEnter = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.code === "Enter") {
       //한글 중복 입력 문제 해결
       if (e.nativeEvent.isComposing === false) {
         //태그 중복 입력 방지
-        if (!tags.includes(tag)) setTags(tags.concat(tag));
+        if (!arCreate.tags.includes(tag))
+          setARCreate({ ...arCreate, tags: arCreate.tags.concat(tag) });
         setTag("");
       }
     }
   };
 
   const handleInput = (e: React.ChangeEvent<HTMLInputElement>) => {
+    instance.post("/msw/hashtag", e.target.value).then(({ data }) => {
+      setHash(data);
+    });
     setTag(e.target.value);
   };
 
   const handleDelete = (e: React.MouseEvent<HTMLButtonElement>) => {
-    setTags(tags.filter((tag) => tag !== e.currentTarget.dataset.tag));
+    setARCreate({
+      ...arCreate,
+      tags: arCreate.tags.filter((tag) => tag !== e.currentTarget.dataset.tag),
+    });
   };
   return (
     <StyledWriteTag>
       <Tag>
-        {tags.map((tag) => (
+        {arCreate.tags.map((tag) => (
           <div key={tag}>
             <span>#{tag}</span>
             <DeleteBtn onClick={handleDelete} data-tag={tag}>
@@ -85,7 +95,7 @@ function WriteTag() {
           </div>
         ))}
       </Tag>
-      {tags.length > 0 && <br />}
+      {arCreate.tags.length > 0 && <br />}
       <input
         type="text"
         placeholder="태그 추가..."

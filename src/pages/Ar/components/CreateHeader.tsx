@@ -57,7 +57,7 @@ function CreateHeader() {
       backgroundColor: null,
     }).then((canvas) => {
       let img = canvas.toDataURL("image/png");
-      //img = img.replace("data:image/png;base64,", "");
+      // img = img.replace("data:image/png;base64,", "");
 
       // let link = document.createElement("a");
       // document.body.appendChild(link);
@@ -66,7 +66,7 @@ function CreateHeader() {
       // link.click();
       // document.body.removeChild(link);
     });
-    navigate("/ARTrip");
+    navigate(-1);
   };
   return (
     <StyledHeader>

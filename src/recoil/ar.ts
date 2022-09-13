@@ -4,6 +4,27 @@ import img1 from "../assets/images/경희대1.jpg";
 import img3 from "../assets/images/여행사진3.jpg";
 import img9 from "../assets/images/여행사진9.jpg";
 
+interface IARCreatePostType {
+  files: File | null;
+  arpost_contents: string;
+  x_value: number;
+  y_value: number;
+  z_value: number;
+  tags: string[];
+}
+
+export const arCreatePost = atom<IARCreatePostType>({
+  key: "ar/arCreatePost",
+  default: {
+    files: null,
+    arpost_contents: "",
+    x_value: 0,
+    y_value: 0,
+    z_value: 0,
+    tags: [],
+  },
+});
+
 export const arCreateTags = atom<string[]>({
   key: "ar/arCreateTags",
   default: [],
