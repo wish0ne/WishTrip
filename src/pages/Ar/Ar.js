@@ -145,7 +145,7 @@ function Ar() {
                 ></a-image>
               ))}
             </a-scene>
-            <BackButton to="/Home">
+            <BackButton to="../Home">
               <Back width="3.2rem" height="3.2rem" />
             </BackButton>
             <Add to="Create">

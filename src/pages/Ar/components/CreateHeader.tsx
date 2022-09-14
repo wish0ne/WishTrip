@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { useRecoilState } from "recoil";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import html2canvas from "html2canvas";
 import { ReactComponent as Arrow } from "../../../assets/images/tabler_arrow-left.svg";
 import { ReactComponent as Submit } from "../../../assets/images/uil_message.svg";
@@ -22,8 +22,6 @@ const StyledHeader = styled.div`
     color: ${(props) => props.theme.palette.default2};
   }
 `;
-
-const BackBtn = styled(Link)``;
 
 function CreateHeader() {
   const [posts, setPosts] = useRecoilState(arPosts);
@@ -70,9 +68,9 @@ function CreateHeader() {
   };
   return (
     <StyledHeader>
-      <BackBtn to="/ARTrip">
+      <div onClick={() => navigate(-1)}>
         <Arrow />
-      </BackBtn>
+      </div>
       <h1>새 포스트</h1>
       <Submit onClick={handleSubmit} />
     </StyledHeader>
