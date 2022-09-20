@@ -1,10 +1,10 @@
 import styled from "styled-components";
-import { useRecoilValue } from "recoil";
-import { Link, useNavigate } from "react-router-dom";
+import { useRecoilValue, useResetRecoilState } from "recoil";
+import { useNavigate } from "react-router-dom";
 import html2canvas from "html2canvas";
 import { ReactComponent as Arrow } from "../../../assets/images/tabler_arrow-left.svg";
 import { ReactComponent as Submit } from "../../../assets/images/uil_message.svg";
-import { arCreatePost } from "../../../recoil/ar";
+import { arContentTag, arCreatePost } from "../../../recoil/ar";
 import instance from "../../../modules/api";
 
 const StyledHeader = styled.div`
@@ -21,10 +21,10 @@ const StyledHeader = styled.div`
   }
 `;
 
-const BackBtn = styled(Link)``;
-
 function CreateHeader() {
   const arCreate = useRecoilValue(arCreatePost);
+  const resetARCreat = useResetRecoilState(arCreatePost);
+  const resetContentTag = useResetRecoilState(arContentTag);
   const navigate = useNavigate();
 
   const handleSubmit = () => {
@@ -54,14 +54,21 @@ function CreateHeader() {
         instance.post("/msw/arpost/create", formData);
       })
       .finally(() => {
+        //작성 state 초기화
+        resetARCreat();
+        resetContentTag();
         navigate(-1);
       });
   };
   return (
     <StyledHeader>
-      <BackBtn to="/ARTrip">
+      <div
+        onClick={() => {
+          navigate(-1);
+        }}
+      >
         <Arrow />
-      </BackBtn>
+      </div>
       <h1>새 포스트</h1>
       <Submit onClick={handleSubmit} />
     </StyledHeader>
