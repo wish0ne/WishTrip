@@ -1,13 +1,11 @@
 import styled from "styled-components";
-import { useRecoilState } from "recoil";
+import { useRecoilValue, useResetRecoilState } from "recoil";
 import { useNavigate } from "react-router-dom";
 import html2canvas from "html2canvas";
 import { ReactComponent as Arrow } from "../../../assets/images/tabler_arrow-left.svg";
 import { ReactComponent as Submit } from "../../../assets/images/uil_message.svg";
-import { arModal, arPosts } from "../../../recoil/ar";
-import post from "../../../assets/images/image-download2.png";
-import img2 from "../../../assets/images/경희대2.jpg";
-import img9 from "../../../assets/images/여행사진9.jpg";
+import { arContentTag, arCreatePost } from "../../../recoil/ar";
+import instance from "../../../modules/api";
 
 const StyledHeader = styled.div`
   display: flex;
@@ -24,51 +22,51 @@ const StyledHeader = styled.div`
 `;
 
 function CreateHeader() {
-  const [posts, setPosts] = useRecoilState(arPosts);
-  const [modal, setModal] = useRecoilState(arModal);
+  const arCreate = useRecoilValue(arCreatePost);
+  const resetARCreat = useResetRecoilState(arCreatePost);
+  const resetContentTag = useResetRecoilState(arContentTag);
   const navigate = useNavigate();
 
   const handleSubmit = () => {
-    if (posts.length === 1) {
-      setPosts(
-        posts.concat({
-          id: 2,
-          latitude: 37.247136,
-          longitude: 127.078262,
-          image: post,
-        }),
-      );
-    }
-    setModal({
-      id: 1,
-      image: img2,
-      body: "저도 정문에서 한컷!",
-      emotions: {},
-      tags: ["경희대", "정문"],
-      user_img: img9,
-      user_nickname: "소마",
-      date: "2022.08.25",
-      comments: [],
-    });
-
-    html2canvas(document.querySelector(".arCreatePost"), {
+    html2canvas(document.querySelector("#arNewPost"), {
       backgroundColor: null,
-    }).then((canvas) => {
-      let img = canvas.toDataURL("image/png");
-      //img = img.replace("data:image/png;base64,", "");
+    })
+      .then((canvas) => {
+        let img = canvas.toDataURL("image/png");
+        //데이터 타입, 인코딩 타입 제외하고 서버로 전송
+        //img = img.replace("data:image/png;base64,", "");
+        // let link: any = document.createElement("a");
+        // document.body.appendChild(link);
+        // link.href = img;
+        // link.download = "image-download.png";
+        // link.click();
+        // document.body.removeChild(link);
 
-      // let link = document.createElement("a");
-      // document.body.appendChild(link);
-      // link.href = img;
-      // link.download = "image-download.png";
-      // link.click();
-      // document.body.removeChild(link);
-    });
-    navigate("/ARTrip");
+        //ar create http request
+        const formData = new FormData();
+        formData.append("files", img);
+        formData.append("arpost_contents", arCreate.arpost_contents);
+        formData.append("tags", arCreate.tags.toString());
+        formData.append("x_value", arCreate.x_value.toString());
+        formData.append("y_value", arCreate.y_value.toString());
+        formData.append("z_value", arCreate.z_value.toString());
+
+        instance.post("/msw/arpost/create", formData);
+      })
+      .finally(() => {
+        //작성 state 초기화
+        resetARCreat();
+        resetContentTag();
+        navigate(-1);
+      });
   };
   return (
     <StyledHeader>
-      <div onClick={() => navigate(-1)}>
+      <div
+        onClick={() => {
+          navigate(-1);
+        }}
+      >
         <Arrow />
       </div>
       <h1>새 포스트</h1>

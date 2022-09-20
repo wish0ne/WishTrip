@@ -1,12 +1,12 @@
 import styled from "styled-components";
-import { useRecoilValue } from "recoil";
+import { useRecoilValue, useRecoilState } from "recoil";
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 import useScript from "../../modules/useScript.ts";
 import { ReactComponent as Back } from "../../assets/images/uil_arrow-left.svg";
 import { ReactComponent as Camera } from "../../assets/images/uil_camera-plus.svg";
 import Modal from "./components/Modal";
-import { arPosts } from "../../recoil/ar";
+import { arPosts, arCreatePost } from "../../recoil/ar";
 
 const ARContainer = styled.div`
   height: 100%;
@@ -30,8 +30,7 @@ const BackButton = styled(Link)`
   z-index: 2;
 `;
 
-const Add = styled(Link)`
-  height: 5.2rem;
+const Add = styled.div`
   background-color: rgba(255, 255, 255, 0.75);
   position: fixed;
   bottom: 5.8rem;
@@ -45,15 +44,19 @@ const Add = styled(Link)`
   justify-content: center;
   align-items: center;
   text-decoration: none;
+  padding: 1.5rem;
   & span {
     font-family: "SemiBold";
     font-size: 1.6rem;
+    line-height: 1.6rem;
     color: ${(props) => props.theme.palette.primary3};
     margin-left: 0.92rem;
   }
 `;
 
 function Ar() {
+  const [arCreate, setARCreate] = useRecoilState(arCreatePost);
+  const navigate = useNavigate();
   const nftStatus = useScript(
     "https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar-nft.js",
   );
@@ -62,23 +65,6 @@ function Ar() {
   );
 
   useEffect(() => {
-    alert("테스트 16");
-    if (navigator.geolocation) {
-      console.log("GPS 사용 가능");
-      navigator.geolocation.getCurrentPosition(
-        (position) => {
-          console.log(
-            position.coords.latitude + " " + position.coords.longitude,
-          );
-        },
-        (error) => {
-          console.log(error);
-        },
-      );
-    } else {
-      alert("GPS를 지원하지 않습니다.");
-    }
-
     return () => {
       let html = document.querySelector("html");
       let body = document.querySelector("body");
@@ -99,63 +85,88 @@ function Ar() {
 
   const posts = useRecoilValue(arPosts);
 
+  //위치 정보 받기 동기처리
+  const getCoords = () => {
+    return new Promise((resolve, reject) => {
+      navigator.geolocation.getCurrentPosition(resolve, reject);
+    });
+  };
+
+  const handleAddClick = async () => {
+    //AR 작성 전 유저 위치 정보 받기
+    if (navigator.geolocation) {
+      await getCoords()
+        .then(({ coords }) => {
+          console.log(coords);
+          setARCreate({
+            ...arCreate,
+            x_value: coords.latitude || 0,
+            y_value: coords.longitude || 0,
+            z_value: coords.altitude || 0,
+          });
+        })
+        .finally(() => {
+          navigate("./Create");
+        });
+    } else {
+      alert("GPS를 지원하지 않습니다.");
+    }
+  };
+
   return (
     <>
-      {
-        /* {arjsStatus === "ready" && */
-        lookatStatus === "ready" && nftStatus === "ready" && (
-          <ARContainer>
-            <a-scene
-              debug
-              cursor="rayOrigin: mouse;"
-              raycaster="objects: .raycastable"
-              vr-mode-ui="enabled: false"
-              //embedded
-              arjs="sourceType: webcam; sourceWidth:1080; sourceHeight:764; displayWidth: 1080; displayHeight: 764; debugUIEnabled: false; videoTexture:true;"
-              //arjs="sourceType: webcam; debugUIEnabled: false; videoTexture:true;"
-              //renderer="antialias: true; alpha: true"
-            >
-              <a-assets>
-                {posts.map((entity) => (
-                  <img
-                    id={entity.id}
-                    src={entity.image}
-                    alt="ar post"
-                    key={entity.id}
-                  />
-                ))}
-              </a-assets>
-              <a-camera gps-camera="" rotation-reader=""></a-camera>
-              <a-box
-                gps-entity-place="latitude:34.888089; longitude:128.646070;"
-                look-at="[gps-camera]"
-                scale="20 20 20"
-                color="red"
-              ></a-box>
+      {lookatStatus === "ready" && nftStatus === "ready" && (
+        <ARContainer>
+          <a-scene
+            debug
+            cursor="rayOrigin: mouse;"
+            raycaster="objects: .raycastable"
+            vr-mode-ui="enabled: false"
+            //embedded
+            arjs="sourceType: webcam; sourceWidth:1080; sourceHeight:764; displayWidth: 1080; displayHeight: 764; debugUIEnabled: false; videoTexture:true;"
+            //arjs="sourceType: webcam; debugUIEnabled: false; videoTexture:true;"
+            //renderer="antialias: true; alpha: true"
+          >
+            <a-assets>
               {posts.map((entity) => (
-                <a-image
-                  gps-entity-place={`latitude: ${entity.latitude}; longitude: ${entity.longitude};`}
-                  class="raycastable"
-                  clickhandler={entity.id}
+                <img
+                  id={entity.id}
+                  src={entity.image}
+                  alt="ar post"
                   key={entity.id}
-                  src={`#${entity.id}`}
-                  look-at="[gps-camera]"
-                  scale="10 10 10"
-                  position={entity.position ? entity.position : "0 0 0"}
-                ></a-image>
+                />
               ))}
-            </a-scene>
-            <BackButton to="../Home">
-              <Back width="3.2rem" height="3.2rem" />
-            </BackButton>
-            <Add to="Create">
-              <Camera />
-              <span>포스트 남기기</span>
-            </Add>
-            <Modal id={id} />
-          </ARContainer>
-        )
-      }
+            </a-assets>
+            <a-camera gps-camera="" rotation-reader=""></a-camera>
+            <a-box
+              gps-entity-place="latitude:34.888089; longitude:128.646070;"
+              look-at="[gps-camera]"
+              scale="20 20 20"
+              color="red"
+            ></a-box>
+            {posts.map((entity) => (
+              <a-image
+                gps-entity-place={`latitude: ${entity.latitude}; longitude: ${entity.longitude};`}
+                class="raycastable"
+                clickhandler={entity.id}
+                key={entity.id}
+                src={`#${entity.id}`}
+                look-at="[gps-camera]"
+                scale="10 10 10"
+                position={entity.position ? entity.position : "0 0 0"}
+              ></a-image>
+            ))}
+          </a-scene>
+          <BackButton to="/Home">
+            <Back width="3.2rem" height="3.2rem" />
+          </BackButton>
+          <Add onClick={handleAddClick}>
+            <Camera />
+            <span>포스트 남기기</span>
+          </Add>
+          <Modal id={id} />
+        </ARContainer>
+      )}
     </>
   );
 }
