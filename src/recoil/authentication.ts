@@ -2,6 +2,7 @@ import { atom } from "recoil";
 
 export interface IAuthTypes {
   data: {
+    [key: string]: string;
     email: string;
     password: string;
     password_check: string;

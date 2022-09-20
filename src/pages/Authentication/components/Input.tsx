@@ -65,7 +65,7 @@ function Input({ title, type, id }: InputPropsType) {
           onChange={handleChange}
           type={type}
           id={id}
-          value={auth.data.email}
+          value={auth.data[id]}
         />
         <label htmlFor={id}>{title}</label>
       </StyledInput>

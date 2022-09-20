@@ -5,10 +5,11 @@ import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import Email from "./Email";
 import { RecoilRoot } from "recoil";
 import { createMemoryHistory } from "@remix-run/router";
-import userEvent from "@testing-library/user-event";
+import { wait } from "@testing-library/user-event/dist/utils";
 
 describe("<Email />", () => {
   const history = createMemoryHistory();
+  history.push("/Authentication/Email");
   const setup = (props = {}) => {
     render(
       <RecoilRoot>
@@ -39,7 +40,7 @@ describe("<Email />", () => {
   });
 
   //input 상태 관리
-  it("onUserInput_changesInputValue", () => {
+  it("onUserInput_changesInputValue", async () => {
     const { input } = setup();
     const user_input = "email";
     fireEvent.change(input, {
@@ -91,11 +92,16 @@ describe("<Email />", () => {
         value: "test",
       },
     });
-    expect(input).toHaveAttribute("value", "test");
+    //expect(input).toHaveAttribute("value", "test");
 
     //비밀번호 창으로 이동
-    userEvent.click(button);
-    expect(history.location.pathname).toBe("/Password");
+    fireEvent.click(button);
+    //이동할때까지 wait
+    await wait(() => screen.findByText("비밀번호를 입력해주세요."));
+    //이동 확인
+    await wait(() => {
+      expect(history.location.pathname).toBe("/Authentication/Password");
+    });
   });
 
   //추가 : input이 이메일이 아닌 경우
