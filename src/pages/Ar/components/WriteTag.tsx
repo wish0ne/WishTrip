@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { useRecoilState, useSetRecoilState } from "recoil";
 import { useState } from "react";
 import { ReactComponent as Delete } from "../../../assets/images/uil_multiply.svg";
-import { arCreatePost } from "../../../recoil/ar";
+import { arContentTag, arCreatePost } from "../../../recoil/ar";
 import instance from "../../../modules/api";
 import { hashTagsAuto } from "../../../recoil/common";
 
@@ -56,6 +56,7 @@ const DeleteBtn = styled.button`
 
 function WriteTag() {
   const [arCreate, setARCreate] = useRecoilState(arCreatePost);
+  const [contentTag, setContentTag] = useRecoilState(arContentTag);
   const setHash = useSetRecoilState(hashTagsAuto);
   const [tag, setTag] = useState<string>(""); //작성중인 태그
 
@@ -65,8 +66,13 @@ function WriteTag() {
       //한글 중복 입력 문제 해결
       if (e.nativeEvent.isComposing === false) {
         //태그 중복 입력 방지
-        if (!arCreate.tags.includes(tag))
+        if (!arCreate.tags.includes(tag)) {
           setARCreate({ ...arCreate, tags: arCreate.tags.concat(tag) });
+          //ar 컨텐츠용 태그 추가
+          if (tag.length > 7)
+            setContentTag(contentTag.concat(tag.slice(0, 7) + "..."));
+          else setContentTag(contentTag.concat(tag));
+        }
         setTag("");
       }
     }
@@ -82,10 +88,18 @@ function WriteTag() {
 
   //태그 삭제
   const handleDelete = (e: React.MouseEvent<HTMLButtonElement>) => {
+    let deleteTag = e.currentTarget.dataset.tag;
     setARCreate({
       ...arCreate,
-      tags: arCreate.tags.filter((tag) => tag !== e.currentTarget.dataset.tag),
+      tags: arCreate.tags.filter((tag) => tag !== deleteTag),
     });
+    if (deleteTag && deleteTag.length > 7) {
+      setContentTag(
+        contentTag.filter((tag) => tag !== deleteTag!.slice(0, 7) + "..."),
+      );
+    } else {
+      setContentTag(contentTag.filter((tag) => tag !== deleteTag));
+    }
   };
   return (
     <StyledWriteTag>

@@ -25,6 +25,12 @@ export const arCreatePost = atom<IARCreatePostType>({
   },
 });
 
+//AR이미지용 태그(html2canvas ellipsis 미적용 버그 해결용)
+export const arContentTag = atom<string[]>({
+  key: "ar/arContentTag",
+  default: [],
+});
+
 //delete
 export const arCreateTags = atom<string[]>({
   key: "ar/arCreateTags",

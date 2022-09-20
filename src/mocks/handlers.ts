@@ -242,7 +242,10 @@ export const handlers = [
         ctx.json(["여행", "여수", "여치", "여수밤바다"]),
       );
     if (req.body === "부")
-      return res(ctx.status(200), ctx.json(["부산", "부산앞바다", "부리부리"]));
+      return res(
+        ctx.status(200),
+        ctx.json(["부산", "부산앞바다", "부리부리", "부산에서제일맛있는집"]),
+      );
     return res(ctx.status(200), ctx.json([]));
   }),
 ];
