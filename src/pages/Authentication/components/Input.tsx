@@ -44,28 +44,30 @@ interface InputPropsType {
 function Input({ title, type, id }: InputPropsType) {
   const [auth, setAuth] = useRecoilState(authState);
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    let key: string | undefined = e.target.dataset["auth"];
-    if (key) {
-      setAuth({
-        data: {
-          ...auth.data,
-          [key]: e.target.value,
-        },
-        alert: {
-          pwWrong: false,
-          isMember: true,
-          sameName: false,
-          empty: false,
-          pwEqual: true,
-        },
-      });
-    }
+    setAuth({
+      data: {
+        ...auth.data,
+        [e.target.id]: e.target.value,
+      },
+      alert: {
+        pwWrong: false,
+        isMember: true,
+        sameName: false,
+        empty: false,
+        pwEqual: true,
+      },
+    });
   };
   return (
     <>
       <StyledInput>
-        <input data-auth={id} onChange={handleChange} type={type} />
-        <label>{title}</label>
+        <input
+          onChange={handleChange}
+          type={type}
+          id={id}
+          value={auth.data[id]}
+        />
+        <label htmlFor={id}>{title}</label>
       </StyledInput>
     </>
   );
