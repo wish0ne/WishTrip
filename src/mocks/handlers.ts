@@ -248,4 +248,8 @@ export const handlers = [
       );
     return res(ctx.status(200), ctx.json([]));
   }),
+  rest.post<string>("https://3.36.71.48/msw/arpost/create", (req, res, ctx) => {
+    console.log(req.body);
+    return res(ctx.status(200), ctx.json({ msg: "ARpost create success" }));
+  }),
 ];
