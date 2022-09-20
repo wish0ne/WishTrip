@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { useRecoilState } from "recoil";
+import { useRecoilState, useSetRecoilState } from "recoil";
 import { useState } from "react";
 import { ReactComponent as Delete } from "../../../assets/images/uil_multiply.svg";
 import { arCreatePost } from "../../../recoil/ar";
@@ -8,6 +8,7 @@ import { hashTagsAuto } from "../../../recoil/common";
 
 const StyledWriteTag = styled.div`
   padding: 2rem 2.4rem;
+  border-bottom: solid 0.1rem ${(props) => props.theme.palette.inversed2};
   & input {
     border: none;
     font-family: "Medium";
@@ -55,9 +56,10 @@ const DeleteBtn = styled.button`
 
 function WriteTag() {
   const [arCreate, setARCreate] = useRecoilState(arCreatePost);
-  const [hash, setHash] = useRecoilState(hashTagsAuto);
+  const setHash = useSetRecoilState(hashTagsAuto);
   const [tag, setTag] = useState<string>(""); //작성중인 태그
 
+  //태그 추가
   const handleEnter = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.code === "Enter") {
       //한글 중복 입력 문제 해결
@@ -70,6 +72,7 @@ function WriteTag() {
     }
   };
 
+  //태그 입력
   const handleInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     instance.post("/msw/hashtag", e.target.value).then(({ data }) => {
       setHash(data);
@@ -77,6 +80,7 @@ function WriteTag() {
     setTag(e.target.value);
   };
 
+  //태그 삭제
   const handleDelete = (e: React.MouseEvent<HTMLButtonElement>) => {
     setARCreate({
       ...arCreate,

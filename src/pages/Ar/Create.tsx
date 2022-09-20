@@ -9,6 +9,11 @@ import WriteTag from "./components/WriteTag";
 
 const StyledCreate = styled.div``;
 
+const Line = styled.div`
+  height: 0.1rem;
+  background-color: ${(props) => props.theme.palette.inversed2};
+`;
+
 function ARCreate() {
   const hashTags = useRecoilValue(hashTagsAuto);
   return (
@@ -19,6 +24,7 @@ function ARCreate() {
       {hashTags.map((tag) => (
         <HashAuto tag={tag} key={tag} />
       ))}
+      {hashTags.length > 0 && <Line />}
       <WriteContent />
     </StyledCreate>
   );

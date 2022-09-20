@@ -25,6 +25,7 @@ export const arCreatePost = atom<IARCreatePostType>({
   },
 });
 
+//delete
 export const arCreateTags = atom<string[]>({
   key: "ar/arCreateTags",
   default: [],
