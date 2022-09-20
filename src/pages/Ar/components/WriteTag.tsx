@@ -1,11 +1,14 @@
 import styled from "styled-components";
-import { useRecoilState } from "recoil";
+import { useRecoilState, useSetRecoilState } from "recoil";
 import { useState } from "react";
 import { ReactComponent as Delete } from "../../../assets/images/uil_multiply.svg";
-import { arCreateTags } from "../../../recoil/ar";
+import { arContentTag, arCreatePost } from "../../../recoil/ar";
+import instance from "../../../modules/api";
+import { hashTagsAuto } from "../../../recoil/common";
 
 const StyledWriteTag = styled.div`
   padding: 2rem 2.4rem;
+  border-bottom: solid 0.1rem ${(props) => props.theme.palette.inversed2};
   & input {
     border: none;
     font-family: "Medium";
@@ -52,31 +55,56 @@ const DeleteBtn = styled.button`
 `;
 
 function WriteTag() {
-  const [tags, setTags] = useRecoilState<string[]>(arCreateTags);
-  const [tag, setTag] = useState<string>("");
+  const [arCreate, setARCreate] = useRecoilState(arCreatePost);
+  const [contentTag, setContentTag] = useRecoilState(arContentTag);
+  const setHash = useSetRecoilState(hashTagsAuto);
+  const [tag, setTag] = useState<string>(""); //작성중인 태그
 
+  //태그 추가
   const handleEnter = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.code === "Enter") {
       //한글 중복 입력 문제 해결
       if (e.nativeEvent.isComposing === false) {
         //태그 중복 입력 방지
-        if (!tags.includes(tag)) setTags(tags.concat(tag));
+        if (!arCreate.tags.includes(tag)) {
+          setARCreate({ ...arCreate, tags: arCreate.tags.concat(tag) });
+          //ar 컨텐츠용 태그 추가
+          if (tag.length > 7)
+            setContentTag(contentTag.concat(tag.slice(0, 7) + "..."));
+          else setContentTag(contentTag.concat(tag));
+        }
         setTag("");
       }
     }
   };
 
+  //태그 입력
   const handleInput = (e: React.ChangeEvent<HTMLInputElement>) => {
+    instance.post("/msw/hashtag", e.target.value).then(({ data }) => {
+      setHash(data);
+    });
     setTag(e.target.value);
   };
 
+  //태그 삭제
   const handleDelete = (e: React.MouseEvent<HTMLButtonElement>) => {
-    setTags(tags.filter((tag) => tag !== e.currentTarget.dataset.tag));
+    let deleteTag = e.currentTarget.dataset.tag;
+    setARCreate({
+      ...arCreate,
+      tags: arCreate.tags.filter((tag) => tag !== deleteTag),
+    });
+    if (deleteTag && deleteTag.length > 7) {
+      setContentTag(
+        contentTag.filter((tag) => tag !== deleteTag!.slice(0, 7) + "..."),
+      );
+    } else {
+      setContentTag(contentTag.filter((tag) => tag !== deleteTag));
+    }
   };
   return (
     <StyledWriteTag>
       <Tag>
-        {tags.map((tag) => (
+        {arCreate.tags.map((tag) => (
           <div key={tag}>
             <span>#{tag}</span>
             <DeleteBtn onClick={handleDelete} data-tag={tag}>
@@ -85,7 +113,7 @@ function WriteTag() {
           </div>
         ))}
       </Tag>
-      {tags.length > 0 && <br />}
+      {arCreate.tags.length > 0 && <br />}
       <input
         type="text"
         placeholder="태그 추가..."

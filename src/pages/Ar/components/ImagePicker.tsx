@@ -1,8 +1,7 @@
 import styled from "styled-components";
-import { useRecoilValue } from "recoil";
-import { useState } from "react";
+import { useRecoilState, useRecoilValue } from "recoil";
 import { ReactComponent as Camera } from "../../../assets/images/uil_camera-plus.svg";
-import { arCreateTags } from "../../../recoil/ar";
+import { arContentTag, arCreatePost } from "../../../recoil/ar";
 
 const StyledPicker = styled.div`
   height: 17.2rem;
@@ -60,6 +59,7 @@ const ARContent = styled.figure`
       align-items: flex-end;
       gap: 0.4rem 0;
       span {
+        padding: 0.4rem 0.8rem;
         display: inline-block;
         background: linear-gradient(
           to top,
@@ -68,46 +68,32 @@ const ARContent = styled.figure`
         );
         box-shadow: 0 0.4rem 0.8rem rgba(0, 146, 252, 0.25),
           0.2rem 0.4rem 0.8rem rgba(33, 255, 202, 0.4) inset;
+        border-radius: 1.2rem;
+        max-width: 9rem;
         font-family: "SemiBold";
         font-size: 1.1rem;
         color: white;
-        padding: 0.4rem 0.8rem;
-        border-radius: 1.2rem;
-        max-width: 9rem;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
       }
     }
   }
 `;
 
-interface ARPostType {
-  image: File | null;
-  body: string;
-  tag: string[];
-}
-
 function ImagePicker() {
-  const [post, setPost] = useState<ARPostType>({
-    image: null,
-    body: "",
-    tag: [],
-  });
+  const [arCreate, setARCreate] = useRecoilState(arCreatePost);
+  const contentTag = useRecoilValue(arContentTag);
   const handleImage = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files) setPost({ ...post, image: e.target.files[0] });
+    if (e.target.files) setARCreate({ ...arCreate, files: e.target.files[0] });
   };
 
-  const tags = useRecoilValue(arCreateTags);
   return (
     <StyledPicker>
       <AddImage>
-        {post.image ? (
-          <ARContent className="arCreatePost">
+        {arCreate.files ? (
+          <ARContent id="arNewPost">
             <div>
-              <img src={URL.createObjectURL(post.image)} alt="AR post" />
+              <img src={URL.createObjectURL(arCreate.files)} alt="AR post" />
               <div>
-                {tags.map(
+                {contentTag.map(
                   (tag, idx) =>
                     idx < 3 && (
                       <div key={tag}>

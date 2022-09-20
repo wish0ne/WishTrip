@@ -37,9 +37,7 @@ AFRAME.registerComponent("clickhandler", {
       const modal = document.querySelector(".modal");
       modal.classList.add("half");
     });
-    window.addEventListener("gps-camera-update-position", (e) => {
-      alert("camera position update");
-    });
+    window.addEventListener("gps-camera-update-position", (e) => {});
   },
 });
 

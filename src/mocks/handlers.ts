@@ -233,4 +233,23 @@ export const handlers = [
       ]),
     );
   }),
+
+  //ar 작성
+  rest.post<string>("https://3.36.71.48/msw/hashtag", (req, res, ctx) => {
+    if (req.body === "여")
+      return res(
+        ctx.status(200),
+        ctx.json(["여행", "여수", "여치", "여수밤바다"]),
+      );
+    if (req.body === "부")
+      return res(
+        ctx.status(200),
+        ctx.json(["부산", "부산앞바다", "부리부리", "부산에서제일맛있는집"]),
+      );
+    return res(ctx.status(200), ctx.json([]));
+  }),
+  rest.post<string>("https://3.36.71.48/msw/arpost/create", (req, res, ctx) => {
+    console.log(req.body);
+    return res(ctx.status(200), ctx.json({ msg: "ARpost create success" }));
+  }),
 ];
