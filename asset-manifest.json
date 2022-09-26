@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/WishTrip/static/css/main.21cacf7a.css",
-    "main.js": "/WishTrip/static/js/main.4cd2ac4b.js",
+    "main.css": "/WishTrip/static/css/main.a1970af5.css",
+    "main.js": "/WishTrip/static/js/main.9496f421.js",
     "static/js/787.7852e65b.chunk.js": "/WishTrip/static/js/787.7852e65b.chunk.js",
     "static/media/AppleSDGothicNeoB.ttf": "/WishTrip/static/media/AppleSDGothicNeoB.4175a777557557f7d294.ttf",
     "static/media/AppleSDGothicNeoM.ttf": "/WishTrip/static/media/AppleSDGothicNeoM.88c00162a2084f97069c.ttf",
@@ -9,16 +9,10 @@
     "static/media/경희대2.jpg": "/WishTrip/static/media/경희대2.743b5053b0258aed350c.jpg",
     "static/media/splash.png": "/WishTrip/static/media/splash.ecaa92a1a4cb41e26b51.png",
     "static/media/경희대1.jpg": "/WishTrip/static/media/경희대1.9b238b6b0f2daed1d39a.jpg",
-    "static/media/여행사진7.jpg": "/WishTrip/static/media/여행사진7.959c3e76bcfdbae98ab4.jpg",
-    "static/media/여행사진1.jpg": "/WishTrip/static/media/여행사진1.655cc16d075a8bd69ba6.jpg",
     "static/media/여행사진8.jpg": "/WishTrip/static/media/여행사진8.9c9a0a5708376e6b5bb1.jpg",
-    "static/media/image-download.png": "/WishTrip/static/media/image-download.106f0b35e429d36f2431.png",
     "static/media/여행사진5.jpg": "/WishTrip/static/media/여행사진5.c8671a2c8394e3099a31.jpg",
-    "static/media/여행사진2.jpg": "/WishTrip/static/media/여행사진2.93386aea62f26d94d0b6.jpg",
     "static/media/여행사진9.jpg": "/WishTrip/static/media/여행사진9.c724cae968a11d124649.jpg",
     "static/media/여행사진3.jpg": "/WishTrip/static/media/여행사진3.37aca45701b6e3f6f583.jpg",
-    "static/media/image-download2.png": "/WishTrip/static/media/image-download2.299beec6cc7b58db8cac.png",
-    "static/media/여행사진6.jpg": "/WishTrip/static/media/여행사진6.8777f42cc9f7ef37f5c1.jpg",
     "service-worker.js": "/WishTrip/service-worker.js",
     "static/media/emoji_thumb.svg": "/WishTrip/static/media/emoji_thumb.94178c477aa0fcc6cdf99387f4cfd762.svg",
     "static/media/Logo.svg": "/WishTrip/static/media/Logo.040f350de13c5e311d77ad0e538b9d5b.svg",
@@ -28,6 +22,7 @@
     "static/media/emoji_shock.svg": "/WishTrip/static/media/emoji_shock.8befbdb5ff9df4fd9a4c265f189d66d5.svg",
     "static/media/uil_camera-plus.svg": "/WishTrip/static/media/uil_camera-plus.fd13d0e3c9748d7593874a67d89bbfcf.svg",
     "index.html": "/WishTrip/index.html",
+    "static/media/hashtag.svg": "/WishTrip/static/media/hashtag.3f46be56f581d409765a9dc463300035.svg",
     "static/media/emoji_empty.svg": "/WishTrip/static/media/emoji_empty.269ddeb8c434540eb636cc8c378645cd.svg",
     "static/media/uil_location-point.svg": "/WishTrip/static/media/uil_location-point.0c7b1e1314c2dd1b9a879580ae4edd93.svg",
     "static/media/uil_message.svg": "/WishTrip/static/media/uil_message.10d106748b9c1adcb499a9c2ba9ad424.svg",
@@ -37,12 +32,12 @@
     "static/media/uil_angle-right.svg": "/WishTrip/static/media/uil_angle-right.6dec9660bcdf81dc45ad11d1c662edff.svg",
     "static/media/uil_bars.svg": "/WishTrip/static/media/uil_bars.3e9b31de89e9074dd1f34eae9dab2d60.svg",
     "static/media/tabler_arrow-left.svg": "/WishTrip/static/media/tabler_arrow-left.5dd22104c350b9916f235edb089215d7.svg",
-    "main.21cacf7a.css.map": "/WishTrip/static/css/main.21cacf7a.css.map",
-    "main.4cd2ac4b.js.map": "/WishTrip/static/js/main.4cd2ac4b.js.map",
+    "main.a1970af5.css.map": "/WishTrip/static/css/main.a1970af5.css.map",
+    "main.9496f421.js.map": "/WishTrip/static/js/main.9496f421.js.map",
     "787.7852e65b.chunk.js.map": "/WishTrip/static/js/787.7852e65b.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.21cacf7a.css",
-    "static/js/main.4cd2ac4b.js"
+    "static/css/main.a1970af5.css",
+    "static/js/main.9496f421.js"
   ]
 }
