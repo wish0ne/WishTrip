@@ -10,16 +10,8 @@ import * as serviceWorkerRegistration from "./serviceWorkerRegistration";
 import reportWebVitals from "./reportWebVitals";
 
 if (process.env.NODE_ENV === "development") {
-  if (window.location.pathname === "/WishTrip") {
-    window.location.pathname = "/WishTrip/";
-  } else {
-    const { worker } = require("./mocks/browser");
-    worker.start({
-      serviceWorker: {
-        url: "/WishTrip/mockServiceWorker.js",
-      },
-    });
-  }
+  const { worker } = require("./mocks/browser");
+  worker.start();
 }
 
 const root = ReactDOM.createRoot(

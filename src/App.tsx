@@ -85,19 +85,17 @@ function App() {
     <ThemeProvider theme={theme}>
       <GlobalStyle />
       <Routes>
-        <Route path="WishTrip">
-          <Route path="" element={<Splash />} />
-          <Route path="Home" element={<Home />} />
-          <Route path="Authentication">
-            <Route path="Start" element={<Start />} />
-            <Route path="Email" element={<Email />} />
-            <Route path="Password" element={<Password />} />
-            <Route path="Register" element={<Register />} />
-          </Route>
-          <Route path="ARTrip" element={<Ar />} />
-          <Route path="ARTrip/Create" element={<ARCreate />} />
-          <Route path="Mypage" element={<Mypage />} />
+        <Route path="" element={<Splash />} />
+        <Route path="Home" element={<Home />} />
+        <Route path="Authentication">
+          <Route path="Start" element={<Start />} />
+          <Route path="Email" element={<Email />} />
+          <Route path="Password" element={<Password />} />
+          <Route path="Register" element={<Register />} />
         </Route>
+        <Route path="ARTrip" element={<Ar />} />
+        <Route path="ARTrip/Create" element={<ARCreate />} />
+        <Route path="Mypage" element={<Mypage />} />
       </Routes>
     </ThemeProvider>
   );
