@@ -25,6 +25,12 @@ const StyledPost = styled.div`
   margin: 2rem 0;
 `;
 
+const SearchPost = styled.div`
+  display: flex;
+  gap: 0.8rem;
+  flex-wrap: wrap;
+`;
+
 function Search() {
   const [focus, setFocus] = useState<boolean>(false); //input focus 여부
   const [query, setQuery] = useState<string>(""); //검색어
@@ -46,7 +52,26 @@ function Search() {
       {!focus &&
         query === "" &&
         [1, 2, 3, 4, 5].map((item) => (
-          <StyledTag>
+          <StyledTag key={item}>
+            <Tag></Tag>
+            <StyledPost>
+              {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((item) => (
+                <Post key={item}></Post>
+              ))}
+            </StyledPost>
+          </StyledTag>
+        ))}
+      {query !== "" && menu === "포스트" && (
+        <SearchPost>
+          {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((item) => (
+            <Post key={item}></Post>
+          ))}
+        </SearchPost>
+      )}
+      {query !== "" &&
+        menu === "태그" &&
+        [1, 2, 3, 4, 5].map((item) => (
+          <StyledTag key={item}>
             <Tag key={item}></Tag>
             <StyledPost>
               {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((item) => (
