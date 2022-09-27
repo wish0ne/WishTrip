@@ -94,6 +94,16 @@ function Ar() {
     };
   }, [coords]);
 
+  //유저 좌표 -> 대표 좌표 변환
+  const hash = (coords) => {
+    console.log(coords);
+    return {
+      x: coords.latitude ? coords.latitude.toFixed(6) : 0,
+      y: coords.longitude ? coords.longitude.toFixed(6) : 0,
+      z: coords.altitude ? coords.altitude.toFixed(6) : 0,
+    };
+  };
+
   //위치 정보 받기 동기처리
   const getCoords = () => {
     return new Promise((resolve, reject) => {
@@ -105,12 +115,8 @@ function Ar() {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
         ({ coords }) => {
-          console.log(coords);
-          setCoords({
-            x: coords.latitude,
-            y: coords.longitude,
-            z: coords.altitude,
-          });
+          console.log(hash(coords));
+          setCoords(hash(coords));
         },
         (error) => {
           alert(error.message);
@@ -137,6 +143,7 @@ function Ar() {
       y_value: coords.y,
       z_value: coords.z,
     });
+    navigate("./Create");
   };
 
   return (
