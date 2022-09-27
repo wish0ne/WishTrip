@@ -80,6 +80,13 @@ function Search() {
             </StyledPost>
           </StyledTag>
         ))}
+
+      {query !== "" &&
+        menu === "장소" &&
+        [1, 2, 3, 4, 5].map((item) => <Location key={item}></Location>)}
+      {query !== "" &&
+        menu === "유저" &&
+        [1, 2, 3, 4, 5].map((item) => <User key={item}></User>)}
     </StyledSearch>
   );
 }

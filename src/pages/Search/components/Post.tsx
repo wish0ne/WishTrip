@@ -3,10 +3,10 @@ import img1 from "../../../assets/images/여행사진1.jpg";
 
 const StyledPost = styled.div`
   height: 19.2rem;
+  width: 14.4rem;
   border-radius: 0.8rem;
   position: relative;
   flex-grow: 1;
-  flex-basis: 14.4rem;
   > img {
     height: 19.2rem;
     width: 14.4rem;
