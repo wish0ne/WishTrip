@@ -1,5 +1,4 @@
 import { atom } from "recoil";
-import post from "../assets/images/image-download.png";
 import img1 from "../assets/images/경희대1.jpg";
 import img3 from "../assets/images/여행사진3.jpg";
 import img9 from "../assets/images/여행사진9.jpg";
@@ -31,32 +30,20 @@ export const arContentTag = atom<string[]>({
   default: [],
 });
 
-//delete
-export const arCreateTags = atom<string[]>({
-  key: "ar/arCreateTags",
+interface IARContentsType {
+  id: number;
+  x_value: number;
+  y_value: number;
+  z_value: number;
+  image: string;
+}
+
+export const arContents = atom<IARContentsType[]>({
+  key: "ar/arContents",
   default: [],
 });
 
-interface ARPosts {
-  id: number;
-  latitude: number;
-  longitude: number;
-  image: string;
-  position?: string;
-}
-export const arPosts = atom<ARPosts[]>({
-  key: "ar/arPosts",
-  default: [
-    {
-      id: 1,
-      latitude: 37.247674,
-      longitude: 127.078898,
-      image: post,
-      position: "0 100 0",
-    },
-  ],
-});
-
+//delete
 interface ARModal {
   id: number;
   image: string;

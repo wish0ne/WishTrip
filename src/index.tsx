@@ -8,19 +8,9 @@ import "./index.css";
 import App from "./App";
 import * as serviceWorkerRegistration from "./serviceWorkerRegistration";
 import reportWebVitals from "./reportWebVitals";
+import { worker } from "./mocks/browser";
 
-if (process.env.NODE_ENV === "development") {
-  if (window.location.pathname === "/WishTrip") {
-    window.location.pathname = "/WishTrip/";
-  } else {
-    const { worker } = require("./mocks/browser");
-    worker.start({
-      serviceWorker: {
-        url: "/WishTrip/mockServiceWorker.js",
-      },
-    });
-  }
-}
+worker.start();
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement,
@@ -28,6 +18,7 @@ const root = ReactDOM.createRoot(
 
 const queryClient = new QueryClient(); //Create a client
 
+//AR click handler
 AFRAME.registerComponent("clickhandler", {
   init: function () {
     let data = this.data;
@@ -37,7 +28,6 @@ AFRAME.registerComponent("clickhandler", {
       const modal = document.querySelector(".modal");
       modal.classList.add("half");
     });
-    window.addEventListener("gps-camera-update-position", (e) => {});
   },
 });
 
