@@ -38,7 +38,7 @@ function HashAuto({ tag }: HashAutoProps) {
   };
   return (
     <StyledHashAuto onClick={handleClick}>
-      <Hash width="1.7rem" height="1.7rem" />
+      <Hash width="1.7rem" height="1.7rem" fill="rgb(0, 134, 231)" />
       <span>{tag}</span>
     </StyledHashAuto>
   );

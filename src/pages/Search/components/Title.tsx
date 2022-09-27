@@ -6,6 +6,7 @@ const StyledTitle = styled.div`
   font-size: 1.6rem;
   color: ${(props) => props.theme.palette.default1};
   margin-top: 2.4rem;
+  margin-bottom: 2rem;
   display: flex;
   justify-content: space-between;
 `;

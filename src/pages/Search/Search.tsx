@@ -11,6 +11,19 @@ const StyledSearch = styled.div`
   padding: 2rem;
 `;
 
+const StyledTag = styled.div`
+  margin-top: 2rem;
+  border-bottom: 0.1rem solid ${(props) => props.theme.palette.inversed2};
+`;
+
+const StyledPost = styled.div`
+  display: flex;
+  gap: 1.4rem;
+  overflow-x: auto;
+  overflow-y: hidden;
+  margin: 2rem 0;
+`;
+
 function Search() {
   const [focus, setFocus] = useState<boolean>(false); //input focus 여부
   const [query, setQuery] = useState<string>(""); //검색어
@@ -25,6 +38,16 @@ function Search() {
         query={query}
       ></Header>
       <Title focus={focus} query={query} menu={menu} setMenu={setMenu}></Title>
+      {[1, 2, 3, 4, 5].map((item) => (
+        <StyledTag>
+          <Tag key={item}></Tag>
+          <StyledPost>
+            {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((item) => (
+              <Post key={item}></Post>
+            ))}
+          </StyledPost>
+        </StyledTag>
+      ))}
     </StyledSearch>
   );
 }
