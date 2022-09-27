@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { useNavigate } from "react-router-dom";
 import { ReactComponent as Arrow } from "../../../assets/images/tabler_arrow-left.svg";
 
 const StyledHeader = styled.div`
@@ -20,11 +21,34 @@ const Input = styled.input`
   }
 `;
 
-function Header() {
+interface HeaderPropsType {
+  query: string;
+  focus: boolean;
+  setFocus: React.Dispatch<React.SetStateAction<boolean>>;
+  setQuery: React.Dispatch<React.SetStateAction<string>>;
+}
+
+function Header({ query, focus, setFocus, setQuery }: HeaderPropsType) {
+  const navigate = useNavigate();
+  const handleFocus = () => setFocus(true);
+  const handleClick = () => {
+    if (focus) {
+      setFocus(false);
+      setQuery("");
+    } else {
+      navigate(-1);
+    }
+  };
   return (
     <StyledHeader>
-      <Arrow />
-      <Input type="text" placeholder="검색어를 입력해주세요" />
+      <Arrow onClick={handleClick} />
+      <Input
+        type="text"
+        placeholder="검색어를 입력해주세요"
+        onFocus={handleFocus}
+        onChange={(e) => setQuery(e.target.value)}
+        value={query}
+      />
     </StyledHeader>
   );
 }
