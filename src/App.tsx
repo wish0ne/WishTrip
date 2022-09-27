@@ -10,6 +10,7 @@ import Mypage from "./pages/Mypage/Mypage";
 import Email from "./pages/Authentication/Email";
 import Password from "./pages/Authentication/Password";
 import Register from "./pages/Authentication/Register";
+import Search from "./pages/Search/Search";
 
 const GlobalStyle = createGlobalStyle`
   ${reset}
@@ -93,6 +94,7 @@ function App() {
           <Route path="Password" element={<Password />} />
           <Route path="Register" element={<Register />} />
         </Route>
+        <Route path="Search" element={<Search />} />
         <Route path="ARTrip" element={<Ar />} />
         <Route path="ARTrip/Create" element={<ARCreate />} />
         <Route path="Mypage" element={<Mypage />} />
