@@ -5,6 +5,7 @@ const StyledTag = styled.div`
   display: flex;
   align-items: center;
 `;
+
 const Title = styled.div`
   display: flex;
   flex-direction: column;

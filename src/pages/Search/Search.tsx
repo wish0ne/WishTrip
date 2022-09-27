@@ -4,6 +4,7 @@ import Header from "./components/Header";
 import Title from "./components/Title";
 import Post from "./components/Post";
 import Tag from "./components/Tag";
+import Recent from "./components/Recent";
 import User from "./components/User";
 import Location from "./components/Location";
 
@@ -37,17 +38,23 @@ function Search() {
         setQuery={setQuery}
         query={query}
       ></Header>
+
       <Title focus={focus} query={query} menu={menu} setMenu={setMenu}></Title>
-      {[1, 2, 3, 4, 5].map((item) => (
-        <StyledTag>
-          <Tag key={item}></Tag>
-          <StyledPost>
-            {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((item) => (
-              <Post key={item}></Post>
-            ))}
-          </StyledPost>
-        </StyledTag>
-      ))}
+      {focus &&
+        query === "" &&
+        [1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((i) => <Recent key={i}></Recent>)}
+      {!focus &&
+        query === "" &&
+        [1, 2, 3, 4, 5].map((item) => (
+          <StyledTag>
+            <Tag key={item}></Tag>
+            <StyledPost>
+              {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((item) => (
+                <Post key={item}></Post>
+              ))}
+            </StyledPost>
+          </StyledTag>
+        ))}
     </StyledSearch>
   );
 }
