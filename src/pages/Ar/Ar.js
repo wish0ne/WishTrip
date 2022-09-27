@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { useRecoilValue, useRecoilState } from "recoil";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import useScript from "../../modules/useScript.ts";
 import { ReactComponent as Back } from "../../assets/images/uil_arrow-left.svg";
@@ -59,6 +59,7 @@ function Ar() {
   const [arCreate, setARCreate] = useRecoilState(arCreatePost); //ar 포스트 작성에 필요한 정보
   const [contents, setContents] = useRecoilState(arContents); //ar 포스트
   const [coords, setCoords] = useState({ x: 0, y: 0, z: 0 }); //유저 위치 정보
+  const [arId, setARId] = useState(-1); //클릭한 AR 포스트 id
 
   const navigate = useNavigate();
   const nftStatus = useScript(
@@ -71,7 +72,9 @@ function Ar() {
   useEffect(() => {
     //get user coordinate
     getPosition();
+  }, []);
 
+  useEffect(() => {
     //get ar post
     instance
       .post("/msw/arpost/get_around_posts", {
@@ -81,6 +84,7 @@ function Ar() {
       .then((res) => {
         setContents(res.data);
       });
+
     return () => {
       let html = document.querySelector("html");
       let body = document.querySelector("body");
@@ -97,9 +101,9 @@ function Ar() {
     });
   };
 
-  const getPosition = async () => {
+  const getPosition = useCallback(async () => {
     if (navigator.geolocation) {
-      const id = navigator.geolocation.watchPosition(
+      navigator.geolocation.getCurrentPosition(
         ({ coords }) => {
           console.log(coords);
           setCoords({
@@ -123,7 +127,7 @@ function Ar() {
     } else {
       alert("GPS를 지원하지 않습니다.");
     }
-  };
+  }, []);
 
   const handleAddClick = () => {
     //AR 작성 전 유저 위치 정보 받기
@@ -137,7 +141,7 @@ function Ar() {
 
   return (
     <>
-      {lookatStatus === "ready" && nftStatus === "ready" && (
+      {lookatStatus === "ready" && nftStatus === "ready" && coords.x !== null && (
         <ARContainer>
           <a-scene
             debug
@@ -168,7 +172,6 @@ function Ar() {
                 key={entity.id}
                 src={`#${entity.id}`}
                 look-at="[gps-camera]"
-                scale="10 10 10"
                 position={`0 ${entity.z_value} 0`}
               ></a-image>
             ))}
@@ -180,7 +183,7 @@ function Ar() {
             <Camera />
             <span>포스트 남기기</span>
           </Add>
-          {/* <Modal id={id} /> */}
+          <Modal id={1} />
         </ARContainer>
       )}
     </>

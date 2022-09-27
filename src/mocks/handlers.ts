@@ -273,4 +273,19 @@ export const handlers = [
       );
     },
   ),
+  rest.post<string>(
+    "https://3.36.71.48/msw/arpost/get_around_posts",
+    (req, res, ctx) => {
+      console.log(req.body);
+      return res(
+        ctx.status(200),
+        ctx.json([
+          { id: 1, image: armock1, x_value: 37.243707, y_value: 127.077247 },
+          { id: 2, image: armock2, x_value: 37.243021, y_value: 127.076998 },
+          { id: 3, image: armock3, x_value: 37.244807, y_value: 127.077034 },
+          { id: 4, image: armock4, x_value: 37.244108, y_value: 127.079135 },
+        ]),
+      );
+    },
+  ),
 ];
