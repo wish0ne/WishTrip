@@ -11,6 +11,7 @@ import Email from "./pages/Authentication/Email";
 import Password from "./pages/Authentication/Password";
 import Register from "./pages/Authentication/Register";
 import Search from "./pages/Search/Search";
+import Read from "./pages/Post/Read";
 
 const GlobalStyle = createGlobalStyle`
   ${reset}
@@ -95,6 +96,7 @@ function App() {
           <Route path="Register" element={<Register />} />
         </Route>
         <Route path="Search" element={<Search />} />
+        <Route path="Read/:postId" element={<Read />} />
         <Route path="ARTrip" element={<Ar />} />
         <Route path="ARTrip/Create" element={<ARCreate />} />
         <Route path="Mypage" element={<Mypage />} />
