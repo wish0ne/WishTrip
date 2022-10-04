@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { useNavigate } from "react-router-dom";
 import img1 from "../../../assets/images/여행사진1.jpg";
 
 const StyledPost = styled.div`
@@ -33,9 +34,15 @@ const StyledPost = styled.div`
   }
 `;
 
-function Post() {
+interface PostPropsType {
+  id: number;
+}
+
+function Post({ id }: PostPropsType) {
+  const navigate = useNavigate();
+
   return (
-    <StyledPost>
+    <StyledPost onClick={() => navigate(`../Read/:${id}`)}>
       <img src={img1} alt="포스트 이미지" />
       <h2>사소하지만 아름다운 풍경들</h2>
       <span>gamsungcross</span>

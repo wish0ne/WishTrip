@@ -1,8 +1,5 @@
 import styled from "styled-components";
 import { useState } from "react";
-import img1 from "../../../assets/images/경희대1.jpg";
-import img2 from "../../../assets/images/경희대2.jpg";
-import img3 from "../../../assets/images/여행사진3.jpg";
 import img9 from "../../../assets/images/여행사진9.jpg";
 import { ReactComponent as Close } from "../../../assets/images/uil_multiply.svg";
 import { ReactComponent as Empty } from "../../../assets/images/emoji_empty.svg";
@@ -13,46 +10,6 @@ import { ReactComponent as Thumb } from "../../../assets/images/emoji_thumb.svg"
 import { ReactComponent as Laugh } from "../../../assets/images/emoji_laugh.svg";
 import { useRecoilValue } from "recoil";
 import { arModal } from "../../../recoil/ar";
-
-const posts = [
-  {
-    id: 0,
-    image: img1,
-    body: "오늘은 경희대학교에 방문했어요! 정문이 너무 예뻐서 한 컷 찍어서 올립니다 😊 \n\n 혹시 경희대학교에 방문하신다면 제 포스트를 찾아보세요~",
-    emotions: { shock: 312, heart: 12, laugh: 1 },
-    tags: ["경희대학교", "학교투어"],
-    user_img: img3,
-    user_nickname: "부끄러운 프로도",
-    date: "2022.08.02",
-    comments: [
-      {
-        id: 0,
-        user_img: img9,
-        nickname: "신난 어피치",
-        date: "2022.08.02",
-        body: "사진이 너무 예뻐요",
-      },
-      {
-        id: 1,
-        user_img: img3,
-        nickname: "호기심 많은 어피치",
-        date: "2022.07.22",
-        body: "저도 가보고 싶어요!",
-      },
-    ],
-  },
-  {
-    id: 1,
-    image: img2,
-    body: "저도 정문에서 한컷!",
-    emotions: { crying: 0, thumb: 0, laugh: 0 },
-    tags: ["경희대", "정문"],
-    user_img: img9,
-    user_nickname: "소마",
-    date: "2022.08.25",
-    comments: [],
-  },
-];
 
 const StyledModal = styled.div`
   background-color: white;

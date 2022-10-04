@@ -56,7 +56,7 @@ function Search() {
             <Tag></Tag>
             <StyledPost>
               {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((item) => (
-                <Post key={item}></Post>
+                <Post key={item} id={item}></Post>
               ))}
             </StyledPost>
           </StyledTag>
@@ -64,7 +64,7 @@ function Search() {
       {query !== "" && menu === "포스트" && (
         <SearchPost>
           {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((item) => (
-            <Post key={item}></Post>
+            <Post key={item} id={item}></Post>
           ))}
         </SearchPost>
       )}
@@ -75,7 +75,7 @@ function Search() {
             <Tag key={item}></Tag>
             <StyledPost>
               {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((item) => (
-                <Post key={item}></Post>
+                <Post key={item} id={item}></Post>
               ))}
             </StyledPost>
           </StyledTag>

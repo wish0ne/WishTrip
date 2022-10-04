@@ -26,7 +26,7 @@ interface PostValidUserReqBody {
 export const handlers = [
   //인증
   rest.post<PostValidUserReqBody>(
-    "https://3.36.71.48/msw/isMember",
+    "http://3.36.71.48/msw/isMember",
     (req, res, ctx) => {
       const { email } = req.body;
       if (email === "test") return res(ctx.status(200));
@@ -34,7 +34,7 @@ export const handlers = [
     },
   ),
   rest.post<PostValidUserReqBody>(
-    "https://3.36.71.48/msw/login",
+    "http://3.36.71.48/msw/login",
     (req, res, ctx) => {
       const { email, password } = req.body;
       if (email === "test" && password === "1234")
@@ -50,7 +50,7 @@ export const handlers = [
     },
   ),
   rest.post<PostValidUserReqBody>(
-    "https://3.36.71.48/msw/register",
+    "http://3.36.71.48/msw/register",
     (req, res, ctx) => {
       const { email, username } = req.body;
       if (email === "test" || username === "admin") {
@@ -61,7 +61,7 @@ export const handlers = [
     },
   ),
   //마이페이지
-  rest.post("https://3.36.71.48/msw/mypage", (req, res, ctx) => {
+  rest.post("http://3.36.71.48/msw/mypage", (req, res, ctx) => {
     const token = req.headers.get("authorization")?.split(" ")[1];
     if (token === "null") return res(ctx.status(401)); //비로그인
     return res(
@@ -72,7 +72,7 @@ export const handlers = [
       }),
     );
   }),
-  rest.post("https://3.36.71.48/msw/mypage/scrap", (req, res, ctx) => {
+  rest.post("http://3.36.71.48/msw/mypage/scrap", (req, res, ctx) => {
     const token = req.headers.get("authorization")?.split(" ")[1];
     if (token === "null") return res(ctx.status(401)); //비로그인
     return res(
@@ -106,7 +106,7 @@ export const handlers = [
   }),
 
   //홈
-  rest.post("https://3.36.71.48/msw/home/profile", (req, res, ctx) => {
+  rest.post("http://3.36.71.48/msw/home/profile", (req, res, ctx) => {
     const token = req.headers.get("authorization")?.split(" ")[1];
     if (token === "null") return res(ctx.status(401)); //비로그인
     return res(
@@ -115,7 +115,7 @@ export const handlers = [
       }),
     );
   }),
-  rest.post("https://3.36.71.48/msw/home/banner", (req, res, ctx) => {
+  rest.post("http://3.36.71.48/msw/home/banner", (req, res, ctx) => {
     return res(
       ctx.status(200),
       ctx.json([
@@ -150,7 +150,7 @@ export const handlers = [
       ]),
     );
   }),
-  rest.post("https://3.36.71.48/msw/home/event", (req, res, ctx) => {
+  rest.post("http://3.36.71.48/msw/home/event", (req, res, ctx) => {
     return res(
       ctx.json([
         {
@@ -171,7 +171,7 @@ export const handlers = [
       ]),
     );
   }),
-  rest.post("https://3.36.71.48/msw/home/recommend", (req, res, ctx) => {
+  rest.post("http://3.36.71.48/msw/home/recommend", (req, res, ctx) => {
     return res(
       ctx.json([
         {
@@ -239,7 +239,7 @@ export const handlers = [
   }),
 
   //ar 작성
-  rest.post<string>("https://3.36.71.48/msw/hashtag", (req, res, ctx) => {
+  rest.post<string>("http://3.36.71.48/msw/hashtag", (req, res, ctx) => {
     if (req.body === "여")
       return res(
         ctx.status(200),
@@ -252,14 +252,14 @@ export const handlers = [
       );
     return res(ctx.status(200), ctx.json([]));
   }),
-  rest.post<string>("https://3.36.71.48/msw/arpost/create", (req, res, ctx) => {
+  rest.post<string>("http://3.36.71.48/msw/arpost/create", (req, res, ctx) => {
     console.log(req.body);
     return res(ctx.status(200), ctx.json({ msg: "ARpost create success" }));
   }),
 
   //ar read
   rest.post<string>(
-    "https://3.36.71.48/msw/arpost/get_around_posts",
+    "http://3.36.71.48/msw/arpost/get_around_posts",
     (req, res, ctx) => {
       console.log(req.body);
       return res(
@@ -274,7 +274,7 @@ export const handlers = [
     },
   ),
   rest.post<string>(
-    "https://3.36.71.48/msw/arpost/get_around_posts",
+    "http://3.36.71.48/msw/arpost/get_around_posts",
     (req, res, ctx) => {
       console.log(req.body);
       return res(

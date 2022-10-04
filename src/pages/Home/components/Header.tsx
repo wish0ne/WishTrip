@@ -39,7 +39,7 @@ function Header() {
       <Logo width="7.2rem" height="2rem" />
       <StyledDiv>
         <Bell />
-        <UserIcon to="/WishTrip/Mypage">
+        <UserIcon to="../Mypage">
           {profile && <img src={profile} alt="유저아이콘" />}
         </UserIcon>
       </StyledDiv>
