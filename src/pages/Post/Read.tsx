@@ -6,9 +6,7 @@ import Emotion from "./components/Emotion";
 import Content from "./components/Content";
 import Comment from "./components/Comment";
 
-const StyledRead = styled.div`
-  padding: 2.4rem;
-`;
+const StyledRead = styled.div``;
 
 function Read() {
   return (

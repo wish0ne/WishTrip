@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { useNavigate } from "react-router-dom";
 import { ReactComponent as Icon } from "../../../assets/images/uil_arrow-left.svg";
 
 const StyledHeader = styled.div`
@@ -6,6 +7,7 @@ const StyledHeader = styled.div`
   align-items: center;
   position: relative;
   padding: 1.6rem 0;
+  padding: 2.4rem;
   > h1 {
     position: absolute;
     top: 50%;
@@ -18,9 +20,11 @@ const StyledHeader = styled.div`
 `;
 
 function Header() {
+  const navigate = useNavigate();
+
   return (
     <StyledHeader>
-      <Icon width="2.4rem" height="2.4rem" />
+      <Icon width="2.4rem" height="2.4rem" onClick={() => navigate(-1)} />
       <h1>화려한 곳 어때요?</h1>
     </StyledHeader>
   );

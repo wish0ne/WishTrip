@@ -6,6 +6,7 @@ export const StyledUser = styled.div`
   display: flex;
   justify-content: space-between;
   padding: 2rem 0;
+  padding: 2.4rem;
   align-items: center;
   > div {
     display: flex;
