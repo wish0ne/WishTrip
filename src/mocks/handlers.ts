@@ -243,52 +243,68 @@ export const handlers = [
   }),
 
   //홈
-  rest.post("http://3.36.71.48/msw/home/profile", (req, res, ctx) => {
+  //1. 유저 프로필 받기
+  rest.get("http://3.36.71.48/msw/home/profile", (req, res, ctx) => {
+    //토근 확인
     const token = req.headers.get("authorization")?.split(" ")[1];
-    if (token === "null") return res(ctx.status(401)); //비로그인
+    if (token === "null") return res(ctx.status(401));
+
+    //프로필 이미지 전송
     return res(
+      ctx.status(200),
       ctx.json({
-        profile: img1,
+        icon: img1,
       }),
     );
   }),
-  rest.post("http://3.36.71.48/msw/home/banner", (req, res, ctx) => {
+
+  //2. 스토리 정보 받기
+  rest.get("http://3.36.71.48/msw/home/banner", (req, res, ctx) => {
+    //토큰 검사 x (로그인 안해도 보여줘야 하기 때문)
     return res(
       ctx.status(200),
       ctx.json([
         {
+          id: 1,
           image: img8,
           username: "부끄러운 프로도",
-          place: "제주 애월읍",
-          comment: "로맨틱한",
-          profile: img2,
+          location: "제주 애월읍",
+          tag: "로맨틱한",
+          icon: img2,
         },
         {
+          id: 2,
+          image: img1,
+          username: "부끄러운 프로도",
+          location: "제주 애월읍",
+          tag: "로맨틱한",
+          icon: img2,
+        },
+        {
+          id: 3,
           image: img5,
           username: "부끄러운 프로도",
-          place: "제주 애월읍",
-          comment: "로맨틱한",
-          profile: img2,
+          location: "제주 애월읍",
+          tag: "로맨틱한",
+          icon: img2,
         },
         {
-          image: img3,
-          username: "부끄러운 프로도",
-          place: "제주 애월읍",
-          comment: "로맨틱한",
-          profile: img2,
-        },
-        {
+          id: 4,
           image: img7,
           username: "부끄러운 프로도",
-          place: "제주 애월읍",
-          comment: "로맨틱한",
-          profile: img2,
+          location: "제주 애월읍",
+          tag: "로맨틱한",
+          icon: img2,
         },
       ]),
     );
   }),
-  rest.post("http://3.36.71.48/msw/home/event", (req, res, ctx) => {
+
+  //3. 이벤트 정보 받기
+  rest.get("http://3.36.71.48/msw/home/event", (req, res, ctx) => {
+    //토큰 검사 x (로그인 안해도 보여줘야 하기 때문)
     return res(
+      ctx.status(200),
       ctx.json([
         {
           location: "강남역",
@@ -308,19 +324,23 @@ export const handlers = [
       ]),
     );
   }),
-  rest.post("http://3.36.71.48/msw/home/recommend", (req, res, ctx) => {
+
+  //4. 추천 포스트
+  rest.get("http://3.36.71.48/msw/home/recommend", (req, res, ctx) => {
+    //토큰 검사 x (로그인 안해도 보여줘야 하기 때문)
     return res(
+      ctx.status(200),
       ctx.json([
         {
           id: 1,
           tag: "한적한",
-          contents: [
+          posts: [
             {
               image: img2,
               title: "사소하지만 아름다운 풍경들",
               location: "프랑스 파리",
               username: "gamsungcross",
-              profile: img1,
+              icon: img1,
               id: 1,
             },
             {
@@ -328,7 +348,7 @@ export const handlers = [
               title: "걷다가 만난 일몰",
               location: "제주 애월읍",
               username: "샛별",
-              profile: img5,
+              icon: img5,
               id: 2,
             },
             {
@@ -336,7 +356,7 @@ export const handlers = [
               title: "한적한 일본 구석구석 여행",
               location: "일본 오사카",
               username: "행복한족제비",
-              profile: img7,
+              icon: img7,
               id: 3,
             },
           ],
@@ -344,13 +364,13 @@ export const handlers = [
         {
           id: 2,
           tag: "화려한",
-          contents: [
+          posts: [
             {
               image: img8,
               title: "양들과 함께 만난 일몰",
               location: "프랑스 파리",
               username: "gamsungcross",
-              profile: img1,
+              icon: img1,
               id: 1,
             },
             {
@@ -358,7 +378,7 @@ export const handlers = [
               title: "걷다가 만난 일몰",
               location: "제주 애월읍",
               username: "샛별",
-              profile: img5,
+              icon: img5,
               id: 2,
             },
             {
@@ -366,7 +386,7 @@ export const handlers = [
               title: "한적한 일본 구석구석 여행",
               location: "일본 오사카",
               username: "행복한족제비",
-              profile: img7,
+              icon: img7,
               id: 3,
             },
           ],
