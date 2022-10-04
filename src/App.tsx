@@ -22,7 +22,7 @@ const GlobalStyle = createGlobalStyle`
       env(safe-area-inset-bottom) env(safe-area-inset-left);
   }
   body {
-    margin: 0;
+    max-width:50rem;
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
       "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
       sans-serif;
