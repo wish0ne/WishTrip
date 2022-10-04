@@ -24,20 +24,35 @@ interface PostValidUserReqBody {
 //res : function to create the mocked response
 //ctx : context utilities specific to the current request handler
 export const handlers = [
-  //인증
+  //로그인/가입
+  //1. 로그인 시작화면
+  rest.get("http://3.36.71.48/msw/auth", (req, res, ctx) => {
+    return res(
+      ctx.status(200),
+      ctx.json({
+        image: img8,
+        icon: img3,
+        username: "프로도",
+        location: "제주 애월읍",
+      }),
+    );
+  }),
+  //2. 회원 확인
   rest.post<PostValidUserReqBody>(
     "http://3.36.71.48/msw/isMember",
     (req, res, ctx) => {
       const { email } = req.body;
-      if (email === "test") return res(ctx.status(200));
-      else return res(ctx.status(401));
+      if (email === "hello@gmail.com") return res(ctx.status(200)); //회원 o
+      else return res(ctx.status(401)); //회원 정보 없음
     },
   ),
+  //3. 로그인
   rest.post<PostValidUserReqBody>(
     "http://3.36.71.48/msw/login",
     (req, res, ctx) => {
       const { email, password } = req.body;
-      if (email === "test" && password === "1234")
+      //이메일, 비밀번호 일치
+      if (email === "hello@gmail.com" && password === "1234")
         return res(
           ctx.status(200),
           ctx.json({
@@ -46,59 +61,181 @@ export const handlers = [
             token_type: "bearer",
           }),
         );
+      //비밀번호 불일치
       else return res(ctx.status(401));
     },
   ),
+  //4.비밀번호 찾기
+  rest.post<PostValidUserReqBody>(
+    "http://3.36.71.48/msw/recovery",
+    (req, res, ctx) => {
+      const { email } = req.body;
+      //회원정보 존재
+      if (email === "hello@gmail.com") return res(ctx.status(200));
+      //회원정보 존재하지 않음
+      else return res(ctx.status(401));
+    },
+  ),
+  //5. 회원가입
   rest.post<PostValidUserReqBody>(
     "http://3.36.71.48/msw/register",
     (req, res, ctx) => {
       const { email, username } = req.body;
+      //이메일, 유저네임 중복시 회원가입 불가
       if (email === "test" || username === "admin") {
         return res(ctx.status(401));
-      } else {
+      }
+      //회원가입 성공
+      else {
         return res(ctx.status(200), ctx.json({ msg: "register success" }));
       }
     },
   ),
+
   //마이페이지
-  rest.post("http://3.36.71.48/msw/mypage", (req, res, ctx) => {
+  //1. 유저 프로필 조회
+  rest.get("http://3.36.71.48/msw/mypage", (req, res, ctx) => {
+    //유저 토큰 확인
     const token = req.headers.get("authorization")?.split(" ")[1];
-    if (token === "null") return res(ctx.status(401)); //비로그인
+
+    //유저 토근이 없는 경우 : 로그인하지 않은 경우
+    if (token === "null") return res(ctx.status(401));
+
+    //로그인한 경우
     return res(
       ctx.json({
-        image: img1,
+        icon: img1,
         username: "부끄러운 프로도",
         email: "frodo@gmail.com",
       }),
     );
   }),
-  rest.post("http://3.36.71.48/msw/mypage/scrap", (req, res, ctx) => {
+
+  //2. 유저 프로필 사진 수정
+  rest.put<{ icon: string }>(
+    "http://3.36.71.48/msw/mypage/edit",
+    (req, res, ctx) => {
+      //유저 토큰 확인
+      const token = req.headers.get("authorization")?.split(" ")[1];
+
+      //토큰 인증
+      if (token === "null") return res(ctx.status(401));
+
+      const { icon } = req.body; //새 프로필 이미지
+      //프로필 수정 실패
+      if (!icon) return res(ctx.status(400));
+      //프로필 수정 성공
+      return res(ctx.status(200));
+    },
+  ),
+
+  //3. 스크랩 한 글
+  rest.get("http://3.36.71.48/msw/mypage/scrap", (req, res, ctx) => {
     const token = req.headers.get("authorization")?.split(" ")[1];
-    if (token === "null") return res(ctx.status(401)); //비로그인
+    //토큰 확인
+    if (token === "null") return res(ctx.status(401));
+
     return res(
+      ctx.status(200),
       ctx.json([
-        {
-          image: img2,
-          title: "여행의 제목입니다.",
-          username: "부끄러운 프로도",
-          id: 1,
-        },
         {
           image: img4,
           title: "여행의 제목입니다.",
-          username: "부끄러운 프로도",
+          tags: ["#여행", "#여행스타그램", "#여행에미치다"],
+          id: 1,
+        },
+        {
+          image: img3,
+          title: "여행의 제목입니다.",
+          tags: ["#여행", "#여행스타그램", "#여행에미치다"],
           id: 2,
         },
         {
           image: img6,
           title: "여행의 제목입니다.",
-          username: "부끄러운 프로도",
+          tags: ["#여행", "#여행스타그램", "#여행에미치다"],
           id: 3,
         },
         {
-          image: img8,
+          image: img5,
           title: "여행의 제목입니다.",
-          username: "부끄러운 프로도",
+          tags: ["#여행", "#여행스타그램", "#여행에미치다"],
+          id: 4,
+        },
+      ]),
+    );
+  }),
+
+  //4. 최근 본 글 -> localStorage에 저장
+
+  //5. 댓글 단 글
+  rest.get("http://3.36.71.48/msw/mypage/comment", (req, res, ctx) => {
+    const token = req.headers.get("authorization")?.split(" ")[1];
+    //토큰 확인
+    if (token === "null") return res(ctx.status(401));
+
+    return res(
+      ctx.status(200),
+      ctx.json([
+        {
+          image: img4,
+          title: "여행의 제목입니다.",
+          tags: ["#여행", "#여행스타그램", "#여행에미치다"],
+          id: 1,
+        },
+        {
+          image: img3,
+          title: "여행의 제목입니다.",
+          tags: ["#여행", "#여행스타그램", "#여행에미치다"],
+          id: 2,
+        },
+        {
+          image: img6,
+          title: "여행의 제목입니다.",
+          tags: ["#여행", "#여행스타그램", "#여행에미치다"],
+          id: 3,
+        },
+        {
+          image: img5,
+          title: "여행의 제목입니다.",
+          tags: ["#여행", "#여행스타그램", "#여행에미치다"],
+          id: 4,
+        },
+      ]),
+    );
+  }),
+
+  //6. 업로드 한 글
+  rest.get("http://3.36.71.48/msw/mypage/upload", (req, res, ctx) => {
+    const token = req.headers.get("authorization")?.split(" ")[1];
+    //토큰 확인
+    if (token === "null") return res(ctx.status(401));
+
+    return res(
+      ctx.status(200),
+      ctx.json([
+        {
+          image: img4,
+          title: "여행의 제목입니다.",
+          tags: ["#여행", "#여행스타그램", "#여행에미치다"],
+          id: 1,
+        },
+        {
+          image: img3,
+          title: "여행의 제목입니다.",
+          tags: ["#여행", "#여행스타그램", "#여행에미치다"],
+          id: 2,
+        },
+        {
+          image: img6,
+          title: "여행의 제목입니다.",
+          tags: ["#여행", "#여행스타그램", "#여행에미치다"],
+          id: 3,
+        },
+        {
+          image: img5,
+          title: "여행의 제목입니다.",
+          tags: ["#여행", "#여행스타그램", "#여행에미치다"],
           id: 4,
         },
       ]),
