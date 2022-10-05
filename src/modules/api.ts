@@ -1,6 +1,5 @@
 import axios from "axios";
 
-//실제 API axios instance
 const instance = axios.create({
   baseURL: "http://3.36.71.48/",
   timeout: 1000,
@@ -25,44 +24,6 @@ instance.interceptors.request.use(
 
 //response interceptor
 instance.interceptors.response.use(
-  (response) => {
-    //응답 성공 직전 호출
-    //.then()으로 이어짐
-    console.log(response);
-    return response;
-  },
-  (error) => {
-    //응답 에러 직전 호출
-    //.catch()로 이어짐
-    throw error;
-  },
-);
-
-//mocking API axios instance
-export const mock = axios.create({
-  baseURL: "https://3.36.71.48/",
-  timeout: 1000,
-});
-
-//request interceptor
-mock.interceptors.request.use(
-  (config) => {
-    //요청 성공 직전 호출
-    //axios 설정값 추가
-    if (config.headers)
-      config.headers.Authorization = `Bearer ${localStorage.getItem(
-        "accessToken",
-      )}`;
-    return config;
-  },
-  (error) => {
-    //요청 에러 직전 호출
-    throw error;
-  },
-);
-
-//response interceptor
-mock.interceptors.response.use(
   (response) => {
     //응답 성공 직전 호출
     //.then()으로 이어짐
