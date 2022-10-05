@@ -445,13 +445,11 @@ export const handlers = [
   ),
 
   //주변 AR 포스트 읽기
-  //1. 주변 AR 포스트 읽기
+  //1. 주변 AR 포스트 읽기 -> 유저 좌표를 계산해서 변환한 대표좌표로 요청
   rest.get<{ x: number; y: number; z: number }>(
     "http://3.36.71.48/msw/arpost/get_around_posts",
     (req, res, ctx) => {
-      //토근 확인
-      const token = req.headers.get("authorization")?.split(" ")[1];
-      if (token === "null") return res(ctx.status(401));
+      //토큰 검사 x (로그인 안해도 보여줘야 하기 때문)
 
       //유저 좌표 1km 이내 AR post 반환
       //res : {AR포스트 id, AR 이미지, AR포스트 좌표(x, y, z)}
@@ -494,9 +492,7 @@ export const handlers = [
   //포스트 검색
   //1. 지금 인기 태그
   rest.get("http://3.36.71.48/msw/get_popular_tags", (req, res, ctx) => {
-    //토근 확인
-    const token = req.headers.get("authorization")?.split(" ")[1];
-    if (token === "null") return res(ctx.status(401));
+    //토큰 검사 x (로그인 안해도 보여줘야 하기 때문)
 
     //인기 태그 반환
     //res : {id, 태그, 해당게시물 개수, posts:[{id, 원본이미지, 제목, 유저네임}]}
@@ -561,9 +557,7 @@ export const handlers = [
   rest.get<{ title: string }>(
     "http://3.36.71.48/msw/search_post",
     (req, res, ctx) => {
-      //토근 확인
-      const token = req.headers.get("authorization")?.split(" ")[1];
-      if (token === "null") return res(ctx.status(401));
+      //토큰 검사 x (로그인 안해도 보여줘야 하기 때문)
 
       //인기 태그 반환
       //res : [{id, 태그, 원본이미지, 제목}]
@@ -597,9 +591,7 @@ export const handlers = [
   rest.get<{ tag: string }>(
     "http://3.36.71.48/msw/search_tag",
     (req, res, ctx) => {
-      //토근 확인
-      const token = req.headers.get("authorization")?.split(" ")[1];
-      if (token === "null") return res(ctx.status(401));
+      //토큰 검사 x (로그인 안해도 보여줘야 하기 때문)
 
       //검색 태그가 일치하는 포스트 반환
       //res : {id, 태그, 해당게시물 개수, posts:[{id, 원본이미지, 제목, 유저네임}]}
@@ -665,9 +657,7 @@ export const handlers = [
   rest.get<{ location: string }>(
     "http://3.36.71.48/msw/search_location",
     (req, res, ctx) => {
-      //토근 확인
-      const token = req.headers.get("authorization")?.split(" ")[1];
-      if (token === "null") return res(ctx.status(401));
+      //토큰 검사 x (로그인 안해도 보여줘야 하기 때문)
 
       //장소가 일치하는 포스트 반환
       //res : [{id, 장소, 일치포스트 개수}]
@@ -693,9 +683,7 @@ export const handlers = [
   rest.get<{ username: string }>(
     "http://3.36.71.48/msw/search_username",
     (req, res, ctx) => {
-      //토근 확인
-      const token = req.headers.get("authorization")?.split(" ")[1];
-      if (token === "null") return res(ctx.status(401));
+      //토큰 검사 x (로그인 안해도 보여줘야 하기 때문)
 
       //검색 쿼리가 포함된 유저네임들 반환
       //res : [{id, 유저네임, 유저가 작성한 게시물 수, 유저아이콘ㄹ}]
@@ -719,6 +707,81 @@ export const handlers = [
             username: "프로도",
             count: 20,
             icon: img6,
+          },
+        ]),
+      );
+    },
+  ),
+
+  //다른 유저 프로필 조회
+  //1. 유저 정보 받기 -> username 일치하는 유저 정보 반환 (유저네임 중복 불가)
+  rest.get<{ username: string }>(
+    "http://3.36.71.48/msw/get_user_profile",
+    (req, res, ctx) => {
+      //토큰 검사 x (로그인 안해도 보여줘야 하기 때문)
+
+      //username으로 유저 조회해서 결과 반환
+      //res : {유저네임, 유저 아이콘}
+      return res(
+        ctx.status(200),
+        ctx.json({
+          username: "부끄러운 프로도",
+          icon: img2,
+        }),
+      );
+    },
+  ),
+
+  //2. 유저가 업로드한 글 받기 -> username 일치하는 유저가 업로드한 글 반환
+  rest.get<{ username: string }>(
+    "http://3.36.71.48/msw/get_user_posts",
+    (req, res, ctx) => {
+      //토큰 검사 x (로그인 안해도 보여줘야 하기 때문)
+
+      //username으로 유저 조회해서 결과 반환
+      //res : [{포스트id, 원본이미지, 제목, 태그배열}]
+      return res(
+        ctx.status(200),
+        ctx.json([
+          {
+            id: 1,
+            image: img2,
+            title: "여행제목",
+            tags: ["여행", "부산", "해운대"],
+          },
+          {
+            id: 2,
+            image: img3,
+            title: "제목",
+            tags: ["여수", "여행"],
+          },
+        ]),
+      );
+    },
+  ),
+
+  //3. 유저가 댓글 단 글 받기 -> username 일치하는 유저가 댓글 단 글 반환
+  rest.get<{ username: string }>(
+    "http://3.36.71.48/msw/get_user_comments",
+    (req, res, ctx) => {
+      //토큰 검사 x (로그인 안해도 보여줘야 하기 때문)
+
+      //username으로 유저 조회해서 결과 반환
+      //res : [{포스트id, 원본이미지, 제목, 태그배열}]
+      return res(
+        ctx.status(200),
+        ctx.json([
+          {
+            id: 1,
+            image: img2,
+            title: "여행제목",
+            tags: ["여행", "부산", "해운대"],
+          },
+          {
+            id: 2,
+            image: img3,
+            title: "제목",
+            tags: ["여수", "여행"],
           },
         ]),
       );
