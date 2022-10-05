@@ -111,7 +111,7 @@ export const handlers = [
     );
   }),
 
-  //2. 유저 프로필 사진 수정
+  //2. 유저 프로필 사진 등록&수정
   rest.put<{ icon: string }>(
     "http://3.36.71.48/msw/mypage/edit",
     (req, res, ctx) => {
@@ -444,33 +444,48 @@ export const handlers = [
     },
   ),
 
-  //ar read
-  rest.post<string>(
+  //주변 AR 포스트 읽기
+  //1. 주변 AR 포스트 읽기
+  rest.get<{ x: number; y: number; z: number }>(
     "http://3.36.71.48/msw/arpost/get_around_posts",
     (req, res, ctx) => {
-      console.log(req.body);
+      //토근 확인
+      const token = req.headers.get("authorization")?.split(" ")[1];
+      if (token === "null") return res(ctx.status(401));
+
+      //유저 좌표 1km 이내 AR post 반환
+      //res : {AR포스트 id, AR 이미지, AR포스트 좌표(x, y, z)}
       return res(
         ctx.status(200),
         ctx.json([
-          { id: 1, image: armock1, x_value: 37.243707, y_value: 127.077247 },
-          { id: 2, image: armock2, x_value: 37.243021, y_value: 127.076998 },
-          { id: 3, image: armock3, x_value: 37.244807, y_value: 127.077034 },
-          { id: 4, image: armock4, x_value: 37.244108, y_value: 127.079135 },
-        ]),
-      );
-    },
-  ),
-  rest.post<string>(
-    "http://3.36.71.48/msw/arpost/get_around_posts",
-    (req, res, ctx) => {
-      console.log(req.body);
-      return res(
-        ctx.status(200),
-        ctx.json([
-          { id: 1, image: armock1, x_value: 37.243707, y_value: 127.077247 },
-          { id: 2, image: armock2, x_value: 37.243021, y_value: 127.076998 },
-          { id: 3, image: armock3, x_value: 37.244807, y_value: 127.077034 },
-          { id: 4, image: armock4, x_value: 37.244108, y_value: 127.079135 },
+          {
+            id: 1,
+            image: armock1,
+            x_value: 37.243707,
+            y_value: 127.077247,
+            z_value: 0,
+          },
+          {
+            id: 2,
+            image: armock2,
+            x_value: 37.243021,
+            y_value: 127.076998,
+            z_value: 1,
+          },
+          {
+            id: 3,
+            image: armock3,
+            x_value: 37.244807,
+            y_value: 127.077034,
+            z_value: 1,
+          },
+          {
+            id: 4,
+            image: armock4,
+            x_value: 37.244108,
+            y_value: 127.079135,
+            z_value: 0,
+          },
         ]),
       );
     },
