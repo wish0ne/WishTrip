@@ -490,4 +490,238 @@ export const handlers = [
       );
     },
   ),
+
+  //포스트 검색
+  //1. 지금 인기 태그
+  rest.get("http://3.36.71.48/msw/get_popular_tags", (req, res, ctx) => {
+    //토근 확인
+    const token = req.headers.get("authorization")?.split(" ")[1];
+    if (token === "null") return res(ctx.status(401));
+
+    //인기 태그 반환
+    //res : {id, 태그, 해당게시물 개수, posts:[{id, 원본이미지, 제목, 유저네임}]}
+    return res(
+      ctx.status(200),
+      ctx.json([
+        {
+          id: 1,
+          tag: "여행",
+          count: 312,
+          posts: [
+            {
+              id: 1,
+              image: img2,
+              title: "사소하지만 아름다운 풍경들",
+              username: "샛별",
+            },
+            {
+              id: 2,
+              image: img3,
+              title: "사소하지만 아름다운 풍경들",
+              username: "샛별",
+            },
+            {
+              id: 3,
+              image: img4,
+              title: "사소하지만 아름다운 풍경들",
+              username: "샛별",
+            },
+          ],
+        },
+        {
+          id: 2,
+          tag: "바다",
+          count: 20,
+          posts: [
+            {
+              id: 1,
+              image: img2,
+              title: "사소하지만 아름다운 풍경들",
+              username: "샛별",
+            },
+            {
+              id: 2,
+              image: img3,
+              title: "사소하지만 아름다운 풍경들",
+              username: "샛별",
+            },
+            {
+              id: 3,
+              image: img4,
+              title: "사소하지만 아름다운 풍경들",
+              username: "샛별",
+            },
+          ],
+        },
+      ]),
+    );
+  }),
+
+  //2. 포스트로 검색 (제목일치로 판단)
+  rest.get<{ title: string }>(
+    "http://3.36.71.48/msw/search_post",
+    (req, res, ctx) => {
+      //토근 확인
+      const token = req.headers.get("authorization")?.split(" ")[1];
+      if (token === "null") return res(ctx.status(401));
+
+      //인기 태그 반환
+      //res : [{id, 태그, 원본이미지, 제목}]
+      return res(
+        ctx.status(200),
+        ctx.json([
+          {
+            id: 1,
+            tag: ["햄버거", "치킨"],
+            image: img2,
+            title: "여행의 제목입니다",
+          },
+          {
+            id: 2,
+            tag: ["부산", "부산맛집"],
+            image: img7,
+            title: "부산여행",
+          },
+          {
+            id: 3,
+            tag: ["햄버거", "치킨"],
+            image: img8,
+            title: "여행의 제목입니다",
+          },
+        ]),
+      );
+    },
+  ),
+
+  //3. 태그로 검색
+  rest.get<{ tag: string }>(
+    "http://3.36.71.48/msw/search_tag",
+    (req, res, ctx) => {
+      //토근 확인
+      const token = req.headers.get("authorization")?.split(" ")[1];
+      if (token === "null") return res(ctx.status(401));
+
+      //검색 태그가 일치하는 포스트 반환
+      //res : {id, 태그, 해당게시물 개수, posts:[{id, 원본이미지, 제목, 유저네임}]}
+      return res(
+        ctx.status(200),
+        ctx.json([
+          {
+            id: 1,
+            tag: "여행",
+            count: 312,
+            posts: [
+              {
+                id: 1,
+                image: img2,
+                title: "사소하지만 아름다운 풍경들",
+                username: "샛별",
+              },
+              {
+                id: 2,
+                image: img3,
+                title: "사소하지만 아름다운 풍경들",
+                username: "샛별",
+              },
+              {
+                id: 3,
+                image: img4,
+                title: "사소하지만 아름다운 풍경들",
+                username: "샛별",
+              },
+            ],
+          },
+          {
+            id: 2,
+            tag: "바다",
+            count: 20,
+            posts: [
+              {
+                id: 1,
+                image: img2,
+                title: "사소하지만 아름다운 풍경들",
+                username: "샛별",
+              },
+              {
+                id: 2,
+                image: img3,
+                title: "사소하지만 아름다운 풍경들",
+                username: "샛별",
+              },
+              {
+                id: 3,
+                image: img4,
+                title: "사소하지만 아름다운 풍경들",
+                username: "샛별",
+              },
+            ],
+          },
+        ]),
+      );
+    },
+  ),
+
+  //4. 장소로 검색
+  rest.get<{ location: string }>(
+    "http://3.36.71.48/msw/search_location",
+    (req, res, ctx) => {
+      //토근 확인
+      const token = req.headers.get("authorization")?.split(" ")[1];
+      if (token === "null") return res(ctx.status(401));
+
+      //장소가 일치하는 포스트 반환
+      //res : [{id, 장소, 일치포스트 개수}]
+      return res(
+        ctx.status(200),
+        ctx.json([
+          {
+            id: 1,
+            location: "부산",
+            count: 312,
+          },
+          {
+            id: 2,
+            location: "부산해운대",
+            count: 20,
+          },
+        ]),
+      );
+    },
+  ),
+
+  //5. 유저로 검색
+  rest.get<{ username: string }>(
+    "http://3.36.71.48/msw/search_username",
+    (req, res, ctx) => {
+      //토근 확인
+      const token = req.headers.get("authorization")?.split(" ")[1];
+      if (token === "null") return res(ctx.status(401));
+
+      //검색 쿼리가 포함된 유저네임들 반환
+      //res : [{id, 유저네임, 유저가 작성한 게시물 수, 유저아이콘ㄹ}]
+      return res(
+        ctx.status(200),
+        ctx.json([
+          {
+            id: 1,
+            username: "부끄러운 프로도",
+            count: 312,
+            icon: img1,
+          },
+          {
+            id: 2,
+            username: "어피치",
+            count: 312,
+            icon: img5,
+          },
+          {
+            id: 3,
+            username: "프로도",
+            count: 20,
+            icon: img6,
+          },
+        ]),
+      );
+    },
+  ),
 ];
