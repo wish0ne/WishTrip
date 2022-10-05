@@ -142,25 +142,25 @@ export const handlers = [
           image: img4,
           title: "여행의 제목입니다.",
           tags: ["#여행", "#여행스타그램", "#여행에미치다"],
-          id: 1,
+          post_id: 1,
         },
         {
           image: img3,
           title: "여행의 제목입니다.",
           tags: ["#여행", "#여행스타그램", "#여행에미치다"],
-          id: 2,
+          post_id: 2,
         },
         {
           image: img6,
           title: "여행의 제목입니다.",
           tags: ["#여행", "#여행스타그램", "#여행에미치다"],
-          id: 3,
+          post_id: 3,
         },
         {
           image: img5,
           title: "여행의 제목입니다.",
           tags: ["#여행", "#여행스타그램", "#여행에미치다"],
-          id: 4,
+          post_id: 4,
         },
       ]),
     );
@@ -181,25 +181,25 @@ export const handlers = [
           image: img4,
           title: "여행의 제목입니다.",
           tags: ["#여행", "#여행스타그램", "#여행에미치다"],
-          id: 1,
+          post_id: 1,
         },
         {
           image: img3,
           title: "여행의 제목입니다.",
           tags: ["#여행", "#여행스타그램", "#여행에미치다"],
-          id: 2,
+          post_id: 2,
         },
         {
           image: img6,
           title: "여행의 제목입니다.",
           tags: ["#여행", "#여행스타그램", "#여행에미치다"],
-          id: 3,
+          post_id: 3,
         },
         {
           image: img5,
           title: "여행의 제목입니다.",
           tags: ["#여행", "#여행스타그램", "#여행에미치다"],
-          id: 4,
+          post_id: 4,
         },
       ]),
     );
@@ -218,25 +218,25 @@ export const handlers = [
           image: img4,
           title: "여행의 제목입니다.",
           tags: ["#여행", "#여행스타그램", "#여행에미치다"],
-          id: 1,
+          post_id: 1,
         },
         {
           image: img3,
           title: "여행의 제목입니다.",
           tags: ["#여행", "#여행스타그램", "#여행에미치다"],
-          id: 2,
+          post_id: 2,
         },
         {
           image: img6,
           title: "여행의 제목입니다.",
           tags: ["#여행", "#여행스타그램", "#여행에미치다"],
-          id: 3,
+          post_id: 3,
         },
         {
           image: img5,
           title: "여행의 제목입니다.",
           tags: ["#여행", "#여행스타그램", "#여행에미치다"],
-          id: 4,
+          post_id: 4,
         },
       ]),
     );
@@ -265,7 +265,7 @@ export const handlers = [
       ctx.status(200),
       ctx.json([
         {
-          id: 1,
+          post_id: 1,
           image: img8,
           username: "부끄러운 프로도",
           location: "제주 애월읍",
@@ -273,7 +273,7 @@ export const handlers = [
           icon: img2,
         },
         {
-          id: 2,
+          post_id: 2,
           image: img1,
           username: "부끄러운 프로도",
           location: "제주 애월읍",
@@ -281,7 +281,7 @@ export const handlers = [
           icon: img2,
         },
         {
-          id: 3,
+          post_id: 3,
           image: img5,
           username: "부끄러운 프로도",
           location: "제주 애월읍",
@@ -289,7 +289,7 @@ export const handlers = [
           icon: img2,
         },
         {
-          id: 4,
+          post_id: 4,
           image: img7,
           username: "부끄러운 프로도",
           location: "제주 애월읍",
@@ -341,7 +341,7 @@ export const handlers = [
               location: "프랑스 파리",
               username: "gamsungcross",
               icon: img1,
-              id: 1,
+              post_id: 1,
             },
             {
               image: img3,
@@ -349,7 +349,7 @@ export const handlers = [
               location: "제주 애월읍",
               username: "샛별",
               icon: img5,
-              id: 2,
+              post_id: 2,
             },
             {
               image: img5,
@@ -357,7 +357,7 @@ export const handlers = [
               location: "일본 오사카",
               username: "행복한족제비",
               icon: img7,
-              id: 3,
+              post_id: 3,
             },
           ],
         },
@@ -371,7 +371,7 @@ export const handlers = [
               location: "프랑스 파리",
               username: "gamsungcross",
               icon: img1,
-              id: 1,
+              post_id: 1,
             },
             {
               image: img2,
@@ -379,7 +379,7 @@ export const handlers = [
               location: "제주 애월읍",
               username: "샛별",
               icon: img5,
-              id: 2,
+              post_id: 2,
             },
             {
               image: img7,
@@ -387,7 +387,7 @@ export const handlers = [
               location: "일본 오사카",
               username: "행복한족제비",
               icon: img7,
-              id: 3,
+              post_id: 3,
             },
           ],
         },
@@ -457,28 +457,28 @@ export const handlers = [
         ctx.status(200),
         ctx.json([
           {
-            id: 1,
+            ar_post_id: 1,
             image: armock1,
             x_value: 37.243707,
             y_value: 127.077247,
             z_value: 0,
           },
           {
-            id: 2,
+            ar_post_id: 2,
             image: armock2,
             x_value: 37.243021,
             y_value: 127.076998,
             z_value: 1,
           },
           {
-            id: 3,
+            ar_post_id: 3,
             image: armock3,
             x_value: 37.244807,
             y_value: 127.077034,
             z_value: 1,
           },
           {
-            id: 4,
+            ar_post_id: 4,
             image: armock4,
             x_value: 37.244108,
             y_value: 127.079135,
@@ -505,19 +505,19 @@ export const handlers = [
           count: 312,
           posts: [
             {
-              id: 1,
+              post_id: 1,
               image: img2,
               title: "사소하지만 아름다운 풍경들",
               username: "샛별",
             },
             {
-              id: 2,
+              post_id: 2,
               image: img3,
               title: "사소하지만 아름다운 풍경들",
               username: "샛별",
             },
             {
-              id: 3,
+              post_id: 3,
               image: img4,
               title: "사소하지만 아름다운 풍경들",
               username: "샛별",
@@ -530,19 +530,19 @@ export const handlers = [
           count: 20,
           posts: [
             {
-              id: 1,
+              post_id: 1,
               image: img2,
               title: "사소하지만 아름다운 풍경들",
               username: "샛별",
             },
             {
-              id: 2,
+              post_id: 2,
               image: img3,
               title: "사소하지만 아름다운 풍경들",
               username: "샛별",
             },
             {
-              id: 3,
+              post_id: 3,
               image: img4,
               title: "사소하지만 아름다운 풍경들",
               username: "샛별",
@@ -565,19 +565,19 @@ export const handlers = [
         ctx.status(200),
         ctx.json([
           {
-            id: 1,
+            post_id: 1,
             tag: ["햄버거", "치킨"],
             image: img2,
             title: "여행의 제목입니다",
           },
           {
-            id: 2,
+            post_id: 2,
             tag: ["부산", "부산맛집"],
             image: img7,
             title: "부산여행",
           },
           {
-            id: 3,
+            post_id: 3,
             tag: ["햄버거", "치킨"],
             image: img8,
             title: "여행의 제목입니다",
@@ -604,19 +604,19 @@ export const handlers = [
             count: 312,
             posts: [
               {
-                id: 1,
+                post_id: 1,
                 image: img2,
                 title: "사소하지만 아름다운 풍경들",
                 username: "샛별",
               },
               {
-                id: 2,
+                post_id: 2,
                 image: img3,
                 title: "사소하지만 아름다운 풍경들",
                 username: "샛별",
               },
               {
-                id: 3,
+                post_id: 3,
                 image: img4,
                 title: "사소하지만 아름다운 풍경들",
                 username: "샛별",
@@ -629,19 +629,19 @@ export const handlers = [
             count: 20,
             posts: [
               {
-                id: 1,
+                post_id: 1,
                 image: img2,
                 title: "사소하지만 아름다운 풍경들",
                 username: "샛별",
               },
               {
-                id: 2,
+                post_id: 2,
                 image: img3,
                 title: "사소하지만 아름다운 풍경들",
                 username: "샛별",
               },
               {
-                id: 3,
+                post_id: 3,
                 image: img4,
                 title: "사소하지만 아름다운 풍경들",
                 username: "샛별",
@@ -665,12 +665,12 @@ export const handlers = [
         ctx.status(200),
         ctx.json([
           {
-            id: 1,
+            post_id: 1,
             location: "부산",
             count: 312,
           },
           {
-            id: 2,
+            post_id: 2,
             location: "부산해운대",
             count: 20,
           },
@@ -744,13 +744,13 @@ export const handlers = [
         ctx.status(200),
         ctx.json([
           {
-            id: 1,
+            post_id: 1,
             image: img2,
             title: "여행제목",
             tags: ["여행", "부산", "해운대"],
           },
           {
-            id: 2,
+            post_id: 2,
             image: img3,
             title: "제목",
             tags: ["여수", "여행"],
@@ -772,19 +772,157 @@ export const handlers = [
         ctx.status(200),
         ctx.json([
           {
-            id: 1,
+            post_id: 1,
             image: img2,
             title: "여행제목",
             tags: ["여행", "부산", "해운대"],
           },
           {
-            id: 2,
+            post_id: 2,
             image: img3,
             title: "제목",
             tags: ["여수", "여행"],
           },
         ]),
       );
+    },
+  ),
+
+  //포스트 읽기
+  //본인이 작성한 포스트인지 아닌지 구분 필요 -> 토큰 없으면 무조건 작성자 아님, 토큰 있으면 토큰으로 작성자인지 판단해서 isWriter 반환
+  //1. 포스트 정보 받기 -> id 일치하는 포스트 정보 반환
+  rest.get<{ post_id: number }>(
+    "http://3.36.71.48/msw/post/read",
+    (req, res, ctx) => {
+      //토큰 검사 x (로그인 안해도 보여줘야 하기 때문)
+
+      //res : {포스트 id, 작성자 유저네임, 작성날짜, 작성자 아이콘, 원본이미지, 감정:{crying:0, shock:0, laugh:20, thumb:1, heart:5}], 제목, 내용, 태그배열, 장소, 댓글배열, 작성자여부, 스크랩 여부(false, true), 등록한 이모지(설정하지 않았으면 null)}
+      return res(
+        ctx.status(200),
+        ctx.json({
+          post_id: 1,
+          username: "부끄러운 프로도",
+          date: "2021-08-01",
+          icon: img2,
+          image: img2,
+          emotion: { crying: 0, shock: 0, laugh: 20, thumb: 1, heart: 5 },
+          title: "진짜 휴가는 지금부터~! 신나는 페스티벌이 기다리고 있어요",
+          body: "아직 휴가 못 가신 분~~! 진짜 휴가는 지금부터~! 신나는 페스티벌이 기다리고 있어요 🎷\n라인업만 봐도 심장이 두근대는데요..\n\n마지막 여름 휴가 계획 중이시던 분들, 이번 기회에 전주 여행도 함께 묶어서 JUMF 즐기고 오는 건 어떠신지요!\n티켓 무료 증정 이벤트도 진행 중이라니까 참여해보세요!\n\n❗️이벤트는 이 게시글이 아닌 JUMF 계정 @2022_jumf 팔로워 이벤트 게시물에서 참여하셔야 정상 접수 됩니다! (해당 계정에 이벤트 참여 게시글 고정되어 있어요)",
+          tags: ["여행", "부산", "해운대"],
+          location: "부산",
+          comments: [
+            {
+              comment_id: 1,
+              icon: img2,
+              username: "부끄러운 프로도",
+              body: "댓글입니다.",
+              date: "2021-08-01",
+            },
+            {
+              comment_id: 2,
+              icon: img6,
+              username: "어피치",
+              body: "댓글입니다.",
+              date: "2022-05-01",
+            },
+          ],
+          isWriter: false,
+          isScrap: false, //true/false
+          myEmotion: "laugh", //crying/shock/laugh/thumb/heart/null(없으면)
+        }),
+      );
+    },
+  ),
+
+  //2. 스크랩 등록/해제
+  //parameter : 포스트 id, 스크랩 여부
+  rest.put<{ post_id: number; isScrap: boolean }>(
+    "http://3.36.71.48/msw/post/scrap",
+    (req, res, ctx) => {
+      //토근 확인
+      const token = req.headers.get("authorization")?.split(" ")[1];
+      if (token === "null") return res(ctx.status(401));
+
+      const { isScrap } = req.body;
+      //스크랩 등록/해제 성공
+      if (isScrap === true || isScrap === false) return res(ctx.status(200));
+
+      //실패
+      return res(ctx.status(400));
+    },
+  ),
+
+  //3. 감정 등록/해제
+  //parameter : 포스트 id, 감정(crying/shock/laugh/thumb/heart/null)
+  rest.put<{ post_id: number; myEmotion: string | null }>(
+    "http://3.36.71.48/msw/post/emotion",
+    (req, res, ctx) => {
+      //토근 확인
+      const token = req.headers.get("authorization")?.split(" ")[1];
+      if (token === "null") return res(ctx.status(401));
+
+      const { myEmotion } = req.body;
+      //감정 삭제 성공
+      if (myEmotion === null) return res(ctx.status(200));
+      //감정 등록 성공
+      if (["crying", "shock", "laugh", "thumb", "heart"].includes(myEmotion))
+        return res(ctx.status(200));
+
+      //실패
+      return res(ctx.status(400));
+    },
+  ),
+
+  //4. 댓글 등록
+  //parameter : 포스트 id, 댓글 내용, 댓글 작성일
+  rest.post<{ post_id: number; comment: string; date: Date }>(
+    "http://3.36.71.48/msw/post/comment/add",
+    (req, res, ctx) => {
+      //토근 확인
+      const token = req.headers.get("authorization")?.split(" ")[1];
+      if (token === "null") return res(ctx.status(401));
+
+      const { comment } = req.body;
+      //댓글 등록 성공
+      if (comment !== "") return res(ctx.status(200));
+
+      //실패
+      return res(ctx.status(400));
+    },
+  ),
+
+  //5. 댓글 삭제
+  //parameter : 포스트 id, 댓글 id
+  rest.delete<{ post_id: number; comment_id: number }>(
+    "http://3.36.71.48/msw/post/comment/delete",
+    (req, res, ctx) => {
+      //토근 확인
+      const token = req.headers.get("authorization")?.split(" ")[1];
+      if (token === "null") return res(ctx.status(401));
+
+      const { post_id, comment_id } = req.body;
+      //댓글 삭제 성공
+      if (post_id && comment_id) return res(ctx.status(200));
+
+      //실패
+      return res(ctx.status(400));
+    },
+  ),
+
+  //6. 포스트 삭제
+  rest.delete<{ post_id: number }>(
+    "http://3.36.71.48/msw/post/delete",
+    (req, res, ctx) => {
+      //토근 확인 (본인이 작성한 글일때만 삭제 가능)
+      const token = req.headers.get("authorization")?.split(" ")[1];
+      if (token === "null") return res(ctx.status(401));
+
+      const { post_id } = req.body;
+      //포스트 삭제 성공
+      if (post_id) return res(ctx.status(200));
+
+      //실패
+      return res(ctx.status(400));
     },
   ),
 ];
