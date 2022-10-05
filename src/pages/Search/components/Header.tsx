@@ -10,6 +10,7 @@ const StyledHeader = styled.div`
 const Input = styled.input`
   background-color: ${(props) => props.theme.palette.inversed1};
   border: none;
+  border-radius: 1.2rem;
   font-family: "Medium";
   font-size: 1.4rem;
   line-height: 2.2rem;
@@ -30,12 +31,17 @@ interface HeaderPropsType {
 
 function Header({ query, focus, setFocus, setQuery }: HeaderPropsType) {
   const navigate = useNavigate();
-  const handleFocus = () => setFocus(true);
+  const handleFocus = () => setFocus(true); //input focus 설정
+
+  //뒤로가기
   const handleClick = () => {
+    //최근검색 or 검색결과 UI인 경우 -> 인기태그로 변경
     if (focus) {
       setFocus(false);
       setQuery("");
-    } else {
+    }
+    //인기태그인 경우 -> 홈화면으로 이동
+    else {
       navigate(-1);
     }
   };

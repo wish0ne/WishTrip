@@ -1,6 +1,5 @@
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
-import img1 from "../../../assets/images/여행사진1.jpg";
 
 const StyledPost = styled.div`
   height: 19.2rem;
@@ -8,6 +7,7 @@ const StyledPost = styled.div`
   border-radius: 0.8rem;
   position: relative;
   flex-grow: 1;
+  text-shadow: 0 0.05rem 0.1rem rgba(0, 0, 0, 0.4);
   > img {
     height: 19.2rem;
     width: 14.4rem;
@@ -35,17 +35,20 @@ const StyledPost = styled.div`
 `;
 
 interface PostPropsType {
-  id: number;
+  post_id: number;
+  image: string;
+  title: string;
+  username: string;
 }
 
-function Post({ id }: PostPropsType) {
+function Post({ post_id, image, title, username }: PostPropsType) {
   const navigate = useNavigate();
 
   return (
-    <StyledPost onClick={() => navigate(`../Read/:${id}`)}>
-      <img src={img1} alt="포스트 이미지" />
-      <h2>사소하지만 아름다운 풍경들</h2>
-      <span>gamsungcross</span>
+    <StyledPost onClick={() => navigate(`../Read/:${post_id}`)}>
+      <img src={image} alt={`${title} 게시물 입니다`} />
+      <h2>{title}</h2>
+      <span>{username}</span>
     </StyledPost>
   );
 }

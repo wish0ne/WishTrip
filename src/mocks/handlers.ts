@@ -496,12 +496,13 @@ export const handlers = [
 
     //인기 태그 반환
     //res : {id, 태그, 해당게시물 개수, posts:[{id, 원본이미지, 제목, 유저네임}]}
+
     return res(
       ctx.status(200),
       ctx.json([
         {
           id: 1,
-          tag: "여행",
+          tag: "피자",
           count: 312,
           posts: [
             {
@@ -526,7 +527,7 @@ export const handlers = [
         },
         {
           id: 2,
-          tag: "바다",
+          tag: "피자맛집",
           count: 20,
           posts: [
             {
@@ -561,29 +562,34 @@ export const handlers = [
 
       //인기 태그 반환
       //res : [{id, 태그, 원본이미지, 제목}]
-      return res(
-        ctx.status(200),
-        ctx.json([
-          {
-            post_id: 1,
-            tag: ["햄버거", "치킨"],
-            image: img2,
-            title: "여행의 제목입니다",
-          },
-          {
-            post_id: 2,
-            tag: ["부산", "부산맛집"],
-            image: img7,
-            title: "부산여행",
-          },
-          {
-            post_id: 3,
-            tag: ["햄버거", "치킨"],
-            image: img8,
-            title: "여행의 제목입니다",
-          },
-        ]),
-      );
+      const { title } = req.body;
+      if (title === "부산")
+        return res(
+          ctx.status(200),
+          ctx.json([
+            {
+              post_id: 1,
+              tag: ["햄버거", "치킨"],
+              image: img2,
+              title: "여행의 제목입니다",
+            },
+            {
+              post_id: 2,
+              tag: ["부산", "부산맛집"],
+              image: img7,
+              title: "부산여행",
+            },
+            {
+              post_id: 3,
+              tag: ["햄버거", "치킨"],
+              image: img8,
+              title: "여행의 제목입니다",
+            },
+          ]),
+        );
+
+      //검색결과 없으면 빈 배열 반환
+      return res(ctx.status(200), ctx.json([]));
     },
   ),
 
@@ -595,61 +601,66 @@ export const handlers = [
 
       //검색 태그가 일치하는 포스트 반환
       //res : {id, 태그, 해당게시물 개수, posts:[{id, 원본이미지, 제목, 유저네임}]}
-      return res(
-        ctx.status(200),
-        ctx.json([
-          {
-            id: 1,
-            tag: "여행",
-            count: 312,
-            posts: [
-              {
-                post_id: 1,
-                image: img2,
-                title: "사소하지만 아름다운 풍경들",
-                username: "샛별",
-              },
-              {
-                post_id: 2,
-                image: img3,
-                title: "사소하지만 아름다운 풍경들",
-                username: "샛별",
-              },
-              {
-                post_id: 3,
-                image: img4,
-                title: "사소하지만 아름다운 풍경들",
-                username: "샛별",
-              },
-            ],
-          },
-          {
-            id: 2,
-            tag: "바다",
-            count: 20,
-            posts: [
-              {
-                post_id: 1,
-                image: img2,
-                title: "사소하지만 아름다운 풍경들",
-                username: "샛별",
-              },
-              {
-                post_id: 2,
-                image: img3,
-                title: "사소하지만 아름다운 풍경들",
-                username: "샛별",
-              },
-              {
-                post_id: 3,
-                image: img4,
-                title: "사소하지만 아름다운 풍경들",
-                username: "샛별",
-              },
-            ],
-          },
-        ]),
-      );
+      const { tag } = req.body;
+      if (tag === "피자")
+        return res(
+          ctx.status(200),
+          ctx.json([
+            {
+              id: 1,
+              tag: "여행",
+              count: 312,
+              posts: [
+                {
+                  post_id: 1,
+                  image: img2,
+                  title: "사소하지만 아름다운 풍경들",
+                  username: "샛별",
+                },
+                {
+                  post_id: 2,
+                  image: img3,
+                  title: "사소하지만 아름다운 풍경들",
+                  username: "샛별",
+                },
+                {
+                  post_id: 3,
+                  image: img4,
+                  title: "사소하지만 아름다운 풍경들",
+                  username: "샛별",
+                },
+              ],
+            },
+            {
+              id: 2,
+              tag: "바다",
+              count: 20,
+              posts: [
+                {
+                  post_id: 1,
+                  image: img2,
+                  title: "사소하지만 아름다운 풍경들",
+                  username: "샛별",
+                },
+                {
+                  post_id: 2,
+                  image: img3,
+                  title: "사소하지만 아름다운 풍경들",
+                  username: "샛별",
+                },
+                {
+                  post_id: 3,
+                  image: img4,
+                  title: "사소하지만 아름다운 풍경들",
+                  username: "샛별",
+                },
+              ],
+            },
+          ]),
+        );
+
+      //검색결과 없으면 빈 배열 반환
+      return res(ctx.status(200), ctx.json([]));
     },
   ),
 
@@ -661,21 +672,26 @@ export const handlers = [
 
       //장소가 일치하는 포스트 반환
       //res : [{id, 장소, 일치포스트 개수}]
-      return res(
-        ctx.status(200),
-        ctx.json([
-          {
-            post_id: 1,
-            location: "부산",
-            count: 312,
-          },
-          {
-            post_id: 2,
-            location: "부산해운대",
-            count: 20,
-          },
-        ]),
-      );
+      const { location } = req.body;
+      if (location === "해운대")
+        return res(
+          ctx.status(200),
+          ctx.json([
+            {
+              post_id: 1,
+              location: "부산",
+              count: 312,
+            },
+            {
+              post_id: 2,
+              location: "부산해운대",
+              count: 20,
+            },
+          ]),
+        );
+
+      //검색결과 없으면 빈 배열 반환
+      return res(ctx.status(200), ctx.json([]));
     },
   ),
 
@@ -686,30 +702,35 @@ export const handlers = [
       //토큰 검사 x (로그인 안해도 보여줘야 하기 때문)
 
       //검색 쿼리가 포함된 유저네임들 반환
-      //res : [{id, 유저네임, 유저가 작성한 게시물 수, 유저아이콘ㄹ}]
-      return res(
-        ctx.status(200),
-        ctx.json([
-          {
-            id: 1,
-            username: "부끄러운 프로도",
-            count: 312,
-            icon: img1,
-          },
-          {
-            id: 2,
-            username: "어피치",
-            count: 312,
-            icon: img5,
-          },
-          {
-            id: 3,
-            username: "프로도",
-            count: 20,
-            icon: img6,
-          },
-        ]),
-      );
+      //res : [{id, 유저네임, 유저가 작성한 게시물 수, 유저아이콘}]
+      const { username } = req.body;
+      if (username === "피자")
+        return res(
+          ctx.status(200),
+          ctx.json([
+            {
+              id: 1,
+              username: "부끄러운 프로도",
+              count: 312,
+              icon: img1,
+            },
+            {
+              id: 2,
+              username: "어피치",
+              count: 312,
+              icon: img5,
+            },
+            {
+              id: 3,
+              username: "프로도",
+              count: 20,
+              icon: img6,
+            },
+          ]),
+        );
+
+      //검색결과 없으면 빈 배열 반환
+      return res(ctx.status(200), ctx.json([]));
     },
   ),
 

@@ -53,12 +53,17 @@ const GlobalStyle = createGlobalStyle`
   }
   @media screen and (min-width: 450px) {
     html {
-      font-size: 80%;
+      font-size: 70%;
     }
   }
   @media screen and (min-width: 700px) {
     html {
-      font-size: 90%;
+      font-size: 80%;
+    }
+  }
+  @media screen and (min-width: 800px) {
+    html {
+      font-size: 50%;
     }
   }
 `;

@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Header from "./components/Header";
 import Title from "./components/Title";
 import Post from "./components/Post";
@@ -7,6 +7,9 @@ import Tag from "./components/Tag";
 import Recent from "./components/Recent";
 import User from "./components/User";
 import Location from "./components/Location";
+import instance from "../../modules/api";
+import { useRecoilState } from "recoil";
+import { searchPopularTag } from "../../recoil/search";
 
 const StyledSearch = styled.div`
   padding: 2rem;
@@ -36,38 +39,65 @@ function Search() {
   const [query, setQuery] = useState<string>(""); //검색어
   const [menu, setMenu] = useState<string>("포스트"); //검색 메뉴
 
+  //인기 태그
+  const [popularTag, setPopularTag] = useRecoilState(searchPopularTag);
+
+  //지금 인기 태그
+  useEffect(() => {
+    instance
+      .get("msw/get_popular_tags")
+      .then(({ data }) => {
+        setPopularTag(data);
+      })
+      .catch((err) => {
+        throw err;
+      });
+  }, [setPopularTag]);
+
   return (
     <StyledSearch>
+      {/* <Header/> : 뒤로가기, input */}
       <Header
         focus={focus}
         setFocus={setFocus}
         setQuery={setQuery}
         query={query}
       ></Header>
-
       <Title focus={focus} query={query} menu={menu} setMenu={setMenu}></Title>
+
+      {/* 최근 검색어 */}
       {focus &&
         query === "" &&
         [1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((i) => <Recent key={i}></Recent>)}
+
+      {/* 지금 인기있는 태그 */}
       {!focus &&
         query === "" &&
-        [1, 2, 3, 4, 5].map((item) => (
-          <StyledTag key={item}>
-            <Tag></Tag>
+        popularTag.map((item) => (
+          <StyledTag key={item.id}>
+            <Tag tag={item.tag} count={item.count}></Tag>
             <StyledPost>
-              {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((item) => (
-                <Post key={item} id={item}></Post>
+              {item.posts.map(({ post_id, image, title, username }) => (
+                <Post
+                  key={post_id}
+                  post_id={post_id}
+                  image={image}
+                  username={username}
+                  title={title}
+                ></Post>
               ))}
             </StyledPost>
           </StyledTag>
         ))}
-      {query !== "" && menu === "포스트" && (
+
+      {/* {query !== "" && menu === "포스트" && (
         <SearchPost>
           {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((item) => (
             <Post key={item} id={item}></Post>
           ))}
         </SearchPost>
       )}
+
       {query !== "" &&
         menu === "태그" &&
         [1, 2, 3, 4, 5].map((item) => (
@@ -79,11 +109,12 @@ function Search() {
               ))}
             </StyledPost>
           </StyledTag>
-        ))}
+        ))} */}
 
       {query !== "" &&
         menu === "장소" &&
         [1, 2, 3, 4, 5].map((item) => <Location key={item}></Location>)}
+
       {query !== "" &&
         menu === "유저" &&
         [1, 2, 3, 4, 5].map((item) => <User key={item}></User>)}

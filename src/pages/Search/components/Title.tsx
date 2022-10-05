@@ -22,6 +22,8 @@ const Delete = styled.button`
 const Menu = styled.div`
   display: flex;
   align-items: center;
+  margin-bottom: 2rem;
+  margin-top: 0.8rem;
 `;
 
 const Button = styled.button<{ focus: boolean }>`
@@ -32,7 +34,8 @@ const Button = styled.button<{ focus: boolean }>`
   line-height: 1.8rem;
   background: none;
   border: none;
-  padding: 1.2rem 0.6rem;
+  padding: 0.8rem 0.6rem;
+  text-align: center;
   border-bottom: 0.2rem solid;
   border-color: ${(props) =>
     props.focus ? props.theme.palette.primary3 : "transparent"};
@@ -49,10 +52,12 @@ interface TitlePropsType {
 }
 
 function Title({ focus, query, menu, setMenu }: TitlePropsType) {
+  //검색 타입 변경
   const handleClick = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     const eventTarget = e.target as HTMLElement;
     setMenu(eventTarget.innerText);
   };
+
   if (focus && query === "") {
     return (
       <StyledTitle>
@@ -70,17 +75,17 @@ function Title({ focus, query, menu, setMenu }: TitlePropsType) {
     );
 
   return (
-    <StyledTitle>
-      <Menu>
-        {["포스트", "태그", "장소", "유저"].map((title) => {
-          return (
-            <Button focus={title === menu} onClick={handleClick} key={title}>
-              {title}
-            </Button>
-          );
-        })}
-      </Menu>
-    </StyledTitle>
+    //<StyledTitle>
+    <Menu>
+      {["포스트", "태그", "장소", "유저"].map((title) => {
+        return (
+          <Button focus={title === menu} onClick={handleClick} key={title}>
+            {title}
+          </Button>
+        );
+      })}
+    </Menu>
+    //</StyledTitle>
   );
 }
 export default Title;
