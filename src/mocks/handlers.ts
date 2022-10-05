@@ -395,24 +395,54 @@ export const handlers = [
     );
   }),
 
-  //ar 작성
-  rest.post<string>("http://3.36.71.48/msw/hashtag", (req, res, ctx) => {
-    if (req.body === "여")
-      return res(
-        ctx.status(200),
-        ctx.json(["여행", "여수", "여치", "여수밤바다"]),
-      );
-    if (req.body === "부")
-      return res(
-        ctx.status(200),
-        ctx.json(["부산", "부산앞바다", "부리부리", "부산에서제일맛있는집"]),
-      );
-    return res(ctx.status(200), ctx.json([]));
-  }),
-  rest.post<string>("http://3.36.71.48/msw/arpost/create", (req, res, ctx) => {
-    console.log(req.body);
+  //포스트 작성
+  //1. 포스트 작성
+  rest.post<{
+    file: File; //AR 이미지
+    image: File; //이미지 원본
+    title: string; //제목
+    body: string; //내용
+    location: string; //장소
+    tag: string[]; //태그
+    x: number; //위도
+    y: number; //경도
+    z: number; //고도
+    date: Date; //작성 날짜
+  }>("http://3.36.71.48/msw/arpost/create", (req, res, ctx) => {
+    //토근 확인
+    const token = req.headers.get("authorization")?.split(" ")[1];
+    if (token === "null") return res(ctx.status(401));
+
     return res(ctx.status(200), ctx.json({ msg: "ARpost create success" }));
   }),
+
+  //2. 태그 자동완성
+  rest.get<{ tag: string }>(
+    "http://3.36.71.48/msw/hashtag",
+    (req, res, ctx) => {
+      //토근 확인
+      const token = req.headers.get("authorization")?.split(" ")[1];
+      if (token === "null") return res(ctx.status(401));
+
+      const { tag } = req.body;
+      //일치 태그 존재
+      if (tag === "여")
+        return res(
+          ctx.status(200),
+          ctx.json({ fit: ["여행", "여수", "여치", "여수밤바다"] }),
+        );
+      if (tag === "부")
+        return res(
+          ctx.status(200),
+          ctx.json({
+            fit: ["부산", "부산앞바다", "부리부리", "부산에서제일맛있는집"],
+          }),
+        );
+
+      //일치하는 태그 없음
+      return res(ctx.status(200), ctx.json([]));
+    },
+  ),
 
   //ar read
   rest.post<string>(
