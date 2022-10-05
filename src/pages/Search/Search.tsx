@@ -6,10 +6,16 @@ import Post from "./components/Post";
 import Tag from "./components/Tag";
 import Recent from "./components/Recent";
 import User from "./components/User";
-import Location from "./components/Location";
+import Empty from "./components/Empty";
 import instance from "../../modules/api";
 import { useRecoilState } from "recoil";
-import { searchPopularTag } from "../../recoil/search";
+import {
+  searchLocation,
+  searchPopularTag,
+  searchPost,
+  searchTag,
+  searchUser,
+} from "../../recoil/search";
 
 const StyledSearch = styled.div`
   padding: 2rem;
@@ -32,6 +38,7 @@ const SearchPost = styled.div`
   display: flex;
   gap: 0.8rem;
   flex-wrap: wrap;
+  justify-content: space-between;
 `;
 
 function Search() {
@@ -41,6 +48,14 @@ function Search() {
 
   //인기 태그
   const [popularTag, setPopularTag] = useRecoilState(searchPopularTag);
+  //포스트 검색 결과
+  const [search_post, setSearchPost] = useRecoilState(searchPost);
+  //태그 검색 결과
+  const [search_tag, setSearchTag] = useRecoilState(searchTag);
+  //장소 검색 결과
+  const [search_location, setSearchLocation] = useRecoilState(searchLocation);
+  //유저 검색 결과
+  const [search_user, setSearchUser] = useRecoilState(searchUser);
 
   //지금 인기 태그
   useEffect(() => {
@@ -53,6 +68,44 @@ function Search() {
         throw err;
       });
   }, [setPopularTag]);
+
+  //검색 결과
+  useEffect(() => {
+    switch (menu) {
+      case "포스트":
+        instance
+          .get(`msw/search_post?title=${query}`)
+          .then(({ data }) => setSearchPost(data))
+          .catch((err) => {
+            throw err;
+          });
+        break;
+      case "태그":
+        instance
+          .get(`msw/search_tag?tag=${query}`)
+          .then(({ data }) => setSearchTag(data))
+          .catch((err) => {
+            throw err;
+          });
+        break;
+      case "유저":
+        instance
+          .get(`msw/search_username?username=${query}`)
+          .then(({ data }) => setSearchUser(data))
+          .catch((err) => {
+            throw err;
+          });
+        break;
+      case "장소":
+        instance
+          .get(`msw/search_location?location=${query}`)
+          .then(({ data }) => setSearchLocation(data))
+          .catch((err) => {
+            throw err;
+          });
+        break;
+    }
+  }, [query, menu]);
 
   return (
     <StyledSearch>
@@ -90,34 +143,76 @@ function Search() {
           </StyledTag>
         ))}
 
-      {/* {query !== "" && menu === "포스트" && (
-        <SearchPost>
-          {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((item) => (
-            <Post key={item} id={item}></Post>
-          ))}
-        </SearchPost>
-      )}
+      {query !== "" &&
+        menu === "포스트" &&
+        (search_post.length === 0 ? (
+          <Empty />
+        ) : (
+          <SearchPost>
+            {search_post.map(({ post_id, tag, image, title }) => (
+              <Post
+                key={post_id}
+                post_id={post_id}
+                image={image}
+                title={title}
+                tag={tag}
+              ></Post>
+            ))}
+          </SearchPost>
+        ))}
 
       {query !== "" &&
         menu === "태그" &&
-        [1, 2, 3, 4, 5].map((item) => (
-          <StyledTag key={item}>
-            <Tag key={item}></Tag>
-            <StyledPost>
-              {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((item) => (
-                <Post key={item} id={item}></Post>
-              ))}
-            </StyledPost>
-          </StyledTag>
-        ))} */}
+        (search_tag.length === 0 ? (
+          <Empty />
+        ) : (
+          search_tag.map(({ id, tag, count, posts }) => (
+            <StyledTag key={id}>
+              <Tag tag={tag} count={count}></Tag>
+              <StyledPost>
+                {posts.map(({ post_id, image, title, username }) => (
+                  <Post
+                    key={post_id}
+                    post_id={post_id}
+                    image={image}
+                    title={title}
+                    username={username}
+                  ></Post>
+                ))}
+              </StyledPost>
+            </StyledTag>
+          ))
+        ))}
 
+      {/* 장소 검색 결과 */}
       {query !== "" &&
         menu === "장소" &&
-        [1, 2, 3, 4, 5].map((item) => <Location key={item}></Location>)}
+        (search_location.length === 0 ? (
+          <Empty />
+        ) : (
+          <SearchPost>
+            {search_location.map(({ post_id, tag, image, title }) => (
+              <Post
+                key={post_id}
+                post_id={post_id}
+                image={image}
+                title={title}
+                tag={tag}
+              ></Post>
+            ))}
+          </SearchPost>
+        ))}
 
+      {/* 유저 검색 결과 */}
       {query !== "" &&
         menu === "유저" &&
-        [1, 2, 3, 4, 5].map((item) => <User key={item}></User>)}
+        (search_user.length === 0 ? (
+          <Empty />
+        ) : (
+          search_user.map(({ id, username, count, icon }) => (
+            <User key={id} username={username} count={count} icon={icon}></User>
+          ))
+        ))}
     </StyledSearch>
   );
 }
