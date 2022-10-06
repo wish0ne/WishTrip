@@ -1,7 +1,5 @@
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
-import { useRecoilState, useRecoilValue } from "recoil";
-import { searchQuery, searchRecent } from "../../../recoil/search";
 
 const StyledPost = styled.div<{ grow: boolean }>`
   width: ${(props) => (props.grow ? "48%" : "14.4rem")};

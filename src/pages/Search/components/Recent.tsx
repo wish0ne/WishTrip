@@ -1,7 +1,7 @@
-import { useRecoilState } from "recoil";
+import { useRecoilState, useSetRecoilState } from "recoil";
 import styled from "styled-components";
 import { ReactComponent as Delete } from "../../../assets/images/uil_multiply.svg";
-import { searchRecent } from "../../../recoil/search";
+import { searchQuery, searchRecent } from "../../../recoil/search";
 
 const StyledRecent = styled.div`
   display: flex;
@@ -26,16 +26,26 @@ const StyledRecent = styled.div`
 
 function Recent({ title, date }: { title: string; date: Date }) {
   const [search_recent, setSearchRecent] = useRecoilState(searchRecent);
+  const setQuery = useSetRecoilState(searchQuery);
   //최근 검색어 삭제
-  const handleDelete = () => {
+  const handleDelete = (e: React.MouseEvent<SVGSVGElement, MouseEvent>) => {
+    e.stopPropagation();
     const new_recent = JSON.parse(search_recent!).filter(
       (item: { id: number; title: string; date: Date }) => item.title !== title,
     );
     setSearchRecent(JSON.stringify(new_recent));
     localStorage.setItem("recent_search", JSON.stringify(new_recent));
   };
+
+  //최근 검색어로 검색
+  const handleClick = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+    e.stopPropagation();
+    let query = e.currentTarget.dataset.query;
+    if (query) setQuery(query);
+  };
+
   return (
-    <StyledRecent>
+    <StyledRecent onClick={handleClick} data-query={title}>
       <div>
         <h3>{title}</h3>
         <span>{date.toString()}</span>

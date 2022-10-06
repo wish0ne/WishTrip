@@ -1,6 +1,6 @@
-import { useRecoilValue } from "recoil";
+import { useRecoilValue, useSetRecoilState } from "recoil";
 import styled from "styled-components";
-import { searchQuery } from "../../../recoil/search";
+import { searchQuery, searchRecent } from "../../../recoil/search";
 
 const StyledTitle = styled.div`
   width: 100%;
@@ -54,17 +54,24 @@ interface TitlePropsType {
 
 function Title({ focus, menu, setMenu }: TitlePropsType) {
   const query = useRecoilValue(searchQuery);
+  const setRecentSearch = useSetRecoilState(searchRecent);
   //검색 타입 변경
   const handleClick = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     const eventTarget = e.target as HTMLElement;
     setMenu(eventTarget.innerText);
   };
 
+  //최근 검색어 모두 삭제
+  const handleDeleteAll = () => {
+    localStorage.setItem("recent_search", JSON.stringify([]));
+    setRecentSearch(JSON.stringify([]));
+  };
+
   if (focus && query === "") {
     return (
       <StyledTitle>
         <span>최근 검색</span>
-        <Delete>모두 삭제</Delete>
+        <Delete onClick={() => handleDeleteAll()}>모두 삭제</Delete>
       </StyledTitle>
     );
   }

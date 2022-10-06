@@ -66,7 +66,7 @@ function Search() {
     //최근 검색어가 없었을 경우
     if (!search_recent) {
       const now_recent = JSON.stringify([
-        { id: 1, title: query, date: new Date() },
+        { id: Date.now(), title: query, date: new Date().toLocaleDateString() },
       ]);
       localStorage.setItem("recent_search", now_recent);
       setSearchRecent(now_recent);
@@ -76,9 +76,9 @@ function Search() {
           item.title !== query,
       );
       new_recent.unshift({
-        id: new_recent.length + 1,
+        id: Date.now(),
         title: query,
-        date: new Date(),
+        date: new Date().toLocaleDateString(),
       });
       localStorage.setItem("recent_search", JSON.stringify(new_recent));
       setSearchRecent(JSON.stringify(new_recent));
