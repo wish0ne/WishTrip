@@ -496,12 +496,13 @@ export const handlers = [
 
     //인기 태그 반환
     //res : {id, 태그, 해당게시물 개수, posts:[{id, 원본이미지, 제목, 유저네임}]}
+
     return res(
       ctx.status(200),
       ctx.json([
         {
           id: 1,
-          tag: "여행",
+          tag: "피자",
           count: 312,
           posts: [
             {
@@ -526,7 +527,7 @@ export const handlers = [
         },
         {
           id: 2,
-          tag: "바다",
+          tag: "피자맛집",
           count: 20,
           posts: [
             {
@@ -554,13 +555,12 @@ export const handlers = [
   }),
 
   //2. 포스트로 검색 (제목일치로 판단)
-  rest.get<{ title: string }>(
-    "http://3.36.71.48/msw/search_post",
-    (req, res, ctx) => {
-      //토큰 검사 x (로그인 안해도 보여줘야 하기 때문)
+  rest.get("http://3.36.71.48/msw/search_post", (req, res, ctx) => {
+    //토큰 검사 x (로그인 안해도 보여줘야 하기 때문)
 
-      //인기 태그 반환
-      //res : [{id, 태그, 원본이미지, 제목}]
+    //res : [{id, 태그, 원본이미지, 제목}]
+    const title = req.url.searchParams.get("title");
+    if (title === "부산")
       return res(
         ctx.status(200),
         ctx.json([
@@ -584,17 +584,19 @@ export const handlers = [
           },
         ]),
       );
-    },
-  ),
+
+    //검색결과 없으면 빈 배열 반환
+    return res(ctx.status(200), ctx.json([]));
+  }),
 
   //3. 태그로 검색
-  rest.get<{ tag: string }>(
-    "http://3.36.71.48/msw/search_tag",
-    (req, res, ctx) => {
-      //토큰 검사 x (로그인 안해도 보여줘야 하기 때문)
+  rest.get("http://3.36.71.48/msw/search_tag", (req, res, ctx) => {
+    //토큰 검사 x (로그인 안해도 보여줘야 하기 때문)
 
-      //검색 태그가 일치하는 포스트 반환
-      //res : {id, 태그, 해당게시물 개수, posts:[{id, 원본이미지, 제목, 유저네임}]}
+    //검색 태그가 일치하는 포스트 반환
+    //res : {id, 태그, 해당게시물 개수, posts:[{id, 원본이미지, 제목, 유저네임}]}
+    const tag = req.url.searchParams.get("tag");
+    if (tag === "피자")
       return res(
         ctx.status(200),
         ctx.json([
@@ -650,43 +652,55 @@ export const handlers = [
           },
         ]),
       );
-    },
-  ),
+
+    //검색결과 없으면 빈 배열 반환
+    return res(ctx.status(200), ctx.json([]));
+  }),
 
   //4. 장소로 검색
-  rest.get<{ location: string }>(
-    "http://3.36.71.48/msw/search_location",
-    (req, res, ctx) => {
-      //토큰 검사 x (로그인 안해도 보여줘야 하기 때문)
+  rest.get("http://3.36.71.48/msw/search_location", (req, res, ctx) => {
+    //토큰 검사 x (로그인 안해도 보여줘야 하기 때문)
 
-      //장소가 일치하는 포스트 반환
-      //res : [{id, 장소, 일치포스트 개수}]
+    //장소가 일치하는 포스트 반환
+    //res : [{id, 장소, 일치포스트 개수}]
+    const location = req.url.searchParams.get("location");
+    if (location === "해운대")
       return res(
         ctx.status(200),
         ctx.json([
           {
             post_id: 1,
-            location: "부산",
-            count: 312,
+            tag: ["햄버거", "치킨"],
+            image: img2,
+            title: "여행의 제목입니다",
           },
           {
             post_id: 2,
-            location: "부산해운대",
-            count: 20,
+            tag: ["부산", "부산맛집"],
+            image: img7,
+            title: "부산여행",
+          },
+          {
+            post_id: 3,
+            tag: ["햄버거", "치킨"],
+            image: img8,
+            title: "여행의 제목입니다",
           },
         ]),
       );
-    },
-  ),
+
+    //검색결과 없으면 빈 배열 반환
+    return res(ctx.status(200), ctx.json([]));
+  }),
 
   //5. 유저로 검색
-  rest.get<{ username: string }>(
-    "http://3.36.71.48/msw/search_username",
-    (req, res, ctx) => {
-      //토큰 검사 x (로그인 안해도 보여줘야 하기 때문)
+  rest.get("http://3.36.71.48/msw/search_username", (req, res, ctx) => {
+    //토큰 검사 x (로그인 안해도 보여줘야 하기 때문)
 
-      //검색 쿼리가 포함된 유저네임들 반환
-      //res : [{id, 유저네임, 유저가 작성한 게시물 수, 유저아이콘ㄹ}]
+    //검색 쿼리가 포함된 유저네임들 반환
+    //res : [{id, 유저네임, 유저가 작성한 게시물 수, 유저아이콘}]
+    const username = req.url.searchParams.get("username");
+    if (username === "프로도")
       return res(
         ctx.status(200),
         ctx.json([
@@ -710,8 +724,10 @@ export const handlers = [
           },
         ]),
       );
-    },
-  ),
+
+    //검색결과 없으면 빈 배열 반환
+    return res(ctx.status(200), ctx.json([]));
+  }),
 
   //다른 유저 프로필 조회
   //1. 유저 정보 받기 -> username 일치하는 유저 정보 반환 (유저네임 중복 불가)

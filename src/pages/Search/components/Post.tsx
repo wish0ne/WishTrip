@@ -1,18 +1,17 @@
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
-import img1 from "../../../assets/images/여행사진1.jpg";
 
-const StyledPost = styled.div`
-  height: 19.2rem;
-  width: 14.4rem;
+const StyledPost = styled.div<{ grow: boolean }>`
+  width: ${(props) => (props.grow ? "48%" : "14.4rem")};
+  aspect-ratio: 1/1.35;
   border-radius: 0.8rem;
   position: relative;
-  flex-grow: 1;
+  text-shadow: 0 0.05rem 0.1rem rgba(0, 0, 0, 0.4);
   > img {
-    height: 19.2rem;
-    width: 14.4rem;
+    width: ${(props) => (props.grow ? "100%" : "14.4rem")};
+    aspect-ratio: 1/1.35;
     border-radius: 0.8rem;
-    auto-fit: cover;
+    object-fit: cover;
   }
   > h2 {
     position: absolute;
@@ -35,17 +34,38 @@ const StyledPost = styled.div`
 `;
 
 interface PostPropsType {
-  id: number;
+  post_id: number;
+  image: string;
+  title: string;
+  username?: string;
+  tag?: string[];
+  addRecent: () => void;
 }
 
-function Post({ id }: PostPropsType) {
+function Post({
+  post_id,
+  image,
+  title,
+  username,
+  tag,
+  addRecent,
+}: PostPropsType) {
   const navigate = useNavigate();
 
   return (
-    <StyledPost onClick={() => navigate(`../Read/:${id}`)}>
-      <img src={img1} alt="포스트 이미지" />
-      <h2>사소하지만 아름다운 풍경들</h2>
-      <span>gamsungcross</span>
+    <StyledPost
+      onClick={() => {
+        //최근 검색어 추가
+        addRecent();
+        //포스트로 이동
+        navigate(`../Read/:${post_id}`);
+      }}
+      grow={tag !== undefined}
+    >
+      <img src={image} alt={`${title} 게시물 입니다`} />
+      <h2>{title}</h2>
+      {tag && <span>#{tag.join("#")}</span>}
+      {username && <span>{username}</span>}
     </StyledPost>
   );
 }

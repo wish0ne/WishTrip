@@ -1,6 +1,8 @@
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import { ReactComponent as Arrow } from "../../../assets/images/tabler_arrow-left.svg";
+import { useRecoilState } from "recoil";
+import { searchQuery } from "../../../recoil/search";
 
 const StyledHeader = styled.div`
   display: flex;
@@ -10,6 +12,7 @@ const StyledHeader = styled.div`
 const Input = styled.input`
   background-color: ${(props) => props.theme.palette.inversed1};
   border: none;
+  border-radius: 1.2rem;
   font-family: "Medium";
   font-size: 1.4rem;
   line-height: 2.2rem;
@@ -22,20 +25,24 @@ const Input = styled.input`
 `;
 
 interface HeaderPropsType {
-  query: string;
   focus: boolean;
   setFocus: React.Dispatch<React.SetStateAction<boolean>>;
-  setQuery: React.Dispatch<React.SetStateAction<string>>;
 }
 
-function Header({ query, focus, setFocus, setQuery }: HeaderPropsType) {
+function Header({ focus, setFocus }: HeaderPropsType) {
+  const [query, setQuery] = useRecoilState(searchQuery);
   const navigate = useNavigate();
-  const handleFocus = () => setFocus(true);
+  const handleFocus = () => setFocus(true); //input focus 설정
+
+  //뒤로가기
   const handleClick = () => {
+    //최근검색 or 검색결과 UI인 경우 -> 인기태그로 변경
     if (focus) {
       setFocus(false);
       setQuery("");
-    } else {
+    }
+    //인기태그인 경우 -> 홈화면으로 이동
+    else {
       navigate(-1);
     }
   };

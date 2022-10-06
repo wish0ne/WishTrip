@@ -1,4 +1,6 @@
+import { useRecoilValue, useSetRecoilState } from "recoil";
 import styled from "styled-components";
+import { searchQuery, searchRecent } from "../../../recoil/search";
 
 const StyledTitle = styled.div`
   width: 100%;
@@ -22,6 +24,8 @@ const Delete = styled.button`
 const Menu = styled.div`
   display: flex;
   align-items: center;
+  margin-bottom: 2rem;
+  margin-top: 0.8rem;
 `;
 
 const Button = styled.button<{ focus: boolean }>`
@@ -32,7 +36,8 @@ const Button = styled.button<{ focus: boolean }>`
   line-height: 1.8rem;
   background: none;
   border: none;
-  padding: 1.2rem 0.6rem;
+  padding: 0.8rem 0.6rem;
+  text-align: center;
   border-bottom: 0.2rem solid;
   border-color: ${(props) =>
     props.focus ? props.theme.palette.primary3 : "transparent"};
@@ -43,21 +48,30 @@ const Button = styled.button<{ focus: boolean }>`
 
 interface TitlePropsType {
   focus: boolean;
-  query: string;
   menu: string;
   setMenu: React.Dispatch<React.SetStateAction<string>>;
 }
 
-function Title({ focus, query, menu, setMenu }: TitlePropsType) {
+function Title({ focus, menu, setMenu }: TitlePropsType) {
+  const query = useRecoilValue(searchQuery);
+  const setRecentSearch = useSetRecoilState(searchRecent);
+  //검색 타입 변경
   const handleClick = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     const eventTarget = e.target as HTMLElement;
     setMenu(eventTarget.innerText);
   };
+
+  //최근 검색어 모두 삭제
+  const handleDeleteAll = () => {
+    localStorage.setItem("recent_search", JSON.stringify([]));
+    setRecentSearch(JSON.stringify([]));
+  };
+
   if (focus && query === "") {
     return (
       <StyledTitle>
         <span>최근 검색</span>
-        <Delete>모두 삭제</Delete>
+        <Delete onClick={() => handleDeleteAll()}>모두 삭제</Delete>
       </StyledTitle>
     );
   }
@@ -70,17 +84,17 @@ function Title({ focus, query, menu, setMenu }: TitlePropsType) {
     );
 
   return (
-    <StyledTitle>
-      <Menu>
-        {["포스트", "태그", "장소", "유저"].map((title) => {
-          return (
-            <Button focus={title === menu} onClick={handleClick} key={title}>
-              {title}
-            </Button>
-          );
-        })}
-      </Menu>
-    </StyledTitle>
+    //<StyledTitle>
+    <Menu>
+      {["포스트", "태그", "장소", "유저"].map((title) => {
+        return (
+          <Button focus={title === menu} onClick={handleClick} key={title}>
+            {title}
+          </Button>
+        );
+      })}
+    </Menu>
+    //</StyledTitle>
   );
 }
 export default Title;
