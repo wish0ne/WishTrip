@@ -13,6 +13,8 @@ import {
   searchLocation,
   searchPopularTag,
   searchPost,
+  searchQuery,
+  searchRecent,
   searchTag,
   searchUser,
 } from "../../recoil/search";
@@ -43,7 +45,7 @@ const SearchPost = styled.div`
 
 function Search() {
   const [focus, setFocus] = useState<boolean>(false); //input focus 여부
-  const [query, setQuery] = useState<string>(""); //검색어
+  const [query, setQuery] = useRecoilState<string>(searchQuery); //검색어
   const [menu, setMenu] = useState<string>("포스트"); //검색 메뉴
 
   //인기 태그
@@ -57,8 +59,37 @@ function Search() {
   //유저 검색 결과
   const [search_user, setSearchUser] = useRecoilState(searchUser);
 
-  //지금 인기 태그
+  const [search_recent, setSearchRecent] = useRecoilState(searchRecent);
+
+  //최근 검색어 추가 함수
+  const addRecent = () => {
+    //최근 검색어가 없었을 경우
+    if (!search_recent) {
+      const now_recent = JSON.stringify([
+        { id: 1, title: query, date: new Date() },
+      ]);
+      localStorage.setItem("recent_search", now_recent);
+      setSearchRecent(now_recent);
+    } else {
+      const new_recent = JSON.parse(search_recent).filter(
+        (item: { id: number; title: string; date: Date }) =>
+          item.title !== query,
+      );
+      new_recent.unshift({
+        id: new_recent.length + 1,
+        title: query,
+        date: new Date(),
+      });
+      localStorage.setItem("recent_search", JSON.stringify(new_recent));
+      setSearchRecent(JSON.stringify(new_recent));
+    }
+  };
+
   useEffect(() => {
+    //최근 검색 결과 불러오기
+    setSearchRecent(localStorage.getItem("recent_search"));
+
+    //지금 인기 태그
     instance
       .get("msw/get_popular_tags")
       .then(({ data }) => {
@@ -67,7 +98,7 @@ function Search() {
       .catch((err) => {
         throw err;
       });
-  }, [setPopularTag]);
+  }, []);
 
   //검색 결과
   useEffect(() => {
@@ -110,18 +141,22 @@ function Search() {
   return (
     <StyledSearch>
       {/* <Header/> : 뒤로가기, input */}
-      <Header
-        focus={focus}
-        setFocus={setFocus}
-        setQuery={setQuery}
-        query={query}
-      ></Header>
-      <Title focus={focus} query={query} menu={menu} setMenu={setMenu}></Title>
+      <Header focus={focus} setFocus={setFocus}></Header>
+      <Title focus={focus} menu={menu} setMenu={setMenu}></Title>
 
       {/* 최근 검색어 */}
       {focus &&
         query === "" &&
-        [1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((i) => <Recent key={i}></Recent>)}
+        search_recent !== null &&
+        JSON.parse(search_recent).map(
+          (recent: { id: number; title: string; date: Date }) => (
+            <Recent
+              key={recent.id}
+              title={recent.title}
+              date={recent.date}
+            ></Recent>
+          ),
+        )}
 
       {/* 지금 인기있는 태그 */}
       {!focus &&
@@ -137,6 +172,7 @@ function Search() {
                   image={image}
                   username={username}
                   title={title}
+                  addRecent={addRecent}
                 ></Post>
               ))}
             </StyledPost>
@@ -156,6 +192,7 @@ function Search() {
                 image={image}
                 title={title}
                 tag={tag}
+                addRecent={addRecent}
               ></Post>
             ))}
           </SearchPost>
@@ -177,6 +214,7 @@ function Search() {
                     image={image}
                     title={title}
                     username={username}
+                    addRecent={addRecent}
                   ></Post>
                 ))}
               </StyledPost>
@@ -198,6 +236,7 @@ function Search() {
                 image={image}
                 title={title}
                 tag={tag}
+                addRecent={addRecent}
               ></Post>
             ))}
           </SearchPost>
@@ -210,7 +249,13 @@ function Search() {
           <Empty />
         ) : (
           search_user.map(({ id, username, count, icon }) => (
-            <User key={id} username={username} count={count} icon={icon}></User>
+            <User
+              key={id}
+              username={username}
+              count={count}
+              icon={icon}
+              addRecent={addRecent}
+            ></User>
           ))
         ))}
     </StyledSearch>

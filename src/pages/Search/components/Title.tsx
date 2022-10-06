@@ -1,4 +1,6 @@
+import { useRecoilValue } from "recoil";
 import styled from "styled-components";
+import { searchQuery } from "../../../recoil/search";
 
 const StyledTitle = styled.div`
   width: 100%;
@@ -46,12 +48,12 @@ const Button = styled.button<{ focus: boolean }>`
 
 interface TitlePropsType {
   focus: boolean;
-  query: string;
   menu: string;
   setMenu: React.Dispatch<React.SetStateAction<string>>;
 }
 
-function Title({ focus, query, menu, setMenu }: TitlePropsType) {
+function Title({ focus, menu, setMenu }: TitlePropsType) {
+  const query = useRecoilValue(searchQuery);
   //검색 타입 변경
   const handleClick = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     const eventTarget = e.target as HTMLElement;

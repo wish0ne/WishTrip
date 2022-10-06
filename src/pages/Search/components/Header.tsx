@@ -1,6 +1,8 @@
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import { ReactComponent as Arrow } from "../../../assets/images/tabler_arrow-left.svg";
+import { useRecoilState } from "recoil";
+import { searchQuery } from "../../../recoil/search";
 
 const StyledHeader = styled.div`
   display: flex;
@@ -23,13 +25,12 @@ const Input = styled.input`
 `;
 
 interface HeaderPropsType {
-  query: string;
   focus: boolean;
   setFocus: React.Dispatch<React.SetStateAction<boolean>>;
-  setQuery: React.Dispatch<React.SetStateAction<string>>;
 }
 
-function Header({ query, focus, setFocus, setQuery }: HeaderPropsType) {
+function Header({ focus, setFocus }: HeaderPropsType) {
+  const [query, setQuery] = useRecoilState(searchQuery);
   const navigate = useNavigate();
   const handleFocus = () => setFocus(true); //input focus 설정
 

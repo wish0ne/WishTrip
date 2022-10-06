@@ -1,5 +1,7 @@
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
+import { useRecoilState, useRecoilValue } from "recoil";
+import { searchQuery, searchRecent } from "../../../recoil/search";
 
 const StyledPost = styled.div<{ grow: boolean }>`
   width: ${(props) => (props.grow ? "48%" : "14.4rem")};
@@ -39,14 +41,27 @@ interface PostPropsType {
   title: string;
   username?: string;
   tag?: string[];
+  addRecent: () => void;
 }
 
-function Post({ post_id, image, title, username, tag }: PostPropsType) {
+function Post({
+  post_id,
+  image,
+  title,
+  username,
+  tag,
+  addRecent,
+}: PostPropsType) {
   const navigate = useNavigate();
 
   return (
     <StyledPost
-      onClick={() => navigate(`../Read/:${post_id}`)}
+      onClick={() => {
+        //최근 검색어 추가
+        addRecent();
+        //포스트로 이동
+        navigate(`../Read/:${post_id}`);
+      }}
       grow={tag !== undefined}
     >
       <img src={image} alt={`${title} 게시물 입니다`} />

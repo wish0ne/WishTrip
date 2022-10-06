@@ -700,7 +700,7 @@ export const handlers = [
     //검색 쿼리가 포함된 유저네임들 반환
     //res : [{id, 유저네임, 유저가 작성한 게시물 수, 유저아이콘}]
     const username = req.url.searchParams.get("username");
-    if (username === "피자")
+    if (username === "프로도")
       return res(
         ctx.status(200),
         ctx.json([

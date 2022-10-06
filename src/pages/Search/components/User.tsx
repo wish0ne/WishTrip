@@ -33,13 +33,20 @@ function User({
   username,
   count,
   icon,
+  addRecent,
 }: {
   username: string;
   count: number;
   icon: string;
+  addRecent: () => void;
 }) {
+  const handleClick = () => {
+    //최근 검색어 추가
+    addRecent();
+    //유저 프로필로 이동
+  };
   return (
-    <StyledUser>
+    <StyledUser onClick={handleClick}>
       <img src={icon} alt="유저 아이콘" />
       <div>
         <h3>{username}</h3>

@@ -55,3 +55,15 @@ export const searchUser = atom<ISearchUser[]>({
   key: "search/user",
   default: [],
 });
+
+//검색 쿼리
+export const searchQuery = atom<string>({
+  key: "search/query",
+  default: "",
+});
+
+//최근 검색어
+export const searchRecent = atom<string | null>({
+  key: "search/recent",
+  default: "",
+});

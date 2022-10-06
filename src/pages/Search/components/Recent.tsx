@@ -1,5 +1,7 @@
+import { useRecoilState } from "recoil";
 import styled from "styled-components";
 import { ReactComponent as Delete } from "../../../assets/images/uil_multiply.svg";
+import { searchRecent } from "../../../recoil/search";
 
 const StyledRecent = styled.div`
   display: flex;
@@ -22,14 +24,28 @@ const StyledRecent = styled.div`
   }
 `;
 
-function Recent() {
+function Recent({ title, date }: { title: string; date: Date }) {
+  const [search_recent, setSearchRecent] = useRecoilState(searchRecent);
+  //최근 검색어 삭제
+  const handleDelete = () => {
+    const new_recent = JSON.parse(search_recent!).filter(
+      (item: { id: number; title: string; date: Date }) => item.title !== title,
+    );
+    setSearchRecent(JSON.stringify(new_recent));
+    localStorage.setItem("recent_search", JSON.stringify(new_recent));
+  };
   return (
     <StyledRecent>
       <div>
-        <h3>여행</h3>
-        <span>08. 12</span>
+        <h3>{title}</h3>
+        <span>{date.toString()}</span>
       </div>
-      <Delete width="1.6rem" height="1.6rem" fill="rgb(205 205 205)"></Delete>
+      <Delete
+        width="1.6rem"
+        height="1.6rem"
+        fill="rgb(205 205 205)"
+        onClick={handleDelete}
+      ></Delete>
     </StyledRecent>
   );
 }
