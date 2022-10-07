@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import Header from "./components/Header";
+import Header from "../components/Header";
 import User from "./components/User";
 import Image from "./components/Image";
 import Emotion from "./components/Emotion";
@@ -11,7 +11,7 @@ const StyledRead = styled.div``;
 function Read() {
   return (
     <StyledRead>
-      <Header></Header>
+      <Header title="화려한 곳 어때요?"></Header>
       <User></User>
       <Image></Image>
       <Emotion></Emotion>

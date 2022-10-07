@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { useState, useEffect } from "react";
-import Header from "./components/Header";
+import Header from "../components/Header";
 import User from "./components/User";
 import Tab from "./components/Tab";
 import Content from "./components/Content";
@@ -58,7 +58,7 @@ function Mypage() {
   }, []);
   return (
     <StyledMypage>
-      <Header />
+      <Header title="마이페이지"></Header>
       <User />
       <Tab setTab={setTab} tab={tab} />
       {contents[tab].length > 0 ? (

@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
 const StyledUser = styled.div`
@@ -40,10 +41,12 @@ function User({
   icon: string;
   addRecent: () => void;
 }) {
+  const navigate = useNavigate();
   const handleClick = () => {
     //최근 검색어 추가
     addRecent();
     //유저 프로필로 이동
+    navigate(`../Profile/:${username}`);
   };
   return (
     <StyledUser onClick={handleClick}>

@@ -12,6 +12,7 @@ import Password from "./pages/Authentication/Password";
 import Register from "./pages/Authentication/Register";
 import Search from "./pages/Search/Search";
 import Read from "./pages/Post/Read";
+import Profile from "./pages/Profile/Profile";
 
 const GlobalStyle = createGlobalStyle`
   ${reset}
@@ -105,6 +106,7 @@ function App() {
         <Route path="ARTrip" element={<Ar />} />
         <Route path="ARTrip/Create" element={<ARCreate />} />
         <Route path="Mypage" element={<Mypage />} />
+        <Route path="Profile/:username" element={<Profile />} />
       </Routes>
     </ThemeProvider>
   );
