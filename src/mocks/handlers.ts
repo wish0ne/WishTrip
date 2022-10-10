@@ -484,6 +484,13 @@ export const handlers = [
             y_value: 127.079135,
             z_value: 0,
           },
+          {
+            ar_post_id: 5,
+            image: armock4,
+            x_value: 34.890575,
+            y_value: 128.638887,
+            z_value: 0,
+          },
         ]),
       );
     },

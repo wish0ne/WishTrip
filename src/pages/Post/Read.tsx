@@ -10,6 +10,8 @@ import Comment from "./components/Comment";
 import img1 from "../../assets/images/여행사진1.jpg";
 import { useParams } from "react-router-dom";
 import CommentInput from "./components/CommentInput";
+import { useRecoilState } from "recoil";
+import { commentsState, postState } from "../../recoil/post";
 
 const StyledRead = styled.div``;
 
@@ -31,38 +33,9 @@ const Padding = styled.div`
   padding: 2.4rem;
 `;
 
-interface PostReadProps {
-  username: string;
-  date: Date;
-  icon: string;
-  image: string;
-  emotion: {
-    shock: number;
-    heart: number;
-    laugh: number;
-    crying: number;
-    thumb: number;
-  };
-  title: string;
-  body: string;
-  tags: string[];
-  location: string;
-  isWriter: boolean;
-  isScrap: boolean;
-  myEmotion: string | null;
-}
-
-interface PostCommentProps {
-  id: number;
-  icon: string;
-  username: string;
-  body: string;
-  date: Date;
-}
-
 function Read() {
-  const [post, setPost] = useState<PostReadProps>();
-  const [comments, setComments] = useState<PostCommentProps[]>([]);
+  const [post, setPost] = useRecoilState(postState);
+  const [comments, setComments] = useRecoilState(commentsState);
   const { postId } = useParams();
   useEffect(() => {
     //글 정보 받아오기
@@ -91,7 +64,7 @@ function Read() {
         <>
           <Header title="화려한 곳 어때요?"></Header>
           <ReadUser
-            icon={img1}
+            icon={post.icon}
             title="부끄러운 프로도"
             subtitle="1년 전"
             className="user"
