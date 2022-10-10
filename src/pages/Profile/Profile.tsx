@@ -31,7 +31,7 @@ function Profile() {
   const { username } = useParams();
   const [info, setInfo] = useState({ username: "", icon: "" });
   const [posts, setPosts] = useState<
-    { id: number; image: string; title: string; tags: string[] }[]
+    { post_id: number; image: string; title: string; tags: string[] }[]
   >([]);
   useEffect(() => {
     //1.유저 정보 받기
@@ -97,12 +97,12 @@ function Profile() {
         <PostContainer>
           {posts.map((post) => (
             <Post
-              post_id={post.id}
+              post_id={post.post_id}
               image={post.image}
               title={post.title}
               tags={post.tags}
               onClick={() => {}}
-              key={post.id}
+              key={post.post_id}
               grow={true}
             />
           ))}

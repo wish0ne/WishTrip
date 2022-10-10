@@ -1,4 +1,5 @@
 import { Routes, Route } from "react-router-dom";
+import * as AFRAME from "aframe";
 import { ThemeProvider, createGlobalStyle } from "styled-components";
 import reset from "styled-reset";
 import Splash from "./pages/Splash/Splash";
@@ -13,6 +14,9 @@ import Register from "./pages/Authentication/Register";
 import Search from "./pages/Search/Search";
 import Read from "./pages/Post/Read";
 import Profile from "./pages/Profile/Profile";
+import { useEffect, useRef } from "react";
+import { useSetRecoilState } from "recoil";
+import { arId } from "./recoil/ar";
 
 const GlobalStyle = createGlobalStyle`
   ${reset}
@@ -89,6 +93,27 @@ const theme = {
 };
 
 function App() {
+  const isRegister = useRef(false);
+  const setArId = useSetRecoilState(arId);
+  useEffect(() => {
+    if (!isRegister.current) {
+      //AR click handler
+      AFRAME.registerComponent("clickhandler", {
+        init: function () {
+          let data = this.data;
+          let el = this.el;
+          el.addEventListener("click", () => {
+            alert(data);
+            setArId(data);
+            // localStorage.setItem("arId", data);
+            // const modal = document.querySelector(".modal");
+            // modal.classList.add("half");
+          });
+        },
+      });
+      isRegister.current = true;
+    }
+  }, []);
   return (
     <ThemeProvider theme={theme}>
       <GlobalStyle />

@@ -23,7 +23,7 @@ function Home() {
   const [recommend, setRecommend] = useRecoilState(homeRecommend);
   useEffect(() => {
     instance.get("/msw/home/profile").then(({ data }) => {
-      setProfile(data.profile);
+      setProfile(data.icon);
     });
     instance.get("/msw/home/banner").then(({ data }) => {
       setBanner(data);

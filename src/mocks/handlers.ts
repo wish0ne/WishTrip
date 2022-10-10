@@ -484,6 +484,13 @@ export const handlers = [
             y_value: 127.079135,
             z_value: 0,
           },
+          {
+            ar_post_id: 5,
+            image: armock4,
+            x_value: 34.890575,
+            y_value: 128.638887,
+            z_value: 0,
+          },
         ]),
       );
     },
@@ -798,48 +805,55 @@ export const handlers = [
   //포스트 읽기
   //본인이 작성한 포스트인지 아닌지 구분 필요 -> 토큰 없으면 무조건 작성자 아님, 토큰 있으면 토큰으로 작성자인지 판단해서 isWriter 반환
   //1. 포스트 정보 받기 -> id 일치하는 포스트 정보 반환
-  rest.get<{ post_id: number }>(
-    "http://3.36.71.48/msw/post/read",
-    (req, res, ctx) => {
-      //토큰 검사 x (로그인 안해도 보여줘야 하기 때문)
+  rest.get("http://3.36.71.48/msw/post/read", (req, res, ctx) => {
+    //토큰 검사 x (로그인 안해도 보여줘야 하기 때문)
+    const post_id = req.url.searchParams.get("id");
+    //res : {포스트 id, 작성자 유저네임, 작성날짜, 작성자 아이콘, 원본이미지, 감정:{crying:0, shock:0, laugh:20, thumb:1, heart:5}], 제목, 내용, 태그배열, 장소, 댓글배열, 작성자여부, 스크랩 여부(false, true), 등록한 이모지(설정하지 않았으면 null)}
+    return res(
+      ctx.status(200),
+      ctx.json({
+        post_id: 1,
+        username: "부끄러운 프로도",
+        date: "2021-08-01",
+        icon: img2,
+        image: img2,
+        emotion: { crying: 0, shock: 0, laugh: 20, thumb: 1, heart: 5 },
+        title: "진짜 휴가는 지금부터~! 신나는 페스티벌이 기다리고 있어요",
+        body: "아직 휴가 못 가신 분~~! 진짜 휴가는 지금부터~! 신나는 페스티벌이 기다리고 있어요 🎷\n라인업만 봐도 심장이 두근대는데요..\n\n마지막 여름 휴가 계획 중이시던 분들, 이번 기회에 전주 여행도 함께 묶어서 JUMF 즐기고 오는 건 어떠신지요!\n티켓 무료 증정 이벤트도 진행 중이라니까 참여해보세요!\n\n❗️이벤트는 이 게시글이 아닌 JUMF 계정 @2022_jumf 팔로워 이벤트 게시물에서 참여하셔야 정상 접수 됩니다! (해당 계정에 이벤트 참여 게시글 고정되어 있어요)",
+        tags: ["여행", "부산", "해운대"],
+        location: "부산",
+        isWriter: false,
+        isScrap: false, //true/false
+        myEmotion: "laugh", //crying/shock/laugh/thumb/heart/null(없으면)
+      }),
+    );
+  }),
 
-      //res : {포스트 id, 작성자 유저네임, 작성날짜, 작성자 아이콘, 원본이미지, 감정:{crying:0, shock:0, laugh:20, thumb:1, heart:5}], 제목, 내용, 태그배열, 장소, 댓글배열, 작성자여부, 스크랩 여부(false, true), 등록한 이모지(설정하지 않았으면 null)}
-      return res(
-        ctx.status(200),
-        ctx.json({
-          post_id: 1,
-          username: "부끄러운 프로도",
-          date: "2021-08-01",
+  //1-2. 포스트 댓글 정보 받기
+  rest.get("http://3.36.71.48/msw/post/read/comments", (req, res, ctx) => {
+    //토큰 검사 x (로그인 안해도 보여줘야 하기 때문)
+    const post_id = req.url.searchParams.get("id");
+    //res : {포스트 id, 작성자 유저네임, 작성날짜, 작성자 아이콘, 원본이미지, 감정:{crying:0, shock:0, laugh:20, thumb:1, heart:5}], 제목, 내용, 태그배열, 장소, 댓글배열, 작성자여부, 스크랩 여부(false, true), 등록한 이모지(설정하지 않았으면 null)}
+    return res(
+      ctx.status(200),
+      ctx.json([
+        {
+          comment_id: 1,
           icon: img2,
-          image: img2,
-          emotion: { crying: 0, shock: 0, laugh: 20, thumb: 1, heart: 5 },
-          title: "진짜 휴가는 지금부터~! 신나는 페스티벌이 기다리고 있어요",
-          body: "아직 휴가 못 가신 분~~! 진짜 휴가는 지금부터~! 신나는 페스티벌이 기다리고 있어요 🎷\n라인업만 봐도 심장이 두근대는데요..\n\n마지막 여름 휴가 계획 중이시던 분들, 이번 기회에 전주 여행도 함께 묶어서 JUMF 즐기고 오는 건 어떠신지요!\n티켓 무료 증정 이벤트도 진행 중이라니까 참여해보세요!\n\n❗️이벤트는 이 게시글이 아닌 JUMF 계정 @2022_jumf 팔로워 이벤트 게시물에서 참여하셔야 정상 접수 됩니다! (해당 계정에 이벤트 참여 게시글 고정되어 있어요)",
-          tags: ["여행", "부산", "해운대"],
-          location: "부산",
-          comments: [
-            {
-              comment_id: 1,
-              icon: img2,
-              username: "부끄러운 프로도",
-              body: "댓글입니다.",
-              date: "2021-08-01",
-            },
-            {
-              comment_id: 2,
-              icon: img6,
-              username: "어피치",
-              body: "댓글입니다.",
-              date: "2022-05-01",
-            },
-          ],
-          isWriter: false,
-          isScrap: false, //true/false
-          myEmotion: "laugh", //crying/shock/laugh/thumb/heart/null(없으면)
-        }),
-      );
-    },
-  ),
+          username: "부끄러운 프로도",
+          body: "댓글입니다.",
+          date: "2021-08-01",
+        },
+        {
+          comment_id: 2,
+          icon: img6,
+          username: "어피치",
+          body: "댓글입니다.",
+          date: "2022-05-01",
+        },
+      ]),
+    );
+  }),
 
   //2. 스크랩 등록/해제
   //parameter : 포스트 id, 스크랩 여부

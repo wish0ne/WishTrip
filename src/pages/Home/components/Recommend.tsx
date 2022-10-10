@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { useNavigate } from "react-router-dom";
 import { RecommendContentData } from "../../../recoil/home";
 import User from "../../components/User";
 import { FixedPost } from "../../Search/Search";
@@ -81,6 +82,7 @@ interface RecommendProps {
 }
 
 function Recommend({ tag, posts }: RecommendProps) {
+  const navigate = useNavigate();
   return (
     <StyledRecommend>
       <Title>
@@ -88,7 +90,10 @@ function Recommend({ tag, posts }: RecommendProps) {
       </Title>
       <PostContainer>
         {posts.map((content) => (
-          <Post key={content.id}>
+          <Post
+            key={content.post_id}
+            onClick={() => navigate(`../Read/${content.post_id}`)}
+          >
             <img src={content.image} alt="추천 포스트 이미지" />
             <h3>{content.title}</h3>
             <RecUser

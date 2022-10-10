@@ -4,6 +4,7 @@ import useInterval from "../../../modules/useInterval";
 import User from "../../components/User";
 import { useRecoilValue } from "recoil";
 import { homeBanner } from "../../../recoil/home";
+import { useNavigate } from "react-router-dom";
 
 const StyledStory = styled.div`
   height: 47.2rem;
@@ -94,11 +95,11 @@ const StoryUser = styled(User)`
 function Story() {
   const [index, setIndex] = useState<number>(0);
   const banner = useRecoilValue(homeBanner);
-
+  const navigate = useNavigate();
   useInterval(() => setIndex((index) => (index === 3 ? 0 : index + 1)), 5000);
 
   return (
-    <StyledStory>
+    <StyledStory onClick={() => navigate(`../Read/${banner[index].post_id}`)}>
       {banner.length > 0 && (
         <>
           <Image src={banner[index].image} alt="홈화면 상단 이미지" />
