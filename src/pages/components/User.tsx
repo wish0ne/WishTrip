@@ -1,49 +1,52 @@
 import styled from "styled-components";
 
-export const StyledUser = styled.div`
+export const StyledUser = styled(User)``;
+
+const Container = styled.div`
   display: flex;
 `;
 
-export const Icon = styled.img`
-  width: 4rem;
-  height: 4rem;
-  border-radius: 4rem;
-  margin-right: 1rem;
+const Icon = styled.img`
+  width: 3.6rem;
+  height: 3.6rem;
+  border-radius: 3.6rem;
+  margin-right: 1.6rem;
 `;
-export const Info = styled.div`
+const Info = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  padding: 0.15rem 0;
+  justify-content: space-around;
 
-  & span {
+  & h1 {
     font-family: "ExtraBold";
-    color: #ffffff;
+    color: ${(props) => props.theme.palette.default1};
     font-size: 1.4rem;
   }
 
-  & span + span {
+  & h2 {
     font-family: "Medium";
-    color: #ffffff;
-    font-size: 1.3rem;
+    color: ${(props) => props.theme.palette.default2};
+    font-size: 1.2rem;
   }
 `;
 
 export interface UserPropsType {
+  className: string;
   icon: string;
-  name: string;
-  location: string;
+  title: string;
+  subtitle?: string;
+  onClick?: () => void;
 }
 
-function User({ icon, name, location }: UserPropsType) {
+function User({ className, icon, title, subtitle, onClick }: UserPropsType) {
   return (
-    <StyledUser>
+    <Container onClick={onClick} className={className}>
       <Icon src={icon} alt="유저 아이콘" />
       <Info>
-        <span>{name}</span>
-        <span>@{location}</span>
+        <h1>{title}</h1>
+        {subtitle && <h2>{subtitle}</h2>}
       </Info>
-    </StyledUser>
+    </Container>
   );
 }
 

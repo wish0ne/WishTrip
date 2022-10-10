@@ -56,6 +56,23 @@ const StyledBtn = styled(Link)`
   box-shadow: 0 0.8rem 1.6rem rgba(90, 192, 250, 0.28);
 `;
 
+const StartUser = styled(User)`
+  & img {
+    width: 4rem;
+    height: 4rem;
+    margin-right: 1rem;
+  }
+  & h1 {
+    color: white;
+    text-shadow: 0 0.1rem 0.2rem rgba(0, 0, 0, 0.8);
+  }
+  & h2 {
+    color: white;
+    font-size: 1.3rem;
+    text-shadow: 0 0.1rem 0.2rem rgba(0, 0, 0, 0.8);
+  }
+`;
+
 function Start() {
   let vh = window.innerHeight * 0.01;
   document.documentElement.style.setProperty("--vh", `${vh}px`);
@@ -63,7 +80,12 @@ function Start() {
     <StyledStart>
       <Landing>
         <img src={img1} alt="로그인 화면 여행 사진" />
-        <User icon={img5} name="gamsungcross" location="프랑스 파리" />
+        <StartUser
+          icon={img5}
+          title="gamsungcross"
+          subtitle="프랑스 파리"
+          className="user"
+        />
       </Landing>
       <Bottom>
         <div>

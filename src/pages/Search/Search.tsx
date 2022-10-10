@@ -5,7 +5,7 @@ import Title from "./components/Title";
 import Post from "./components/Post";
 import Tag from "./components/Tag";
 import Recent from "./components/Recent";
-import User from "./components/User";
+import User from "../components/User";
 import Empty from "./components/Empty";
 import instance from "../../modules/api";
 import { useRecoilState } from "recoil";
@@ -41,6 +41,16 @@ const SearchPost = styled.div`
   gap: 0.8rem;
   flex-wrap: wrap;
   justify-content: space-between;
+`;
+
+const NewUser = styled(User)`
+  margin-bottom: 2rem;
+  & h1 {
+    font-family: "Medium";
+  }
+  & h2 {
+    color: ${(props) => props.theme.palette.inversed3};
+  }
 `;
 
 function Search() {
@@ -249,13 +259,14 @@ function Search() {
           <Empty />
         ) : (
           search_user.map(({ id, username, count, icon }) => (
-            <User
+            <NewUser
+              className="user"
               key={id}
-              username={username}
-              count={count}
+              title={username}
+              subtitle={`게시물 ${count}`}
               icon={icon}
-              addRecent={addRecent}
-            ></User>
+              onClick={addRecent}
+            ></NewUser>
           ))
         ))}
     </StyledSearch>

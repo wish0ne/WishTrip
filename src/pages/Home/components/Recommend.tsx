@@ -89,22 +89,22 @@ const Info = styled.div`
 
 interface RecommendProps {
   tag: string;
-  contents: RecommendContentData[];
+  posts: RecommendContentData[];
 }
 
-function Recommend({ tag, contents }: RecommendProps) {
+function Recommend({ tag, posts }: RecommendProps) {
   return (
     <StyledRecommend>
       <Title>
         <span>{tag}</span> 곳 어때요?
       </Title>
       <PostContainer>
-        {contents.map((content) => (
+        {posts.map((content) => (
           <Post key={content.id}>
             <img src={content.image} alt="추천 포스트 이미지" />
             <h3>{content.title}</h3>
             <Info>
-              <img src={content.profile} alt="추천 포스트 유저" />
+              <img src={content.icon} alt="추천 포스트 유저" />
               <div>
                 {content.username}
                 <span>@{content.location}</span>
