@@ -2,6 +2,7 @@ import styled from "styled-components";
 import Header from "../components/Header";
 import Post from "../components/Post";
 import User from "../components/User";
+import Tab from "../components/Tab";
 import { useEffect, useState } from "react";
 import instance from "../../modules/api";
 import { useParams } from "react-router-dom";
@@ -54,11 +55,40 @@ function Profile() {
       });
   }, []);
 
+  const request = (id: string) => {
+    if (id === "upload") {
+      instance
+        .get(`/msw/get_user_posts?username=${username}`)
+        .then((res) => {
+          setPosts(res.data);
+        })
+        .catch((err) => {
+          throw err;
+        });
+    } else if (id === "comment") {
+      instance
+        .get(`/msw/get_user_comments?username=${username}`)
+        .then((res) => {
+          setPosts(res.data);
+        })
+        .catch((err) => {
+          throw err;
+        });
+    }
+  };
+
   return (
     <StyledProfile>
       <Header title="프로필"></Header>
       <Padding>
         <ProfileUser className="user" icon={info.icon} title={info.username} />
+        <Tab
+          tabs={[
+            { title: "업로드한 글", id: "upload" },
+            { title: "댓글 단 글", id: "comment" },
+          ]}
+          request={request}
+        />
         <PostContainer>
           {posts.map((post) => (
             <Post

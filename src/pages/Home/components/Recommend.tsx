@@ -55,10 +55,6 @@ const Post = styled.div`
     overflow: hidden;
     white-space: nowrap;
   }
-
-  & + & {
-    margin-left: 1.4rem;
-  }
 `;
 
 const RecUser = styled(User)`

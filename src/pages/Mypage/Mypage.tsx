@@ -1,8 +1,8 @@
 import styled from "styled-components";
 import { useState, useEffect } from "react";
 import Header from "../components/Header";
-import User from "./components/User";
-import Tab from "./components/Tab";
+import User from "../components/User";
+import Tab from "../components/Tab";
 import Post from "../components/Post";
 import instance from "../../modules/api";
 import { useRecoilState } from "recoil";
@@ -26,6 +26,18 @@ const NotLogin = styled.div`
   margin: 1.6rem 0;
 `;
 
+const MypageUser = styled(User)`
+  margin-top: 2.4rem;
+  & img {
+    width: 7.2rem;
+    height: 7.2rem;
+  }
+  & h1 {
+    color: ${(props) => props.theme.palette.default2};
+    font-size: 1.6rem;
+  }
+`;
+
 function Mypage() {
   const [user, setUser] = useRecoilState(mypageUser);
   const [contents, setContents] = useRecoilState(mypageContents);
@@ -36,7 +48,7 @@ function Mypage() {
       .get("/msw/mypage")
       .then(({ data }) => {
         setUser({
-          image: data.image,
+          icon: data.icon,
           email: data.email,
           username: data.username,
         });
@@ -52,11 +64,41 @@ function Mypage() {
       });
     });
   }, []);
+
+  const request = (id: string) => {
+    setTab(id);
+    if (id === "recent") {
+      setContents({
+        ...contents,
+        recent: [],
+      });
+    } else {
+      instance.get(`/msw/mypage/${id}`).then(({ data }) => {
+        setTab(id);
+        setContents({
+          ...contents,
+          [id]: data,
+        });
+      });
+    }
+  };
   return (
     <StyledMypage>
       <Header title="마이페이지"></Header>
-      <User />
-      <Tab setTab={setTab} tab={tab} />
+      <MypageUser
+        className="user"
+        icon={user.icon}
+        subtitle={user.email}
+        title={user.username}
+      />
+      <Tab
+        tabs={[
+          { title: "스크랩한 글", id: "scrap" },
+          { title: "최근 본 글", id: "recent" },
+          { title: "댓글 단 글", id: "comment" },
+        ]}
+        request={request}
+      />
       {contents[tab].length > 0 ? (
         <GrowPost>
           {contents[tab].map((content) => (

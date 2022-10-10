@@ -15,7 +15,8 @@ const Icon = styled.img`
 const Info = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: space-around;
+  justify-content: center;
+  gap: 0.4rem;
 
   & h1 {
     font-family: "ExtraBold";
