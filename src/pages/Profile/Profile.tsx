@@ -2,7 +2,10 @@ import styled from "styled-components";
 import Header from "../components/Header";
 import Post from "../components/Post";
 import User from "../components/User";
-import img1 from "../../assets/images/여행사진1.jpg";
+import { useEffect, useState } from "react";
+import instance from "../../modules/api";
+import { useParams } from "react-router-dom";
+import { GrowPost } from "../Search/Search";
 
 const StyledProfile = styled.div``;
 const Padding = styled.div`
@@ -20,13 +23,55 @@ const ProfileUser = styled(User)`
     color: ${(props) => props.theme.palette.default2};
   }
 `;
+
+const PostContainer = styled(GrowPost)``;
+
 function Profile() {
+  const { username } = useParams();
+  const [info, setInfo] = useState({ username: "", icon: "" });
+  const [posts, setPosts] = useState<
+    { id: number; image: string; title: string; tags: string[] }[]
+  >([]);
+  useEffect(() => {
+    //1.유저 정보 받기
+    instance
+      .get(`/msw/get_user_profile?username=${username}`)
+      .then((res) => {
+        setInfo(res.data);
+      })
+      .catch((err) => {
+        throw err;
+      });
+
+    //2. 유저 업로드 글 받기
+    instance
+      .get(`/msw/get_user_posts?username=${username}`)
+      .then((res) => {
+        setPosts(res.data);
+      })
+      .catch((err) => {
+        throw err;
+      });
+  }, []);
+
   return (
     <StyledProfile>
       <Header title="프로필"></Header>
       <Padding>
-        <ProfileUser className="user" icon={img1} title="부끄러운 프로도" />
-        <Post></Post>
+        <ProfileUser className="user" icon={info.icon} title={info.username} />
+        <PostContainer>
+          {posts.map((post) => (
+            <Post
+              post_id={post.id}
+              image={post.image}
+              title={post.title}
+              tags={post.tags}
+              onClick={() => {}}
+              key={post.id}
+              grow={true}
+            />
+          ))}
+        </PostContainer>
       </Padding>
     </StyledProfile>
   );

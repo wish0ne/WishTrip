@@ -1,5 +1,7 @@
 import styled from "styled-components";
 import { RecommendContentData } from "../../../recoil/home";
+import User from "../../components/User";
+import { FixedPost } from "../../Search/Search";
 
 const StyledRecommend = styled.div`
   margin: 4.8rem 2.4rem;
@@ -16,7 +18,7 @@ const Title = styled.div`
   }
 `;
 
-const PostContainer = styled.div`
+const PostContainer = styled(FixedPost)`
   display: flex;
   overflow-x: auto;
   overflow-y: hidden;
@@ -58,32 +60,22 @@ const Post = styled.div`
     margin-left: 1.4rem;
   }
 `;
-const Info = styled.div`
+
+const RecUser = styled(User)`
   position: absolute;
   display: flex;
   left: 1.6rem;
   bottom: 1.6rem;
 
   & img {
-    width: 3.2rem;
-    height: 3.2rem;
-    border-radius: 4rem;
     margin-right: 0.8rem;
   }
-
-  & div {
-    font-family: "ExtraBold";
+  & h1 {
     color: white;
     font-size: 1.3rem;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
   }
-
-  & div > span {
-    font-family: "Medium";
-    font-size: 1.2rem;
-    margin-top: 0.2rem;
+  & h2 {
+    color: white;
   }
 `;
 
@@ -103,13 +95,12 @@ function Recommend({ tag, posts }: RecommendProps) {
           <Post key={content.id}>
             <img src={content.image} alt="추천 포스트 이미지" />
             <h3>{content.title}</h3>
-            <Info>
-              <img src={content.icon} alt="추천 포스트 유저" />
-              <div>
-                {content.username}
-                <span>@{content.location}</span>
-              </div>
-            </Info>
+            <RecUser
+              className="user"
+              icon={content.icon}
+              title={content.username}
+              subtitle={"@" + content.location}
+            />
           </Post>
         ))}
       </PostContainer>

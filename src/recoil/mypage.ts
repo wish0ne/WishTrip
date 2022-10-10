@@ -9,7 +9,7 @@ export interface IMypageUserType {
 interface IMypageContentsData {
   image: string;
   title: string;
-  username: string;
+  tags: string[];
   id: number;
 }
 

@@ -3,21 +3,17 @@ import { useState, useEffect } from "react";
 import Header from "../components/Header";
 import User from "./components/User";
 import Tab from "./components/Tab";
-import Content from "./components/Content";
+import Post from "../components/Post";
 import instance from "../../modules/api";
 import { useRecoilState } from "recoil";
 import { mypageUser, mypageContents } from "../../recoil/mypage";
+import { GrowPost } from "../Search/Search";
 
 const StyledMypage = styled.div`
   padding: 0 2.4rem;
 `;
 
-const StyledContent = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  margin: 1.6rem 0;
-  gap: 1.6rem;
-`;
+const MypagePost = styled(Post)``;
 
 const NotLogin = styled.div`
   padding: 3.2rem 0;
@@ -37,7 +33,7 @@ function Mypage() {
   useEffect(() => {
     //유저 정보 받아오기
     instance
-      .post("/msw/mypage")
+      .get("/msw/mypage")
       .then(({ data }) => {
         setUser({
           image: data.image,
@@ -49,7 +45,7 @@ function Mypage() {
         //토큰 없는 경우
       });
     //스크랩 한 글 받아오기
-    instance.post(`/msw/mypage/${tab}`).then(({ data }) => {
+    instance.get(`/msw/mypage/${tab}`).then(({ data }) => {
       setContents({
         ...contents,
         [tab]: data,
@@ -62,16 +58,19 @@ function Mypage() {
       <User />
       <Tab setTab={setTab} tab={tab} />
       {contents[tab].length > 0 ? (
-        <StyledContent>
+        <GrowPost>
           {contents[tab].map((content) => (
-            <Content
+            <MypagePost
+              post_id={content.id}
               image={content.image!}
               title={content.title!}
-              user={content.username}
+              tags={content.tags}
+              grow
+              onClick={() => {}}
               key={content.id}
             />
           ))}
-        </StyledContent>
+        </GrowPost>
       ) : (
         <NotLogin>{`지금 가입하고 친구들의 여행을\n둘러보세요.`}</NotLogin>
       )}

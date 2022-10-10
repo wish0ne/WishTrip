@@ -42,7 +42,7 @@ export const handlers = [
     "http://3.36.71.48/msw/isMember",
     (req, res, ctx) => {
       const { email } = req.body;
-      if (email === "hello@gmail.com") return res(ctx.status(200)); //회원 o
+      if (email === "test@test.com") return res(ctx.status(200)); //회원 o
       else return res(ctx.status(401)); //회원 정보 없음
     },
   ),
@@ -52,7 +52,7 @@ export const handlers = [
     (req, res, ctx) => {
       const { email, password } = req.body;
       //이메일, 비밀번호 일치
-      if (email === "hello@gmail.com" && password === "1234")
+      if (email === "test@test.com" && password === "1234")
         return res(
           ctx.status(200),
           ctx.json({
@@ -141,25 +141,25 @@ export const handlers = [
         {
           image: img4,
           title: "여행의 제목입니다.",
-          tags: ["#여행", "#여행스타그램", "#여행에미치다"],
+          tags: ["여행", "여행스타그램", "여행에미치다"],
           post_id: 1,
         },
         {
           image: img3,
           title: "여행의 제목입니다.",
-          tags: ["#여행", "#여행스타그램", "#여행에미치다"],
+          tags: ["여행", "여행스타그램", "여행에미치다"],
           post_id: 2,
         },
         {
           image: img6,
           title: "여행의 제목입니다.",
-          tags: ["#여행", "#여행스타그램", "#여행에미치다"],
+          tags: ["여행", "여행스타그램", "여행에미치다"],
           post_id: 3,
         },
         {
           image: img5,
           title: "여행의 제목입니다.",
-          tags: ["#여행", "#여행스타그램", "#여행에미치다"],
+          tags: ["여행", "여행스타그램", "여행에미치다"],
           post_id: 4,
         },
       ]),
@@ -706,7 +706,7 @@ export const handlers = [
         ctx.json([
           {
             id: 1,
-            username: "부끄러운 프로도",
+            username: "부끄러운프로도",
             count: 312,
             icon: img1,
           },
