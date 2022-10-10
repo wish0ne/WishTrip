@@ -98,7 +98,11 @@ function Read() {
           />
           <Image image={post.image}></Image>
           <Padding>
-            <Emotion emotions={post.emotion}></Emotion>
+            <Emotion
+              emotions={post.emotion}
+              isScrap={post.isScrap}
+              myEmotion={post.myEmotion}
+            ></Emotion>
             <Content
               title={post.title}
               body={post.body}

@@ -4,8 +4,15 @@ import { ReactComponent as Crying } from "../../../assets/images/emoji_crying.sv
 import { ReactComponent as Heart } from "../../../assets/images/emoji_heart.svg";
 import { ReactComponent as Thumb } from "../../../assets/images/emoji_thumb.svg";
 import { ReactComponent as Laugh } from "../../../assets/images/emoji_laugh.svg";
+import { ReactComponent as NotScrap } from "../../../assets/images/regular_bookmark.svg";
+import { ReactComponent as Scrap } from "../../../assets/images/solid_bookmark.svg";
+import { ReactComponent as Reaction } from "../../../assets/images/regular_heart.svg";
+import { useEffect, useState } from "react";
 
-const StyledEmotion = styled.div``;
+const StyledEmotion = styled.div`
+  display: flex;
+  justify-content: space-between;
+`;
 
 const EmotionContainer = styled.div`
   display: flex;
@@ -23,9 +30,15 @@ const EmotionContainer = styled.div`
   }
 `;
 
-function Emotion({
-  emotions,
-}: {
+const InteractionContainer = styled.div`
+  display: flex;
+  gap: 2rem;
+  position: relative;
+  flex-grow: 1;
+  justify-content: flex-end;
+`;
+
+interface IEmotionProps {
   emotions: {
     shock: number;
     heart: number;
@@ -33,7 +46,60 @@ function Emotion({
     crying: number;
     thumb: number;
   };
+  isScrap: boolean;
+  myEmotion: string | null;
+}
+
+const StyledSelect = styled.div`
+  position: absolute;
+  right: -0.5rem;
+  top: -1rem;
+  background-color: white;
+  box-shadow: 0 0.8rem 1.6rem rgba(153, 153, 153, 0.25);
+  border-radius: 1.6rem;
+  padding: 0.8rem 1rem;
+  display: flex;
+  gap: 1.5rem;
+`;
+
+const ReactionContainer = styled.div``;
+
+function SelectEmotion({
+  setEmotion,
+  setIsSelect,
+}: {
+  setEmotion: React.Dispatch<React.SetStateAction<string | null>>;
+  setIsSelect: React.Dispatch<React.SetStateAction<boolean>>;
 }) {
+  return (
+    <StyledSelect onClick={() => setIsSelect(false)}>
+      <Reaction width="2rem" height="2rem" onClick={() => setEmotion(null)} />
+      <Crying width="2rem" height="2rem" onClick={() => setEmotion("crying")} />
+      <Shock width="2rem" height="2rem" onClick={() => setEmotion("shock")} />
+      <Laugh width="2rem" height="2rem" onClick={() => setEmotion("laugh")} />
+      <Thumb width="2rem" height="2rem" onClick={() => setEmotion("thumb")} />
+      <Heart width="2rem" height="2rem" onClick={() => setEmotion("heart")} />
+    </StyledSelect>
+  );
+}
+
+function Emotion({ emotions, isScrap, myEmotion }: IEmotionProps) {
+  const [scrap, setScrap] = useState(isScrap);
+  const [isSelect, setIsSelect] = useState(false);
+  const [emotion, setEmotion] = useState(myEmotion);
+
+  const handleScrap = () => {
+    setScrap(!scrap);
+  };
+  const openSelect = () => {
+    setIsSelect(true);
+  };
+
+  //반응 남기기
+  useEffect(() => {
+    console.log(emotion);
+  }, [emotion]);
+
   return (
     <StyledEmotion>
       <EmotionContainer>
@@ -68,6 +134,36 @@ function Emotion({
           </div>
         )}
       </EmotionContainer>
+      <InteractionContainer>
+        {scrap ? (
+          <Scrap onClick={handleScrap} width="2rem" height="2rem" />
+        ) : (
+          <NotScrap onClick={handleScrap} width="2rem" height="2rem" />
+        )}
+        <ReactionContainer onClick={openSelect}>
+          {!emotion && (
+            <Reaction onClick={openSelect} width="2rem" height="2rem" />
+          )}
+          {emotion === "crying" && (
+            <Crying onClick={openSelect} width="2rem" height="2rem" />
+          )}
+          {emotion === "laugh" && (
+            <Laugh onClick={openSelect} width="2rem" height="2rem" />
+          )}
+          {emotion === "shock" && (
+            <Shock onClick={openSelect} width="2rem" height="2rem" />
+          )}
+          {emotion === "heart" && (
+            <Heart onClick={openSelect} width="2rem" height="2rem" />
+          )}
+          {emotion === "thumb" && (
+            <Thumb onClick={openSelect} width="2rem" height="2rem" />
+          )}
+        </ReactionContainer>
+        {isSelect && (
+          <SelectEmotion setEmotion={setEmotion} setIsSelect={setIsSelect} />
+        )}
+      </InteractionContainer>
     </StyledEmotion>
   );
 }
