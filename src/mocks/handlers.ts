@@ -42,7 +42,7 @@ export const handlers = [
     "http://3.36.71.48/msw/isMember",
     (req, res, ctx) => {
       const { email } = req.body;
-      if (email === "hello@gmail.com") return res(ctx.status(200)); //회원 o
+      if (email === "test@test.com") return res(ctx.status(200)); //회원 o
       else return res(ctx.status(401)); //회원 정보 없음
     },
   ),
@@ -52,7 +52,7 @@ export const handlers = [
     (req, res, ctx) => {
       const { email, password } = req.body;
       //이메일, 비밀번호 일치
-      if (email === "hello@gmail.com" && password === "1234")
+      if (email === "test@test.com" && password === "1234")
         return res(
           ctx.status(200),
           ctx.json({
@@ -141,25 +141,25 @@ export const handlers = [
         {
           image: img4,
           title: "여행의 제목입니다.",
-          tags: ["#여행", "#여행스타그램", "#여행에미치다"],
+          tags: ["여행", "여행스타그램", "여행에미치다"],
           post_id: 1,
         },
         {
           image: img3,
           title: "여행의 제목입니다.",
-          tags: ["#여행", "#여행스타그램", "#여행에미치다"],
+          tags: ["여행", "여행스타그램", "여행에미치다"],
           post_id: 2,
         },
         {
           image: img6,
           title: "여행의 제목입니다.",
-          tags: ["#여행", "#여행스타그램", "#여행에미치다"],
+          tags: ["여행", "여행스타그램", "여행에미치다"],
           post_id: 3,
         },
         {
           image: img5,
           title: "여행의 제목입니다.",
-          tags: ["#여행", "#여행스타그램", "#여행에미치다"],
+          tags: ["여행", "여행스타그램", "여행에미치다"],
           post_id: 4,
         },
       ]),
@@ -180,25 +180,25 @@ export const handlers = [
         {
           image: img4,
           title: "여행의 제목입니다.",
-          tags: ["#여행", "#여행스타그램", "#여행에미치다"],
+          tags: ["여행", "여행스타그램", "여행에미치다"],
           post_id: 1,
         },
         {
           image: img3,
           title: "여행의 제목입니다.",
-          tags: ["#여행", "#여행스타그램", "#여행에미치다"],
+          tags: ["여행", "여행스타그램", "여행에미치다"],
           post_id: 2,
         },
         {
           image: img6,
           title: "여행의 제목입니다.",
-          tags: ["#여행", "#여행스타그램", "#여행에미치다"],
+          tags: ["여행", "여행스타그램", "여행에미치다"],
           post_id: 3,
         },
         {
           image: img5,
           title: "여행의 제목입니다.",
-          tags: ["#여행", "#여행스타그램", "#여행에미치다"],
+          tags: ["여행", "여행스타그램", "여행에미치다"],
           post_id: 4,
         },
       ]),
@@ -217,25 +217,25 @@ export const handlers = [
         {
           image: img4,
           title: "여행의 제목입니다.",
-          tags: ["#여행", "#여행스타그램", "#여행에미치다"],
+          tags: ["여행", "여행스타그램", "여행에미치다"],
           post_id: 1,
         },
         {
           image: img3,
           title: "여행의 제목입니다.",
-          tags: ["#여행", "#여행스타그램", "#여행에미치다"],
+          tags: ["여행", "여행스타그램", "여행에미치다"],
           post_id: 2,
         },
         {
           image: img6,
           title: "여행의 제목입니다.",
-          tags: ["#여행", "#여행스타그램", "#여행에미치다"],
+          tags: ["여행", "여행스타그램", "여행에미치다"],
           post_id: 3,
         },
         {
           image: img5,
           title: "여행의 제목입니다.",
-          tags: ["#여행", "#여행스타그램", "#여행에미치다"],
+          tags: ["여행", "여행스타그램", "여행에미치다"],
           post_id: 4,
         },
       ]),
@@ -332,7 +332,7 @@ export const handlers = [
       ctx.status(200),
       ctx.json([
         {
-          id: 1,
+          id: 12,
           tag: "한적한",
           posts: [
             {
@@ -362,7 +362,7 @@ export const handlers = [
           ],
         },
         {
-          id: 2,
+          id: 10,
           tag: "화려한",
           posts: [
             {
@@ -371,7 +371,7 @@ export const handlers = [
               location: "프랑스 파리",
               username: "gamsungcross",
               icon: img1,
-              post_id: 1,
+              post_id: 4,
             },
             {
               image: img2,
@@ -379,7 +379,7 @@ export const handlers = [
               location: "제주 애월읍",
               username: "샛별",
               icon: img5,
-              post_id: 2,
+              post_id: 5,
             },
             {
               image: img7,
@@ -387,7 +387,7 @@ export const handlers = [
               location: "일본 오사카",
               username: "행복한족제비",
               icon: img7,
-              post_id: 3,
+              post_id: 6,
             },
           ],
         },
@@ -706,13 +706,13 @@ export const handlers = [
         ctx.json([
           {
             id: 1,
-            username: "부끄러운 프로도",
+            username: "부끄러운프로도",
             count: 312,
             icon: img1,
           },
           {
             id: 2,
-            username: "어피치",
+            username: "frodo",
             count: 312,
             icon: img5,
           },
@@ -731,78 +731,69 @@ export const handlers = [
 
   //다른 유저 프로필 조회
   //1. 유저 정보 받기 -> username 일치하는 유저 정보 반환 (유저네임 중복 불가)
-  rest.get<{ username: string }>(
-    "http://3.36.71.48/msw/get_user_profile",
-    (req, res, ctx) => {
-      //토큰 검사 x (로그인 안해도 보여줘야 하기 때문)
-
-      //username으로 유저 조회해서 결과 반환
-      //res : {유저네임, 유저 아이콘}
-      return res(
-        ctx.status(200),
-        ctx.json({
-          username: "부끄러운 프로도",
-          icon: img2,
-        }),
-      );
-    },
-  ),
+  rest.get("http://3.36.71.48/msw/get_user_profile", (req, res, ctx) => {
+    //토큰 검사 x (로그인 안해도 보여줘야 하기 때문)
+    const username = req.url.searchParams.get("username");
+    //username으로 유저 조회해서 결과 반환
+    //res : {유저네임, 유저 아이콘}
+    return res(
+      ctx.status(200),
+      ctx.json({
+        username: username,
+        icon: img2,
+      }),
+    );
+  }),
 
   //2. 유저가 업로드한 글 받기 -> username 일치하는 유저가 업로드한 글 반환
-  rest.get<{ username: string }>(
-    "http://3.36.71.48/msw/get_user_posts",
-    (req, res, ctx) => {
-      //토큰 검사 x (로그인 안해도 보여줘야 하기 때문)
-
-      //username으로 유저 조회해서 결과 반환
-      //res : [{포스트id, 원본이미지, 제목, 태그배열}]
-      return res(
-        ctx.status(200),
-        ctx.json([
-          {
-            post_id: 1,
-            image: img2,
-            title: "여행제목",
-            tags: ["여행", "부산", "해운대"],
-          },
-          {
-            post_id: 2,
-            image: img3,
-            title: "제목",
-            tags: ["여수", "여행"],
-          },
-        ]),
-      );
-    },
-  ),
+  rest.get("http://3.36.71.48/msw/get_user_posts", (req, res, ctx) => {
+    //토큰 검사 x (로그인 안해도 보여줘야 하기 때문)
+    const username = req.url.searchParams.get("username");
+    //username으로 유저 조회해서 결과 반환
+    //res : [{포스트id, 원본이미지, 제목, 태그배열}]
+    return res(
+      ctx.status(200),
+      ctx.json([
+        {
+          post_id: 1,
+          image: img2,
+          title: "여행제목",
+          tags: ["여행", "부산", "해운대"],
+        },
+        {
+          post_id: 2,
+          image: img3,
+          title: "제목",
+          tags: ["여수", "여행"],
+        },
+      ]),
+    );
+  }),
 
   //3. 유저가 댓글 단 글 받기 -> username 일치하는 유저가 댓글 단 글 반환
-  rest.get<{ username: string }>(
-    "http://3.36.71.48/msw/get_user_comments",
-    (req, res, ctx) => {
-      //토큰 검사 x (로그인 안해도 보여줘야 하기 때문)
-
-      //username으로 유저 조회해서 결과 반환
-      //res : [{포스트id, 원본이미지, 제목, 태그배열}]
-      return res(
-        ctx.status(200),
-        ctx.json([
-          {
-            post_id: 1,
-            image: img2,
-            title: "여행제목",
-            tags: ["여행", "부산", "해운대"],
-          },
-          {
-            post_id: 2,
-            image: img3,
-            title: "제목",
-            tags: ["여수", "여행"],
-          },
-        ]),
-      );
-    },
-  ),
+  rest.get("http://3.36.71.48/msw/get_user_comments", (req, res, ctx) => {
+    //토큰 검사 x (로그인 안해도 보여줘야 하기 때문)
+    const username = req.url.searchParams.get("username");
+    //username으로 유저 조회해서 결과 반환
+    //res : [{포스트id, 원본이미지, 제목, 태그배열}]
+    return res(
+      ctx.status(200),
+      ctx.json([
+        {
+          post_id: 1,
+          image: img3,
+          title: "여행제목",
+          tags: ["여행", "부산", "해운대"],
+        },
+        {
+          post_id: 2,
+          image: img7,
+          title: "제목",
+          tags: ["여수", "여행"],
+        },
+      ]),
+    );
+  }),
 
   //포스트 읽기
   //본인이 작성한 포스트인지 아닌지 구분 필요 -> 토큰 없으면 무조건 작성자 아님, 토큰 있으면 토큰으로 작성자인지 판단해서 isWriter 반환

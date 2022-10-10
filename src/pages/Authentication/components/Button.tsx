@@ -72,7 +72,7 @@ function Button({ type, title }: ButtonPropsType) {
       if (data.password === "") {
         setAuth({ data, alert: { ...alert, empty: true } });
       } else {
-        const res = instance.post("/login", {
+        const res = instance.post("msw/login", {
           email: data.email,
           password: data.password,
         });

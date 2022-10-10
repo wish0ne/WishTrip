@@ -8,8 +8,8 @@ export const homeProfile = atom<string>({
 export interface IHomeBannerData {
   image: string;
   username: string;
-  place: string;
-  profile: string;
+  location: string;
+  icon: string;
   comment: string;
 }
 
@@ -31,7 +31,7 @@ export const homeEvent = atom<IHomeEventData[]>({
 
 export interface RecommendContentData {
   image: string;
-  profile: string;
+  icon: string;
   username: string;
   location: string;
   title: string;
@@ -41,7 +41,7 @@ export interface RecommendContentData {
 export interface IHomeRecommendData {
   id: number;
   tag: string;
-  contents: RecommendContentData[];
+  posts: RecommendContentData[];
 }
 
 export const homeRecommend = atom<IHomeRecommendData[]>({

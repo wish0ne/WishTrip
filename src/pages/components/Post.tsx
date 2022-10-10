@@ -13,23 +13,27 @@ const StyledPost = styled.div<{ grow: boolean }>`
     border-radius: 0.8rem;
     object-fit: cover;
   }
-  > h2 {
+  > div {
     position: absolute;
-    font-family: "ExtraBold";
-    color: white;
-    font-size: 1.3rem;
-    left: 1.2rem;
-    right: 1.2rem;
-    bottom: 3rem;
-  }
-  > span {
-    position: absolute;
-    font-family: "Medium";
-    color: white;
-    font-size: 1.2rem;
     bottom: 1.2rem;
-    right: 1.2rem;
     left: 1.2rem;
+    right: 1.2rem;
+    > h2 {
+      font-family: "ExtraBold";
+      color: white;
+      font-size: 1.3rem;
+      margin-bottom: 0.4rem;
+    }
+    > span {
+      font-family: "Medium";
+      color: white;
+      font-size: 1.2rem;
+      white-space: nowrap;
+      display: block;
+      overflow: hidden;
+      line-height: 1.4rem;
+      text-overflow: ellipsis;
+    }
   }
 `;
 
@@ -38,8 +42,9 @@ interface PostPropsType {
   image: string;
   title: string;
   username?: string;
-  tag?: string[];
-  addRecent: () => void;
+  tags?: string[];
+  onClick: () => void;
+  grow: boolean;
 }
 
 function Post({
@@ -47,25 +52,27 @@ function Post({
   image,
   title,
   username,
-  tag,
-  addRecent,
+  tags,
+  onClick,
+  grow,
 }: PostPropsType) {
   const navigate = useNavigate();
 
   return (
     <StyledPost
       onClick={() => {
-        //최근 검색어 추가
-        addRecent();
+        onClick();
         //포스트로 이동
         navigate(`../Read/:${post_id}`);
       }}
-      grow={tag !== undefined}
+      grow={grow}
     >
       <img src={image} alt={`${title} 게시물 입니다`} />
-      <h2>{title}</h2>
-      {tag && <span>#{tag.join("#")}</span>}
-      {username && <span>{username}</span>}
+      <div>
+        <h2>{title}</h2>
+        {tags && <span>#{tags.join(" #")}</span>}
+        {username && <span>{username}</span>}
+      </div>
     </StyledPost>
   );
 }

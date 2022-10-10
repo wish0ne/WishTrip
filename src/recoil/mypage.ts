@@ -1,7 +1,7 @@
 import { atom } from "recoil";
 
 export interface IMypageUserType {
-  image: string | null;
+  icon: string;
   username: string;
   email: string;
 }
@@ -9,7 +9,7 @@ export interface IMypageUserType {
 interface IMypageContentsData {
   image: string;
   title: string;
-  username: string;
+  tags: string[];
   id: number;
 }
 
@@ -23,7 +23,7 @@ export interface IMypageContentsType {
 export const mypageUser = atom<IMypageUserType>({
   key: "mypage/mypageData/user",
   default: {
-    image: null,
+    icon: "",
     username: "",
     email: "",
   },

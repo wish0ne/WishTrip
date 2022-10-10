@@ -73,6 +73,24 @@ const Pagination = styled.div`
   }
 `;
 
+const StoryUser = styled(User)`
+  & img {
+    width: 4rem;
+    height: 4rem;
+    border-radius: 4rem;
+    margin-right: 1rem;
+  }
+  & h1 {
+    color: white;
+    text-shadow: 0 0.1rem 0.2rem rgba(0, 0, 0, 0.8);
+  }
+  & h2 {
+    color: white;
+    font-size: 1.3rem;
+    text-shadow: 0 0.1rem 0.2rem rgba(0, 0, 0, 0.8);
+  }
+`;
+
 function Story() {
   const [index, setIndex] = useState<number>(0);
   const banner = useRecoilValue(homeBanner);
@@ -88,10 +106,11 @@ function Story() {
             <Tag>{banner[index].comment}</Tag> 곳<br /> 어때요?
           </Title>
           <Bottom>
-            <User
-              icon={banner[index].profile}
-              name={banner[index].username}
-              location={banner[index].place}
+            <StoryUser
+              icon={banner[index].icon}
+              title={banner[index].username}
+              subtitle={"@" + banner[index].location}
+              className="user"
             />
           </Bottom>
           <Pagination>

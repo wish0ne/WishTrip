@@ -2,10 +2,10 @@ import styled from "styled-components";
 import { useEffect, useState } from "react";
 import Header from "./components/Header";
 import Title from "./components/Title";
-import Post from "./components/Post";
+import Post from "../components/Post";
 import Tag from "./components/Tag";
 import Recent from "./components/Recent";
-import User from "./components/User";
+import User from "../components/User";
 import Empty from "./components/Empty";
 import instance from "../../modules/api";
 import { useRecoilState } from "recoil";
@@ -28,7 +28,7 @@ const StyledTag = styled.div`
   border-bottom: 0.1rem solid ${(props) => props.theme.palette.inversed2};
 `;
 
-const StyledPost = styled.div`
+export const FixedPost = styled.div`
   display: flex;
   gap: 1.4rem;
   overflow-x: auto;
@@ -36,11 +36,21 @@ const StyledPost = styled.div`
   margin: 2rem 0;
 `;
 
-const SearchPost = styled.div`
+export const GrowPost = styled.div`
   display: flex;
   gap: 0.8rem;
   flex-wrap: wrap;
   justify-content: space-between;
+`;
+
+const NewUser = styled(User)`
+  margin-bottom: 2rem;
+  & h1 {
+    font-family: "Medium";
+  }
+  & h2 {
+    color: ${(props) => props.theme.palette.inversed3};
+  }
 `;
 
 function Search() {
@@ -164,7 +174,7 @@ function Search() {
         popularTag.map((item) => (
           <StyledTag key={item.id}>
             <Tag tag={item.tag} count={item.count}></Tag>
-            <StyledPost>
+            <FixedPost>
               {item.posts.map(({ post_id, image, title, username }) => (
                 <Post
                   key={post_id}
@@ -172,10 +182,11 @@ function Search() {
                   image={image}
                   username={username}
                   title={title}
-                  addRecent={addRecent}
+                  onClick={addRecent}
+                  grow={false}
                 ></Post>
               ))}
-            </StyledPost>
+            </FixedPost>
           </StyledTag>
         ))}
 
@@ -184,18 +195,19 @@ function Search() {
         (search_post.length === 0 ? (
           <Empty />
         ) : (
-          <SearchPost>
+          <GrowPost>
             {search_post.map(({ post_id, tag, image, title }) => (
               <Post
                 key={post_id}
                 post_id={post_id}
                 image={image}
                 title={title}
-                tag={tag}
-                addRecent={addRecent}
+                tags={tag}
+                onClick={addRecent}
+                grow
               ></Post>
             ))}
-          </SearchPost>
+          </GrowPost>
         ))}
 
       {query !== "" &&
@@ -206,7 +218,7 @@ function Search() {
           search_tag.map(({ id, tag, count, posts }) => (
             <StyledTag key={id}>
               <Tag tag={tag} count={count}></Tag>
-              <StyledPost>
+              <FixedPost>
                 {posts.map(({ post_id, image, title, username }) => (
                   <Post
                     key={post_id}
@@ -214,10 +226,11 @@ function Search() {
                     image={image}
                     title={title}
                     username={username}
-                    addRecent={addRecent}
+                    onClick={addRecent}
+                    grow={false}
                   ></Post>
                 ))}
-              </StyledPost>
+              </FixedPost>
             </StyledTag>
           ))
         ))}
@@ -228,18 +241,19 @@ function Search() {
         (search_location.length === 0 ? (
           <Empty />
         ) : (
-          <SearchPost>
+          <GrowPost>
             {search_location.map(({ post_id, tag, image, title }) => (
               <Post
                 key={post_id}
                 post_id={post_id}
                 image={image}
                 title={title}
-                tag={tag}
-                addRecent={addRecent}
+                tags={tag}
+                onClick={addRecent}
+                grow
               ></Post>
             ))}
-          </SearchPost>
+          </GrowPost>
         ))}
 
       {/* 유저 검색 결과 */}
@@ -249,13 +263,14 @@ function Search() {
           <Empty />
         ) : (
           search_user.map(({ id, username, count, icon }) => (
-            <User
+            <NewUser
+              className="user"
               key={id}
-              username={username}
-              count={count}
+              title={username}
+              subtitle={`게시물 ${count}`}
               icon={icon}
-              addRecent={addRecent}
-            ></User>
+              onClick={addRecent}
+            ></NewUser>
           ))
         ))}
     </StyledSearch>
