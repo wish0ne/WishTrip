@@ -90,6 +90,7 @@ function Mypage() {
         icon={user.icon}
         subtitle={user.email}
         title={user.username}
+        notMove
       />
       <Tab
         tabs={[

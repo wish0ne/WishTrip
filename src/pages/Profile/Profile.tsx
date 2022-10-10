@@ -81,7 +81,12 @@ function Profile() {
     <StyledProfile>
       <Header title="프로필"></Header>
       <Padding>
-        <ProfileUser className="user" icon={info.icon} title={info.username} />
+        <ProfileUser
+          className="user"
+          icon={info.icon}
+          title={info.username}
+          notMove
+        />
         <Tab
           tabs={[
             { title: "업로드한 글", id: "upload" },

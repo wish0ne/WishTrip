@@ -332,7 +332,7 @@ export const handlers = [
       ctx.status(200),
       ctx.json([
         {
-          id: 1,
+          id: 12,
           tag: "한적한",
           posts: [
             {
@@ -362,7 +362,7 @@ export const handlers = [
           ],
         },
         {
-          id: 2,
+          id: 10,
           tag: "화려한",
           posts: [
             {
@@ -371,7 +371,7 @@ export const handlers = [
               location: "프랑스 파리",
               username: "gamsungcross",
               icon: img1,
-              post_id: 1,
+              post_id: 4,
             },
             {
               image: img2,
@@ -379,7 +379,7 @@ export const handlers = [
               location: "제주 애월읍",
               username: "샛별",
               icon: img5,
-              post_id: 2,
+              post_id: 5,
             },
             {
               image: img7,
@@ -387,7 +387,7 @@ export const handlers = [
               location: "일본 오사카",
               username: "행복한족제비",
               icon: img7,
-              post_id: 3,
+              post_id: 6,
             },
           ],
         },
@@ -712,7 +712,7 @@ export const handlers = [
           },
           {
             id: 2,
-            username: "어피치",
+            username: "frodo",
             count: 312,
             icon: img5,
           },

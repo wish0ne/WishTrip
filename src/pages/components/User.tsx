@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
 export const StyledUser = styled(User)``;
@@ -37,11 +38,28 @@ export interface UserPropsType {
   title: string;
   subtitle?: string;
   onClick?: () => void;
+  notMove?: boolean;
 }
 
-function User({ className, icon, title, subtitle, onClick }: UserPropsType) {
+function User({
+  className,
+  icon,
+  title,
+  subtitle,
+  onClick,
+  notMove,
+}: UserPropsType) {
+  const navigate = useNavigate();
   return (
-    <Container onClick={onClick} className={className}>
+    <Container
+      onClick={() => {
+        if (onClick) onClick();
+        //유저 프로필로 이동
+        //마이페이지, 유저프로필에서는 이동하지 않음
+        if (!notMove) navigate(`../Profile/${title}`);
+      }}
+      className={className}
+    >
       <Icon src={icon} alt="유저 아이콘" />
       <Info>
         <h1>{title}</h1>
