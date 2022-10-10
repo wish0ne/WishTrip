@@ -108,7 +108,7 @@ function Read() {
               body={post.body}
               tags={post.tags}
             ></Content>
-            <CommentInput />
+            <CommentInput post_id={postId} />
             {comments.map(({ icon, username, body, date }) => (
               <Comment
                 icon={icon}

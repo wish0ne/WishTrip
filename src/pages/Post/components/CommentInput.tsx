@@ -1,5 +1,8 @@
+import { useState } from "react";
+import { useRecoilValue } from "recoil";
 import styled from "styled-components";
-import img9 from "../../../assets/images/여행사진9.jpg";
+import instance from "../../../modules/api";
+import { homeProfile } from "../../../recoil/home";
 
 const StyledInput = styled.div`
   display: flex;
@@ -24,12 +27,54 @@ const StyledInput = styled.div`
   }
 `;
 
-function CommentInput() {
-  return (
+const UserIcon = styled.img`
+  width: 2.4rem;
+  height: 2.4rem;
+  border-radius: 4rem;
+  margin-right: 1.2rem;
+`;
+
+function CommentInput({ post_id }: { post_id: string | undefined }) {
+  const profile = useRecoilValue(homeProfile);
+  const [input, setInput] = useState("");
+
+  const handleInput = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setInput(e.target.value);
+  };
+
+  //댓글 작성
+  const handleEnter = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.code === "Enter") {
+      //한글 중복 입력 문제 해결
+      if (e.nativeEvent.isComposing === false) {
+        if (post_id) {
+          instance
+            .post("/msw/post/comment/add", {
+              post_id: post_id,
+              comment: input,
+              date: new Date(),
+            })
+            .catch((err) => {
+              throw err;
+            });
+          setInput("");
+        }
+      }
+    }
+  };
+  return profile ? (
     <StyledInput>
-      <img src={img9} alt="유저 아이콘" />
-      <input placeholder="댓글 달기.." type="text" />
+      <UserIcon src={profile} alt="유저아이콘" />
+      <input
+        placeholder="댓글 달기.."
+        type="text"
+        onChange={handleInput}
+        onKeyDown={handleEnter}
+        value={input}
+      />
     </StyledInput>
+  ) : (
+    <></>
   );
 }
 
