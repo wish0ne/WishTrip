@@ -22,7 +22,7 @@ interface PostReadProps {
 }
 
 interface PostCommentProps {
-  id: number;
+  comment_id: number;
   icon: string;
   username: string;
   body: string;

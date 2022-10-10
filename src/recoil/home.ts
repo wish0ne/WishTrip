@@ -6,6 +6,7 @@ export const homeProfile = atom<string>({
 });
 
 export interface IHomeBannerData {
+  post_id: number;
   image: string;
   username: string;
   location: string;
@@ -35,7 +36,7 @@ export interface RecommendContentData {
   username: string;
   location: string;
   title: string;
-  id: number;
+  post_id: number;
 }
 
 export interface IHomeRecommendData {
