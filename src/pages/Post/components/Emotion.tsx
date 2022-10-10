@@ -5,65 +5,66 @@ import { ReactComponent as Heart } from "../../../assets/images/emoji_heart.svg"
 import { ReactComponent as Thumb } from "../../../assets/images/emoji_thumb.svg";
 import { ReactComponent as Laugh } from "../../../assets/images/emoji_laugh.svg";
 
-const posts = {
-  id: 0,
-  body: "오늘은 경희대학교에 방문했어요! 정문이 너무 예뻐서 한 컷 찍어서 올립니다 😊 \n\n 혹시 경희대학교에 방문하신다면 제 포스트를 찾아보세요~",
-  emotions: { shock: 312, heart: 12, laugh: 1, crying: 100, thumb: 100 },
-  tags: ["경희대학교", "학교투어"],
-};
-
-const StyledEmotion = styled.div`
-  padding: 2.4rem;
-`;
+const StyledEmotion = styled.div``;
 
 const EmotionContainer = styled.div`
   display: flex;
   gap: 0 1.2rem;
-  margin-top: 1.6rem;
   & div {
     display: flex;
     align-items: center;
     span {
-      font-family: "SemiBold";
+      font-family: "ExtraBold";
       font-size: 1.2rem;
+      line-height: 1.6rem;
       color: ${(props) => props.theme.palette.default2};
       margin-left: 0.4rem;
     }
   }
 `;
 
-function Emotion() {
+function Emotion({
+  emotions,
+}: {
+  emotions: {
+    shock: number;
+    heart: number;
+    laugh: number;
+    crying: number;
+    thumb: number;
+  };
+}) {
   return (
     <StyledEmotion>
       <EmotionContainer>
-        {posts.emotions.crying && (
+        {emotions.crying !== 0 && (
           <div>
-            <Crying />
-            <span>{posts.emotions.crying}</span>
+            <Crying width="2rem" height="2rem" />
+            <span>{emotions.crying}</span>
           </div>
         )}
-        {posts.emotions.shock && (
+        {emotions.shock !== 0 && (
           <div>
-            <Shock />
-            <span>{posts.emotions.shock}</span>
+            <Shock width="2rem" height="2rem" />
+            <span>{emotions.shock}</span>
           </div>
         )}
-        {posts.emotions.laugh && (
+        {emotions.laugh !== 0 && (
           <div>
-            <Laugh />
-            <span>{posts.emotions.laugh}</span>
+            <Laugh width="2rem" height="2rem" />
+            <span>{emotions.laugh}</span>
           </div>
         )}
-        {posts.emotions.thumb && (
+        {emotions.thumb !== 0 && (
           <div>
-            <Thumb />
-            <span>{posts.emotions.thumb}</span>
+            <Thumb width="2rem" height="2rem" />
+            <span>{emotions.thumb}</span>
           </div>
         )}
-        {posts.emotions.heart && (
+        {emotions.heart !== 0 && (
           <div>
-            <Heart />
-            <span>{posts.emotions.heart}</span>
+            <Heart width="2rem" height="2rem" />
+            <span>{emotions.heart}</span>
           </div>
         )}
       </EmotionContainer>

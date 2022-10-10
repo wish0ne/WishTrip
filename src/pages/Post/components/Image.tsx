@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import img5 from "../../../assets/images/여행사진5.jpg";
 
 const StyledImage = styled.div`
   width: 100%;
@@ -11,10 +10,10 @@ const StyledImage = styled.div`
   }
 `;
 
-function Image() {
+function Image({ image }: { image: string }) {
   return (
     <StyledImage>
-      <img src={img5} alt="post 이미지" />
+      <img src={image} alt="post 이미지" />
     </StyledImage>
   );
 }
