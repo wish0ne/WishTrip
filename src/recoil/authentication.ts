@@ -15,6 +15,7 @@ export interface IAuthTypes {
     sameName: boolean;
     empty: boolean;
     pwEqual: boolean;
+    noAgree: boolean;
   };
 }
 
@@ -34,6 +35,7 @@ export const authState = atom<IAuthTypes>({
       sameName: false,
       empty: false,
       pwEqual: true,
+      noAgree: false,
     },
   },
 });

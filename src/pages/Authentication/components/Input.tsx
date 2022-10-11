@@ -55,6 +55,7 @@ function Input({ title, type, id }: InputPropsType) {
         sameName: false,
         empty: false,
         pwEqual: true,
+        noAgree: false,
       },
     });
   };

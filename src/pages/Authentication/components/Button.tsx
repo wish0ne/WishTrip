@@ -27,7 +27,6 @@ const BottomButton = styled.button`
   border: none;
   color: white;
   font-size: 1.6rem;
-  font-weight: bold;
   display: block;
   font-family: "ExtraBold";
   width: 100%;
