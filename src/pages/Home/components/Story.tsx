@@ -104,7 +104,7 @@ function Story() {
         <>
           <Image src={banner[index].image} alt="홈화면 상단 이미지" />
           <Title>
-            <Tag>{banner[index].comment}</Tag> 곳<br /> 어때요?
+            <Tag>{banner[index].tag}</Tag> 곳<br /> 어때요?
           </Title>
           <Bottom>
             <StoryUser

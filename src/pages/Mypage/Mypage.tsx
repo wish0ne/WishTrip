@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { useState, useEffect } from "react";
 import Header from "../components/Header";
-import User from "../components/User";
+import User, { NoIcon, Info } from "../components/User";
 import Tab from "../components/Tab";
 import Post from "../components/Post";
 import instance from "../../modules/api";
@@ -9,6 +9,7 @@ import { useRecoilState } from "recoil";
 import { mypageUser, mypageContents } from "../../recoil/mypage";
 import { GrowPost } from "../Search/Search";
 import { ReactComponent as Bar } from "../../assets/images/uil_bars.svg";
+import { ReactComponent as Camera } from "../../assets/images/uil_camera-plus.svg";
 import Menu, { ModalMenu, ModalContent } from "../components/Menu";
 
 const StyledMypage = styled.div`
@@ -30,11 +31,15 @@ const NotLogin = styled.div`
 
 const MypageUser = styled(User)`
   margin-top: 2.4rem;
-  & img {
+  & > img {
     width: 7.2rem;
     height: 7.2rem;
   }
-  & h1 {
+  ${NoIcon} {
+    width: 7.2rem;
+    height: 7.2rem;
+  }
+  ${Info} h1 {
     color: ${(props) => props.theme.palette.default2};
     font-size: 1.6rem;
   }

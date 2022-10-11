@@ -104,7 +104,7 @@ export const handlers = [
     //로그인한 경우
     return res(
       ctx.json({
-        icon: img1,
+        icon: null,
         username: "부끄러운 프로도",
         email: "frodo@gmail.com",
       }),

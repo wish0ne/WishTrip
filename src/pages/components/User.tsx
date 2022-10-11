@@ -1,9 +1,10 @@
 import { useNavigate } from "react-router-dom";
+import { ReactComponent as Hand } from "../../assets/images/hand_fingers.svg";
 import styled from "styled-components";
 
 export const StyledUser = styled(User)``;
 
-const Container = styled.div`
+export const Container = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -12,18 +13,33 @@ const Container = styled.div`
   }
 `;
 
-const Icon = styled.img`
+export const Icon = styled.img`
   width: 3.6rem;
   height: 3.6rem;
   border-radius: 3.6rem;
   margin-right: 1.6rem;
 `;
-const Info = styled.div`
+
+export const NoIcon = styled.div`
+  width: 3.6rem;
+  height: 3.6rem;
+  border-radius: 3.6rem;
+  margin-right: 1.6rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: ${(props) => props.theme.palette.inversed1};
+  & > svg {
+    width: 50%;
+    height: 50%;
+  }
+`;
+
+export const Info = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
   gap: 0.4rem;
-
   & h1 {
     font-family: "ExtraBold";
     color: ${(props) => props.theme.palette.default1};
@@ -41,7 +57,7 @@ const Children = styled.div``;
 
 export interface UserPropsType {
   className: string;
-  icon: string;
+  icon: string | null;
   title: string;
   subtitle?: string;
   onClick?: () => void;
@@ -69,7 +85,13 @@ function User({
           if (!notMove) navigate(`../Profile/${title}`);
         }}
       >
-        <Icon src={icon} alt="유저 아이콘" />
+        {icon ? (
+          <Icon src={icon} alt="유저 아이콘" />
+        ) : (
+          <NoIcon>
+            <Hand />
+          </NoIcon>
+        )}
         <Info>
           <h1>{title}</h1>
           {subtitle && <h2>{subtitle}</h2>}

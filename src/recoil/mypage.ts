@@ -1,7 +1,7 @@
 import { atom } from "recoil";
 
 export interface IMypageUserType {
-  icon: string;
+  icon: string | null;
   username: string;
   email: string;
 }
