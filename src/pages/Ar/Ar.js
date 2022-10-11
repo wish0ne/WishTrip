@@ -6,8 +6,9 @@ import useScript from "../../modules/useScript.ts";
 import { ReactComponent as Back } from "../../assets/images/uil_arrow-left.svg";
 import { ReactComponent as Camera } from "../../assets/images/uil_camera-plus.svg";
 import Modal from "./components/Modal";
-import { arContents, arCreatePost } from "../../recoil/ar";
+import { arContents, arCreatePost, arId } from "../../recoil/ar";
 import instance from "../../modules/api";
+import { commentsState, postState } from "../../recoil/post";
 
 const ARContainer = styled.div`
   height: 100%;
@@ -59,8 +60,7 @@ function Ar() {
   const [arCreate, setARCreate] = useRecoilState(arCreatePost); //ar 포스트 작성에 필요한 정보
   const [contents, setContents] = useRecoilState(arContents); //ar 포스트
   const [coords, setCoords] = useState({ x: 0, y: 0, z: 0 }); //유저 위치 정보
-  const [arId, setARId] = useState(-1); //클릭한 AR 포스트 id
-
+  const [ar_id, setArId] = useRecoilState(arId); //ar 포스트 id
   const navigate = useNavigate();
   const nftStatus = useScript(
     "https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar-nft.js",
@@ -77,9 +77,10 @@ function Ar() {
   useEffect(() => {
     //get ar post
     instance
-      .post("/msw/arpost/get_around_posts", {
-        x_value: coords.x,
-        y_value: coords.y,
+      .get("/msw/arpost/get_around_posts", {
+        x: coords.x,
+        y: coords.y,
+        z: 0,
       })
       .then((res) => {
         setContents(res.data);
@@ -94,6 +95,16 @@ function Ar() {
     };
   }, [coords]);
 
+  //유저 좌표 -> 대표 좌표 변환
+  const hash = (coords) => {
+    console.log(coords);
+    return {
+      x: coords.latitude ? coords.latitude.toFixed(6) : 0,
+      y: coords.longitude ? coords.longitude.toFixed(6) : 0,
+      z: coords.altitude ? coords.altitude.toFixed(6) : 0,
+    };
+  };
+
   //위치 정보 받기 동기처리
   const getCoords = () => {
     return new Promise((resolve, reject) => {
@@ -105,12 +116,8 @@ function Ar() {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
         ({ coords }) => {
-          console.log(coords);
-          setCoords({
-            x: coords.latitude,
-            y: coords.longitude,
-            z: coords.altitude,
-          });
+          console.log(hash(coords));
+          setCoords(hash(coords));
         },
         (error) => {
           alert(error.message);
@@ -137,55 +144,85 @@ function Ar() {
       y_value: coords.y,
       z_value: coords.z,
     });
+    navigate("./Create");
   };
+
+  const [post, setPost] = useRecoilState(postState);
+  const [comments, setComments] = useRecoilState(commentsState);
+
+  useEffect(() => {
+    if (ar_id) {
+      //글 정보 받아오기
+      instance
+        .get(`msw/post/read/?id=${ar_id}`)
+        .then((res) => {
+          setPost(res.data);
+        })
+        .catch((err) => {
+          throw err;
+        });
+
+      //댓글 정보 받아오기
+      instance
+        .get(`msw/post/read/comments?id=${ar_id}`)
+        .then((res) => {
+          setComments(res.data);
+        })
+        .catch((err) => {
+          throw err;
+        });
+    }
+  }, [ar_id, setComments, setPost]);
 
   return (
     <>
-      {lookatStatus === "ready" && nftStatus === "ready" && coords.x !== null && (
-        <ARContainer>
-          <a-scene
-            debug
-            cursor="rayOrigin: mouse;"
-            raycaster="objects: .raycastable"
-            vr-mode-ui="enabled: false"
-            //embedded
-            arjs="sourceType: webcam; sourceWidth:1080; sourceHeight:764; displayWidth: 1080; displayHeight: 764; debugUIEnabled: false; videoTexture:true;"
-            //arjs="sourceType: webcam; debugUIEnabled: false; videoTexture:true;"
-            //renderer="antialias: true; alpha: true"
-          >
-            <a-assets>
+      {lookatStatus === "ready" &&
+        nftStatus === "ready" &&
+        contents.length > 0 && (
+          <ARContainer>
+            <a-scene
+              debug
+              cursor="rayOrigin: mouse;"
+              raycaster="objects: .raycastable"
+              vr-mode-ui="enabled: false"
+              //embedded
+              arjs="sourceType: webcam; sourceWidth:1080; sourceHeight:764; displayWidth: 1080; displayHeight: 764; debugUIEnabled: false; videoTexture:true;"
+              //arjs="sourceType: webcam; debugUIEnabled: false; videoTexture:true;"
+              //renderer="antialias: true; alpha: true"
+            >
+              <a-assets>
+                {contents.map((entity) => (
+                  <img
+                    id={entity.ar_post_id}
+                    src={entity.image}
+                    alt="ar contents"
+                    key={entity.ar_post_id}
+                  />
+                ))}
+              </a-assets>
+              <a-camera gps-camera="" rotation-reader=""></a-camera>
               {contents.map((entity) => (
-                <img
-                  id={entity.id}
-                  src={entity.image}
-                  alt="ar contents"
-                  key={entity.id}
-                />
+                <a-image
+                  gps-entity-place={`latitude: ${entity.x_value}; longitude: ${entity.y_value};`}
+                  class="raycastable"
+                  clickhandler={entity.ar_post_id}
+                  key={entity.ar_post_id}
+                  src={`#${entity.ar_post_id}`}
+                  look-at="[gps-camera]"
+                  position={`0 ${entity.z_value} 0`}
+                ></a-image>
               ))}
-            </a-assets>
-            <a-camera gps-camera="" rotation-reader=""></a-camera>
-            {contents.map((entity) => (
-              <a-image
-                gps-entity-place={`latitude: ${entity.x_value}; longitude: ${entity.y_value};`}
-                class="raycastable"
-                clickhandler={entity.id}
-                key={entity.id}
-                src={`#${entity.id}`}
-                look-at="[gps-camera]"
-                position={`0 ${entity.z_value} 0`}
-              ></a-image>
-            ))}
-          </a-scene>
-          <BackButton to="../Home">
-            <Back width="3.2rem" height="3.2rem" />
-          </BackButton>
-          <Add onClick={handleAddClick}>
-            <Camera />
-            <span>포스트 남기기</span>
-          </Add>
-          <Modal id={1} />
-        </ARContainer>
-      )}
+            </a-scene>
+            <BackButton to="../Home">
+              <Back width="3.2rem" height="3.2rem" />
+            </BackButton>
+            <Add onClick={handleAddClick}>
+              <Camera />
+              <span>포스트 남기기</span>
+            </Add>
+            {post && <Modal />}
+          </ARContainer>
+        )}
     </>
   );
 }

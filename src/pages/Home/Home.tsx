@@ -22,16 +22,22 @@ function Home() {
   const setEvent = useSetRecoilState(homeEvent);
   const [recommend, setRecommend] = useRecoilState(homeRecommend);
   useEffect(() => {
-    instance.post("/msw/home/profile").then(({ data }) => {
-      setProfile(data.profile);
-    });
-    instance.post("/msw/home/banner").then(({ data }) => {
+    instance
+      .get("/msw/home/profile")
+      .then(({ data }) => {
+        setProfile(data.icon);
+      })
+      .catch((err) => {
+        setProfile(null);
+        throw err;
+      });
+    instance.get("/msw/home/banner").then(({ data }) => {
       setBanner(data);
     });
-    instance.post("/msw/home/event").then(({ data }) => {
+    instance.get("/msw/home/event").then(({ data }) => {
       setEvent(data);
     });
-    instance.post("/msw/home/recommend").then(({ data }) => {
+    instance.get("/msw/home/recommend").then(({ data }) => {
       setRecommend(data);
     });
   }, [setProfile, setBanner, setEvent, setRecommend]);
@@ -41,8 +47,8 @@ function Home() {
       <Story />
       <Menu />
       <Event />
-      {recommend.map(({ tag, contents, id }) => (
-        <Recommend tag={tag} contents={contents} key={id} />
+      {recommend.map(({ tag, posts, id }) => (
+        <Recommend tag={tag} posts={posts} key={id} />
       ))}
     </StyledHome>
   );

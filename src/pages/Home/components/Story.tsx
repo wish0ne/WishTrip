@@ -4,6 +4,7 @@ import useInterval from "../../../modules/useInterval";
 import User from "../../components/User";
 import { useRecoilValue } from "recoil";
 import { homeBanner } from "../../../recoil/home";
+import { useNavigate } from "react-router-dom";
 
 const StyledStory = styled.div`
   height: 47.2rem;
@@ -73,25 +74,44 @@ const Pagination = styled.div`
   }
 `;
 
+const StoryUser = styled(User)`
+  & img {
+    width: 4rem;
+    height: 4rem;
+    border-radius: 4rem;
+    margin-right: 1rem;
+  }
+  & h1 {
+    color: white;
+    text-shadow: 0 0.1rem 0.2rem rgba(0, 0, 0, 0.8);
+  }
+  & h2 {
+    color: white;
+    font-size: 1.3rem;
+    text-shadow: 0 0.1rem 0.2rem rgba(0, 0, 0, 0.8);
+  }
+`;
+
 function Story() {
   const [index, setIndex] = useState<number>(0);
   const banner = useRecoilValue(homeBanner);
-
+  const navigate = useNavigate();
   useInterval(() => setIndex((index) => (index === 3 ? 0 : index + 1)), 5000);
 
   return (
-    <StyledStory>
+    <StyledStory onClick={() => navigate(`../Read/${banner[index].post_id}`)}>
       {banner.length > 0 && (
         <>
           <Image src={banner[index].image} alt="홈화면 상단 이미지" />
           <Title>
-            <Tag>{banner[index].comment}</Tag> 곳<br /> 어때요?
+            <Tag>{banner[index].tag}</Tag> 곳<br /> 어때요?
           </Title>
           <Bottom>
-            <User
-              icon={banner[index].profile}
-              name={banner[index].username}
-              location={banner[index].place}
+            <StoryUser
+              icon={banner[index].icon}
+              title={banner[index].username}
+              subtitle={"@" + banner[index].location}
+              className="user"
             />
           </Bottom>
           <Pagination>

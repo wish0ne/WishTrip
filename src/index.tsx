@@ -1,5 +1,4 @@
 import React from "react";
-import * as AFRAME from "aframe";
 import ReactDOM from "react-dom/client";
 import { RecoilRoot } from "recoil";
 import { BrowserRouter } from "react-router-dom";
@@ -17,19 +16,6 @@ const root = ReactDOM.createRoot(
 );
 
 const queryClient = new QueryClient(); //Create a client
-
-//AR click handler
-AFRAME.registerComponent("clickhandler", {
-  init: function () {
-    let data = this.data;
-    let el = this.el;
-    el.addEventListener("click", () => {
-      localStorage.setItem("arId", data);
-      const modal = document.querySelector(".modal");
-      modal.classList.add("half");
-    });
-  },
-});
 
 root.render(
   // <React.StrictMode>

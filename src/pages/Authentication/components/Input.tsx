@@ -36,12 +36,12 @@ const StyledInput = styled.div`
 `;
 
 interface InputPropsType {
-  title: string;
+  children: React.ReactNode;
   type: string;
   id: string;
 }
 
-function Input({ title, type, id }: InputPropsType) {
+function Input({ children, type, id }: InputPropsType) {
   const [auth, setAuth] = useRecoilState(authState);
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setAuth({
@@ -49,12 +49,14 @@ function Input({ title, type, id }: InputPropsType) {
         ...auth.data,
         [e.target.id]: e.target.value,
       },
+      agree: false,
       alert: {
         pwWrong: false,
         isMember: true,
         sameName: false,
         empty: false,
         pwEqual: true,
+        noAgree: false,
       },
     });
   };
@@ -67,7 +69,7 @@ function Input({ title, type, id }: InputPropsType) {
           id={id}
           value={auth.data[id]}
         />
-        <label htmlFor={id}>{title}</label>
+        <label htmlFor={id}>{children}</label>
       </StyledInput>
     </>
   );

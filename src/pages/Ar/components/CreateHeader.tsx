@@ -45,11 +45,11 @@ function CreateHeader() {
         //ar create http request
         const formData = new FormData();
         formData.append("files", img);
-        formData.append("arpost_contents", arCreate.arpost_contents);
+        formData.append("arpost_contents", arCreate.body);
         formData.append("tags", arCreate.tags.toString());
-        formData.append("x_value", arCreate.x_value.toString());
-        formData.append("y_value", arCreate.y_value.toString());
-        formData.append("z_value", arCreate.z_value.toString());
+        formData.append("x_value", arCreate.x.toString());
+        formData.append("y_value", arCreate.y.toString());
+        formData.append("z_value", arCreate.z.toString());
 
         instance.post("/msw/arpost/create", formData);
       })

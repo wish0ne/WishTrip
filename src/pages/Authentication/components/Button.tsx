@@ -27,7 +27,6 @@ const BottomButton = styled.button`
   border: none;
   color: white;
   font-size: 1.6rem;
-  font-weight: bold;
   display: block;
   font-family: "ExtraBold";
   width: 100%;
@@ -41,14 +40,15 @@ interface ButtonPropsType {
 
 function Button({ type, title }: ButtonPropsType) {
   const navigate = useNavigate();
-  const [{ data, alert }, setAuth] = useRecoilState<IAuthTypes>(authState);
+  const [{ data, alert, agree }, setAuth] =
+    useRecoilState<IAuthTypes>(authState);
   const resetAuth = useResetRecoilState(authState);
 
   const handleClick = () => {
     //이메일로 시작하기
     if (type === "email") {
       if (data.email === "") {
-        setAuth({ data, alert: { ...alert, empty: true } });
+        setAuth({ data, agree, alert: { ...alert, empty: true } });
       } else if (!alert.isMember) {
         resetAuth();
         navigate("../Register");
@@ -63,14 +63,14 @@ function Button({ type, title }: ButtonPropsType) {
           })
           .catch(() => {
             //비회원이면 이메일로 가입하기로 유도
-            setAuth({ data, alert: { ...alert, isMember: false } });
+            setAuth({ data, agree, alert: { ...alert, isMember: false } });
           });
       }
     }
     //비밀번호 입력
     else if (type === "password") {
       if (data.password === "") {
-        setAuth({ data, alert: { ...alert, empty: true } });
+        setAuth({ data, agree, alert: { ...alert, empty: true } });
       } else {
         const res = instance.post("msw/login", {
           email: data.email,
@@ -86,7 +86,7 @@ function Button({ type, title }: ButtonPropsType) {
           .catch(
             //실패 : 비밀번호 오류 알람 추가
             () => {
-              setAuth({ data, alert: { ...alert, pwWrong: true } });
+              setAuth({ data, agree, alert: { ...alert, pwWrong: true } });
             },
           );
       }
@@ -99,9 +99,11 @@ function Button({ type, title }: ButtonPropsType) {
         data.password === "" ||
         data.password_check === ""
       ) {
-        setAuth({ data, alert: { ...alert, empty: true } });
+        setAuth({ data, agree, alert: { ...alert, empty: true } });
       } else if (data.password !== data.password_check) {
-        setAuth({ data, alert: { ...alert, pwEqual: false } });
+        setAuth({ data, agree, alert: { ...alert, pwEqual: false } });
+      } else if (!agree) {
+        setAuth({ data, agree, alert: { ...alert, noAgree: true } });
       } else {
         const res = instance.post("msw/register", {
           username: data.username,
@@ -112,12 +114,13 @@ function Button({ type, title }: ButtonPropsType) {
         res
           .then((r) => {
             //회원가입 성공 : 로그인 화면으로 이동
+            resetAuth();
             navigate("../Email");
           })
           .catch(
             //실패 : 닉네임 중복
             () => {
-              setAuth({ data, alert: { ...alert, sameName: true } });
+              setAuth({ data, agree, alert: { ...alert, sameName: true } });
             },
           );
       }

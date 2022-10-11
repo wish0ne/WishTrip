@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { Link } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 import { ReactComponent as Logo } from "../../../assets/images/Logo.svg";
 import { ReactComponent as Bell } from "../../../assets/images/uil_bell.svg";
 import { useRecoilValue } from "recoil";
@@ -34,12 +34,13 @@ const StyledDiv = styled.div`
 
 function Header() {
   const profile = useRecoilValue(homeProfile);
+  const navigate = useNavigate();
   return (
     <StyledHeader>
       <Logo width="7.2rem" height="2rem" />
       <StyledDiv>
         <Bell />
-        <UserIcon to="/WishTrip/Mypage">
+        <UserIcon to="../Mypage" onClick={() => navigate("../Mypage")}>
           {profile && <img src={profile} alt="유저아이콘" />}
         </UserIcon>
       </StyledDiv>

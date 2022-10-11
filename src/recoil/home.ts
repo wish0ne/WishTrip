@@ -1,16 +1,19 @@
 import { atom } from "recoil";
 
-export const homeProfile = atom<string>({
+//유저 프로필(아이콘 이미지)
+export const homeProfile = atom<string | null>({
   key: "home/profile",
-  default: "",
+  default: null,
 });
 
+//스토리 정보
 export interface IHomeBannerData {
+  post_id: number;
   image: string;
   username: string;
-  place: string;
-  profile: string;
-  comment: string;
+  location: string;
+  icon: string;
+  tag: string;
 }
 
 export const homeBanner = atom<IHomeBannerData[]>({
@@ -18,6 +21,7 @@ export const homeBanner = atom<IHomeBannerData[]>({
   default: [],
 });
 
+//이벤트 정보
 export interface IHomeEventData {
   location: string;
   type: string;
@@ -29,19 +33,20 @@ export const homeEvent = atom<IHomeEventData[]>({
   default: [],
 });
 
+//추천 포스트
 export interface RecommendContentData {
   image: string;
-  profile: string;
+  icon: string;
   username: string;
   location: string;
   title: string;
-  id: number;
+  post_id: number;
 }
 
 export interface IHomeRecommendData {
   id: number;
   tag: string;
-  contents: RecommendContentData[];
+  posts: RecommendContentData[];
 }
 
 export const homeRecommend = atom<IHomeRecommendData[]>({
