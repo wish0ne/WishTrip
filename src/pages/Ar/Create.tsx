@@ -10,6 +10,7 @@ import Header from "../components/Header";
 import { arContentTag, arCreatePost } from "../../recoil/ar";
 import instance from "../../modules/api";
 import { useNavigate } from "react-router-dom";
+import { ReactComponent as Submit } from "../../assets/images/uil_message.svg";
 
 const StyledCreate = styled.div``;
 
@@ -73,7 +74,9 @@ function ARCreate() {
   };
   return (
     <StyledCreate>
-      <Header title="새 포스트" submit handleSubmit={handleSubmit}></Header>
+      <Header title="새 포스트">
+        <Submit onClick={handleSubmit} width="2rem" height="2rem" />
+      </Header>
       <ImagePicker />
       <WriteTag />
       {hashTags.map((tag) => (

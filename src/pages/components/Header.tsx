@@ -1,7 +1,6 @@
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import { ReactComponent as Arrow } from "../../assets/images/uil_arrow-left.svg";
-import { ReactComponent as Submit } from "../../assets/images/uil_message.svg";
 
 const StyledHeader = styled.div`
   height: 5.6rem;
@@ -27,11 +26,6 @@ const StyledArrow = styled(Arrow)`
   left: 0;
 `;
 
-const StyledSubmit = styled(Submit)`
-  position: absolute;
-  right: 0;
-`;
-
 const Children = styled.div`
   position: absolute;
   right: 0;
@@ -39,12 +33,10 @@ const Children = styled.div`
 
 interface HeaderPropsType {
   title: string;
-  submit?: boolean;
-  handleSubmit?: () => void;
   children?: React.ReactNode;
 }
 
-function Header({ title, submit, handleSubmit, children }: HeaderPropsType) {
+function Header({ title, children }: HeaderPropsType) {
   const navigate = useNavigate();
   return (
     <StyledHeader>
@@ -56,11 +48,8 @@ function Header({ title, submit, handleSubmit, children }: HeaderPropsType) {
           onClick={() => navigate(-1)}
         />
         <h1>{title}</h1>
-        {submit && (
-          <StyledSubmit onClick={handleSubmit} width="2rem" height="2rem" />
-        )}
+        <Children>{children}</Children>
       </div>
-      <Children>{children}</Children>
     </StyledHeader>
   );
 }

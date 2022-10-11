@@ -11,7 +11,8 @@ import { useParams } from "react-router-dom";
 import CommentInput from "./components/CommentInput";
 import { useRecoilState } from "recoil";
 import { commentsState, postState } from "../../recoil/post";
-import { ReactComponent as Menu } from "../../assets/images/uil_ellipsis.svg";
+import { ReactComponent as MenuIcon } from "../../assets/images/uil_ellipsis.svg";
+import Menu from "../components/Menu";
 
 const StyledRead = styled.div``;
 
@@ -75,7 +76,7 @@ function Read() {
             subtitle="1년 전"
             className="user"
           >
-            <Menu
+            <MenuIcon
               width="2rem"
               height="2rem"
               fill="rgb(205 205 205)"
@@ -107,6 +108,7 @@ function Read() {
           </Padding>
         </>
       )}
+      {isOpenMenu && <Menu />}
     </StyledRead>
   );
 }
