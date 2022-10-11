@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
 
 const StyledMenu = styled.div`
@@ -57,6 +57,14 @@ export function ModalContent({ children }: { children: React.ReactNode }) {
 }
 
 function Menu({ children }: { children: React.ReactNode }) {
+  //Modal 스크롤 금지
+  useEffect(() => {
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.body.style.overflow = "unset";
+    };
+  }, []);
+
   return (
     <StyledMenu>
       <div>{children}</div>
