@@ -10,7 +10,7 @@ interface IMypageContentsData {
   image: string;
   title: string;
   tags: string[];
-  id: number;
+  post_id: number;
 }
 
 export interface IMypageContentsType {
