@@ -32,13 +32,19 @@ const StyledSubmit = styled(Submit)`
   right: 0;
 `;
 
+const Children = styled.div`
+  position: absolute;
+  right: 0;
+`;
+
 interface HeaderPropsType {
   title: string;
   submit?: boolean;
   handleSubmit?: () => void;
+  children?: React.ReactNode;
 }
 
-function Header({ title, submit, handleSubmit }: HeaderPropsType) {
+function Header({ title, submit, handleSubmit, children }: HeaderPropsType) {
   const navigate = useNavigate();
   return (
     <StyledHeader>
@@ -54,6 +60,7 @@ function Header({ title, submit, handleSubmit }: HeaderPropsType) {
           <StyledSubmit onClick={handleSubmit} width="2rem" height="2rem" />
         )}
       </div>
+      <Children>{children}</Children>
     </StyledHeader>
   );
 }

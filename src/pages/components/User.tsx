@@ -5,6 +5,11 @@ export const StyledUser = styled(User)``;
 
 const Container = styled.div`
   display: flex;
+  justify-content: space-between;
+  align-items: center;
+  > div {
+    display: flex;
+  }
 `;
 
 const Icon = styled.img`
@@ -32,6 +37,8 @@ const Info = styled.div`
   }
 `;
 
+const Children = styled.div``;
+
 export interface UserPropsType {
   className: string;
   icon: string;
@@ -39,6 +46,7 @@ export interface UserPropsType {
   subtitle?: string;
   onClick?: () => void;
   notMove?: boolean;
+  children?: React.ReactNode;
 }
 
 function User({
@@ -48,6 +56,7 @@ function User({
   subtitle,
   onClick,
   notMove,
+  children,
 }: UserPropsType) {
   const navigate = useNavigate();
   return (
@@ -60,11 +69,14 @@ function User({
       }}
       className={className}
     >
-      <Icon src={icon} alt="유저 아이콘" />
-      <Info>
-        <h1>{title}</h1>
-        {subtitle && <h2>{subtitle}</h2>}
-      </Info>
+      <div>
+        <Icon src={icon} alt="유저 아이콘" />
+        <Info>
+          <h1>{title}</h1>
+          {subtitle && <h2>{subtitle}</h2>}
+        </Info>
+      </div>
+      <Children>{children}</Children>
     </Container>
   );
 }

@@ -7,11 +7,11 @@ import Image from "./components/Image";
 import Emotion from "./components/Emotion";
 import Content from "./components/Content";
 import Comment from "./components/Comment";
-import img1 from "../../assets/images/여행사진1.jpg";
 import { useParams } from "react-router-dom";
 import CommentInput from "./components/CommentInput";
 import { useRecoilState } from "recoil";
 import { commentsState, postState } from "../../recoil/post";
+import { ReactComponent as Menu } from "../../assets/images/uil_ellipsis.svg";
 
 const StyledRead = styled.div``;
 
@@ -34,6 +34,7 @@ const Padding = styled.div`
 `;
 
 function Read() {
+  const [isOpenMenu, setIsOpenMenu] = useState(false);
   const [post, setPost] = useRecoilState(postState);
   const [comments, setComments] = useRecoilState(commentsState);
   const { postId } = useParams();
@@ -58,17 +59,29 @@ function Read() {
         throw err;
       });
   }, []);
+
+  const openMenu = () => {
+    setIsOpenMenu(true);
+  };
+
   return (
     <StyledRead>
       {post && (
         <>
-          <Header title="화려한 곳 어때요?"></Header>
+          <Header title="화려한 곳 어때요?" />
           <ReadUser
             icon={post.icon}
             title="부끄러운 프로도"
             subtitle="1년 전"
             className="user"
-          />
+          >
+            <Menu
+              width="2rem"
+              height="2rem"
+              fill="rgb(205 205 205)"
+              onClick={openMenu}
+            />
+          </ReadUser>
           <Image image={post.image}></Image>
           <Padding>
             <Emotion
