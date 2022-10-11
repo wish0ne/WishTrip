@@ -1,23 +1,29 @@
 import { atom } from "recoil";
 
 interface IARCreatePostType {
-  files: File | null;
-  arpost_contents: string;
-  x_value: number;
-  y_value: number;
-  z_value: number;
+  file: File | null; //AR 이미지
+  image: File | null; //원본 이미지
+  body: string;
+  title: string; //제목
+  x: number;
+  y: number;
+  z: number;
   tags: string[];
+  date: Date | null;
 }
 
 export const arCreatePost = atom<IARCreatePostType>({
   key: "ar/arCreatePost",
   default: {
-    files: null,
-    arpost_contents: "",
-    x_value: 0,
-    y_value: 0,
-    z_value: 0,
+    file: null,
+    image: null,
+    body: "",
+    title: "",
+    x: 0,
+    y: 0,
+    z: 0,
     tags: [],
+    date: null,
   },
 });
 
