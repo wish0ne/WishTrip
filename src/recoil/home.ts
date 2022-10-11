@@ -1,9 +1,9 @@
 import { atom } from "recoil";
 
 //유저 프로필(아이콘 이미지)
-export const homeProfile = atom<string>({
+export const homeProfile = atom<string | null>({
   key: "home/profile",
-  default: "",
+  default: null,
 });
 
 //스토리 정보

@@ -22,9 +22,15 @@ function Home() {
   const setEvent = useSetRecoilState(homeEvent);
   const [recommend, setRecommend] = useRecoilState(homeRecommend);
   useEffect(() => {
-    instance.get("/msw/home/profile").then(({ data }) => {
-      setProfile(data.icon);
-    });
+    instance
+      .get("/msw/home/profile")
+      .then(({ data }) => {
+        setProfile(data.icon);
+      })
+      .catch((err) => {
+        setProfile(null);
+        throw err;
+      });
     instance.get("/msw/home/banner").then(({ data }) => {
       setBanner(data);
     });

@@ -20,8 +20,10 @@ function Password() {
   const { alert } = useRecoilValue(authState);
   return (
     <StyledContainer>
-      <Header type="password" />
-      <Input title="비밀번호" type="password" id="password" />
+      <Header>비밀번호를 입력해주세요.</Header>
+      <Input type="password" id="password">
+        비밀번호
+      </Input>
       {alert.pwWrong && <Alert>올바르지 않은 비밀번호입니다.</Alert>}
       {alert.empty && <Alert>항목을 모두 입력해주세요.</Alert>}
 
