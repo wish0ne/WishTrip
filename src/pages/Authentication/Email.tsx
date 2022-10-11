@@ -20,7 +20,7 @@ function Email() {
   const { alert } = useRecoilValue(authState);
   return (
     <StyledContainer>
-      <Header type="email" />
+      <Header>이메일로 시작하기</Header>
       <Input title="이메일" type="email" id="email" />
       {!alert.isMember && <Alert>등록되지 않은 이메일입니다.</Alert>}
       {alert.empty && <Alert>항목을 모두 입력해주세요.</Alert>}

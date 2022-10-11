@@ -25,7 +25,7 @@ function Register() {
   const [marketingAgreement, setMarketingAgreement] = useState(false);
   return (
     <StyledContainer>
-      <Header type="register" />
+      <Header>이메일로 가입하기</Header>
       <Input title="비밀번호" type="password" id="password" />
       <Input title="비밀번호 확인" type="password" id="password_check" />
       <Input title="이름" type="text" id="name" />
