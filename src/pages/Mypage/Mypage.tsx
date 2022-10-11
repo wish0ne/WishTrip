@@ -8,6 +8,8 @@ import instance from "../../modules/api";
 import { useRecoilState } from "recoil";
 import { mypageUser, mypageContents } from "../../recoil/mypage";
 import { GrowPost } from "../Search/Search";
+import { ReactComponent as Bar } from "../../assets/images/uil_bars.svg";
+import Menu, { ModalMenu, ModalContent } from "../components/Menu";
 
 const StyledMypage = styled.div`
   padding: 0 2.4rem;
@@ -42,6 +44,7 @@ function Mypage() {
   const [user, setUser] = useRecoilState(mypageUser);
   const [contents, setContents] = useRecoilState(mypageContents);
   const [tab, setTab] = useState("scrap"); //scrap, recent, comment
+  const [isOpenMenu, setIsOpenMenu] = useState(false);
   useEffect(() => {
     //유저 정보 받아오기
     instance
@@ -82,9 +85,15 @@ function Mypage() {
       });
     }
   };
+  const openMenu = () => {
+    setIsOpenMenu(true);
+  };
+
   return (
     <StyledMypage>
-      <Header title="마이페이지"></Header>
+      <Header title="마이페이지">
+        <Bar width="2.4rem" height="2.4rem" onClick={openMenu} />
+      </Header>
       <MypageUser
         className="user"
         icon={user.icon}
@@ -116,6 +125,30 @@ function Mypage() {
         </GrowPost>
       ) : (
         <NotLogin>{`지금 가입하고 친구들의 여행을\n둘러보세요.`}</NotLogin>
+      )}
+      {isOpenMenu && (
+        <Menu>
+          {[
+            [
+              {
+                menu: "로그아웃",
+                handleClick: () => {},
+              },
+              {
+                menu: "취소",
+                handleClick: () => {
+                  setIsOpenMenu(false);
+                },
+              },
+            ],
+          ].map((menu) => (
+            <ModalContent>
+              {menu.map((tab) => (
+                <ModalMenu onClick={tab.handleClick}>{tab.menu}</ModalMenu>
+              ))}
+            </ModalContent>
+          ))}
+        </Menu>
       )}
     </StyledMypage>
   );

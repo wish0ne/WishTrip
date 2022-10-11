@@ -7,6 +7,20 @@ const StyledWriteContent = styled.div`
   border-bottom: solid 0.1rem;
   border-color: ${(props) => props.theme.palette.inversed2};
   padding: 2rem 2.4rem;
+  & input {
+    border: none;
+    width: 100%;
+    height: 1.8rem;
+    box-sizing: border-box;
+    padding: 0;
+    margin-bottom: 2rem;
+    font-family: "Medium";
+    font-size: 1.6rem;
+    color: ${(props) => props.theme.palette.default2};
+  }
+  & input::placeholder {
+    color: ${(props) => props.theme.palette.default2};
+  }
   & textarea {
     border: none;
     width: 100%;
@@ -15,7 +29,7 @@ const StyledWriteContent = styled.div`
     padding: 0;
     font-family: "Medium";
     font-size: 1.4rem;
-    color: ${(props) => props.theme.palette.default2};
+    color: ${(props) => props.theme.palette.default1};
     overflow-y: hidden;
     resize: none;
   }
@@ -39,16 +53,26 @@ function WriteContent() {
       textareaRef.current.style.height = `${height * 0.1}rem`;
     }
     //내용 입력
-    setARCreate({ ...arCreate, arpost_contents: e.target.value });
+    setARCreate({ ...arCreate, body: e.target.value });
+  };
+
+  const handleTitle = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setARCreate({ ...arCreate, title: e.target.value });
   };
 
   return (
     <StyledWriteContent>
+      <input
+        type="text"
+        placeholder="제목 입력..."
+        maxLength={100}
+        onChange={handleTitle}
+      />
       <textarea
         placeholder="내용 입력..."
         onChange={handleInput}
         ref={textareaRef}
-        value={arCreate.arpost_contents}
+        value={arCreate.body}
       />
     </StyledWriteContent>
   );

@@ -10,6 +10,7 @@ import Header from "../components/Header";
 import { arContentTag, arCreatePost } from "../../recoil/ar";
 import instance from "../../modules/api";
 import { useNavigate } from "react-router-dom";
+import { ReactComponent as Submit } from "../../assets/images/uil_message.svg";
 
 const StyledCreate = styled.div``;
 
@@ -41,25 +42,41 @@ function ARCreate() {
 
         //ar create http request
         const formData = new FormData();
-        formData.append("files", img);
-        formData.append("arpost_contents", arCreate.arpost_contents);
+        formData.append("file", img);
+        formData.append("image", arCreate.file || "");
+        formData.append("body", arCreate.body);
+        formData.append("title", arCreate.title);
         formData.append("tags", arCreate.tags.toString());
-        formData.append("x_value", arCreate.x_value.toString());
-        formData.append("y_value", arCreate.y_value.toString());
-        formData.append("z_value", arCreate.z_value.toString());
+        formData.append("x", arCreate.x.toString());
+        formData.append("y", arCreate.y.toString());
+        formData.append("z", arCreate.z.toString());
+        formData.append("date", new Date().toString());
 
-        instance.post("/msw/arpost/create", formData);
+        return formData;
       })
-      .finally(() => {
-        //작성 state 초기화
-        resetARCreat();
-        resetContentTag();
-        navigate(-1);
+      //request
+      .then((formData) => {
+        instance
+          .post("/msw/arpost/create", formData)
+          .then((res) => {
+            //작성 state 초기화
+            resetARCreat();
+            resetContentTag();
+            navigate(-1);
+          })
+          .catch((err) => {
+            throw err;
+          });
+      })
+      .catch((err) => {
+        throw err;
       });
   };
   return (
     <StyledCreate>
-      <Header title="새 포스트" submit handleSubmit={handleSubmit}></Header>
+      <Header title="새 포스트">
+        <Submit onClick={handleSubmit} width="2rem" height="2rem" />
+      </Header>
       <ImagePicker />
       <WriteTag />
       {hashTags.map((tag) => (

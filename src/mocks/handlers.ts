@@ -403,7 +403,7 @@ export const handlers = [
     title: string; //제목
     body: string; //내용
     location: string; //장소
-    tag: string[]; //태그
+    tags: string[]; //태그
     x: number; //위도
     y: number; //경도
     z: number; //고도
@@ -413,36 +413,36 @@ export const handlers = [
     const token = req.headers.get("authorization")?.split(" ")[1];
     if (token === "null") return res(ctx.status(401));
 
-    return res(ctx.status(200), ctx.json({ msg: "ARpost create success" }));
+    const { file, image, title, body, location, tags, x, y, z, date } =
+      req.body;
+    //데이터 확인
+    if (file && image && title && body && tags && x && y && z && date) {
+      return res(ctx.status(200), ctx.json({ msg: "ARpost create success" }));
+    } else return res(ctx.status(400), ctx.json({ msg: "ARpost create fail" }));
   }),
 
   //2. 태그 자동완성
-  rest.get<{ tag: string }>(
-    "http://3.36.71.48/msw/hashtag",
-    (req, res, ctx) => {
-      //토근 확인
-      const token = req.headers.get("authorization")?.split(" ")[1];
-      if (token === "null") return res(ctx.status(401));
+  rest.get("http://3.36.71.48/msw/hashtag", (req, res, ctx) => {
+    //토근 확인
+    const token = req.headers.get("authorization")?.split(" ")[1];
+    if (token === "null") return res(ctx.status(401));
 
-      const { tag } = req.body;
-      //일치 태그 존재
-      if (tag === "여")
-        return res(
-          ctx.status(200),
-          ctx.json({ fit: ["여행", "여수", "여치", "여수밤바다"] }),
-        );
-      if (tag === "부")
-        return res(
-          ctx.status(200),
-          ctx.json({
-            fit: ["부산", "부산앞바다", "부리부리", "부산에서제일맛있는집"],
-          }),
-        );
+    const tag = req.url.searchParams.get("tag");
+    //일치 태그 존재
+    if (tag === "여")
+      return res(
+        ctx.status(200),
+        ctx.json(["여행", "여수", "여치", "여수밤바다"]),
+      );
+    if (tag === "부")
+      return res(
+        ctx.status(200),
+        ctx.json(["부산", "부산앞바다", "부리부리", "부산에서제일맛있는집"]),
+      );
 
-      //일치하는 태그 없음
-      return res(ctx.status(200), ctx.json([]));
-    },
-  ),
+    //일치하는 태그 없음
+    return res(ctx.status(200), ctx.json([]));
+  }),
 
   //주변 AR 포스트 읽기
   //1. 주변 AR 포스트 읽기 -> 유저 좌표를 계산해서 변환한 대표좌표로 요청

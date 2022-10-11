@@ -69,7 +69,7 @@ const ARContent = styled.figure`
         box-shadow: 0 0.4rem 0.8rem rgba(0, 146, 252, 0.25),
           0.2rem 0.4rem 0.8rem rgba(33, 255, 202, 0.4) inset;
         border-radius: 1.2rem;
-        max-width: 9rem;
+        max-width: 10rem;
         font-family: "SemiBold";
         font-size: 1.1rem;
         color: white;
@@ -82,16 +82,16 @@ function ImagePicker() {
   const [arCreate, setARCreate] = useRecoilState(arCreatePost);
   const contentTag = useRecoilValue(arContentTag);
   const handleImage = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files) setARCreate({ ...arCreate, files: e.target.files[0] });
+    if (e.target.files) setARCreate({ ...arCreate, file: e.target.files[0] });
   };
 
   return (
     <StyledPicker>
       <AddImage>
-        {arCreate.files ? (
+        {arCreate.file ? (
           <ARContent id="arNewPost">
             <div>
-              <img src={URL.createObjectURL(arCreate.files)} alt="AR post" />
+              <img src={URL.createObjectURL(arCreate.file)} alt="AR post" />
               <div>
                 {contentTag.map(
                   (tag, idx) =>
