@@ -1,12 +1,10 @@
 import styled from "styled-components";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import Header from "../components/Header";
 import User, { NoIcon, Info, Icon } from "../components/User";
 import Tab from "../components/Tab";
 import Post from "../components/Post";
 import instance from "../../modules/api";
-import { useRecoilState } from "recoil";
-import { mypageUser, mypageContents } from "../../recoil/mypage";
 import { GrowPost } from "../Search/Search";
 import { ReactComponent as Bar } from "../../assets/images/uil_bars.svg";
 import { ReactComponent as Camera } from "../../assets/images/uil_camera.svg";
@@ -73,9 +71,39 @@ const IconInput = styled.input`
   z-index: 10;
 `;
 
+export interface IMypageUserType {
+  icon: string | null;
+  username: string;
+  email: string;
+}
+
+interface IMypageContentsData {
+  image: string;
+  title: string;
+  tags: string[];
+  post_id: number;
+}
+
+export interface IMypageContentsType {
+  [index: string]: IMypageContentsData[];
+  scrap: IMypageContentsData[];
+  recent: IMypageContentsData[];
+  comment: IMypageContentsData[];
+  upload: IMypageContentsData[];
+}
+
 function Mypage() {
-  const [user, setUser] = useRecoilState(mypageUser);
-  const [contents, setContents] = useRecoilState(mypageContents);
+  const [user, setUser] = useState<IMypageUserType>({
+    icon: "",
+    username: "",
+    email: "",
+  });
+  const [contents, setContents] = useState<IMypageContentsType>({
+    scrap: [],
+    recent: [],
+    comment: [],
+    upload: [],
+  });
   const [tab, setTab] = useState("scrap"); //scrap, recent, comment
   const [isOpenMenu, setIsOpenMenu] = useState(false);
   const navigate = useNavigate();
@@ -138,6 +166,12 @@ function Mypage() {
     }
   };
 
+  //로그아웃
+  const logOut = useCallback(() => {
+    localStorage.removeItem("accessToken");
+    navigate("/Home");
+  }, []);
+
   return (
     <StyledMypage>
       <Header title="마이페이지">
@@ -199,7 +233,9 @@ function Mypage() {
             [
               {
                 menu: "로그아웃",
-                handleClick: () => {},
+                handleClick: () => {
+                  logOut();
+                },
               },
               {
                 menu: "취소",
