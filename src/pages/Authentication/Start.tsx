@@ -1,17 +1,16 @@
 import styled from "styled-components";
-import img1 from "../../assets/images/여행사진5.jpg";
-import img5 from "../../assets/images/여행사진8.jpg";
 import { ReactComponent as Logo } from "../../assets/images/Logo.svg";
 import { Link } from "react-router-dom";
 import User from "../components/User";
+import { useEffect, useState } from "react";
+import instance from "../../modules/api";
 
 const StyledStart = styled.div`
-  height: 100vh;
-  height: calc(var(--vh, 1vh) * 100);
+  height: 100%;
+  box-sizing: border-box;
 `;
 
 const Bottom = styled.div`
-  height: 34%;
   box-sizing: border-box;
   padding: 2.4rem;
   h1 {
@@ -28,17 +27,12 @@ const Bottom = styled.div`
 
 const Landing = styled.div`
   width: 100%;
-  height: 66%;
+  height: 60%;
   position: relative;
   & > img {
-    height: 100%;
     width: 100%;
+    height: 100%;
     object-fit: cover;
-  }
-  & > div {
-    position: absolute;
-    bottom: 2.4rem;
-    left: 2.4rem;
   }
 `;
 
@@ -57,6 +51,9 @@ const StyledBtn = styled(Link)`
 `;
 
 const StartUser = styled(User)`
+  position: absolute;
+  bottom: 2.4rem;
+  left: 2.4rem;
   & img {
     width: 4rem;
     height: 4rem;
@@ -74,16 +71,31 @@ const StartUser = styled(User)`
 `;
 
 function Start() {
-  let vh = window.innerHeight * 0.01;
-  document.documentElement.style.setProperty("--vh", `${vh}px`);
+  const [start, setStart] = useState({
+    image: "",
+    icon: null,
+    username: "",
+    location: "",
+  });
+
+  useEffect(() => {
+    instance
+      .get("msw/auth")
+      .then((res) => {
+        setStart(res.data);
+      })
+      .catch((err) => {
+        throw err;
+      });
+  }, []);
   return (
     <StyledStart>
       <Landing>
-        <img src={img1} alt="로그인 화면 여행 사진" />
+        <img src={start.image} alt="로그인 화면 여행 사진" />
         <StartUser
-          icon={img5}
-          title="gamsungcross"
-          subtitle="프랑스 파리"
+          icon={start.icon}
+          title={start.username}
+          subtitle={"@" + start.location}
           className="user"
         />
       </Landing>

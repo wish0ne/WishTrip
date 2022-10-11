@@ -31,7 +31,7 @@ export const handlers = [
       ctx.status(200),
       ctx.json({
         image: img8,
-        icon: img3,
+        icon: img7,
         username: "프로도",
         location: "제주 애월읍",
       }),

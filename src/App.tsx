@@ -22,12 +22,14 @@ const GlobalStyle = createGlobalStyle`
   ${reset}
   html {
     font-size: 62.5%;
+    height:100%;
     min-height: calc(100% + env(safe-area-inset-top));
     padding: env(safe-area-inset-top) env(safe-area-inset-right)
       env(safe-area-inset-bottom) env(safe-area-inset-left);
   }
   body {
     max-width:50rem;
+    height:100%;
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
       "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
       sans-serif;
@@ -39,6 +41,10 @@ const GlobalStyle = createGlobalStyle`
   
   body::-webkit-scrollbar {
     display: none; /* Chrome , Safari , Opera */
+  }
+
+  #root{
+    height:100%;
   }
   
   code {
