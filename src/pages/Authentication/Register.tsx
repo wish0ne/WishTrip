@@ -26,10 +26,18 @@ function Register() {
   return (
     <StyledContainer>
       <Header>이메일로 가입하기</Header>
-      <Input title="비밀번호" type="password" id="password" />
-      <Input title="비밀번호 확인" type="password" id="password_check" />
-      <Input title="이름" type="text" id="name" />
-      <Input title="닉네임" type="text" id="username" />
+      <Input type="password" id="password">
+        비밀번호
+      </Input>
+      <Input type="password" id="password_check">
+        비밀번호 확인
+      </Input>
+      <Input type="text" id="name">
+        이름
+      </Input>
+      <Input type="text" id="username">
+        닉네임
+      </Input>
       {alert.empty && <Alert>항목을 모두 입력해주세요.</Alert>}
       {!alert.pwEqual && <Alert>비밀번호가 일치하지 않습니다.</Alert>}
       {alert.sameName && <Alert>중복된 닉네임입니다.</Alert>}
@@ -41,7 +49,8 @@ function Register() {
         onClick={() => {
           setAuth({
             ...auth,
-            alert: { ...auth.alert, noAgree: serviceAgreement },
+            agree: !serviceAgreement,
+            alert: { ...auth.alert, noAgree: false },
           });
           setServiceAgreement(!serviceAgreement);
         }}
