@@ -12,7 +12,7 @@ import CommentInput from "./components/CommentInput";
 import { useRecoilState } from "recoil";
 import { commentsState, postState } from "../../recoil/post";
 import { ReactComponent as MenuIcon } from "../../assets/images/uil_ellipsis.svg";
-import Menu from "../components/Menu";
+import Menu, { ModalMenu, ModalContent } from "../components/Menu";
 
 const StyledRead = styled.div``;
 
@@ -108,7 +108,36 @@ function Read() {
           </Padding>
         </>
       )}
-      {isOpenMenu && <Menu />}
+      {isOpenMenu && (
+        <Menu>
+          {[
+            [
+              {
+                menu: "공유하기",
+                handleClick: () => {},
+              },
+              {
+                menu: "수정하기",
+                handleClick: () => {},
+              },
+            ],
+            [
+              {
+                menu: "취소",
+                handleClick: () => {
+                  setIsOpenMenu(false);
+                },
+              },
+            ],
+          ].map((menu) => (
+            <ModalContent>
+              {menu.map((tab) => (
+                <ModalMenu onClick={tab.handleClick}>{tab.menu}</ModalMenu>
+              ))}
+            </ModalContent>
+          ))}
+        </Menu>
+      )}
     </StyledRead>
   );
 }

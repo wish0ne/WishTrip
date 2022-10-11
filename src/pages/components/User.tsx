@@ -60,16 +60,15 @@ function User({
 }: UserPropsType) {
   const navigate = useNavigate();
   return (
-    <Container
-      onClick={() => {
-        if (onClick) onClick();
-        //유저 프로필로 이동
-        //마이페이지, 유저프로필에서는 이동하지 않음
-        if (!notMove) navigate(`../Profile/${title}`);
-      }}
-      className={className}
-    >
-      <div>
+    <Container className={className}>
+      <div
+        onClick={() => {
+          if (onClick) onClick();
+          //유저 프로필로 이동
+          //마이페이지, 유저프로필에서는 이동하지 않음
+          if (!notMove) navigate(`../Profile/${title}`);
+        }}
+      >
         <Icon src={icon} alt="유저 아이콘" />
         <Info>
           <h1>{title}</h1>
