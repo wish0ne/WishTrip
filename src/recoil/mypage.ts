@@ -18,6 +18,7 @@ export interface IMypageContentsType {
   scrap: IMypageContentsData[];
   recent: IMypageContentsData[];
   comment: IMypageContentsData[];
+  upload: IMypageContentsData[];
 }
 
 export const mypageUser = atom<IMypageUserType>({
@@ -31,5 +32,5 @@ export const mypageUser = atom<IMypageUserType>({
 
 export const mypageContents = atom<IMypageContentsType>({
   key: "mypage/mypageData/contents",
-  default: { scrap: [], recent: [], comment: [] },
+  default: { scrap: [], recent: [], comment: [], upload: [] },
 });

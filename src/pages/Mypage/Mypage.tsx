@@ -172,6 +172,7 @@ function Mypage() {
           { title: "스크랩한 글", id: "scrap" },
           { title: "최근 본 글", id: "recent" },
           { title: "댓글 단 글", id: "comment" },
+          { title: "업로드한 글", id: "upload" },
         ]}
         request={request}
       />
@@ -208,9 +209,11 @@ function Mypage() {
               },
             ],
           ].map((menu) => (
-            <ModalContent>
+            <ModalContent key={menu[0].menu}>
               {menu.map((tab) => (
-                <ModalMenu onClick={tab.handleClick}>{tab.menu}</ModalMenu>
+                <ModalMenu onClick={tab.handleClick} key={tab.menu}>
+                  {tab.menu}
+                </ModalMenu>
               ))}
             </ModalContent>
           ))}
