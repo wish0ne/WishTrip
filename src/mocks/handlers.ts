@@ -167,6 +167,41 @@ export const handlers = [
   }),
 
   //4. 최근 본 글 -> localStorage에 저장
+  //localsotrage에 저장한 post_id 배열로 request -> post array 반환
+  rest.get("https://3.36.71.48/msw/mypage/recent", (req, res, ctx) => {
+    //토큰 검사 x (로그인 안해도 보여줘야 하기 때문)
+
+    const post_id = req.url.searchParams.get("id");
+    return res(
+      ctx.status(200),
+      ctx.json([
+        {
+          image: img4,
+          title: "여행의 제목입니다.",
+          tags: ["여행", "여행스타그램", "여행에미치다"],
+          post_id: 1,
+        },
+        {
+          image: img3,
+          title: "여행의 제목입니다.",
+          tags: ["여행", "여행스타그램", "여행에미치다"],
+          post_id: 2,
+        },
+        {
+          image: img6,
+          title: "여행의 제목입니다.",
+          tags: ["여행", "여행스타그램", "여행에미치다"],
+          post_id: 3,
+        },
+        {
+          image: img5,
+          title: "여행의 제목입니다.",
+          tags: ["여행", "여행스타그램", "여행에미치다"],
+          post_id: 4,
+        },
+      ]),
+    );
+  }),
 
   //5. 댓글 단 글
   rest.get("https://3.36.71.48/msw/mypage/comment", (req, res, ctx) => {

@@ -28,7 +28,8 @@ const GlobalStyle = createGlobalStyle`
       env(safe-area-inset-bottom) env(safe-area-inset-left);
   }
   body {
-    max-width:50rem;
+    max-width:40rem;
+    min-width:10rem;
     height:100%;
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
       "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
@@ -57,26 +58,22 @@ const GlobalStyle = createGlobalStyle`
     height: 100vh;
     object-fit: cover;
   }
-  @media screen and (max-width: 320px) {
+  @media screen and (max-width: 20rem) {
     html {
-      font-size: 50%;
+      font-size: 30%;
     }
   }
-  @media screen and (min-width: 450px) {
+  @media screen and (min-width: 30rem) {
     html {
-      font-size: 70%;
+      font-size: 40%;
     }
   }
-  @media screen and (min-width: 700px) {
+  @media screen and (min-width: 40rem) {
     html {
-      font-size: 80%;
-    }
+      font-size: 30%;
+    } 
   }
-  @media screen and (min-width: 800px) {
-    html {
-      font-size: 50%;
-    }
-  }
+
 `;
 
 const theme = {
