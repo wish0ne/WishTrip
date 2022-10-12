@@ -106,7 +106,6 @@ function App() {
           let data = this.data;
           let el = this.el;
           el.addEventListener("click", () => {
-            alert(data);
             setArId(data);
             // localStorage.setItem("arId", data);
             // const modal = document.querySelector(".modal");

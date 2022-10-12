@@ -18,6 +18,20 @@ const ARContainer = styled.div`
   }
 `;
 
+const PC = styled.div`
+  height: 100%;
+  width: 100%;
+  background-color: ${(props) => props.theme.palette.inversed2};
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  & > span {
+    font-family: "ExtraBold";
+    font-size: 1.6rem;
+    color: ${(props) => props.theme.palette.default1};
+  }
+`;
+
 const BackButton = styled(Link)`
   width: 3.2rem;
   height: 3.2rem;
@@ -56,6 +70,8 @@ const Add = styled.div`
   }
 `;
 
+const isMobile = /Mobi/i.test(window.navigator.userAgent); // 모바일 체크
+
 function Ar() {
   const [arCreate, setARCreate] = useRecoilState(arCreatePost); //ar 포스트 작성에 필요한 정보
   const [contents, setContents] = useRecoilState(arContents); //ar 포스트
@@ -70,29 +86,33 @@ function Ar() {
   );
 
   useEffect(() => {
+    console.log(window.navigator.userAgent);
+    if (!isMobile) alert("AR 여행 기능은 모바일에서만 이용 가능합니다.");
     //get user coordinate
     getPosition();
   }, []);
 
   useEffect(() => {
-    //get ar post
-    instance
-      .get("/msw/arpost/get_around_posts", {
-        x: coords.x,
-        y: coords.y,
-        z: 0,
-      })
-      .then((res) => {
-        setContents(res.data);
-      });
+    if (isMobile) {
+      //get ar post
+      instance
+        .get("/msw/arpost/get_around_posts", {
+          x: coords.x,
+          y: coords.y,
+          z: 0,
+        })
+        .then((res) => {
+          setContents(res.data);
+        });
 
-    return () => {
-      let html = document.querySelector("html");
-      let body = document.querySelector("body");
-      let video = document.querySelector("video");
-      if (video) body.removeChild(video);
-      html.classList.remove("a-fullscreen");
-    };
+      return () => {
+        let html = document.querySelector("html");
+        let body = document.querySelector("body");
+        let video = document.querySelector("video");
+        if (video) body.removeChild(video);
+        html.classList.remove("a-fullscreen");
+      };
+    }
   }, [coords]);
 
   //유저 좌표 -> 대표 좌표 변환
@@ -116,8 +136,7 @@ function Ar() {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
         ({ coords }) => {
-          console.log(hash(coords));
-          setCoords(hash(coords));
+          setCoords(coords);
         },
         (error) => {
           alert(error.message);
@@ -175,55 +194,59 @@ function Ar() {
   }, [ar_id, setComments, setPost]);
 
   return (
-    <>
-      {lookatStatus === "ready" &&
+    <ARContainer>
+      {!isMobile ? (
+        <PC>
+          <span>AR여행은 모바일에서 이용가능합니다. •́︿•̀ ｡</span>
+        </PC>
+      ) : (
+        lookatStatus === "ready" &&
         nftStatus === "ready" &&
         contents.length > 0 && (
-          <ARContainer>
-            <a-scene
-              debug
-              cursor="rayOrigin: mouse;"
-              raycaster="objects: .raycastable"
-              vr-mode-ui="enabled: false"
-              //embedded
-              arjs="sourceType: webcam; sourceWidth:1080; sourceHeight:764; displayWidth: 1080; displayHeight: 764; debugUIEnabled: false; videoTexture:true;"
-              //arjs="sourceType: webcam; debugUIEnabled: false; videoTexture:true;"
-              //renderer="antialias: true; alpha: true"
-            >
-              <a-assets>
-                {contents.map((entity) => (
-                  <img
-                    id={entity.ar_post_id}
-                    src={entity.image}
-                    alt="ar contents"
-                    key={entity.ar_post_id}
-                  />
-                ))}
-              </a-assets>
-              <a-camera gps-camera="" rotation-reader=""></a-camera>
+          <a-scene
+            debug
+            cursor="rayOrigin: mouse;"
+            raycaster="objects: .raycastable"
+            vr-mode-ui="enabled: false"
+            //embedded
+            arjs="sourceType: webcam; sourceWidth:1080; sourceHeight:764; displayWidth: 1080; displayHeight: 764; debugUIEnabled: false; videoTexture:true;"
+            //arjs="sourceType: webcam; debugUIEnabled: false; videoTexture:true;"
+            //renderer="antialias: true; alpha: true"
+          >
+            <a-assets>
               {contents.map((entity) => (
-                <a-image
-                  gps-entity-place={`latitude: ${entity.x_value}; longitude: ${entity.y_value};`}
-                  class="raycastable"
-                  clickhandler={entity.ar_post_id}
+                <img
+                  id={entity.ar_post_id}
+                  src={entity.image}
+                  alt="ar contents"
                   key={entity.ar_post_id}
-                  src={`#${entity.ar_post_id}`}
-                  look-at="[gps-camera]"
-                  position={`0 ${entity.z_value} 0`}
-                ></a-image>
+                />
               ))}
-            </a-scene>
-            <BackButton to="../Home">
-              <Back width="3.2rem" height="3.2rem" />
-            </BackButton>
-            <Add onClick={handleAddClick}>
-              <Camera />
-              <span>포스트 남기기</span>
-            </Add>
-            {post && <Modal />}
-          </ARContainer>
-        )}
-    </>
+            </a-assets>
+            <a-camera gps-camera="" rotation-reader=""></a-camera>
+            {contents.map((entity) => (
+              <a-image
+                gps-entity-place={`latitude: ${entity.x_value}; longitude: ${entity.y_value};`}
+                class="raycastable"
+                clickhandler={entity.ar_post_id}
+                key={entity.ar_post_id}
+                src={`#${entity.ar_post_id}`}
+                look-at="[gps-camera]"
+                position={`0 ${entity.z_value} 0`}
+              ></a-image>
+            ))}
+          </a-scene>
+        )
+      )}
+      <BackButton to="../Home">
+        <Back width="3.2rem" height="3.2rem" />
+      </BackButton>
+      <Add onClick={handleAddClick}>
+        <Camera />
+        <span>포스트 남기기</span>
+      </Add>
+      {post && <Modal />}
+    </ARContainer>
   );
 }
 
