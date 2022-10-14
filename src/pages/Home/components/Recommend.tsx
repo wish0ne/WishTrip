@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { RecommendContentData } from "../../../recoil/home";
 import User from "../../components/User";
 import { FixedPost } from "../../Search/Search";
+import addRecentPost from "../../../modules/addRecentPost";
 
 const StyledRecommend = styled.div`
   margin: 4.8rem 2.4rem;
@@ -92,7 +93,10 @@ function Recommend({ tag, posts }: RecommendProps) {
         {posts.map((content) => (
           <Post
             key={content.post_id}
-            onClick={() => navigate(`../Read/${content.post_id}`)}
+            onClick={() => {
+              addRecentPost(content.post_id);
+              navigate(`../Read/${content.post_id}`);
+            }}
           >
             <img src={content.image} alt="추천 포스트 이미지" />
             <h3>{content.title}</h3>

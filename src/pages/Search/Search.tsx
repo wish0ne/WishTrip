@@ -53,6 +53,11 @@ const NewUser = styled(User)`
   }
 `;
 
+const RecentContainer = styled.div`
+  display: flex;
+  flex-direction: column-reverse;
+`;
+
 function Search() {
   const [focus, setFocus] = useState<boolean>(false); //input focus 여부
   const [query, setQuery] = useRecoilState<string>(searchQuery); //검색어
@@ -85,7 +90,7 @@ function Search() {
         (item: { id: number; title: string; date: Date }) =>
           item.title !== query,
       );
-      new_recent.unshift({
+      new_recent.push({
         id: Date.now(),
         title: query,
         date: new Date().toLocaleDateString(),
@@ -155,19 +160,20 @@ function Search() {
       <Title focus={focus} menu={menu} setMenu={setMenu}></Title>
 
       {/* 최근 검색어 */}
-      {focus &&
-        query === "" &&
-        search_recent !== null &&
-        JSON.parse(search_recent).map(
-          (recent: { id: number; title: string; date: Date }) => (
-            <Recent
-              key={recent.id}
-              title={recent.title}
-              date={recent.date}
-            ></Recent>
-          ),
-        )}
-
+      <RecentContainer>
+        {focus &&
+          query === "" &&
+          search_recent !== null &&
+          JSON.parse(search_recent).map(
+            (recent: { id: number; title: string; date: Date }) => (
+              <Recent
+                key={recent.id}
+                title={recent.title}
+                date={recent.date}
+              ></Recent>
+            ),
+          )}
+      </RecentContainer>
       {/* 지금 인기있는 태그 */}
       {!focus &&
         query === "" &&

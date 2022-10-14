@@ -39,7 +39,7 @@ function Header() {
     <StyledHeader>
       <Logo width="7.2rem" height="2rem" />
       <StyledDiv>
-        <Bell />
+        <Bell width="2.4rem" height="2.4rem" />
         <UserIcon to="../Mypage" onClick={() => navigate("../Mypage")}>
           {profile && <img src={profile} alt="유저아이콘" />}
         </UserIcon>

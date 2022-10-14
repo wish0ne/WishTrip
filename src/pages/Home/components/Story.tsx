@@ -5,6 +5,7 @@ import User from "../../components/User";
 import { useRecoilValue } from "recoil";
 import { homeBanner } from "../../../recoil/home";
 import { useNavigate } from "react-router-dom";
+import addRecentPost from "../../../modules/addRecentPost";
 
 const StyledStory = styled.div`
   height: 47.2rem;
@@ -99,7 +100,12 @@ function Story() {
   useInterval(() => setIndex((index) => (index === 3 ? 0 : index + 1)), 5000);
 
   return (
-    <StyledStory onClick={() => navigate(`../Read/${banner[index].post_id}`)}>
+    <StyledStory
+      onClick={() => {
+        addRecentPost(banner[index].post_id);
+        navigate(`../Read/${banner[index].post_id}`);
+      }}
+    >
       {banner.length > 0 && (
         <>
           <Image src={banner[index].image} alt="홈화면 상단 이미지" />

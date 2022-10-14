@@ -134,18 +134,36 @@ function Mypage() {
   const request = (id: string) => {
     setTab(id);
     if (id === "recent") {
-      setContents({
-        ...contents,
-        recent: [],
-      });
+      const id = localStorage.getItem("recent_post");
+      if (id) {
+        instance
+          .get(`/msw/mypage/recent`, {
+            params: {
+              id: JSON.parse(id),
+            },
+          })
+          .then(({ data }) => {
+            setContents({
+              ...contents,
+              recent: data,
+            });
+          })
+          .catch((err) => {
+            throw err;
+          });
+      }
     } else {
-      instance.get(`/msw/mypage/${id}`).then(({ data }) => {
-        setTab(id);
-        setContents({
-          ...contents,
-          [id]: data,
+      instance
+        .get(`/msw/mypage/${id}`)
+        .then(({ data }) => {
+          setContents({
+            ...contents,
+            [id]: data,
+          });
+        })
+        .catch((err) => {
+          throw err;
         });
-      });
     }
   };
 
