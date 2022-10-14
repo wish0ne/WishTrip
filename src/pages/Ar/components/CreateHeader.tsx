@@ -67,7 +67,7 @@ function CreateHeader() {
           navigate(-1);
         }}
       >
-        <Arrow />
+        <Arrow width="2.4rem" height="2.4rem" />
       </div>
       <h1>새 포스트</h1>
       <Submit onClick={handleSubmit} />

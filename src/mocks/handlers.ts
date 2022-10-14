@@ -11,6 +11,7 @@ import armock1 from "../assets/images/armock1.png";
 import armock2 from "../assets/images/armock2.png";
 import armock3 from "../assets/images/armock3.png";
 import armock4 from "../assets/images/AR포스트.png";
+import { location } from "./location.js";
 
 interface PostValidUserReqBody {
   email: string;
@@ -494,36 +495,36 @@ export const handlers = [
           {
             ar_post_id: 1,
             image: armock1,
-            x_value: 37.243707,
-            y_value: 127.077247,
+            x_value: location[0].x_value,
+            y_value: location[0].y_value,
             z_value: 0,
           },
           {
             ar_post_id: 2,
             image: armock2,
-            x_value: 37.243021,
-            y_value: 127.076998,
+            x_value: location[1].x_value,
+            y_value: location[1].y_value,
             z_value: 1,
           },
           {
             ar_post_id: 3,
             image: armock3,
-            x_value: 37.244807,
-            y_value: 127.077034,
+            x_value: location[2].x_value,
+            y_value: location[2].y_value,
             z_value: 1,
           },
           {
             ar_post_id: 4,
             image: armock4,
-            x_value: 37.244108,
-            y_value: 127.079135,
+            x_value: location[3].x_value,
+            y_value: location[3].y_value,
             z_value: 0,
           },
           {
             ar_post_id: 5,
             image: armock4,
-            x_value: 34.890575,
-            y_value: 128.638887,
+            x_value: location[4].x_value,
+            y_value: location[4].y_value,
             z_value: 0,
           },
         ]),

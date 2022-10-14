@@ -22,15 +22,16 @@ const GlobalStyle = createGlobalStyle`
   ${reset}
   html {
     font-size: 62.5%;
-    height:100%;
+    height: 100%;
     min-height: calc(100% + env(safe-area-inset-top));
     padding: env(safe-area-inset-top) env(safe-area-inset-right)
       env(safe-area-inset-bottom) env(safe-area-inset-left);
   }
+  
   body {
-    max-width:40rem;
-    min-width:10rem;
-    height:100%;
+    max-width: 450px;
+    height: 100%;
+    margin: 0;
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
       "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
       sans-serif;
@@ -43,9 +44,9 @@ const GlobalStyle = createGlobalStyle`
   body::-webkit-scrollbar {
     display: none; /* Chrome , Safari , Opera */
   }
-
-  #root{
-    height:100%;
+  
+  #root {
+    height: 100%;
   }
   
   code {
@@ -58,22 +59,22 @@ const GlobalStyle = createGlobalStyle`
     height: 100vh;
     object-fit: cover;
   }
-  @media screen and (max-width: 20rem) {
+
+  /* mobile first */
+
+  /* 태블릿 */
+  @media screen and (max-width: 768px) and (min-width: 375px) {
     html {
-      font-size: 30%;
+      font-size: 35%;
     }
-  }
-  @media screen and (min-width: 30rem) {
-    html {
-      font-size: 40%;
-    }
-  }
-  @media screen and (min-width: 40rem) {
-    html {
-      font-size: 30%;
-    } 
   }
 
+  /* 데스크탑 */
+  @media screen and (min-width: 769px) {
+    html {
+      font-size: 30%;
+    }
+  }
 `;
 
 const theme = {

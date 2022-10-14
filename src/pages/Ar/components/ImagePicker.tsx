@@ -106,7 +106,7 @@ function ImagePicker() {
           </ARContent>
         ) : (
           <div>
-            <Camera />
+            <Camera width="2.8rem" height="2.8rem" />
           </div>
         )}
         <label htmlFor="ARImage" />

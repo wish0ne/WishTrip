@@ -48,7 +48,7 @@ function Header({ focus, setFocus }: HeaderPropsType) {
   };
   return (
     <StyledHeader>
-      <Arrow onClick={handleClick} />
+      <Arrow onClick={handleClick} width="2.4rem" height="2.4rem" />
       <Input
         type="text"
         placeholder="검색어를 입력해주세요"

@@ -89,7 +89,7 @@ function User({
           <Icon src={icon} alt="유저 아이콘" />
         ) : (
           <NoIcon>
-            <Hand />
+            <Hand width="3.6rem" height="3.6rem" />
           </NoIcon>
         )}
         <Info>

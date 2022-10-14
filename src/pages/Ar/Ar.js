@@ -12,6 +12,7 @@ import { commentsState, postState } from "../../recoil/post";
 
 const ARContainer = styled.div`
   height: 100%;
+  position: relative;
   a-scene {
     height: 100%;
     width: 100%;
@@ -37,7 +38,7 @@ const BackButton = styled(Link)`
   height: 3.2rem;
   border-radius: 2.4rem;
   background-color: rgba(255, 255, 255, 0.75);
-  position: fixed;
+  position: absolute;
   top: 6rem;
   left: 1.6rem;
   display: flex;
@@ -242,7 +243,7 @@ function Ar() {
         <Back width="3.2rem" height="3.2rem" />
       </BackButton>
       <Add onClick={handleAddClick}>
-        <Camera />
+        <Camera width="2.8rem" height="2.8rem" />
         <span>포스트 남기기</span>
       </Add>
       {post && <Modal />}
