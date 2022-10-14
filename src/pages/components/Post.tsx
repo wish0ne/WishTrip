@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
+import addRecentPost from "../../modules/addRecentPost";
 
 const StyledPost = styled.div<{ grow: boolean }>`
   width: ${(props) => (props.grow ? "48%" : "14.4rem")};
@@ -62,6 +63,8 @@ function Post({
     <StyledPost
       onClick={() => {
         onClick();
+        //최근 본 글 추가
+        addRecentPost(post_id);
         //포스트로 이동
         navigate(`../Read/:${post_id}`);
       }}
