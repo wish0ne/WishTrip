@@ -8,7 +8,9 @@ import { useNavigate } from "react-router-dom";
 import addRecentPost from "../../../modules/addRecentPost";
 
 const StyledStory = styled.div`
-  height: 47.2rem;
+  height: ${window.screen.width < 450
+    ? document.body.offsetWidth * 1.25
+    : 550}px;
   margin: 0.4rem 0.75rem 0;
   position: relative;
 `;

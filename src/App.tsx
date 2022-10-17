@@ -2,7 +2,6 @@ import { Routes, Route } from "react-router-dom";
 import * as AFRAME from "aframe";
 import { ThemeProvider, createGlobalStyle } from "styled-components";
 import reset from "styled-reset";
-import Splash from "./pages/Splash/Splash";
 import Start from "./pages/Authentication/Start";
 import Home from "./pages/Home/Home";
 import Ar from "./pages/Ar/Ar";
@@ -61,18 +60,23 @@ const GlobalStyle = createGlobalStyle`
   }
 
   /* mobile first */
+  @media screen and (max-width: 310px) {
+    html {
+      font-size: 30%;
+    }
+  }
 
   /* 태블릿 */
   @media screen and (max-width: 768px) and (min-width: 375px) {
     html {
-      font-size: 35%;
+      font-size: 50%;
     }
   }
 
   /* 데스크탑 */
   @media screen and (min-width: 769px) {
     html {
-      font-size: 30%;
+      font-size: 60%;
     }
   }
 `;
@@ -121,8 +125,7 @@ function App() {
     <ThemeProvider theme={theme}>
       <GlobalStyle />
       <Routes>
-        <Route path="" element={<Splash />} />
-        <Route path="Home" element={<Home />} />
+        <Route path="" element={<Home />} />
         <Route path="Authentication">
           <Route path="Start" element={<Start />} />
           <Route path="Email" element={<Email />} />

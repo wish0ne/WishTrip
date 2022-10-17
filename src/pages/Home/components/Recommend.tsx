@@ -6,7 +6,7 @@ import { FixedPost } from "../../Search/Search";
 import addRecentPost from "../../../modules/addRecentPost";
 
 const StyledRecommend = styled.div`
-  margin: 4.8rem 2.4rem;
+  margin-top: 4.8rem;
 `;
 
 const Title = styled.div`
