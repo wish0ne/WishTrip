@@ -2,7 +2,6 @@ import { Routes, Route } from "react-router-dom";
 import * as AFRAME from "aframe";
 import { ThemeProvider, createGlobalStyle } from "styled-components";
 import reset from "styled-reset";
-import Splash from "./pages/Splash/Splash";
 import Start from "./pages/Authentication/Start";
 import Home from "./pages/Home/Home";
 import Ar from "./pages/Ar/Ar";
@@ -17,6 +16,7 @@ import Profile from "./pages/Profile/Profile";
 import { useEffect, useRef } from "react";
 import { useSetRecoilState } from "recoil";
 import { arId } from "./recoil/ar";
+import Splash from "./pages/Splash/Splash";
 
 const GlobalStyle = createGlobalStyle`
   ${reset}
@@ -61,18 +61,24 @@ const GlobalStyle = createGlobalStyle`
   }
 
   /* mobile first */
+  @media screen and (max-width: 310px) {
+    html {
+      font-size: 30%;
+    }
+  }
+
 
   /* 태블릿 */
   @media screen and (max-width: 768px) and (min-width: 375px) {
     html {
-      font-size: 35%;
+      font-size: 50%;
     }
   }
 
   /* 데스크탑 */
   @media screen and (min-width: 769px) {
     html {
-      font-size: 30%;
+      font-size: 60%;
     }
   }
 `;
