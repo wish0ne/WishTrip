@@ -16,6 +16,7 @@ import Profile from "./pages/Profile/Profile";
 import { useEffect, useRef } from "react";
 import { useSetRecoilState } from "recoil";
 import { arId } from "./recoil/ar";
+import Splash from "./pages/Splash/Splash";
 
 const GlobalStyle = createGlobalStyle`
   ${reset}
@@ -65,6 +66,7 @@ const GlobalStyle = createGlobalStyle`
       font-size: 30%;
     }
   }
+
 
   /* 태블릿 */
   @media screen and (max-width: 768px) and (min-width: 375px) {
@@ -125,7 +127,8 @@ function App() {
     <ThemeProvider theme={theme}>
       <GlobalStyle />
       <Routes>
-        <Route path="" element={<Home />} />
+        <Route path="" element={<Splash />} />
+        <Route path="Home" element={<Home />} />
         <Route path="Authentication">
           <Route path="Start" element={<Start />} />
           <Route path="Email" element={<Email />} />
