@@ -50,10 +50,10 @@ function Button({ type, title }: ButtonPropsType) {
       if (data.email === "") {
         setAuth({ data, agree, alert: { ...alert, empty: true } });
       } else if (!alert.isMember) {
-        resetAuth();
+        setAuth({ data, agree, alert: { ...alert, empty: false } });
         navigate("../Register");
       } else {
-        const response = instance.post("msw/isMember", {
+        const response = instance.post("/isMember", {
           email: data.email,
         });
         response
@@ -72,7 +72,7 @@ function Button({ type, title }: ButtonPropsType) {
       if (data.password === "") {
         setAuth({ data, agree, alert: { ...alert, empty: true } });
       } else {
-        const res = instance.post("msw/login", {
+        const res = instance.post("/login", {
           email: data.email,
           password: data.password,
         });
@@ -105,7 +105,7 @@ function Button({ type, title }: ButtonPropsType) {
       } else if (!agree) {
         setAuth({ data, agree, alert: { ...alert, noAgree: true } });
       } else {
-        const res = instance.post("msw/register", {
+        const res = instance.post("/register", {
           username: data.username,
           name: data.name,
           email: data.email,

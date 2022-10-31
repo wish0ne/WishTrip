@@ -58,7 +58,7 @@ function Profile() {
   const request = (id: string) => {
     if (id === "upload") {
       instance
-        .get(`/msw/get_user_posts?username=${username}`)
+        .get(`/get_user_posts?username=${username}`)
         .then((res) => {
           setPosts(res.data);
         })
@@ -67,7 +67,7 @@ function Profile() {
         });
     } else if (id === "comment") {
       instance
-        .get(`/msw/get_user_comments?username=${username}`)
+        .get(`/get_user_comments?username=${username}`)
         .then((res) => {
           setPosts(res.data);
         })

@@ -112,7 +112,7 @@ function Mypage() {
     //유저 정보 받아오기
     if (token) {
       instance
-        .get("/msw/mypage")
+        .get("/mypage")
         .then(({ data }) => {
           setUser({
             icon: data.icon,
@@ -122,7 +122,7 @@ function Mypage() {
         })
         .catch(() => {});
       //스크랩 한 글 받아오기
-      instance.get(`/msw/mypage/${tab}`).then(({ data }) => {
+      instance.get(`/mypage/${tab}`).then(({ data }) => {
         setContents({
           ...contents,
           [tab]: data,
@@ -137,7 +137,7 @@ function Mypage() {
       const id = localStorage.getItem("recent_post");
       if (id) {
         instance
-          .get(`/msw/mypage/recent`, {
+          .get(`/mypage/recent`, {
             params: {
               id: JSON.parse(id),
             },
@@ -154,7 +154,7 @@ function Mypage() {
       }
     } else {
       instance
-        .get(`/msw/mypage/${id}`)
+        .get(`/mypage/${id}`)
         .then(({ data }) => {
           setContents({
             ...contents,
