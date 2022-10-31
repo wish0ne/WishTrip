@@ -22,6 +22,31 @@ const RecommendContainer = styled.div`
 
 function Home() {
   const recommend = useRecoilValue(homeRecommend);
+  const setProfile = useSetRecoilState(homeProfile);
+  const setBanner = useSetRecoilState(homeBanner);
+  const setEvent = useSetRecoilState(homeEvent);
+  const setRecommend = useSetRecoilState(homeRecommend);
+
+  useEffect(() => {
+    instance
+      .get("/home/profile")
+      .then(({ data }) => {
+        setProfile(data.icon);
+      })
+      .catch((err) => {
+        setProfile(null);
+        throw err;
+      });
+    instance.get("/home/banner").then(({ data }) => {
+      setBanner(data);
+    });
+    instance.get("/home/event").then(({ data }) => {
+      setEvent(data);
+    });
+    instance.get("/home/recommend").then(({ data }) => {
+      setRecommend(data);
+    });
+  }, [setProfile, setBanner, setEvent, setRecommend]);
 
   return (
     <StyledHome>
