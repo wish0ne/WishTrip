@@ -106,7 +106,7 @@ function Search() {
 
     //지금 인기 태그
     instance
-      .get("msw/get_popular_tags")
+      .get("/get_popular_tags")
       .then(({ data }) => {
         setPopularTag(data);
       })

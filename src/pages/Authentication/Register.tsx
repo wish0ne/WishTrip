@@ -40,7 +40,7 @@ function Register() {
       </Input>
       {alert.empty && <Alert>항목을 모두 입력해주세요.</Alert>}
       {!alert.pwEqual && <Alert>비밀번호가 일치하지 않습니다.</Alert>}
-      {alert.sameName && <Alert>중복된 닉네임입니다.</Alert>}
+      {alert.sameName && <Alert>중복된 이메일입니다.</Alert>}
       {alert.noAgree && <Alert>필수 약관에 동의해주세요.</Alert>}
       <Button type="register" title="가입하기" />
       <Term

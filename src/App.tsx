@@ -61,7 +61,7 @@ const GlobalStyle = createGlobalStyle`
   }
 
   /* mobile first */
-  @media screen and (max-width: 310px) {
+  @media screen and (max-width: 320px) {
     html {
       font-size: 30%;
     }

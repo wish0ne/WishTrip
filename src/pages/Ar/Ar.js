@@ -9,6 +9,7 @@ import Modal from "./components/Modal";
 import { arContents, arCreatePost, arId } from "../../recoil/ar";
 import instance from "../../modules/api";
 import { commentsState, postState } from "../../recoil/post";
+import useInterval from "../../modules/useInterval";
 
 const ARContainer = styled.div`
   height: 100%;
@@ -87,10 +88,9 @@ function Ar() {
   );
 
   useEffect(() => {
-    console.log(window.navigator.userAgent);
     if (!isMobile) alert("AR 여행 기능은 모바일에서만 이용 가능합니다.");
     //get user coordinate
-    getPosition();
+    //getPosition();
   }, []);
 
   useEffect(() => {
@@ -116,16 +116,6 @@ function Ar() {
     }
   }, [coords]);
 
-  //유저 좌표 -> 대표 좌표 변환
-  const hash = (coords) => {
-    console.log(coords);
-    return {
-      x: coords.latitude ? coords.latitude.toFixed(6) : 0,
-      y: coords.longitude ? coords.longitude.toFixed(6) : 0,
-      z: coords.altitude ? coords.altitude.toFixed(6) : 0,
-    };
-  };
-
   //위치 정보 받기 동기처리
   const getCoords = () => {
     return new Promise((resolve, reject) => {
@@ -133,10 +123,11 @@ function Ar() {
     });
   };
 
-  const getPosition = useCallback(async () => {
+  const getPosition = useCallback(() => {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
         ({ coords }) => {
+          console.log(coords);
           setCoords(coords);
         },
         (error) => {
@@ -155,6 +146,10 @@ function Ar() {
       alert("GPS를 지원하지 않습니다.");
     }
   }, []);
+
+  useInterval(() => {
+    getPosition();
+  }, 3000);
 
   const handleAddClick = () => {
     //AR 작성 전 유저 위치 정보 받기
