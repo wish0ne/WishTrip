@@ -78,39 +78,39 @@ export const handlers = [
     },
   ),
   //5. 회원가입
-  rest.post<PostValidUserReqBody>(
-    "https://api.wishtrip.org/msw/register",
-    (req, res, ctx) => {
-      const { email, username } = req.body;
-      //이메일, 유저네임 중복시 회원가입 불가
-      if (email === "test" || username === "admin") {
-        return res(ctx.status(401));
-      }
-      //회원가입 성공
-      else {
-        return res(ctx.status(200), ctx.json({ msg: "register success" }));
-      }
-    },
-  ),
+  // rest.post<PostValidUserReqBody>(
+  //   "https://api.wishtrip.org/msw/register",
+  //   (req, res, ctx) => {
+  //     const { email, username } = req.body;
+  //     //이메일, 유저네임 중복시 회원가입 불가
+  //     if (email === "test" || username === "admin") {
+  //       return res(ctx.status(401));
+  //     }
+  //     //회원가입 성공
+  //     else {
+  //       return res(ctx.status(200), ctx.json({ msg: "register success" }));
+  //     }
+  //   },
+  // ),
 
   //마이페이지
   //1. 유저 프로필 조회
-  rest.get("https://api.wishtrip.org/msw/mypage", (req, res, ctx) => {
-    //유저 토큰 확인
-    const token = req.headers.get("authorization")?.split(" ")[1];
+  // rest.get("https://api.wishtrip.org/msw/mypage", (req, res, ctx) => {
+  //   //유저 토큰 확인
+  //   const token = req.headers.get("authorization")?.split(" ")[1];
 
-    //유저 토근이 없는 경우 : 로그인하지 않은 경우
-    if (token === "null") return res(ctx.status(401));
+  //   //유저 토근이 없는 경우 : 로그인하지 않은 경우
+  //   if (token === "null") return res(ctx.status(401));
 
-    //로그인한 경우
-    return res(
-      ctx.json({
-        icon: null,
-        username: "부끄러운 프로도",
-        email: "frodo@gmail.com",
-      }),
-    );
-  }),
+  //   //로그인한 경우
+  //   return res(
+  //     ctx.json({
+  //       icon: null,
+  //       username: "부끄러운 프로도",
+  //       email: "frodo@gmail.com",
+  //     }),
+  //   );
+  // }),
 
   //2. 유저 프로필 사진 등록&수정
   rest.put<{ icon: string }>(
@@ -131,305 +131,305 @@ export const handlers = [
   ),
 
   //3. 스크랩 한 글
-  rest.get("https://api.wishtrip.org/msw/mypage/scrap", (req, res, ctx) => {
-    const token = req.headers.get("authorization")?.split(" ")[1];
-    //토큰 확인
-    if (token === "null") return res(ctx.status(401));
+  // rest.get("https://api.wishtrip.org/msw/mypage/scrap", (req, res, ctx) => {
+  //   const token = req.headers.get("authorization")?.split(" ")[1];
+  //   //토큰 확인
+  //   if (token === "null") return res(ctx.status(401));
 
-    return res(
-      ctx.status(200),
-      ctx.json([
-        {
-          image: img4,
-          title: "여행의 제목입니다.",
-          tags: ["여행", "여행스타그램", "여행에미치다"],
-          post_id: 1,
-        },
-        {
-          image: img3,
-          title: "여행의 제목입니다.",
-          tags: ["여행", "여행스타그램", "여행에미치다"],
-          post_id: 2,
-        },
-        {
-          image: img6,
-          title: "여행의 제목입니다.",
-          tags: ["여행", "여행스타그램", "여행에미치다"],
-          post_id: 3,
-        },
-        {
-          image: img5,
-          title: "여행의 제목입니다.",
-          tags: ["여행", "여행스타그램", "여행에미치다"],
-          post_id: 4,
-        },
-      ]),
-    );
-  }),
+  //   return res(
+  //     ctx.status(200),
+  //     ctx.json([
+  //       {
+  //         image: img4,
+  //         title: "여행의 제목입니다.",
+  //         tags: ["여행", "여행스타그램", "여행에미치다"],
+  //         post_id: 1,
+  //       },
+  //       {
+  //         image: img3,
+  //         title: "여행의 제목입니다.",
+  //         tags: ["여행", "여행스타그램", "여행에미치다"],
+  //         post_id: 2,
+  //       },
+  //       {
+  //         image: img6,
+  //         title: "여행의 제목입니다.",
+  //         tags: ["여행", "여행스타그램", "여행에미치다"],
+  //         post_id: 3,
+  //       },
+  //       {
+  //         image: img5,
+  //         title: "여행의 제목입니다.",
+  //         tags: ["여행", "여행스타그램", "여행에미치다"],
+  //         post_id: 4,
+  //       },
+  //     ]),
+  //   );
+  // }),
 
   //4. 최근 본 글 -> localStorage에 저장
   //localsotrage에 저장한 post_id 배열로 request -> post array 반환
-  rest.get("https://api.wishtrip.org/msw/mypage/recent", (req, res, ctx) => {
-    //토큰 검사 x (로그인 안해도 보여줘야 하기 때문)
+  // rest.get("https://api.wishtrip.org/msw/mypage/recent", (req, res, ctx) => {
+  //   //토큰 검사 x (로그인 안해도 보여줘야 하기 때문)
 
-    const post_id = req.url.searchParams.get("id");
-    return res(
-      ctx.status(200),
-      ctx.json([
-        {
-          image: img4,
-          title: "여행의 제목입니다.",
-          tags: ["여행", "여행스타그램", "여행에미치다"],
-          post_id: 1,
-        },
-        {
-          image: img3,
-          title: "여행의 제목입니다.",
-          tags: ["여행", "여행스타그램", "여행에미치다"],
-          post_id: 2,
-        },
-        {
-          image: img6,
-          title: "여행의 제목입니다.",
-          tags: ["여행", "여행스타그램", "여행에미치다"],
-          post_id: 3,
-        },
-        {
-          image: img5,
-          title: "여행의 제목입니다.",
-          tags: ["여행", "여행스타그램", "여행에미치다"],
-          post_id: 4,
-        },
-      ]),
-    );
-  }),
+  //   const post_id = req.url.searchParams.get("id");
+  //   return res(
+  //     ctx.status(200),
+  //     ctx.json([
+  //       {
+  //         image: img4,
+  //         title: "여행의 제목입니다.",
+  //         tags: ["여행", "여행스타그램", "여행에미치다"],
+  //         post_id: 1,
+  //       },
+  //       {
+  //         image: img3,
+  //         title: "여행의 제목입니다.",
+  //         tags: ["여행", "여행스타그램", "여행에미치다"],
+  //         post_id: 2,
+  //       },
+  //       {
+  //         image: img6,
+  //         title: "여행의 제목입니다.",
+  //         tags: ["여행", "여행스타그램", "여행에미치다"],
+  //         post_id: 3,
+  //       },
+  //       {
+  //         image: img5,
+  //         title: "여행의 제목입니다.",
+  //         tags: ["여행", "여행스타그램", "여행에미치다"],
+  //         post_id: 4,
+  //       },
+  //     ]),
+  //   );
+  // }),
 
-  //5. 댓글 단 글
-  rest.get("https://api.wishtrip.org/msw/mypage/comment", (req, res, ctx) => {
-    const token = req.headers.get("authorization")?.split(" ")[1];
-    //토큰 확인
-    if (token === "null") return res(ctx.status(401));
+  // //5. 댓글 단 글
+  // rest.get("https://api.wishtrip.org/msw/mypage/comment", (req, res, ctx) => {
+  //   const token = req.headers.get("authorization")?.split(" ")[1];
+  //   //토큰 확인
+  //   if (token === "null") return res(ctx.status(401));
 
-    return res(
-      ctx.status(200),
-      ctx.json([
-        {
-          image: img4,
-          title: "여행의 제목입니다.",
-          tags: ["여행", "여행스타그램", "여행에미치다"],
-          post_id: 1,
-        },
-        {
-          image: img3,
-          title: "여행의 제목입니다.",
-          tags: ["여행", "여행스타그램", "여행에미치다"],
-          post_id: 2,
-        },
-        {
-          image: img6,
-          title: "여행의 제목입니다.",
-          tags: ["여행", "여행스타그램", "여행에미치다"],
-          post_id: 3,
-        },
-        {
-          image: img5,
-          title: "여행의 제목입니다.",
-          tags: ["여행", "여행스타그램", "여행에미치다"],
-          post_id: 4,
-        },
-      ]),
-    );
-  }),
+  //   return res(
+  //     ctx.status(200),
+  //     ctx.json([
+  //       {
+  //         image: img4,
+  //         title: "여행의 제목입니다.",
+  //         tags: ["여행", "여행스타그램", "여행에미치다"],
+  //         post_id: 1,
+  //       },
+  //       {
+  //         image: img3,
+  //         title: "여행의 제목입니다.",
+  //         tags: ["여행", "여행스타그램", "여행에미치다"],
+  //         post_id: 2,
+  //       },
+  //       {
+  //         image: img6,
+  //         title: "여행의 제목입니다.",
+  //         tags: ["여행", "여행스타그램", "여행에미치다"],
+  //         post_id: 3,
+  //       },
+  //       {
+  //         image: img5,
+  //         title: "여행의 제목입니다.",
+  //         tags: ["여행", "여행스타그램", "여행에미치다"],
+  //         post_id: 4,
+  //       },
+  //     ]),
+  //   );
+  // }),
 
-  //6. 업로드 한 글
-  rest.get("https://api.wishtrip.org/msw/mypage/upload", (req, res, ctx) => {
-    const token = req.headers.get("authorization")?.split(" ")[1];
-    //토큰 확인
-    if (token === "null") return res(ctx.status(401));
+  // //6. 업로드 한 글
+  // rest.get("https://api.wishtrip.org/msw/mypage/upload", (req, res, ctx) => {
+  //   const token = req.headers.get("authorization")?.split(" ")[1];
+  //   //토큰 확인
+  //   if (token === "null") return res(ctx.status(401));
 
-    return res(
-      ctx.status(200),
-      ctx.json([
-        {
-          image: img4,
-          title: "여행의 제목입니다.",
-          tags: ["여행", "여행스타그램", "여행에미치다"],
-          post_id: 1,
-        },
-        {
-          image: img3,
-          title: "여행의 제목입니다.",
-          tags: ["여행", "여행스타그램", "여행에미치다"],
-          post_id: 2,
-        },
-        {
-          image: img6,
-          title: "여행의 제목입니다.",
-          tags: ["여행", "여행스타그램", "여행에미치다"],
-          post_id: 3,
-        },
-        {
-          image: img5,
-          title: "여행의 제목입니다.",
-          tags: ["여행", "여행스타그램", "여행에미치다"],
-          post_id: 4,
-        },
-      ]),
-    );
-  }),
+  //   return res(
+  //     ctx.status(200),
+  //     ctx.json([
+  //       {
+  //         image: img4,
+  //         title: "여행의 제목입니다.",
+  //         tags: ["여행", "여행스타그램", "여행에미치다"],
+  //         post_id: 1,
+  //       },
+  //       {
+  //         image: img3,
+  //         title: "여행의 제목입니다.",
+  //         tags: ["여행", "여행스타그램", "여행에미치다"],
+  //         post_id: 2,
+  //       },
+  //       {
+  //         image: img6,
+  //         title: "여행의 제목입니다.",
+  //         tags: ["여행", "여행스타그램", "여행에미치다"],
+  //         post_id: 3,
+  //       },
+  //       {
+  //         image: img5,
+  //         title: "여행의 제목입니다.",
+  //         tags: ["여행", "여행스타그램", "여행에미치다"],
+  //         post_id: 4,
+  //       },
+  //     ]),
+  //   );
+  // }),
 
   //홈
   //1. 유저 프로필 받기
-  rest.get("https://api.wishtrip.org/msw/home/profile", (req, res, ctx) => {
-    //토근 확인
-    const token = req.headers.get("authorization")?.split(" ")[1];
-    if (token === "null") return res(ctx.status(401));
+  // rest.get("https://api.wishtrip.org/msw/home/profile", (req, res, ctx) => {
+  //   //토근 확인
+  //   const token = req.headers.get("authorization")?.split(" ")[1];
+  //   if (token === "null") return res(ctx.status(401));
 
-    //프로필 이미지 전송
-    return res(
-      ctx.status(200),
-      ctx.json({
-        icon: img1,
-      }),
-    );
-  }),
+  //   //프로필 이미지 전송
+  //   return res(
+  //     ctx.status(200),
+  //     ctx.json({
+  //       icon: img1,
+  //     }),
+  //   );
+  // }),
 
-  //2. 스토리 정보 받기
-  rest.get("https://api.wishtrip.org/msw/home/banner", (req, res, ctx) => {
-    //토큰 검사 x (로그인 안해도 보여줘야 하기 때문)
-    return res(
-      ctx.status(200),
-      ctx.json([
-        {
-          post_id: 1,
-          image: img8,
-          username: "부끄러운 프로도",
-          location: "제주 애월읍",
-          tag: "로맨틱한",
-          icon: img2,
-        },
-        {
-          post_id: 2,
-          image: img1,
-          username: "부끄러운 프로도",
-          location: "제주 애월읍",
-          tag: "로맨틱한",
-          icon: img2,
-        },
-        {
-          post_id: 3,
-          image: img5,
-          username: "부끄러운 프로도",
-          location: "제주 애월읍",
-          tag: "로맨틱한",
-          icon: img2,
-        },
-        {
-          post_id: 4,
-          image: img7,
-          username: "부끄러운 프로도",
-          location: "제주 애월읍",
-          tag: "로맨틱한",
-          icon: img2,
-        },
-      ]),
-    );
-  }),
+  // //2. 스토리 정보 받기
+  // rest.get("https://api.wishtrip.org/msw/home/banner", (req, res, ctx) => {
+  //   //토큰 검사 x (로그인 안해도 보여줘야 하기 때문)
+  //   return res(
+  //     ctx.status(200),
+  //     ctx.json([
+  //       {
+  //         post_id: 1,
+  //         image: img8,
+  //         username: "부끄러운 프로도",
+  //         location: "제주 애월읍",
+  //         tag: "로맨틱한",
+  //         icon: img2,
+  //       },
+  //       {
+  //         post_id: 2,
+  //         image: img1,
+  //         username: "부끄러운 프로도",
+  //         location: "제주 애월읍",
+  //         tag: "로맨틱한",
+  //         icon: img2,
+  //       },
+  //       {
+  //         post_id: 3,
+  //         image: img5,
+  //         username: "부끄러운 프로도",
+  //         location: "제주 애월읍",
+  //         tag: "로맨틱한",
+  //         icon: img2,
+  //       },
+  //       {
+  //         post_id: 4,
+  //         image: img7,
+  //         username: "부끄러운 프로도",
+  //         location: "제주 애월읍",
+  //         tag: "로맨틱한",
+  //         icon: img2,
+  //       },
+  //     ]),
+  //   );
+  // }),
 
-  //3. 이벤트 정보 받기
-  rest.get("https://api.wishtrip.org/msw/home/event", (req, res, ctx) => {
-    //토큰 검사 x (로그인 안해도 보여줘야 하기 때문)
-    return res(
-      ctx.status(200),
-      ctx.json([
-        {
-          location: "강남역",
-          type: "랜덤박스",
-          id: 1,
-        },
-        {
-          location: "선릉역",
-          type: "사진촬영",
-          id: 2,
-        },
-        {
-          location: "제주도",
-          type: "AR포스팅",
-          id: 3,
-        },
-      ]),
-    );
-  }),
+  // //3. 이벤트 정보 받기
+  // rest.get("https://api.wishtrip.org/msw/home/event", (req, res, ctx) => {
+  //   //토큰 검사 x (로그인 안해도 보여줘야 하기 때문)
+  //   return res(
+  //     ctx.status(200),
+  //     ctx.json([
+  //       {
+  //         location: "강남역",
+  //         type: "랜덤박스",
+  //         id: 1,
+  //       },
+  //       {
+  //         location: "선릉역",
+  //         type: "사진촬영",
+  //         id: 2,
+  //       },
+  //       {
+  //         location: "제주도",
+  //         type: "AR포스팅",
+  //         id: 3,
+  //       },
+  //     ]),
+  //   );
+  // }),
 
-  //4. 추천 포스트
-  rest.get("https://api.wishtrip.org/msw/home/recommend", (req, res, ctx) => {
-    //토큰 검사 x (로그인 안해도 보여줘야 하기 때문)
-    return res(
-      ctx.status(200),
-      ctx.json([
-        {
-          id: 12,
-          tag: "한적한",
-          posts: [
-            {
-              image: img2,
-              title: "사소하지만 아름다운 풍경들",
-              location: "프랑스 파리",
-              username: "gamsungcross",
-              icon: img1,
-              post_id: 1,
-            },
-            {
-              image: img3,
-              title: "걷다가 만난 일몰",
-              location: "제주 애월읍",
-              username: "샛별",
-              icon: img5,
-              post_id: 2,
-            },
-            {
-              image: img5,
-              title: "한적한 일본 구석구석 여행",
-              location: "일본 오사카",
-              username: "행복한족제비",
-              icon: img7,
-              post_id: 3,
-            },
-          ],
-        },
-        {
-          id: 10,
-          tag: "화려한",
-          posts: [
-            {
-              image: img8,
-              title: "양들과 함께 만난 일몰",
-              location: "프랑스 파리",
-              username: "gamsungcross",
-              icon: img1,
-              post_id: 4,
-            },
-            {
-              image: img2,
-              title: "걷다가 만난 일몰",
-              location: "제주 애월읍",
-              username: "샛별",
-              icon: img5,
-              post_id: 5,
-            },
-            {
-              image: img7,
-              title: "한적한 일본 구석구석 여행",
-              location: "일본 오사카",
-              username: "행복한족제비",
-              icon: img7,
-              post_id: 6,
-            },
-          ],
-        },
-      ]),
-    );
-  }),
+  // //4. 추천 포스트
+  // rest.get("https://api.wishtrip.org/msw/home/recommend", (req, res, ctx) => {
+  //   //토큰 검사 x (로그인 안해도 보여줘야 하기 때문)
+  //   return res(
+  //     ctx.status(200),
+  //     ctx.json([
+  //       {
+  //         id: 12,
+  //         tag: "한적한",
+  //         posts: [
+  //           {
+  //             image: img2,
+  //             title: "사소하지만 아름다운 풍경들",
+  //             location: "프랑스 파리",
+  //             username: "gamsungcross",
+  //             icon: img1,
+  //             post_id: 1,
+  //           },
+  //           {
+  //             image: img3,
+  //             title: "걷다가 만난 일몰",
+  //             location: "제주 애월읍",
+  //             username: "샛별",
+  //             icon: img5,
+  //             post_id: 2,
+  //           },
+  //           {
+  //             image: img5,
+  //             title: "한적한 일본 구석구석 여행",
+  //             location: "일본 오사카",
+  //             username: "행복한족제비",
+  //             icon: img7,
+  //             post_id: 3,
+  //           },
+  //         ],
+  //       },
+  //       {
+  //         id: 10,
+  //         tag: "화려한",
+  //         posts: [
+  //           {
+  //             image: img8,
+  //             title: "양들과 함께 만난 일몰",
+  //             location: "프랑스 파리",
+  //             username: "gamsungcross",
+  //             icon: img1,
+  //             post_id: 4,
+  //           },
+  //           {
+  //             image: img2,
+  //             title: "걷다가 만난 일몰",
+  //             location: "제주 애월읍",
+  //             username: "샛별",
+  //             icon: img5,
+  //             post_id: 5,
+  //           },
+  //           {
+  //             image: img7,
+  //             title: "한적한 일본 구석구석 여행",
+  //             location: "일본 오사카",
+  //             username: "행복한족제비",
+  //             icon: img7,
+  //             post_id: 6,
+  //           },
+  //         ],
+  //       },
+  //     ]),
+  //   );
+  // }),
 
   //포스트 작성
   //1. 포스트 작성

@@ -58,6 +58,8 @@ const RecentContainer = styled.div`
   flex-direction: column-reverse;
 `;
 
+const check_kor = /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/; // 한글인지 식별해주기 위한 정규표현식
+
 function Search() {
   const [focus, setFocus] = useState<boolean>(false); //input focus 여부
   const [query, setQuery] = useRecoilState<string>(searchQuery); //검색어
@@ -117,10 +119,15 @@ function Search() {
 
   //검색 결과
   useEffect(() => {
+    //한글 쿼리라면 인코딩
+    let api_query = query;
+    if (query.match(check_kor)) {
+      api_query = encodeURI(query); // 한글 인코딩
+    }
     switch (menu) {
       case "포스트":
         instance
-          .get(`msw/search_post?title=${query}`)
+          .get(`/search_post?title=${api_query}`)
           .then(({ data }) => setSearchPost(data))
           .catch((err) => {
             throw err;
@@ -128,7 +135,7 @@ function Search() {
         break;
       case "태그":
         instance
-          .get(`msw/search_tag?tag=${query}`)
+          .get(`/search_tag?tag=${api_query}`)
           .then(({ data }) => setSearchTag(data))
           .catch((err) => {
             throw err;
@@ -136,7 +143,7 @@ function Search() {
         break;
       case "유저":
         instance
-          .get(`msw/search_username?username=${query}`)
+          .get(`/search_username?username=${api_query}`)
           .then(({ data }) => setSearchUser(data))
           .catch((err) => {
             throw err;
@@ -144,7 +151,7 @@ function Search() {
         break;
       case "장소":
         instance
-          .get(`msw/search_location?location=${query}`)
+          .get(`/search_location?location=${api_query}`)
           .then(({ data }) => setSearchLocation(data))
           .catch((err) => {
             throw err;

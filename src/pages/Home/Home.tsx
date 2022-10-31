@@ -4,8 +4,15 @@ import Story from "./components/Story";
 import Menu from "./components/Menu";
 import Event from "./components/Event";
 import Recommend from "./components/Recommend";
-import { useRecoilValue } from "recoil";
-import { homeRecommend } from "../../recoil/home";
+import { useRecoilValue, useSetRecoilState } from "recoil";
+import {
+  homeBanner,
+  homeEvent,
+  homeProfile,
+  homeRecommend,
+} from "../../recoil/home";
+import { useEffect } from "react";
+import instance from "../../modules/api";
 
 const StyledHome = styled.div``;
 
