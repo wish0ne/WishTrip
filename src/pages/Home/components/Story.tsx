@@ -53,7 +53,7 @@ const progress = keyframes`
   }
 `;
 
-const Pagination = styled.div`
+const Pagination = styled.div<{ length: number }>`
   position: absolute;
   bottom: 1.2rem;
   padding: 0 1.2rem;
@@ -64,7 +64,7 @@ const Pagination = styled.div`
   & > div {
     height: 0.3rem;
     background-color: rgba(255, 255, 255, 0.7);
-    width: 23%;
+    width: ${(props) => 100 / props.length - 2}%;
     border-radius: 0.2rem;
   }
 
@@ -99,7 +99,10 @@ function Story() {
   const [index, setIndex] = useState<number>(0);
   const banner = useRecoilValue(homeBanner);
   const navigate = useNavigate();
-  useInterval(() => setIndex((index) => (index === 3 ? 0 : index + 1)), 5000);
+  useInterval(
+    () => setIndex((index) => (index === banner.length - 1 ? 0 : index + 1)),
+    5000,
+  );
 
   return (
     <StyledStory
@@ -122,19 +125,14 @@ function Story() {
               className="user"
             />
           </Bottom>
-          <Pagination>
-            <div>
-              <div className={index === 0 ? "current" : ""} />
-            </div>
-            <div>
-              <div className={index === 1 ? "current" : ""} />
-            </div>
-            <div>
-              <div className={index === 2 ? "current" : ""} />
-            </div>
-            <div>
-              <div className={index === 3 ? "current" : ""} />
-            </div>
+          <Pagination length={banner.length}>
+            {banner.map((value, idx) => {
+              return (
+                <div>
+                  <div className={index === idx ? "current" : ""} />
+                </div>
+              );
+            })}
           </Pagination>
         </>
       )}

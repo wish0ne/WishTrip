@@ -47,7 +47,7 @@ function Input({ children, type, id }: InputPropsType) {
     setAuth({
       data: {
         ...auth.data,
-        [e.target.id]: e.target.value,
+        [id]: e.target.value,
       },
       agree: false,
       alert: {

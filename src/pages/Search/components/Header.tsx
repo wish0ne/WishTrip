@@ -53,7 +53,9 @@ function Header({ focus, setFocus }: HeaderPropsType) {
         type="text"
         placeholder="검색어를 입력해주세요"
         onFocus={handleFocus}
-        onChange={(e) => setQuery(e.target.value)}
+        onChange={(e) => {
+          setQuery(e.target.value);
+        }}
         value={query}
       />
     </StyledHeader>

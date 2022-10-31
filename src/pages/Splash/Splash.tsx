@@ -39,7 +39,7 @@ function Splash() {
         setTimeout(resolve, 2000);
       }),
       instance
-        .get("/msw/home/profile")
+        .get("/home/profile")
         .then(({ data }) => {
           setProfile(data.icon);
         })
@@ -47,13 +47,13 @@ function Splash() {
           setProfile(null);
           throw err;
         }),
-      instance.get("/msw/home/banner").then(({ data }) => {
+      instance.get("/home/banner").then(({ data }) => {
         setBanner(data);
       }),
-      instance.get("/msw/home/event").then(({ data }) => {
+      instance.get("/home/event").then(({ data }) => {
         setEvent(data);
       }),
-      instance.get("/msw/home/recommend").then(({ data }) => {
+      instance.get("/home/recommend").then(({ data }) => {
         setRecommend(data);
       }),
     ]).then((result) => {
