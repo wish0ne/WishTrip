@@ -6,10 +6,12 @@ import useScript from "../../modules/useScript.ts";
 import { ReactComponent as Back } from "../../assets/images/uil_arrow-left.svg";
 import { ReactComponent as Camera } from "../../assets/images/uil_camera-plus.svg";
 import Modal from "./components/Modal";
-import { arContents, arCreatePost, arId } from "../../recoil/ar";
+import { arContents, arCreatePost, arId, userCoords } from "../../recoil/ar";
 import instance from "../../modules/api";
+import axios from "axios";
 import { commentsState, postState } from "../../recoil/post";
 import useInterval from "../../modules/useInterval";
+import armock from "../../assets/images/armock1.png";
 
 const ARContainer = styled.div`
   height: 100%;
@@ -77,7 +79,7 @@ const isMobile = /Mobi/i.test(window.navigator.userAgent); // 모바일 체크
 function Ar() {
   const [arCreate, setARCreate] = useRecoilState(arCreatePost); //ar 포스트 작성에 필요한 정보
   const [contents, setContents] = useRecoilState(arContents); //ar 포스트
-  const [coords, setCoords] = useState({ x: 0, y: 0, z: 0 }); //유저 위치 정보
+  const coords = useRecoilValue(userCoords);
   const [ar_id, setArId] = useRecoilState(arId); //ar 포스트 id
   const navigate = useNavigate();
   const nftStatus = useScript(
@@ -96,15 +98,18 @@ function Ar() {
   useEffect(() => {
     if (isMobile) {
       //get ar post
-      instance
-        .get("/msw/arpost/get_around_posts", {
-          x: coords.x,
-          y: coords.y,
-          z: 0,
-        })
-        .then((res) => {
-          setContents(res.data);
-        });
+      if (coords) {
+        alert("fetch");
+        axios
+          .get("/data.json", {
+            x: coords.x,
+            y: coords.y,
+            z: 0,
+          })
+          .then((res) => {
+            setContents(res.data);
+          });
+      }
 
       return () => {
         let html = document.querySelector("html");
@@ -123,33 +128,34 @@ function Ar() {
     });
   };
 
-  const getPosition = useCallback(() => {
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(
-        ({ coords }) => {
-          console.log(coords);
-          setCoords(coords);
-        },
-        (error) => {
-          alert(error.message);
-        },
-      );
-      // await getCoords().then(({ coords }) => {
-      //   console.log(coords);
-      //   setCoords({
-      //     x: coords.latitude,
-      //     y: coords.longitude,
-      //     z: coords.altitude,
-      //   });
-      // });
-    } else {
-      alert("GPS를 지원하지 않습니다.");
-    }
-  }, []);
+  // const getPosition = useCallback(() => {
+  //   if (navigator.geolocation) {
+  //     navigator.geolocation.getCurrentPosition(
+  //       ({ coords }) => {
+  //         console.log(coords);
+  //         setCoords(coords);
+  //       },
+  //       (error) => {
+  //         alert(error.message);
+  //       },
+  //     );
+  //     // await getCoords().then(({ coords }) => {
+  //     //   console.log(coords);
+  //     //   setCoords({
+  //     //     x: coords.latitude,
+  //     //     y: coords.longitude,
+  //     //     z: coords.altitude,
+  //     //   });
+  //     // });
+  //   } else {
+  //     alert("GPS를 지원하지 않습니다.");
+  //   }
+  // }, []);
 
-  useInterval(() => {
-    getPosition();
-  }, 3000);
+  // useInterval(() => {
+  //   console.log("time");
+  //   getPosition();
+  // }, 5000);
 
   const handleAddClick = () => {
     //AR 작성 전 유저 위치 정보 받기
@@ -197,8 +203,7 @@ function Ar() {
         </PC>
       ) : (
         lookatStatus === "ready" &&
-        nftStatus === "ready" &&
-        contents.length > 0 && (
+        nftStatus === "ready" && (
           <a-scene
             debug
             cursor="rayOrigin: mouse;"
@@ -213,13 +218,17 @@ function Ar() {
               {contents.map((entity) => (
                 <img
                   id={entity.ar_post_id}
-                  src={entity.image}
+                  src={armock}
                   alt="ar contents"
                   key={entity.ar_post_id}
                 />
               ))}
             </a-assets>
-            <a-camera gps-camera="" rotation-reader=""></a-camera>
+            <a-camera
+              gps-camera=""
+              rotation-reader=""
+              camera-handler
+            ></a-camera>
             {contents.map((entity) => (
               <a-image
                 gps-entity-place={`latitude: ${entity.x_value}; longitude: ${entity.y_value};`}

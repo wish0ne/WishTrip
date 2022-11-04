@@ -15,7 +15,7 @@ import Read from "./pages/Post/Read";
 import Profile from "./pages/Profile/Profile";
 import { useEffect, useRef } from "react";
 import { useSetRecoilState } from "recoil";
-import { arId } from "./recoil/ar";
+import { arId, userCoords } from "./recoil/ar";
 import Splash from "./pages/Splash/Splash";
 
 const GlobalStyle = createGlobalStyle`
@@ -102,14 +102,54 @@ const theme = {
   },
 };
 
+interface cameraUpdatePositionEventType {
+  detail: {
+    position: GeolocationCoordinates;
+    origin: GeolocationCoordinates;
+  };
+}
+
 function App() {
   const isRegister = useRef(false);
   const setArId = useSetRecoilState(arId);
+  const setCoords = useSetRecoilState(userCoords);
   useEffect(() => {
     if (!isRegister.current) {
       //AR click handler
+      AFRAME.registerComponent("camera-handler", {
+        init: function () {
+          alert("camera initializing!");
+          window.addEventListener("gps-camera-update-position", (e: any) => {
+            alert(
+              `${e.detail.position.longitude}, ${e.detail.position.latitude}`,
+            );
+            setCoords({
+              x: e.detail.position.latitude,
+              y: e.detail.position.longitude,
+            });
+          });
+
+          window.addEventListener("gps-camera-origin-coord-set", (e: any) => {
+            alert("camera set");
+          });
+        },
+      });
+
       AFRAME.registerComponent("clickhandler", {
         init: function () {
+          alert("component initialising!");
+          // window.addEventListener("gps-camera-update-position", (e: any) => {
+          //   alert(e.detail.position);
+          //   setCoords({
+          //     x: e.detail.position.latitude,
+          //     y: e.detail.position.longitude,
+          //   });
+          // });
+
+          // window.addEventListener("gps-camera-origin-coord-set", (e: any) => {
+          //   alert("camera set");
+          // });
+
           let data = this.data;
           let el = this.el;
           el.addEventListener("click", () => {
@@ -127,20 +167,22 @@ function App() {
     <ThemeProvider theme={theme}>
       <GlobalStyle />
       <Routes>
-        <Route path="" element={<Splash />} />
-        <Route path="Home" element={<Home />} />
-        <Route path="Authentication">
-          <Route path="Start" element={<Start />} />
-          <Route path="Email" element={<Email />} />
-          <Route path="Password" element={<Password />} />
-          <Route path="Register" element={<Register />} />
+        <Route path="WishTrip/">
+          <Route path="" element={<Splash />} />
+          <Route path="Home" element={<Home />} />
+          <Route path="Authentication">
+            <Route path="Start" element={<Start />} />
+            <Route path="Email" element={<Email />} />
+            <Route path="Password" element={<Password />} />
+            <Route path="Register" element={<Register />} />
+          </Route>
+          <Route path="Search" element={<Search />} />
+          <Route path="Read/:postId" element={<Read />} />
+          <Route path="ARTrip" element={<Ar />} />
+          <Route path="ARTrip/Create" element={<ARCreate />} />
+          <Route path="Mypage" element={<Mypage />} />
+          <Route path="Profile/:username" element={<Profile />} />
         </Route>
-        <Route path="Search" element={<Search />} />
-        <Route path="Read/:postId" element={<Read />} />
-        <Route path="ARTrip" element={<Ar />} />
-        <Route path="ARTrip/Create" element={<ARCreate />} />
-        <Route path="Mypage" element={<Mypage />} />
-        <Route path="Profile/:username" element={<Profile />} />
       </Routes>
     </ThemeProvider>
   );
