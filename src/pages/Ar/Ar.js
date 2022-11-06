@@ -99,14 +99,15 @@ function Ar() {
     if (isMobile) {
       //get ar post
       if (coords) {
-        alert("fetch");
+        alert("fetch 2");
         axios
-          .get("/data.json", {
+          .get("/dummy/data.json", {
             x: coords.x,
             y: coords.y,
             z: 0,
           })
           .then((res) => {
+            console.log(res.data);
             setContents(res.data);
           });
       }

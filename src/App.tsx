@@ -14,7 +14,7 @@ import Search from "./pages/Search/Search";
 import Read from "./pages/Post/Read";
 import Profile from "./pages/Profile/Profile";
 import { useEffect, useRef } from "react";
-import { useSetRecoilState } from "recoil";
+import { useRecoilSnapshot, useRecoilState, useSetRecoilState } from "recoil";
 import { arId, userCoords } from "./recoil/ar";
 import Splash from "./pages/Splash/Splash";
 
@@ -102,17 +102,31 @@ const theme = {
   },
 };
 
-interface cameraUpdatePositionEventType {
-  detail: {
-    position: GeolocationCoordinates;
-    origin: GeolocationCoordinates;
-  };
+function getDistance(lat1: number, lon1: number, lat2: number, lon2: number) {
+  if (lat1 === lat2 && lon1 === lon2) return 0;
+
+  var radLat1 = (Math.PI * lat1) / 180;
+  var radLat2 = (Math.PI * lat2) / 180;
+  var theta = lon1 - lon2;
+  var radTheta = (Math.PI * theta) / 180;
+  var dist =
+    Math.sin(radLat1) * Math.sin(radLat2) +
+    Math.cos(radLat1) * Math.cos(radLat2) * Math.cos(radTheta);
+  if (dist > 1) dist = 1;
+
+  dist = Math.acos(dist);
+  dist = (dist * 180) / Math.PI;
+  dist = dist * 60 * 1.1515 * 1.609344 * 1000;
+  if (dist < 100) dist = Math.round(dist / 10) * 10;
+  else dist = Math.round(dist / 100) * 100;
+
+  return dist;
 }
 
 function App() {
   const isRegister = useRef(false);
   const setArId = useSetRecoilState(arId);
-  const setCoords = useSetRecoilState(userCoords);
+  const [coords, setCoords] = useRecoilState(userCoords);
   useEffect(() => {
     if (!isRegister.current) {
       //AR click handler
@@ -120,13 +134,22 @@ function App() {
         init: function () {
           alert("camera initializing!");
           window.addEventListener("gps-camera-update-position", (e: any) => {
-            alert(
-              `${e.detail.position.longitude}, ${e.detail.position.latitude}`,
+            // alert(
+            //   `${e.detail.position.longitude}, ${e.detail.position.latitude}`,
+            // );
+            let distance = getDistance(
+              coords.x,
+              coords.y,
+              e.detail.position.latitude,
+              e.detail.position.longitude,
             );
-            setCoords({
-              x: e.detail.position.latitude,
-              y: e.detail.position.longitude,
-            });
+            alert(distance);
+            if (coords === undefined || distance >= 1000) {
+              setCoords({
+                x: e.detail.position.latitude,
+                y: e.detail.position.longitude,
+              });
+            }
           });
 
           window.addEventListener("gps-camera-origin-coord-set", (e: any) => {
