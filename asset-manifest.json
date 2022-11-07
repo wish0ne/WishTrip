@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/WishTrip/static/css/main.78e80550.css",
-    "main.js": "/WishTrip/static/js/main.0c3dbdf8.js",
+    "main.css": "/WishTrip/static/css/main.32f81bc4.css",
+    "main.js": "/WishTrip/static/js/main.83a13d9d.js",
     "static/js/787.7852e65b.chunk.js": "/WishTrip/static/js/787.7852e65b.chunk.js",
     "static/media/AppleSDGothicNeoB.ttf": "/WishTrip/static/media/AppleSDGothicNeoB.4175a777557557f7d294.ttf",
     "static/media/AppleSDGothicNeoM.ttf": "/WishTrip/static/media/AppleSDGothicNeoM.88c00162a2084f97069c.ttf",
@@ -24,7 +24,6 @@
     "static/media/regular_heart.svg": "/WishTrip/static/media/regular_heart.7fbdbf5aa5b6044fdaa298dbecd6f7fe.svg",
     "static/media/uil_location-point.svg": "/WishTrip/static/media/uil_location-point.841c0ede7b79158b5780c2b43e032dc7.svg",
     "static/media/uil_message.svg": "/WishTrip/static/media/uil_message.8f2defb6e6dd3a4a4e07bf886cfb1222.svg",
-    "static/media/uil_bell.svg": "/WishTrip/static/media/uil_bell.60f7168b868239a0ed752b69aa3b243f.svg",
     "static/media/regular_bookmark.svg": "/WishTrip/static/media/regular_bookmark.40786f1aad8b5022718399db9ffa38fc.svg",
     "static/media/uil_arrow-left.svg": "/WishTrip/static/media/uil_arrow-left.dc53e5f5177584d78476bd1d33745003.svg",
     "static/media/solid_bookmark.svg": "/WishTrip/static/media/solid_bookmark.06b96377aefff30926c594a7ba162ebc.svg",
@@ -34,12 +33,12 @@
     "static/media/uil_check.svg": "/WishTrip/static/media/uil_check.d22f4499dc237b22907286f824e4bd93.svg",
     "static/media/uil_bars.svg": "/WishTrip/static/media/uil_bars.3e9b31de89e9074dd1f34eae9dab2d60.svg",
     "static/media/tabler_arrow-left.svg": "/WishTrip/static/media/tabler_arrow-left.b8d5f56a21fbd35851ad57fe9f87d0f3.svg",
-    "main.78e80550.css.map": "/WishTrip/static/css/main.78e80550.css.map",
-    "main.0c3dbdf8.js.map": "/WishTrip/static/js/main.0c3dbdf8.js.map",
+    "main.32f81bc4.css.map": "/WishTrip/static/css/main.32f81bc4.css.map",
+    "main.83a13d9d.js.map": "/WishTrip/static/js/main.83a13d9d.js.map",
     "787.7852e65b.chunk.js.map": "/WishTrip/static/js/787.7852e65b.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.78e80550.css",
-    "static/js/main.0c3dbdf8.js"
+    "static/css/main.32f81bc4.css",
+    "static/js/main.83a13d9d.js"
   ]
 }
