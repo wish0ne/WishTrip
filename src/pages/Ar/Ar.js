@@ -12,6 +12,7 @@ import axios from "axios";
 import { commentsState, postState } from "../../recoil/post";
 import useInterval from "../../modules/useInterval";
 import armock from "../../assets/images/armock1.png";
+import { getDistance } from "../../modules/getDistance";
 
 const ARContainer = styled.div`
   height: 100%;
@@ -80,6 +81,7 @@ function Ar() {
   const [arCreate, setARCreate] = useRecoilState(arCreatePost); //ar 포스트 작성에 필요한 정보
   const [contents, setContents] = useRecoilState(arContents); //ar 포스트
   const coords = useRecoilValue(userCoords);
+  const [prevCoords, setPrevCoords] = useState({ x: 0, y: 0 });
   const [ar_id, setArId] = useRecoilState(arId); //ar 포스트 id
   const navigate = useNavigate();
   const nftStatus = useScript(
@@ -93,81 +95,46 @@ function Ar() {
     if (!isMobile) alert("AR 여행 기능은 모바일에서만 이용 가능합니다.");
     //get user coordinate
     //getPosition();
+
+    return () => {
+      let html = document.querySelector("html");
+      let body = document.querySelector("body");
+      let video = document.querySelector("video");
+      if (video) body.removeChild(video);
+      html.classList.remove("a-fullscreen");
+    };
   }, []);
 
   useEffect(() => {
     if (isMobile) {
       //get ar post
       if (coords) {
-        alert("fetch 2");
-        axios
-          .get("/dummy/data.json", {
-            x: coords.x,
-            y: coords.y,
-            z: 0,
-          })
-          .then((res) => {
-            console.log(res.data);
-            setContents(res.data);
-          });
+        //alert(`fetch 17 ${coords.x} ${coords.y}`);
+        let dist = getDistance(prevCoords.x, prevCoords.y, coords.x, coords.y);
+        //alert("dist " + dist);
+        if (dist > 1000) {
+          instance
+            .get("msw/arpost/get_around_posts", {
+              x: coords.x,
+              y: coords.y,
+              z: 0,
+            })
+            .then((res) => {
+              setContents(res.data);
+            });
+        }
       }
-
-      return () => {
-        let html = document.querySelector("html");
-        let body = document.querySelector("body");
-        let video = document.querySelector("video");
-        if (video) body.removeChild(video);
-        html.classList.remove("a-fullscreen");
-      };
     }
+    return () => {
+      //coords 업데이트 직전 이전 값 저장
+      if (coords) {
+        setPrevCoords({
+          x: coords.x,
+          y: coords.y,
+        });
+      }
+    };
   }, [coords]);
-
-  //위치 정보 받기 동기처리
-  const getCoords = () => {
-    return new Promise((resolve, reject) => {
-      navigator.geolocation.watchPosition(resolve, reject);
-    });
-  };
-
-  // const getPosition = useCallback(() => {
-  //   if (navigator.geolocation) {
-  //     navigator.geolocation.getCurrentPosition(
-  //       ({ coords }) => {
-  //         console.log(coords);
-  //         setCoords(coords);
-  //       },
-  //       (error) => {
-  //         alert(error.message);
-  //       },
-  //     );
-  //     // await getCoords().then(({ coords }) => {
-  //     //   console.log(coords);
-  //     //   setCoords({
-  //     //     x: coords.latitude,
-  //     //     y: coords.longitude,
-  //     //     z: coords.altitude,
-  //     //   });
-  //     // });
-  //   } else {
-  //     alert("GPS를 지원하지 않습니다.");
-  //   }
-  // }, []);
-
-  // useInterval(() => {
-  //   console.log("time");
-  //   getPosition();
-  // }, 5000);
-
-  const handleAddClick = () => {
-    //AR 작성 전 유저 위치 정보 받기
-    setARCreate({
-      ...arCreate,
-      x_value: coords.x,
-      y_value: coords.y,
-      z_value: coords.z,
-    });
-    navigate("./Create");
-  };
 
   const [post, setPost] = useRecoilState(postState);
   const [comments, setComments] = useRecoilState(commentsState);
@@ -247,7 +214,7 @@ function Ar() {
       <BackButton to="../Home">
         <Back width="3.2rem" height="3.2rem" />
       </BackButton>
-      <Add onClick={handleAddClick}>
+      <Add onClick={() => navigate("../Create")}>
         <Camera width="2.8rem" height="2.8rem" />
         <span>포스트 남기기</span>
       </Add>
