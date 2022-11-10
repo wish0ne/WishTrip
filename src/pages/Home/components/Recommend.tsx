@@ -7,6 +7,9 @@ import addRecentPost from "../../../modules/addRecentPost";
 
 const StyledRecommend = styled.div`
   margin-top: 4.8rem;
+  &:first-child {
+    margin-top: 0;
+  }
 `;
 
 const Title = styled.div`

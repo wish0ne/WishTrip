@@ -1,7 +1,6 @@
 import styled from "styled-components";
-import { Link, Navigate, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { ReactComponent as Logo } from "../../../assets/images/Logo.svg";
-import { ReactComponent as Bell } from "../../../assets/images/uil_bell.svg";
 import { useRecoilValue } from "recoil";
 import { homeProfile } from "../../../recoil/home";
 
@@ -12,6 +11,27 @@ const StyledHeader = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
+  background-color: white;
+
+  /* 데스크탑 */
+  @media screen and (min-width: 1024px) {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    background-color: ${(props) => props.theme.palette.primary3};
+    z-index: 10;
+    margin-bottom: 5.6rem;
+  }
+`;
+
+const StyledLogo = styled(Logo)`
+  /* 데스크탑 */
+  @media screen and (min-width: 1024px) {
+    path {
+      fill: white;
+    }
+  }
 `;
 
 const UserIcon = styled(Link)`
@@ -37,12 +57,13 @@ function Header() {
   const navigate = useNavigate();
   return (
     <StyledHeader>
-      <Logo width="7.2rem" height="2rem" />
+      <StyledLogo width="7.2rem" height="2rem" />
       <StyledDiv>
-        <Bell width="2.4rem" height="2.4rem" />
-        <UserIcon to="../Mypage" onClick={() => navigate("../Mypage")}>
-          {profile && <img src={profile} alt="유저아이콘" />}
-        </UserIcon>
+        {profile && (
+          <UserIcon to="../Mypage" onClick={() => navigate("../Mypage")}>
+            <img src={profile} alt="유저아이콘" />
+          </UserIcon>
+        )}
       </StyledDiv>
     </StyledHeader>
   );

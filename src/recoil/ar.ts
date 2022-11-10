@@ -50,3 +50,8 @@ export const arId = atom<number | null>({
   key: "ar/arId",
   default: null,
 });
+
+export const userCoords = atom<{ x: number; y: number }>({
+  key: "ar/userCoords",
+  default: undefined,
+});

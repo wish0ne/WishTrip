@@ -19,4 +19,12 @@ export const location = [
     x_value: 34.890575,
     y_value: 128.638887,
   },
+  {
+    x_value: 34.894663,
+    y_value: 128.64145,
+  },
+  {
+    x_value: 34.890639,
+    y_value: 128.638866,
+  },
 ];

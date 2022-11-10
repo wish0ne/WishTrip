@@ -9,6 +9,7 @@ import { homeEvent } from "../../../recoil/home";
 
 const StyledContainer = styled.div`
   padding: 0 3rem;
+  margin-bottom: 4rem;
   .swiper-pagination {
     bottom: 0;
   }

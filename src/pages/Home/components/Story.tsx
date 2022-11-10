@@ -8,11 +8,13 @@ import { useNavigate } from "react-router-dom";
 import addRecentPost from "../../../modules/addRecentPost";
 
 const StyledStory = styled.div`
-  height: ${window.screen.width < 450
-    ? document.body.offsetWidth * 1.25
-    : 550}px;
+  height: 70vh;
   margin: 0.4rem 0.75rem 0;
   position: relative;
+  /* 데스크탑 */
+  @media screen and (min-width: 1024px) {
+    height: 60vh;
+  }
 `;
 
 const Image = styled.img`
@@ -128,7 +130,7 @@ function Story() {
           <Pagination length={banner.length}>
             {banner.map((value, idx) => {
               return (
-                <div>
+                <div key={idx}>
                   <div className={index === idx ? "current" : ""} />
                 </div>
               );

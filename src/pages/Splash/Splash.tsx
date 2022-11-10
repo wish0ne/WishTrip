@@ -38,28 +38,28 @@ function Splash() {
       new Promise((resolve) => {
         setTimeout(resolve, 2000);
       }),
-      instance
-        .get("/home/profile")
-        .then(({ data }) => {
-          setProfile(data.icon);
-        })
-        .catch((err) => {
-          setProfile(null);
-          throw err;
-        }),
-      instance.get("/home/banner").then(({ data }) => {
-        setBanner(data);
-      }),
-      instance.get("/home/event").then(({ data }) => {
-        setEvent(data);
-      }),
-      instance.get("/home/recommend").then(({ data }) => {
-        setRecommend(data);
-      }),
+      // instance
+      //   .get("/home/profile")
+      //   .then(({ data }) => {
+      //     setProfile(data.icon);
+      //   })
+      //   .catch((err) => {
+      //     setProfile(null);
+      //     throw err;
+      //   }),
+      // instance.get("/home/banner").then(({ data }) => {
+      //   setBanner(data);
+      // }),
+      // instance.get("/home/event").then(({ data }) => {
+      //   setEvent(data);
+      // }),
+      // instance.get("/home/recommend").then(({ data }) => {
+      //   setRecommend(data);
+      // }),
     ]).then((result) => {
       navigate("./Home");
     });
-  }, [setProfile, setBanner, setEvent, setRecommend, navigate]);
+  }, [navigate]);
   return (
     <StyledSplash>
       {window.innerWidth > window.innerHeight ? (

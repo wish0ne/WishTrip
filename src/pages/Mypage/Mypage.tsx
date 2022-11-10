@@ -120,7 +120,13 @@ function Mypage() {
             username: data.username,
           });
         })
-        .catch(() => {});
+        .catch(() => {
+          setUser({
+            icon: "",
+            email: "",
+            username: "",
+          });
+        });
       //스크랩 한 글 받아오기
       instance.get(`/mypage/${tab}`).then(({ data }) => {
         setContents({
@@ -195,7 +201,7 @@ function Mypage() {
       <Header title="마이페이지">
         <Bar width="2.4rem" height="2.4rem" onClick={openMenu} />
       </Header>
-      {token ? (
+      {user.email !== "" ? (
         <MypageUser
           className="user"
           icon={user.icon}

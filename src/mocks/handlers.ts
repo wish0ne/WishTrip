@@ -527,6 +527,20 @@ export const handlers = [
             y_value: location[4].y_value,
             z_value: 0,
           },
+          {
+            ar_post_id: 6,
+            image: armock4,
+            x_value: location[5].x_value,
+            y_value: location[5].y_value,
+            z_value: 0,
+          },
+          {
+            ar_post_id: 7,
+            image: armock4,
+            x_value: location[6].x_value,
+            y_value: location[6].y_value,
+            z_value: 0,
+          },
         ]),
       );
     },
