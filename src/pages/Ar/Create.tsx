@@ -19,7 +19,7 @@ const Line = styled.div`
   background-color: ${(props) => props.theme.palette.inversed2};
 `;
 
-function ARCreate() {
+function Create() {
   const hashTags = useRecoilValue(hashTagsAuto);
   const arCreate = useRecoilValue(arCreatePost);
   const resetARCreat = useResetRecoilState(arCreatePost);
@@ -87,4 +87,4 @@ function ARCreate() {
     </StyledCreate>
   );
 }
-export default ARCreate;
+export default Create;
