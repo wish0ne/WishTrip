@@ -6,34 +6,38 @@ import App from "./App";
 import * as serviceWorkerRegistration from "./serviceWorkerRegistration";
 import reportWebVitals from "./reportWebVitals";
 
-async function main() {
-  if (window.location.pathname === "/WishTrip") {
-    window.location.pathname = "/WishTrip/";
-    return;
-  }
-  const { worker } = require("./mocks/browser");
-  await worker.start({
-    serviceWorker: {
-      url: "/WishTrip/mockServiceWorker.js",
-    },
-  });
+const { worker } = require("./mocks/browser");
+worker.start();
 
-  const root = ReactDOM.createRoot(
-    document.getElementById("root") as HTMLElement,
-  );
+// async function main() {
+//   if (window.location.pathname === "/WishTrip") {
+//     window.location.pathname = "/WishTrip/";
+//     return;
+//   }
+//   const { worker } = require("./mocks/browser");
+//   await worker.start({
+//     serviceWorker: {
+//       url: "/WishTrip/mockServiceWorker.js",
+//     },
+//   });
 
-  root.render(
-    // <React.StrictMode>
-    <RecoilRoot>
-      <BrowserRouter>
-        <App />
-      </BrowserRouter>
-    </RecoilRoot>,
-    // </React.StrictMode>,
-  );
-}
+// }
 
-main();
+// main();
+
+const root = ReactDOM.createRoot(
+  document.getElementById("root") as HTMLElement,
+);
+
+root.render(
+  // <React.StrictMode>
+  <RecoilRoot>
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
+  </RecoilRoot>,
+  // </React.StrictMode>,
+);
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.
