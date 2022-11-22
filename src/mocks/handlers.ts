@@ -433,52 +433,52 @@ export const handlers = [
 
   //포스트 작성
   //1. 포스트 작성
-  rest.post<{
-    file: File; //AR 이미지
-    image: File; //이미지 원본
-    title: string; //제목
-    body: string; //내용
-    location: string; //장소
-    tags: string[]; //태그
-    x: number; //위도
-    y: number; //경도
-    z: number; //고도
-    date: Date; //작성 날짜
-  }>("https://api.wishtrip.org/msw/arpost/create", (req, res, ctx) => {
-    //토근 확인
-    const token = req.headers.get("authorization")?.split(" ")[1];
-    if (token === "null") return res(ctx.status(401));
+  // rest.post<{
+  //   file: File; //AR 이미지
+  //   image: File; //이미지 원본
+  //   title: string; //제목
+  //   body: string; //내용
+  //   location: string; //장소
+  //   tags: string[]; //태그
+  //   x: number; //위도
+  //   y: number; //경도
+  //   z: number; //고도
+  //   date: Date; //작성 날짜
+  // }>("https://api.wishtrip.org/msw/arpost/create", (req, res, ctx) => {
+  //   //토근 확인
+  //   const token = req.headers.get("authorization")?.split(" ")[1];
+  //   if (token === "null") return res(ctx.status(401));
 
-    const { file, image, title, body, location, tags, x, y, z, date } =
-      req.body;
-    //데이터 확인
-    if (file && image && title && body && tags && x && y && z && date) {
-      return res(ctx.status(200), ctx.json({ msg: "ARpost create success" }));
-    } else return res(ctx.status(400), ctx.json({ msg: "ARpost create fail" }));
-  }),
+  //   const { file, image, title, body, location, tags, x, y, z, date } =
+  //     req.body;
+  //   //데이터 확인
+  //   if (file && image && title && body && tags && x && y && z && date) {
+  //     return res(ctx.status(200), ctx.json({ msg: "ARpost create success" }));
+  //   } else return res(ctx.status(400), ctx.json({ msg: "ARpost create fail" }));
+  // }),
 
-  //2. 태그 자동완성
-  rest.get("https://api.wishtrip.org/msw/hashtag", (req, res, ctx) => {
-    //토근 확인
-    const token = req.headers.get("authorization")?.split(" ")[1];
-    if (token === "null") return res(ctx.status(401));
+  // //2. 태그 자동완성
+  // rest.get("https://api.wishtrip.org/msw/hashtag", (req, res, ctx) => {
+  //   //토근 확인
+  //   const token = req.headers.get("authorization")?.split(" ")[1];
+  //   if (token === "null") return res(ctx.status(401));
 
-    const tag = req.url.searchParams.get("tag");
-    //일치 태그 존재
-    if (tag === "여")
-      return res(
-        ctx.status(200),
-        ctx.json(["여행", "여수", "여치", "여수밤바다"]),
-      );
-    if (tag === "부")
-      return res(
-        ctx.status(200),
-        ctx.json(["부산", "부산앞바다", "부리부리", "부산에서제일맛있는집"]),
-      );
+  //   const tag = req.url.searchParams.get("tag");
+  //   //일치 태그 존재
+  //   if (tag === "여")
+  //     return res(
+  //       ctx.status(200),
+  //       ctx.json(["여행", "여수", "여치", "여수밤바다"]),
+  //     );
+  //   if (tag === "부")
+  //     return res(
+  //       ctx.status(200),
+  //       ctx.json(["부산", "부산앞바다", "부리부리", "부산에서제일맛있는집"]),
+  //     );
 
-    //일치하는 태그 없음
-    return res(ctx.status(200), ctx.json([]));
-  }),
+  //   //일치하는 태그 없음
+  //   return res(ctx.status(200), ctx.json([]));
+  // }),
 
   //주변 AR 포스트 읽기
   //1. 주변 AR 포스트 읽기 -> 유저 좌표를 계산해서 변환한 대표좌표로 요청
@@ -547,313 +547,313 @@ export const handlers = [
   ),
 
   //포스트 검색
-  //1. 지금 인기 태그
-  rest.get("https://api.wishtrip.org/msw/get_popular_tags", (req, res, ctx) => {
-    //토큰 검사 x (로그인 안해도 보여줘야 하기 때문)
+  // //1. 지금 인기 태그
+  // rest.get("https://api.wishtrip.org/msw/get_popular_tags", (req, res, ctx) => {
+  //   //토큰 검사 x (로그인 안해도 보여줘야 하기 때문)
 
-    //인기 태그 반환
-    //res : {id, 태그, 해당게시물 개수, posts:[{id, 원본이미지, 제목, 유저네임}]}
+  //   //인기 태그 반환
+  //   //res : {id, 태그, 해당게시물 개수, posts:[{id, 원본이미지, 제목, 유저네임}]}
 
-    return res(
-      ctx.status(200),
-      ctx.json([
-        {
-          id: 1,
-          tag: "피자",
-          count: 312,
-          posts: [
-            {
-              post_id: 1,
-              image: img2,
-              title: "사소하지만 아름다운 풍경들",
-              username: "샛별",
-            },
-            {
-              post_id: 2,
-              image: img3,
-              title: "사소하지만 아름다운 풍경들",
-              username: "샛별",
-            },
-            {
-              post_id: 3,
-              image: img4,
-              title: "사소하지만 아름다운 풍경들",
-              username: "샛별",
-            },
-          ],
-        },
-        {
-          id: 2,
-          tag: "피자맛집",
-          count: 20,
-          posts: [
-            {
-              post_id: 1,
-              image: img2,
-              title: "사소하지만 아름다운 풍경들",
-              username: "샛별",
-            },
-            {
-              post_id: 2,
-              image: img3,
-              title: "사소하지만 아름다운 풍경들",
-              username: "샛별",
-            },
-            {
-              post_id: 3,
-              image: img4,
-              title: "사소하지만 아름다운 풍경들",
-              username: "샛별",
-            },
-          ],
-        },
-      ]),
-    );
-  }),
+  //   return res(
+  //     ctx.status(200),
+  //     ctx.json([
+  //       {
+  //         id: 1,
+  //         tag: "피자",
+  //         count: 312,
+  //         posts: [
+  //           {
+  //             post_id: 1,
+  //             image: img2,
+  //             title: "사소하지만 아름다운 풍경들",
+  //             username: "샛별",
+  //           },
+  //           {
+  //             post_id: 2,
+  //             image: img3,
+  //             title: "사소하지만 아름다운 풍경들",
+  //             username: "샛별",
+  //           },
+  //           {
+  //             post_id: 3,
+  //             image: img4,
+  //             title: "사소하지만 아름다운 풍경들",
+  //             username: "샛별",
+  //           },
+  //         ],
+  //       },
+  //       {
+  //         id: 2,
+  //         tag: "피자맛집",
+  //         count: 20,
+  //         posts: [
+  //           {
+  //             post_id: 1,
+  //             image: img2,
+  //             title: "사소하지만 아름다운 풍경들",
+  //             username: "샛별",
+  //           },
+  //           {
+  //             post_id: 2,
+  //             image: img3,
+  //             title: "사소하지만 아름다운 풍경들",
+  //             username: "샛별",
+  //           },
+  //           {
+  //             post_id: 3,
+  //             image: img4,
+  //             title: "사소하지만 아름다운 풍경들",
+  //             username: "샛별",
+  //           },
+  //         ],
+  //       },
+  //     ]),
+  //   );
+  // }),
 
-  //2. 포스트로 검색 (제목일치로 판단)
-  rest.get("https://api.wishtrip.org/msw/search_post", (req, res, ctx) => {
-    //토큰 검사 x (로그인 안해도 보여줘야 하기 때문)
+  // //2. 포스트로 검색 (제목일치로 판단)
+  // rest.get("https://api.wishtrip.org/msw/search_post", (req, res, ctx) => {
+  //   //토큰 검사 x (로그인 안해도 보여줘야 하기 때문)
 
-    //res : [{id, 태그, 원본이미지, 제목}]
-    const title = req.url.searchParams.get("title");
-    if (title === "부산")
-      return res(
-        ctx.status(200),
-        ctx.json([
-          {
-            post_id: 1,
-            tag: ["햄버거", "치킨"],
-            image: img2,
-            title: "여행의 제목입니다",
-          },
-          {
-            post_id: 2,
-            tag: ["부산", "부산맛집"],
-            image: img7,
-            title: "부산여행",
-          },
-          {
-            post_id: 3,
-            tag: ["햄버거", "치킨"],
-            image: img8,
-            title: "여행의 제목입니다",
-          },
-        ]),
-      );
+  //   //res : [{id, 태그, 원본이미지, 제목}]
+  //   const title = req.url.searchParams.get("title");
+  //   if (title === "부산")
+  //     return res(
+  //       ctx.status(200),
+  //       ctx.json([
+  //         {
+  //           post_id: 1,
+  //           tag: ["햄버거", "치킨"],
+  //           image: img2,
+  //           title: "여행의 제목입니다",
+  //         },
+  //         {
+  //           post_id: 2,
+  //           tag: ["부산", "부산맛집"],
+  //           image: img7,
+  //           title: "부산여행",
+  //         },
+  //         {
+  //           post_id: 3,
+  //           tag: ["햄버거", "치킨"],
+  //           image: img8,
+  //           title: "여행의 제목입니다",
+  //         },
+  //       ]),
+  //     );
 
-    //검색결과 없으면 빈 배열 반환
-    return res(ctx.status(200), ctx.json([]));
-  }),
+  //   //검색결과 없으면 빈 배열 반환
+  //   return res(ctx.status(200), ctx.json([]));
+  // }),
 
-  //3. 태그로 검색
-  rest.get("https://api.wishtrip.org/msw/search_tag", (req, res, ctx) => {
-    //토큰 검사 x (로그인 안해도 보여줘야 하기 때문)
+  // //3. 태그로 검색
+  // rest.get("https://api.wishtrip.org/msw/search_tag", (req, res, ctx) => {
+  //   //토큰 검사 x (로그인 안해도 보여줘야 하기 때문)
 
-    //검색 태그가 일치하는 포스트 반환
-    //res : {id, 태그, 해당게시물 개수, posts:[{id, 원본이미지, 제목, 유저네임}]}
-    const tag = req.url.searchParams.get("tag");
-    if (tag === "피자")
-      return res(
-        ctx.status(200),
-        ctx.json([
-          {
-            id: 1,
-            tag: "여행",
-            count: 312,
-            posts: [
-              {
-                post_id: 1,
-                image: img2,
-                title: "사소하지만 아름다운 풍경들",
-                username: "샛별",
-              },
-              {
-                post_id: 2,
-                image: img3,
-                title: "사소하지만 아름다운 풍경들",
-                username: "샛별",
-              },
-              {
-                post_id: 3,
-                image: img4,
-                title: "사소하지만 아름다운 풍경들",
-                username: "샛별",
-              },
-            ],
-          },
-          {
-            id: 2,
-            tag: "바다",
-            count: 20,
-            posts: [
-              {
-                post_id: 1,
-                image: img2,
-                title: "사소하지만 아름다운 풍경들",
-                username: "샛별",
-              },
-              {
-                post_id: 2,
-                image: img3,
-                title: "사소하지만 아름다운 풍경들",
-                username: "샛별",
-              },
-              {
-                post_id: 3,
-                image: img4,
-                title: "사소하지만 아름다운 풍경들",
-                username: "샛별",
-              },
-            ],
-          },
-        ]),
-      );
+  //   //검색 태그가 일치하는 포스트 반환
+  //   //res : {id, 태그, 해당게시물 개수, posts:[{id, 원본이미지, 제목, 유저네임}]}
+  //   const tag = req.url.searchParams.get("tag");
+  //   if (tag === "피자")
+  //     return res(
+  //       ctx.status(200),
+  //       ctx.json([
+  //         {
+  //           id: 1,
+  //           tag: "여행",
+  //           count: 312,
+  //           posts: [
+  //             {
+  //               post_id: 1,
+  //               image: img2,
+  //               title: "사소하지만 아름다운 풍경들",
+  //               username: "샛별",
+  //             },
+  //             {
+  //               post_id: 2,
+  //               image: img3,
+  //               title: "사소하지만 아름다운 풍경들",
+  //               username: "샛별",
+  //             },
+  //             {
+  //               post_id: 3,
+  //               image: img4,
+  //               title: "사소하지만 아름다운 풍경들",
+  //               username: "샛별",
+  //             },
+  //           ],
+  //         },
+  //         {
+  //           id: 2,
+  //           tag: "바다",
+  //           count: 20,
+  //           posts: [
+  //             {
+  //               post_id: 1,
+  //               image: img2,
+  //               title: "사소하지만 아름다운 풍경들",
+  //               username: "샛별",
+  //             },
+  //             {
+  //               post_id: 2,
+  //               image: img3,
+  //               title: "사소하지만 아름다운 풍경들",
+  //               username: "샛별",
+  //             },
+  //             {
+  //               post_id: 3,
+  //               image: img4,
+  //               title: "사소하지만 아름다운 풍경들",
+  //               username: "샛별",
+  //             },
+  //           ],
+  //         },
+  //       ]),
+  //     );
 
-    //검색결과 없으면 빈 배열 반환
-    return res(ctx.status(200), ctx.json([]));
-  }),
+  //   //검색결과 없으면 빈 배열 반환
+  //   return res(ctx.status(200), ctx.json([]));
+  // }),
 
-  //4. 장소로 검색
-  rest.get("https://api.wishtrip.org/msw/search_location", (req, res, ctx) => {
-    //토큰 검사 x (로그인 안해도 보여줘야 하기 때문)
+  // //4. 장소로 검색
+  // rest.get("https://api.wishtrip.org/msw/search_location", (req, res, ctx) => {
+  //   //토큰 검사 x (로그인 안해도 보여줘야 하기 때문)
 
-    //장소가 일치하는 포스트 반환
-    //res : [{id, 장소, 일치포스트 개수}]
-    const location = req.url.searchParams.get("location");
-    if (location === "해운대")
-      return res(
-        ctx.status(200),
-        ctx.json([
-          {
-            post_id: 1,
-            tag: ["햄버거", "치킨"],
-            image: img2,
-            title: "여행의 제목입니다",
-          },
-          {
-            post_id: 2,
-            tag: ["부산", "부산맛집"],
-            image: img7,
-            title: "부산여행",
-          },
-          {
-            post_id: 3,
-            tag: ["햄버거", "치킨"],
-            image: img8,
-            title: "여행의 제목입니다",
-          },
-        ]),
-      );
+  //   //장소가 일치하는 포스트 반환
+  //   //res : [{id, 장소, 일치포스트 개수}]
+  //   const location = req.url.searchParams.get("location");
+  //   if (location === "해운대")
+  //     return res(
+  //       ctx.status(200),
+  //       ctx.json([
+  //         {
+  //           post_id: 1,
+  //           tag: ["햄버거", "치킨"],
+  //           image: img2,
+  //           title: "여행의 제목입니다",
+  //         },
+  //         {
+  //           post_id: 2,
+  //           tag: ["부산", "부산맛집"],
+  //           image: img7,
+  //           title: "부산여행",
+  //         },
+  //         {
+  //           post_id: 3,
+  //           tag: ["햄버거", "치킨"],
+  //           image: img8,
+  //           title: "여행의 제목입니다",
+  //         },
+  //       ]),
+  //     );
 
-    //검색결과 없으면 빈 배열 반환
-    return res(ctx.status(200), ctx.json([]));
-  }),
+  //   //검색결과 없으면 빈 배열 반환
+  //   return res(ctx.status(200), ctx.json([]));
+  // }),
 
-  //5. 유저로 검색
-  rest.get("https://api.wishtrip.org/msw/search_username", (req, res, ctx) => {
-    //토큰 검사 x (로그인 안해도 보여줘야 하기 때문)
+  // //5. 유저로 검색
+  // rest.get("https://api.wishtrip.org/msw/search_username", (req, res, ctx) => {
+  //   //토큰 검사 x (로그인 안해도 보여줘야 하기 때문)
 
-    //검색 쿼리가 포함된 유저네임들 반환
-    //res : [{id, 유저네임, 유저가 작성한 게시물 수, 유저아이콘}]
-    const username = req.url.searchParams.get("username");
-    if (username === "프로도")
-      return res(
-        ctx.status(200),
-        ctx.json([
-          {
-            id: 1,
-            username: "부끄러운프로도",
-            count: 312,
-            icon: img1,
-          },
-          {
-            id: 2,
-            username: "frodo",
-            count: 312,
-            icon: img5,
-          },
-          {
-            id: 3,
-            username: "프로도",
-            count: 20,
-            icon: img6,
-          },
-        ]),
-      );
+  //   //검색 쿼리가 포함된 유저네임들 반환
+  //   //res : [{id, 유저네임, 유저가 작성한 게시물 수, 유저아이콘}]
+  //   const username = req.url.searchParams.get("username");
+  //   if (username === "프로도")
+  //     return res(
+  //       ctx.status(200),
+  //       ctx.json([
+  //         {
+  //           id: 1,
+  //           username: "부끄러운프로도",
+  //           count: 312,
+  //           icon: img1,
+  //         },
+  //         {
+  //           id: 2,
+  //           username: "frodo",
+  //           count: 312,
+  //           icon: img5,
+  //         },
+  //         {
+  //           id: 3,
+  //           username: "프로도",
+  //           count: 20,
+  //           icon: img6,
+  //         },
+  //       ]),
+  //     );
 
-    //검색결과 없으면 빈 배열 반환
-    return res(ctx.status(200), ctx.json([]));
-  }),
+  //   //검색결과 없으면 빈 배열 반환
+  //   return res(ctx.status(200), ctx.json([]));
+  // }),
 
   //다른 유저 프로필 조회
   //1. 유저 정보 받기 -> username 일치하는 유저 정보 반환 (유저네임 중복 불가)
-  rest.get("https://api.wishtrip.org/msw/get_user_profile", (req, res, ctx) => {
-    //토큰 검사 x (로그인 안해도 보여줘야 하기 때문)
-    const username = req.url.searchParams.get("username");
-    //username으로 유저 조회해서 결과 반환
-    //res : {유저네임, 유저 아이콘}
-    return res(
-      ctx.status(200),
-      ctx.json({
-        username: username,
-        icon: img2,
-      }),
-    );
-  }),
+  // rest.get("https://api.wishtrip.org/msw/get_user_profile", (req, res, ctx) => {
+  //   //토큰 검사 x (로그인 안해도 보여줘야 하기 때문)
+  //   const username = req.url.searchParams.get("username");
+  //   //username으로 유저 조회해서 결과 반환
+  //   //res : {유저네임, 유저 아이콘}
+  //   return res(
+  //     ctx.status(200),
+  //     ctx.json({
+  //       username: username,
+  //       icon: img2,
+  //     }),
+  //   );
+  // }),
 
-  //2. 유저가 업로드한 글 받기 -> username 일치하는 유저가 업로드한 글 반환
-  rest.get("https://api.wishtrip.org/msw/get_user_posts", (req, res, ctx) => {
-    //토큰 검사 x (로그인 안해도 보여줘야 하기 때문)
-    const username = req.url.searchParams.get("username");
-    //username으로 유저 조회해서 결과 반환
-    //res : [{포스트id, 원본이미지, 제목, 태그배열}]
-    return res(
-      ctx.status(200),
-      ctx.json([
-        {
-          post_id: 1,
-          image: img2,
-          title: "여행제목",
-          tags: ["여행", "부산", "해운대"],
-        },
-        {
-          post_id: 2,
-          image: img3,
-          title: "제목",
-          tags: ["여수", "여행"],
-        },
-      ]),
-    );
-  }),
+  // //2. 유저가 업로드한 글 받기 -> username 일치하는 유저가 업로드한 글 반환
+  // rest.get("https://api.wishtrip.org/msw/get_user_posts", (req, res, ctx) => {
+  //   //토큰 검사 x (로그인 안해도 보여줘야 하기 때문)
+  //   const username = req.url.searchParams.get("username");
+  //   //username으로 유저 조회해서 결과 반환
+  //   //res : [{포스트id, 원본이미지, 제목, 태그배열}]
+  //   return res(
+  //     ctx.status(200),
+  //     ctx.json([
+  //       {
+  //         post_id: 1,
+  //         image: img2,
+  //         title: "여행제목",
+  //         tags: ["여행", "부산", "해운대"],
+  //       },
+  //       {
+  //         post_id: 2,
+  //         image: img3,
+  //         title: "제목",
+  //         tags: ["여수", "여행"],
+  //       },
+  //     ]),
+  //   );
+  // }),
 
-  //3. 유저가 댓글 단 글 받기 -> username 일치하는 유저가 댓글 단 글 반환
-  rest.get(
-    "https://api.wishtrip.org/msw/get_user_comments",
-    (req, res, ctx) => {
-      //토큰 검사 x (로그인 안해도 보여줘야 하기 때문)
-      const username = req.url.searchParams.get("username");
-      //username으로 유저 조회해서 결과 반환
-      //res : [{포스트id, 원본이미지, 제목, 태그배열}]
-      return res(
-        ctx.status(200),
-        ctx.json([
-          {
-            post_id: 1,
-            image: img3,
-            title: "여행제목",
-            tags: ["여행", "부산", "해운대"],
-          },
-          {
-            post_id: 2,
-            image: img7,
-            title: "제목",
-            tags: ["여수", "여행"],
-          },
-        ]),
-      );
-    },
-  ),
+  // //3. 유저가 댓글 단 글 받기 -> username 일치하는 유저가 댓글 단 글 반환
+  // rest.get(
+  //   "https://api.wishtrip.org/msw/get_user_comments",
+  //   (req, res, ctx) => {
+  //     //토큰 검사 x (로그인 안해도 보여줘야 하기 때문)
+  //     const username = req.url.searchParams.get("username");
+  //     //username으로 유저 조회해서 결과 반환
+  //     //res : [{포스트id, 원본이미지, 제목, 태그배열}]
+  //     return res(
+  //       ctx.status(200),
+  //       ctx.json([
+  //         {
+  //           post_id: 1,
+  //           image: img3,
+  //           title: "여행제목",
+  //           tags: ["여행", "부산", "해운대"],
+  //         },
+  //         {
+  //           post_id: 2,
+  //           image: img7,
+  //           title: "제목",
+  //           tags: ["여수", "여행"],
+  //         },
+  //       ]),
+  //     );
+  //   },
+  // ),
 
   //포스트 읽기
   //본인이 작성한 포스트인지 아닌지 구분 필요 -> 토큰 없으면 무조건 작성자 아님, 토큰 있으면 토큰으로 작성자인지 판단해서 isWriter 반환

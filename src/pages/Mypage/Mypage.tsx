@@ -193,7 +193,7 @@ function Mypage() {
   //로그아웃
   const logOut = useCallback(() => {
     localStorage.removeItem("accessToken");
-    navigate("/Home");
+    navigate("../Home");
   }, []);
 
   return (

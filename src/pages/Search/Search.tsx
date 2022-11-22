@@ -130,6 +130,7 @@ function Search() {
           .get(`/search_post?title=${api_query}`)
           .then(({ data }) => setSearchPost(data))
           .catch((err) => {
+            setSearchPost([]);
             throw err;
           });
         break;
@@ -138,6 +139,7 @@ function Search() {
           .get(`/search_tag?tag=${api_query}`)
           .then(({ data }) => setSearchTag(data))
           .catch((err) => {
+            setSearchTag([]);
             throw err;
           });
         break;
@@ -146,6 +148,7 @@ function Search() {
           .get(`/search_username?username=${api_query}`)
           .then(({ data }) => setSearchUser(data))
           .catch((err) => {
+            setSearchUser([]);
             throw err;
           });
         break;
@@ -154,6 +157,7 @@ function Search() {
           .get(`/search_location?location=${api_query}`)
           .then(({ data }) => setSearchLocation(data))
           .catch((err) => {
+            setSearchLocation([]);
             throw err;
           });
         break;

@@ -36,7 +36,7 @@ function Profile() {
   useEffect(() => {
     //1.유저 정보 받기
     instance
-      .get(`/msw/get_user_profile?username=${username}`)
+      .get(`/get_user_profile?username=${username}`)
       .then((res) => {
         setInfo(res.data);
       })
@@ -46,7 +46,7 @@ function Profile() {
 
     //2. 유저 업로드 글 받기
     instance
-      .get(`/msw/get_user_posts?username=${username}`)
+      .get(`/get_user_posts?username=${username}`)
       .then((res) => {
         setPosts(res.data);
       })

@@ -114,10 +114,11 @@ function Ar() {
         //alert("dist " + dist);
         if (dist > 1000) {
           instance
-            .get("msw/arpost/get_around_posts", {
-              x: coords.x,
-              y: coords.y,
-              z: 0,
+            .get("arpost/get_around_posts", {
+              params: {
+                x: coords.x,
+                y: coords.y,
+              },
             })
             .then((res) => {
               setContents(res.data);

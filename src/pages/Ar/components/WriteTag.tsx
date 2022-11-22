@@ -81,10 +81,8 @@ function WriteTag() {
   //태그 입력
   const handleInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     instance
-      .get(`/msw/hashtag`, {
-        params: {
-          tag: e.target.value,
-        },
+      .post(`/hashtag`, {
+        tag: e.target.value,
       })
       .then(({ data }) => {
         setHash(data);
