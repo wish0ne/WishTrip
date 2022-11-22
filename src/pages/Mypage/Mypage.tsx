@@ -182,7 +182,7 @@ function Mypage() {
   const changeIcon = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
       instance
-        .put("msw/mypage/edit", { icon: e.target.files[0] })
+        .put("mypage/edit", { icon: e.target.files[0] })
         .then((res) => {})
         .catch((err) => {
           throw err;

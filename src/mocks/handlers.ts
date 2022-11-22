@@ -113,22 +113,22 @@ export const handlers = [
   // }),
 
   //2. 유저 프로필 사진 등록&수정
-  rest.put<{ icon: string }>(
-    "https://api.wishtrip.org/msw/mypage/edit",
-    (req, res, ctx) => {
-      //유저 토큰 확인
-      const token = req.headers.get("authorization")?.split(" ")[1];
+  // rest.put<{ icon: string }>(
+  //   "https://api.wishtrip.org/msw/mypage/edit",
+  //   (req, res, ctx) => {
+  //     //유저 토큰 확인
+  //     const token = req.headers.get("authorization")?.split(" ")[1];
 
-      //토큰 인증
-      if (token === "null") return res(ctx.status(401));
+  //     //토큰 인증
+  //     if (token === "null") return res(ctx.status(401));
 
-      const { icon } = req.body; //새 프로필 이미지
-      //프로필 수정 실패
-      if (!icon) return res(ctx.status(400));
-      //프로필 수정 성공
-      return res(ctx.status(200));
-    },
-  ),
+  //     const { icon } = req.body; //새 프로필 이미지
+  //     //프로필 수정 실패
+  //     if (!icon) return res(ctx.status(400));
+  //     //프로필 수정 성공
+  //     return res(ctx.status(200));
+  //   },
+  // ),
 
   //3. 스크랩 한 글
   // rest.get("https://api.wishtrip.org/msw/mypage/scrap", (req, res, ctx) => {
@@ -482,69 +482,69 @@ export const handlers = [
 
   //주변 AR 포스트 읽기
   //1. 주변 AR 포스트 읽기 -> 유저 좌표를 계산해서 변환한 대표좌표로 요청
-  rest.get<{ x: number; y: number; z: number }>(
-    "https://api.wishtrip.org/msw/arpost/get_around_posts",
-    (req, res, ctx) => {
-      //토큰 검사 x (로그인 안해도 보여줘야 하기 때문)
+  // rest.get<{ x: number; y: number; z: number }>(
+  //   "https://api.wishtrip.org/msw/arpost/get_around_posts",
+  //   (req, res, ctx) => {
+  //     //토큰 검사 x (로그인 안해도 보여줘야 하기 때문)
 
-      //유저 좌표 1km 이내 AR post 반환
-      //res : {AR포스트 id, AR 이미지, AR포스트 좌표(x, y, z)}
-      return res(
-        ctx.status(200),
-        ctx.json([
-          {
-            ar_post_id: 1,
-            image: armock1,
-            x_value: location[0].x_value,
-            y_value: location[0].y_value,
-            z_value: 0,
-          },
-          {
-            ar_post_id: 2,
-            image: armock2,
-            x_value: location[1].x_value,
-            y_value: location[1].y_value,
-            z_value: 1,
-          },
-          {
-            ar_post_id: 3,
-            image: armock3,
-            x_value: location[2].x_value,
-            y_value: location[2].y_value,
-            z_value: 1,
-          },
-          {
-            ar_post_id: 4,
-            image: armock4,
-            x_value: location[3].x_value,
-            y_value: location[3].y_value,
-            z_value: 0,
-          },
-          {
-            ar_post_id: 5,
-            image: armock4,
-            x_value: location[4].x_value,
-            y_value: location[4].y_value,
-            z_value: 0,
-          },
-          {
-            ar_post_id: 6,
-            image: armock4,
-            x_value: location[5].x_value,
-            y_value: location[5].y_value,
-            z_value: 0,
-          },
-          {
-            ar_post_id: 7,
-            image: armock4,
-            x_value: location[6].x_value,
-            y_value: location[6].y_value,
-            z_value: 0,
-          },
-        ]),
-      );
-    },
-  ),
+  //     //유저 좌표 1km 이내 AR post 반환
+  //     //res : {AR포스트 id, AR 이미지, AR포스트 좌표(x, y, z)}
+  //     return res(
+  //       ctx.status(200),
+  //       ctx.json([
+  //         {
+  //           ar_post_id: 1,
+  //           image: armock1,
+  //           x_value: location[0].x_value,
+  //           y_value: location[0].y_value,
+  //           z_value: 0,
+  //         },
+  //         {
+  //           ar_post_id: 2,
+  //           image: armock2,
+  //           x_value: location[1].x_value,
+  //           y_value: location[1].y_value,
+  //           z_value: 1,
+  //         },
+  //         {
+  //           ar_post_id: 3,
+  //           image: armock3,
+  //           x_value: location[2].x_value,
+  //           y_value: location[2].y_value,
+  //           z_value: 1,
+  //         },
+  //         {
+  //           ar_post_id: 4,
+  //           image: armock4,
+  //           x_value: location[3].x_value,
+  //           y_value: location[3].y_value,
+  //           z_value: 0,
+  //         },
+  //         {
+  //           ar_post_id: 5,
+  //           image: armock4,
+  //           x_value: location[4].x_value,
+  //           y_value: location[4].y_value,
+  //           z_value: 0,
+  //         },
+  //         {
+  //           ar_post_id: 6,
+  //           image: armock4,
+  //           x_value: location[5].x_value,
+  //           y_value: location[5].y_value,
+  //           z_value: 0,
+  //         },
+  //         {
+  //           ar_post_id: 7,
+  //           image: armock4,
+  //           x_value: location[6].x_value,
+  //           y_value: location[6].y_value,
+  //           z_value: 0,
+  //         },
+  //       ]),
+  //     );
+  //   },
+  // ),
 
   //포스트 검색
   // //1. 지금 인기 태그
