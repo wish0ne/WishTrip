@@ -187,7 +187,7 @@ function Ar() {
               {contents.map((entity) => (
                 <img
                   id={entity.ar_post_id}
-                  src={armock}
+                  src={entity.image}
                   alt="ar contents"
                   key={entity.ar_post_id}
                 />

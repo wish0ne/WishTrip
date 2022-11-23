@@ -34,7 +34,7 @@ export const arContentTag = atom<string[]>({
 });
 
 interface IARContentsType {
-  id: number;
+  ar_post_id: number;
   x_value: number;
   y_value: number;
   z_value: number;
