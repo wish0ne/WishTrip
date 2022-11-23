@@ -207,7 +207,7 @@ function Ar() {
                 src={`#${entity.ar_post_id}`}
                 look-at="[gps-camera]"
                 position={`0 ${entity.z_value} 0`}
-                scale="20 20 20"
+                scale="10 10 10"
               ></a-image>
             ))}
           </a-scene>
