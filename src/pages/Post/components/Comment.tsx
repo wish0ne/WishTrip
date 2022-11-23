@@ -45,7 +45,7 @@ function Comment({
   icon: string;
   username: string;
   body: string;
-  date: Date;
+  date: string;
 }) {
   return (
     <StyledComment>
@@ -53,7 +53,7 @@ function Comment({
       <div>
         <div>
           <h2>{username}</h2>
-          <h6>{date.toString()}</h6>
+          <h6>{date.split("T")[0]}</h6>
         </div>
         <article>{body}</article>
       </div>

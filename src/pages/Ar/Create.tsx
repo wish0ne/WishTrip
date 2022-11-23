@@ -30,7 +30,7 @@ function Create() {
 
   const createPost = useCallback((formData: FormData) => {
     instance
-      .put("/arpost/create", formData)
+      .put("/post/create", formData)
       .then((res) => {
         //작성 state 초기화
         resetARCreat();
@@ -51,8 +51,8 @@ function Create() {
         //ar create http request
         const formData = new FormData();
         formData.append("file", img, "file.png");
-        formData.append("arpost_name", arCreate.title);
-        formData.append("arpost_contents", arCreate.body);
+        formData.append("post_name", arCreate.title);
+        formData.append("post_contents", arCreate.body);
         arCreate.tags.forEach((tag, idx) => {
           formData.append(`tag${idx + 1}`, tag);
         });
