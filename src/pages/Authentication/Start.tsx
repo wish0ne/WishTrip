@@ -4,7 +4,8 @@ import { Link } from "react-router-dom";
 import User from "../components/User";
 import { useEffect, useState } from "react";
 import instance from "../../modules/api";
-import splash from "../../assets/images/splash_pc.png";
+import img1 from "../../assets/images/여행사진1.jpg";
+import img2 from "../../assets/images/여행사진2.jpg";
 
 const StyledStart = styled.div`
   height: 100%;
@@ -73,22 +74,22 @@ const StartUser = styled(User)`
 
 function Start() {
   const [start, setStart] = useState({
-    image: "",
-    icon: null,
-    username: "",
-    location: "",
+    image: img1,
+    icon: img2,
+    username: "부끄러운 프로도",
+    location: "제주 애월읍",
   });
 
-  useEffect(() => {
-    instance
-      .get("msw/auth")
-      .then((res) => {
-        setStart(res.data);
-      })
-      .catch((err) => {
-        throw err;
-      });
-  }, []);
+  // useEffect(() => {
+  //   instance
+  //     .get("msw/auth")
+  //     .then((res) => {
+  //       setStart(res.data);
+  //     })
+  //     .catch((err) => {
+  //       throw err;
+  //     });
+  // }, []);
   return (
     <StyledStart>
       <Landing>

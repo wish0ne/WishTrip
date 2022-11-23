@@ -144,7 +144,7 @@ function Ar() {
     if (ar_id) {
       //글 정보 받아오기
       instance
-        .get(`/post/read/post_id=${ar_id}`)
+        .get(`/post/read?post_id=${ar_id}`)
         .then((res) => {
           setPost(res.data);
         })
@@ -154,7 +154,7 @@ function Ar() {
 
       //댓글 정보 받아오기
       instance
-        .get(`/post/read/comments/post_id=${ar_id}`)
+        .get(`/post/read/comments?post_id=${ar_id}`)
         .then((res) => {
           setComments(res.data);
         })
@@ -207,7 +207,6 @@ function Ar() {
                 src={`#${entity.ar_post_id}`}
                 look-at="[gps-camera]"
                 position={`0 ${entity.z_value} 0`}
-                scale="10 10 10"
               ></a-image>
             ))}
           </a-scene>

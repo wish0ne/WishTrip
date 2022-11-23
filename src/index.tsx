@@ -6,8 +6,8 @@ import App from "./App";
 import * as serviceWorkerRegistration from "./serviceWorkerRegistration";
 import reportWebVitals from "./reportWebVitals";
 
-const { worker } = require("./mocks/browser");
-worker.start();
+// const { worker } = require("./mocks/browser");
+// worker.start();
 
 // async function main() {
 //   if (window.location.pathname === "/WishTrip") {
