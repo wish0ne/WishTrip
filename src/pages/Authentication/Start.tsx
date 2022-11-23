@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import User from "../components/User";
 import { useEffect, useState } from "react";
 import instance from "../../modules/api";
+import splash from "../../assets/images/splash_pc.png";
 
 const StyledStart = styled.div`
   height: 100%;

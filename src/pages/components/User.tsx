@@ -82,7 +82,7 @@ function User({
           if (onClick) onClick();
           //유저 프로필로 이동
           //마이페이지, 유저프로필에서는 이동하지 않음
-          if (!notMove) navigate(`../Profile/${title}`);
+          if (!notMove) navigate(`/WishTrip/Profile/${title}`);
         }}
       >
         {icon ? (

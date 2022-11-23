@@ -36,7 +36,7 @@ function Content({
     <StyledContent>
       <h1>{title}</h1>
       <article>{body}</article>
-      <span>#{tags.join("#")}</span>
+      {tags.length > 0 && <span>#{tags.join("#")}</span>}
     </StyledContent>
   );
 }

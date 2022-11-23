@@ -42,7 +42,11 @@ function Read() {
   useEffect(() => {
     //글 정보 받아오기
     instance
-      .get(`msw/post/read/?id=${postId}`)
+      .get(`/post/read?post_id=${postId}`, {
+        headers: {
+          authorization: false,
+        },
+      })
       .then((res) => {
         setPost(res.data);
       })
@@ -52,7 +56,7 @@ function Read() {
 
     //댓글 정보 받아오기
     instance
-      .get(`msw/post/read/comments?id=${postId}`)
+      .get(`/post/read/comments?post_id=${postId}`)
       .then((res) => {
         setComments(res.data);
       })
@@ -96,15 +100,16 @@ function Read() {
               tags={post.tags}
             ></Content>
             <CommentInput post_id={postId} />
-            {comments.map(({ icon, username, body, date, comment_id }) => (
-              <Comment
-                icon={icon}
-                username={username}
-                body={body}
-                date={date}
-                key={comment_id}
-              />
-            ))}
+            {comments &&
+              comments.map(({ icon, username, body, date, comment_id }) => (
+                <Comment
+                  icon={icon}
+                  username={username}
+                  body={body}
+                  date={date}
+                  key={comment_id}
+                />
+              ))}
           </Padding>
         </>
       )}

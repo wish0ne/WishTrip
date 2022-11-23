@@ -66,7 +66,7 @@ function Post({
         //최근 본 글 추가
         addRecentPost(post_id);
         //포스트로 이동
-        navigate(`../Read/:${post_id}`);
+        navigate(`../Read/${post_id}`);
       }}
       grow={grow}
     >

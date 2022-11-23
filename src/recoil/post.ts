@@ -26,7 +26,7 @@ interface PostCommentProps {
   icon: string;
   username: string;
   body: string;
-  date: Date;
+  date: string;
 }
 
 //포스트

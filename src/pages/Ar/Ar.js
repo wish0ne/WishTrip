@@ -114,10 +114,11 @@ function Ar() {
         //alert("dist " + dist);
         if (dist > 1000) {
           instance
-            .get("msw/arpost/get_around_posts", {
-              x: coords.x,
-              y: coords.y,
-              z: 0,
+            .get("post/get_around_posts", {
+              params: {
+                x: coords.x,
+                y: coords.y,
+              },
             })
             .then((res) => {
               setContents(res.data);
@@ -143,7 +144,7 @@ function Ar() {
     if (ar_id) {
       //글 정보 받아오기
       instance
-        .get(`msw/post/read/?id=${ar_id}`)
+        .get(`/post/read/post_id=${ar_id}`)
         .then((res) => {
           setPost(res.data);
         })
@@ -153,7 +154,7 @@ function Ar() {
 
       //댓글 정보 받아오기
       instance
-        .get(`msw/post/read/comments?id=${ar_id}`)
+        .get(`/post/read/comments/post_id=${ar_id}`)
         .then((res) => {
           setComments(res.data);
         })
