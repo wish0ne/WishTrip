@@ -81,7 +81,8 @@ const isMobile = /Mobi/i.test(window.navigator.userAgent); // 모바일 체크
 function Ar() {
   const [loading, setLoading] = useState(false);
   const [arCreate, setARCreate] = useRecoilState(arCreatePost); //ar 포스트 작성에 필요한 정보
-  const [contents, setContents] = useRecoilState(arContents); //ar 포스트
+  const [contents, setContents] = useState(null);
+  // const [contents, setContents] = useRecoilState(arContents); //ar 포스트
   const coords = useRecoilValue(userCoords);
   const [prevCoords, setPrevCoords] = useState({ x: 0, y: 0 });
   const [ar_id, setArId] = useRecoilState(arId); //ar 포스트 id
@@ -108,7 +109,23 @@ function Ar() {
           },
         })
         .then((res) => {
-          alert(`${res.data} ${res.data.length}`);
+          alert(`근처에 위치한 AR 포스트가 ${res.data.length}개 있어요!`);
+          // let scene = document.querySelector("a-scene");
+          // res.data.forEach((entity) => {
+          //   let image = document.createElement("a-image");
+          //   image.setAttribute(
+          //     "gps-entity-place",
+          //     `latitude: ${entity.x_value}; longitude: ${entity.y_value};`,
+          //   );
+          //   image.setAttribute("class", "raycastable");
+          //   image.setAttribute("clickhandler", entity.ar_post_id);
+          //   image.setAttribute("key", entity.ar_post_id);
+          //   image.setAttribute("src", `#${entity.ar_post_id}`);
+          //   image.setAttribute("look-at", "[gps-camera]");
+          //   image.setAttribute("position", `0 ${entity.z_value} 0`);
+          //   scene.appendChild(image);
+          // });
+
           setContents(res.data);
         });
     });
@@ -191,7 +208,8 @@ function Ar() {
         </PC>
       ) : (
         lookatStatus === "ready" &&
-        nftStatus === "ready" && (
+        nftStatus === "ready" &&
+        contents && (
           <a-scene
             debug
             cursor="rayOrigin: mouse;"
