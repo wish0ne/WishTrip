@@ -1,6 +1,7 @@
 import { atom } from "recoil";
 
 interface PostReadProps {
+  post_id: number;
   username: string;
   date: Date;
   icon: string;

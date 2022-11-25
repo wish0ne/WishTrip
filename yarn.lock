@@ -4163,7 +4163,7 @@ debug@^3.2.7:
   dependencies:
     ms "^2.1.1"
 
-"debug@github:ngokevin/debug#noTimestamp":
+debug@ngokevin/debug#noTimestamp:
   version "2.2.0"
   resolved "https://codeload.github.com/ngokevin/debug/tar.gz/ef5f8e66d49ce8bc64c6f282c15f8b7164409e3a"
 
@@ -4364,7 +4364,7 @@ doctrine@^3.0.0:
   dependencies:
     esutils "^2.0.2"
 
-"document-register-element@github:dmarcos/document-register-element#8ccc532b7f3744be954574caf3072a5fd260ca90":
+document-register-element@dmarcos/document-register-element#8ccc532b7f3744be954574caf3072a5fd260ca90:
   version "0.5.4"
   resolved "https://codeload.github.com/dmarcos/document-register-element/tar.gz/8ccc532b7f3744be954574caf3072a5fd260ca90"
 
@@ -8921,10 +8921,19 @@ react-is@^17.0.1:
   resolved "https://registry.yarnpkg.com/react-is/-/react-is-17.0.2.tgz#e691d4a8e9c789365655539ab372762b0efb54f0"
   integrity sha512-w2GsyukL62IJnlaff/nRegPQR94C/XXamvMWmSHRJ4y7Ts/4ocGRmTHvOs8PSE6pB3dWOrD/nueuU5sduBsQ4w==
 
-react-is@^18.0.0:
+react-is@^18.0.0, react-is@^18.2.0:
   version "18.2.0"
   resolved "https://registry.yarnpkg.com/react-is/-/react-is-18.2.0.tgz#199431eeaaa2e09f86427efbb4f1473edb47609b"
   integrity sha512-xWGDIW6x921xtzPkhiULtthJHoJvBbF3q26fzloPCK0hsvxtPVelvftw3zjbHWSkR2km9Z+4uxbDDK/6Zw9B8w==
+
+react-loader-spinner@^5.3.4:
+  version "5.3.4"
+  resolved "https://registry.yarnpkg.com/react-loader-spinner/-/react-loader-spinner-5.3.4.tgz#43c22a41944e2bf3c84a249192450f1166592f30"
+  integrity sha512-G2vw4ssX+RDZ/vfaeva06yfNqyFViv/u+tVZ3kFLy5TKNlNx2DbuwreBSpRtPespQA+VxinxUJsigwLwG9erOg==
+  dependencies:
+    react-is "^18.2.0"
+    styled-components "^5.3.5"
+    styled-tools "^1.7.2"
 
 react-refresh@^0.11.0:
   version "0.11.0"
@@ -9891,6 +9900,11 @@ styled-reset@^4.4.2:
   resolved "https://registry.yarnpkg.com/styled-reset/-/styled-reset-4.4.2.tgz#4da1becb2f6d22a2b22c7ee7ca09b739fe6a685f"
   integrity sha512-VzVhEZHpO/CD/F5ZllqTAY+GTaKlNDZt5mTrtPf/kXZSe85+wMkhRIiPARgvCP9/HQMk+ZGaEWk1IkdP2SYAUQ==
 
+styled-tools@^1.7.2:
+  version "1.7.2"
+  resolved "https://registry.yarnpkg.com/styled-tools/-/styled-tools-1.7.2.tgz#a8f71198535cf785d7db0927cc1c1b88337c4440"
+  integrity sha512-IjLxzM20RMwAsx8M1QoRlCG/Kmq8lKzCGyospjtSXt/BTIIcvgTonaxQAsKnBrsZNwhpHzO9ADx5te0h76ILVg==
+
 stylehacks@^5.1.1:
   version "5.1.1"
   resolved "https://registry.yarnpkg.com/stylehacks/-/stylehacks-5.1.1.tgz#7934a34eb59d7152149fa69d6e9e56f2fc34bcc9"
@@ -10097,7 +10111,7 @@ text-table@^0.2.0:
   resolved "https://registry.yarnpkg.com/text-table/-/text-table-0.2.0.tgz#7f5ee823ae805207c00af2df4a84ec3fcfa570b4"
   integrity sha512-N+8UisAXDGk8PFXP4HAzVR9nbfmVJ3zYLAWiTIoqC5v5isinhr+r5uaO8+7r3BMfuNIufIsA7RdpVgacC2cSpw==
 
-"three-bmfont-text@github:dmarcos/three-bmfont-text#21d017046216e318362c48abd1a48bddfb6e0733":
+three-bmfont-text@dmarcos/three-bmfont-text#21d017046216e318362c48abd1a48bddfb6e0733:
   version "2.4.0"
   resolved "https://codeload.github.com/dmarcos/three-bmfont-text/tar.gz/21d017046216e318362c48abd1a48bddfb6e0733"
   dependencies:

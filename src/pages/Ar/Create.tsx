@@ -12,7 +12,8 @@ import instance from "../../modules/api";
 import { useNavigate } from "react-router-dom";
 import { ReactComponent as Submit } from "../../assets/images/uil_message.svg";
 import { dataURItoBlob } from "../../modules/dataURItoBlob";
-import { useCallback } from "react";
+import { useCallback, useState } from "react";
+import Loading from "../components/Loading";
 
 const StyledCreate = styled.div``;
 
@@ -22,6 +23,7 @@ const Line = styled.div`
 `;
 
 function Create() {
+  const [loading, setLoading] = useState(false);
   const hashTags = useRecoilValue(hashTagsAuto);
   const arCreate = useRecoilValue(arCreatePost);
   const resetARCreat = useResetRecoilState(arCreatePost);
@@ -29,6 +31,7 @@ function Create() {
   const navigate = useNavigate();
 
   const createPost = useCallback((formData: FormData) => {
+    setLoading(true);
     instance
       .put("/post/create", formData)
       .then((res) => {
@@ -39,6 +42,9 @@ function Create() {
       })
       .catch((err) => {
         throw err;
+      })
+      .finally(() => {
+        setLoading(false);
       });
   }, []);
   const handleSubmit = () => {
@@ -78,6 +84,7 @@ function Create() {
         throw err;
       });
   };
+  if (loading) return <Loading>AR 포스트 작성중...</Loading>;
   return (
     <StyledCreate>
       <Header title="새 포스트">

@@ -104,9 +104,9 @@ function Modal() {
       </ModalImage>
       <ModalContent>
         <ModalUser
-          icon={post.icon}
-          title="부끄러운 프로도"
-          subtitle="1년 전"
+          icon={post.image}
+          title={post.username}
+          subtitle="오늘"
           className="user"
         />
         <Emotion
@@ -116,15 +116,16 @@ function Modal() {
         />
         <Content title={post.title} body={post.body} tags={post.tags} />
         {ar_id && <CommentInput post_id={String(ar_id)} />}
-        {comments.map(({ icon, username, body, date }) => (
-          <Comment
-            icon={icon}
-            username={username}
-            body={body}
-            date={date}
-            key={username}
-          />
-        ))}
+        {comments &&
+          comments.map(({ icon, username, body, date }) => (
+            <Comment
+              icon={icon}
+              username={username}
+              body={body}
+              date={date}
+              key={username}
+            />
+          ))}
       </ModalContent>
     </StyledModal>
   );

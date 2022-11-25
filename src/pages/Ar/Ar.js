@@ -13,6 +13,7 @@ import { commentsState, postState } from "../../recoil/post";
 import useInterval from "../../modules/useInterval";
 import armock from "../../assets/images/armock1.png";
 import { getDistance } from "../../modules/getDistance";
+import Loading from "../components/Loading";
 
 const ARContainer = styled.div`
   height: 100%;
@@ -78,6 +79,7 @@ const Add = styled.div`
 const isMobile = /Mobi/i.test(window.navigator.userAgent); // 모바일 체크
 
 function Ar() {
+  const [loading, setLoading] = useState(false);
   const [arCreate, setARCreate] = useRecoilState(arCreatePost); //ar 포스트 작성에 필요한 정보
   const [contents, setContents] = useRecoilState(arContents); //ar 포스트
   const coords = useRecoilValue(userCoords);
@@ -109,21 +111,23 @@ function Ar() {
     if (isMobile) {
       //get ar post
       if (coords) {
-        //alert(`fetch 17 ${coords.x} ${coords.y}`);
-        let dist = getDistance(prevCoords.x, prevCoords.y, coords.x, coords.y);
-        //alert("dist " + dist);
-        if (dist > 1000) {
-          instance
-            .get("post/get_around_posts", {
-              params: {
-                x: coords.x,
-                y: coords.y,
-              },
-            })
-            .then((res) => {
-              setContents(res.data);
-            });
-        }
+        //let dist = getDistance(prevCoords.x, prevCoords.y, coords.x, coords.y);
+        //if (dist > 1000) {
+        //setLoading(true);
+        instance
+          .get("post/get_around_posts", {
+            params: {
+              x: coords.x,
+              y: coords.y,
+            },
+          })
+          .then((res) => {
+            setContents(res.data);
+          })
+          .finally(() => {
+            //setLoading(false);
+          });
+        //}
       }
     }
     return () => {
@@ -142,6 +146,7 @@ function Ar() {
 
   useEffect(() => {
     if (ar_id) {
+      console.log("click");
       //글 정보 받아오기
       instance
         .get(`/post/read?post_id=${ar_id}`)
@@ -163,6 +168,8 @@ function Ar() {
         });
     }
   }, [ar_id, setComments, setPost]);
+
+  // if (loading) return <Loading>AR 포스트 로딩중...</Loading>;
 
   return (
     <ARContainer>
@@ -220,6 +227,7 @@ function Ar() {
         <span>포스트 남기기</span>
       </Add>
       {post && <Modal />}
+      {loading && <Loading>AR 포스트 로딩중...</Loading>}
     </ARContainer>
   );
 }
