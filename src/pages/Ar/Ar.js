@@ -97,6 +97,7 @@ function Ar() {
     if (!isMobile) alert("AR 여행 기능은 모바일에서만 이용 가능합니다.");
     //get user coordinate
     //getPosition();
+    setArId(-1);
 
     return () => {
       let html = document.querySelector("html");
@@ -145,7 +146,7 @@ function Ar() {
   const [comments, setComments] = useRecoilState(commentsState);
 
   useEffect(() => {
-    if (ar_id) {
+    if (ar_id && ar_id > 0) {
       console.log("click");
       //글 정보 받아오기
       instance

@@ -82,16 +82,16 @@ function ImagePicker() {
   const [arCreate, setARCreate] = useRecoilState(arCreatePost);
   const contentTag = useRecoilValue(arContentTag);
   const handleImage = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files) setARCreate({ ...arCreate, file: e.target.files[0] });
+    if (e.target.files) setARCreate({ ...arCreate, image: e.target.files[0] });
   };
 
   return (
     <StyledPicker>
       <AddImage>
-        {arCreate.file ? (
+        {arCreate.image ? (
           <ARContent id="arNewPost">
             <div>
-              <img src={URL.createObjectURL(arCreate.file)} alt="AR post" />
+              <img src={URL.createObjectURL(arCreate.image)} alt="AR post" />
               <div>
                 {contentTag.map(
                   (tag, idx) =>

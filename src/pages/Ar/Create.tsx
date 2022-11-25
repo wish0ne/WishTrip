@@ -57,6 +57,8 @@ function Create() {
         //ar create http request
         const formData = new FormData();
         formData.append("file", img, "file.png");
+        if (arCreate.image)
+          formData.append("image", arCreate.image, "image.png");
         formData.append("post_name", arCreate.title);
         formData.append("post_contents", arCreate.body);
         arCreate.tags.forEach((tag, idx) => {
