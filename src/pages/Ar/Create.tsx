@@ -31,7 +31,6 @@ function Create() {
   const navigate = useNavigate();
 
   const createPost = useCallback((formData: FormData) => {
-    setLoading(true);
     instance
       .put("/post/create", formData)
       .then((res) => {
@@ -48,6 +47,7 @@ function Create() {
       });
   }, []);
   const handleSubmit = () => {
+    setLoading(true);
     html2canvas(document.querySelector("#arNewPost"), {
       backgroundColor: null,
     })

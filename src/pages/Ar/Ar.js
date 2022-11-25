@@ -97,7 +97,7 @@ function Ar() {
     if (!isMobile) alert("AR 여행 기능은 모바일에서만 이용 가능합니다.");
     //get user coordinate
     //getPosition();
-
+    console.log("load");
     setArId(null);
     navigator.geolocation.getCurrentPosition(({ coords }) => {
       instance
@@ -108,6 +108,7 @@ function Ar() {
           },
         })
         .then((res) => {
+          alert(`${res.data} ${res.data.length}`);
           setContents(res.data);
         });
     });
@@ -237,7 +238,7 @@ function Ar() {
         <Camera width="2.8rem" height="2.8rem" />
         <span>포스트 남기기</span>
       </Add>
-      {post && <Modal />}
+      {ar_id && post && <Modal />}
       {loading && <Loading>AR 포스트 로딩중...</Loading>}
     </ARContainer>
   );
