@@ -97,7 +97,20 @@ function Ar() {
     if (!isMobile) alert("AR 여행 기능은 모바일에서만 이용 가능합니다.");
     //get user coordinate
     //getPosition();
-    setArId(-1);
+
+    setArId(null);
+    navigator.geolocation.getCurrentPosition(({ coords }) => {
+      instance
+        .get("post/get_around_posts", {
+          params: {
+            x: coords.latitude,
+            y: coords.longitude,
+          },
+        })
+        .then((res) => {
+          setContents(res.data);
+        });
+    });
 
     return () => {
       let html = document.querySelector("html");
@@ -108,45 +121,42 @@ function Ar() {
     };
   }, []);
 
-  useEffect(() => {
-    if (isMobile) {
-      //get ar post
-      if (coords) {
-        //let dist = getDistance(prevCoords.x, prevCoords.y, coords.x, coords.y);
-        //if (dist > 1000) {
-        //setLoading(true);
-        instance
-          .get("post/get_around_posts", {
-            params: {
-              x: coords.x,
-              y: coords.y,
-            },
-          })
-          .then((res) => {
-            setContents(res.data);
-          })
-          .finally(() => {
-            //setLoading(false);
-          });
-        //}
-      }
-    }
-    return () => {
-      //coords 업데이트 직전 이전 값 저장
-      if (coords) {
-        setPrevCoords({
-          x: coords.x,
-          y: coords.y,
-        });
-      }
-    };
-  }, [coords]);
+  //ar request 최적화 코드
+  // useEffect(() => {
+  //   if (isMobile) {
+  //     //get ar post
+  //     if (coords) {
+  //       //let dist = getDistance(prevCoords.x, prevCoords.y, coords.x, coords.y);
+  //       //if (dist > 1000) {
+  //       instance
+  //         .get("post/get_around_posts", {
+  //           params: {
+  //             x: coords.x,
+  //             y: coords.y,
+  //           },
+  //         })
+  //         .then((res) => {
+  //           setContents(res.data);
+  //         });
+  //       //}
+  //     }
+  //   }
+  //   // return () => {
+  //   //   //coords 업데이트 직전 이전 값 저장
+  //   //   if (coords) {
+  //   //     setPrevCoords({
+  //   //       x: coords.x,
+  //   //       y: coords.y,
+  //   //     });
+  //   //   }
+  //   // };
+  // }, [coords]);
 
   const [post, setPost] = useRecoilState(postState);
   const [comments, setComments] = useRecoilState(commentsState);
 
   useEffect(() => {
-    if (ar_id && ar_id > 0) {
+    if (ar_id) {
       console.log("click");
       //글 정보 받아오기
       instance

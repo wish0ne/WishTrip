@@ -1,8 +1,9 @@
 import { useState } from "react";
-import { useRecoilValue } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 import styled from "styled-components";
 import instance from "../../../modules/api";
 import { homeProfile } from "../../../recoil/home";
+import { commentsState } from "../../../recoil/post";
 
 const StyledInput = styled.div`
   display: flex;
@@ -36,6 +37,7 @@ const UserIcon = styled.img`
 
 function CommentInput({ post_id }: { post_id: string | undefined }) {
   const profile = useRecoilValue(homeProfile);
+  const [comments, setComments] = useRecoilState(commentsState);
   const [input, setInput] = useState("");
 
   const handleInput = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -49,10 +51,18 @@ function CommentInput({ post_id }: { post_id: string | undefined }) {
       if (e.nativeEvent.isComposing === false) {
         if (post_id) {
           instance
-            .post("/msw/post/comment/add", {
+            .put("/post/comment/add", {
               post_id: post_id,
               comment: input,
               date: new Date(),
+            })
+            .then(() => {
+              //댓글 정보 받아오기
+              instance
+                .get(`/post/read/comments?post_id=${post_id}`)
+                .then((res) => {
+                  setComments(res.data);
+                });
             })
             .catch((err) => {
               throw err;

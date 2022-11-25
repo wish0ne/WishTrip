@@ -73,7 +73,7 @@ function Read() {
     <StyledRead>
       {post && (
         <>
-          <Header title="화려한 곳 어때요?" />
+          <Header title={post.title} />
           <ReadUser
             icon={post.icon}
             title="부끄러운 프로도"

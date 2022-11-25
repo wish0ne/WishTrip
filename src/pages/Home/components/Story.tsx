@@ -116,9 +116,9 @@ function Story() {
       {banner.length > 0 && (
         <>
           <Image src={banner[index].image} alt="홈화면 상단 이미지" />
-          <Title>
+          {/* <Title>
             <Tag>{banner[index].tag}</Tag> 곳<br /> 어때요?
-          </Title>
+          </Title> */}
           <Bottom>
             <StoryUser
               icon={banner[index].icon}

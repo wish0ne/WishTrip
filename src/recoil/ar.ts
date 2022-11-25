@@ -9,7 +9,6 @@ interface IARCreatePostType {
   y: number;
   z: number;
   tags: string[];
-  date: Date | null;
 }
 
 export const arCreatePost = atom<IARCreatePostType>({
@@ -23,7 +22,6 @@ export const arCreatePost = atom<IARCreatePostType>({
     y: 0,
     z: 0,
     tags: [],
-    date: null,
   },
 });
 

@@ -64,10 +64,6 @@ function Create() {
         arCreate.tags.forEach((tag, idx) => {
           formData.append(`tag${idx + 1}`, tag);
         });
-        // formData.append("x_value", arCreate.x.toString());
-        // formData.append("y_value", arCreate.y.toString());
-        // formData.append("z_value", arCreate.z.toString());
-        //formData.append("date", new Date().toString());
 
         return formData;
       })

@@ -3,7 +3,7 @@ import { atom } from "recoil";
 interface PostReadProps {
   post_id: number;
   username: string;
-  date: Date;
+  date: string;
   icon: string;
   image: string;
   emotion: {

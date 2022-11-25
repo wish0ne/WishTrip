@@ -27,25 +27,23 @@ function App() {
   useEffect(() => {
     if (!isRegister.current) {
       //AR click handler
-      AFRAME.registerComponent("camera-handler", {
-        init: function () {
-          window.addEventListener("gps-camera-update-position", (e: any) => {
-            // alert(
-            //   `${e.detail.position.latitude}, ${e.detail.position.longitude}`,
-            // );
-            setCoords({
-              x: e.detail.position.latitude,
-              y: e.detail.position.longitude,
-            });
-          });
-        },
-      });
+      // AFRAME.registerComponent("camera-handler", {
+      //   init: function () {
+      //     window.addEventListener("gps-camera-update-position", (e: any) => {
+      //       setCoords({
+      //         x: e.detail.position.latitude,
+      //         y: e.detail.position.longitude,
+      //       });
+      //     });
+      //   },
+      // });
 
       AFRAME.registerComponent("clickhandler", {
         init: function () {
           let data = this.data;
           let el = this.el;
           el.addEventListener("click", () => {
+            setArId(null);
             setArId(data);
           });
         },

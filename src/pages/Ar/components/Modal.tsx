@@ -94,7 +94,7 @@ function Modal() {
       onTouchEnd={handleTouchEnd}
     >
       <ModalImage>
-        <MImage image={post.icon} />
+        <MImage image={post.image} />
         <Close
           width="2.4rem"
           height="2.4rem"
@@ -104,9 +104,9 @@ function Modal() {
       </ModalImage>
       <ModalContent>
         <ModalUser
-          icon={post.image}
+          icon={post.icon}
           title={post.username}
-          subtitle="오늘"
+          subtitle={post.date.split("T")[0]}
           className="user"
         />
         <Emotion
