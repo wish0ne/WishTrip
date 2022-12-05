@@ -1,6 +1,11 @@
 # 위시트립
 비즈니스 서비스 참고 : https://github.com/wish0ne/WishTrip
 
+## 문제 정의
+![image](https://user-images.githubusercontent.com/52497708/205573468-647109b2-65bf-48ce-8df6-d260bc77dea3.png)
+
+
+
 ## 기능 소개
 ![image](https://user-images.githubusercontent.com/52497708/205572332-7239eca6-6ab1-4ad8-8136-496f52fecec1.png)
 ![image](https://user-images.githubusercontent.com/52497708/205572515-9480e031-8045-4146-abe3-edaa267cf863.png)
